@@ -61,10 +61,10 @@ char				*llu_base(unsigned long long value, int base)
 int					clean_return(void *ptr1, void *ptr2, void *ptr3, int ret)
 {
 	if (ptr1)
-		free(ptr1);
+		ft_memdel(&ptr1);
 	if (ptr2)
-		free(ptr2);
+		ft_memdel(&ptr2);
 	if (ptr3)
-		free(ptr3);
+		ft_memdel(&ptr3);
 	return (ret);
 }
