@@ -72,10 +72,3 @@ int		head_init(t_header **header, t_label **labels)
 	}
 	return (1);
 }
-
-void	clean_and_exit(void **ptr)
-{
-	if (*ptr)
-		ft_memdel(ptr);
-	exit(0);
-}

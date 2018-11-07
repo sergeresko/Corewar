@@ -22,3 +22,9 @@ char	*check_comment(char **line)
 	return (*line);
 }
 
+void	clean_and_exit(void **ptr)
+{
+	if (*ptr)
+		ft_memdel(ptr);
+	exit(0);
+}
