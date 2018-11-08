@@ -3,17 +3,16 @@ project(asm C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(asm/includes)
+include_directories(includes)
 include_directories(libft/includes)
 
 add_executable(asm
-        asm/includes/asm.h
-        asm/includes/op.h
-        asm/srcs/asm.c
-        asm/srcs/asm_init.c
-        asm/srcs/functions.c
-        asm/srcs/errors_functions.c
-#        asm/srcs/op.c
+        includes/asm.h
+        includes/op.h
+        asm/asm.c
+        asm/asm_init.c
+        asm/functions.c
+        asm/errors_functions.c
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c
         libft/ft_printf/ft_printf.c

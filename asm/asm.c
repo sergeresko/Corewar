@@ -71,7 +71,9 @@ int		get_labels(int fd, t_asm *asm_struct)
 			continue ;
 		if (*line && (tline = ft_strtrim(line)))
 		{
-			if (!check_line(tline, asm_struct))
+			if (!(*tline))
+				ft_strdel(&tline);
+			else if (!check_line(tline, asm_struct))
 			{
 				ft_strdel(&line);
 				return (0);
