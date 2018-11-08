@@ -22,9 +22,13 @@ char	*check_comment(char **line)
 	return (*line);
 }
 
-void	clean_and_exit(void **ptr)
+void	clean_asm_struct(t_asm **asm_struct)
 {
-	if (*ptr)
-		ft_memdel(ptr);
-	exit(0);
+	if ((*asm_struct)->header)
+		ft_memdel((void **)&(*asm_struct)->header);
+	if ((*asm_struct)->filename)
+		ft_memdel((void **)&(*asm_struct)->filename);
+//	if ((*asm_struct)->labels)
+//		clean_labels_list(&(*asm_struct)->labels);
+	ft_memdel((void **)asm_struct);
 }

@@ -18,13 +18,6 @@ void	e__no_args(void)
 	exit(-1);
 }
 
-void	e__read_file(int fd)
-{
-	perror(READ_FILE_ERROR);
-	close(fd);
-	exit(-1);
-}
-
 void	e__open_file(const char *name)
 {
 	ft_printf("Can't read source file %s\n", name);

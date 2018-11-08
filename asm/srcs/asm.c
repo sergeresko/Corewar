@@ -33,42 +33,60 @@ int 	main(int argc, char *argv[])
 	return (0);
 }
 
-void	file_processing(int fd, const char *name)
+/*
+ * General function for all file reading/creating actions.
+ */
+void	 file_processing(int fd, const char *argv)
 {
-	int			r;
-	char		*line;
-	t_label		*labels;
-	t_header	*header;
+	t_asm *asm_struct;
 
-	if (!head_init(&header, &labels))
+	if (!asm_init(&asm_struct, argv))
 		return ;
-	while ((r = get_next_line(fd, &line))) {
-		if (r == -1)
-		{
-			e__read_file(fd);
-			clean_and_exit((void **)&header);
-		}
-		if (!check_comment(&line))
-			continue;
-		if (*line)
-			ft_printf("%s\n", line);
-//			line_processing(line, &header, &labels);
-		ft_strdel(&line);
+	if (!get_labels(fd, asm_struct))
+	{
+		clean_asm_struct(&asm_struct);
+		return ;
 	}
 
-	ft_memdel((void **)&header);
+	clean_asm_struct(&asm_struct);
 }
 
-int		head_init(t_header **header, t_label **labels)
+/*
+ * General function for first file reading and create labels' list as well.
+ */
+int		get_labels(int fd, t_asm *asm_struct)
 {
-	*header = NULL;
-	*labels = NULL;
+	int		r;
+	char	*line;
+	char	*tline;		// trimmed line
 
-	*header = ft_memalloc(sizeof(t_header));
-	if (*header == NULL)
+	while ((r = get_next_line(fd, &line)))
 	{
-		perror(ALLOCATION_ERROR);
-		return (0);
+		if (r == -1)
+		{
+			perror(READ_FILE_ERROR);
+			return (0);
+		}
+		if (!check_comment(&line))
+			continue ;
+		if (*line && (tline = ft_strtrim(line)))
+		{
+			if (!check_line(tline, asm_struct))
+			{
+				ft_strdel(&line);
+				return (0);
+			}
+		}
+		ft_strdel(&line);
 	}
 	return (1);
+}
+
+/*
+ * Function to get champ's name or description or create new label's node.
+ */
+int		check_line(char *tline, t_asm *asm_struct)
+{
+	ft_printf("%s\n", tline);
+	ft_strdel(&tline);
 }

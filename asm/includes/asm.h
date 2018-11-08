@@ -19,29 +19,49 @@
 # include "op.h"
 # include "../../libft/includes/libft.h"
 
+# define MAX_COUNTER 4294967295
+
 # define STDOUT "Process has to be printed to STDOUT but this functional doesn't ready yet :("
 # define NO_ARGS_ERROR "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
 # define READ_FILE_ERROR "Cannot read file"
 # define ALLOCATION_ERROR "Cannot allocate memory"
 
+typedef struct      s_addr //структура для хранения адресов мест положения лейблов в чемпионе
+{
+    char            *addr;
+    struct s_addr   *next;
+}                   t_addr;
+
 typedef struct		s_label
 {
-	int 			l_ind;
+	int 			index;
 	char 			*name;
+	t_addr          *addr;
 	struct s_label	*next;
 }					t_label;
 
-void	file_processing(int fd, const char *name);
-int		head_init(t_header **header, t_label **labels);
+typedef struct      s_asm
+{
+	t_header        *header;
+	t_label         *labels;
+	char 			*filename;
+    unsigned int    counter;
+
+}                   t_asm;
+
+int		asm_init(t_asm **asm_struct, const char *argv);
+char	*get_filename(const char *argv);
+void	file_processing(int fd, const char *argv);
+int		get_labels(int fd, t_asm *asm_struct);
+int		check_line(char *tline, t_asm *asm_struct);
 
 char	*check_comment(char **line);
-void	clean_and_exit(void **ptr);
+void	clean_asm_struct(t_asm **asm_struct);
 
 /*
  * Errors functions
  */
 void	e__no_args(void);
-void	e__read_file(int fd);
 void	e__open_file(const char *name);
 
 #endif
