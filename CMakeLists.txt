@@ -10,8 +10,10 @@ add_executable(asm
         asm/includes/asm.h
         asm/includes/op.h
         asm/srcs/asm.c
-#        asm/srcs/op.c
+        asm/srcs/asm_init.c
         asm/srcs/functions.c
+        asm/srcs/errors_functions.c
+#        asm/srcs/op.c
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c
         libft/ft_printf/ft_printf.c
