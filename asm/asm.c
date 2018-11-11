@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/09/30 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2018/11/11 19:46:59 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,47 @@ int		get_labels(int fd, t_asm *asm_struct)
 	return (1);
 }
 
+int		isSpaceTab(char c)
+{
+	if (c == 32 || c == 9)
+		return (1);
+	return (0);
+}
+
+int		get_name(char *tline, t_asm *asm_struct)
+{
+	size_t i;
+	size_t line_len;
+
+	i = 5;
+	line_len = ft_strlen(tline);
+	while (isSpaceTab(tline[i]) && i < line_len)
+		++i;
+	while (i < line_len)
+	{
+		if (tline[i] == '"')
+		{
+//			copy_name_struct
+		}
+	}
+}
+
 /*
  * Function to get champ's name or description or create new label's node.
  */
 int		check_line(char *tline, t_asm *asm_struct)
 {
+//	if (!ft_strncmp(tline, ".name", 5)) //find if  line contains '.name'
+	if (ft_strstr(tline, ".name"))
+	{
+
+		get_name(tline, asm_struct);
+	}
+	else if (!ft_strncmp(tline, ".comment", 5))
+	{
+
+	}
+	else
 	ft_printf("%s\n", tline);
 	ft_strdel(&tline);
 }

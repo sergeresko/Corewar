@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/09/30 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2018/11/11 18:06:45 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*get_filename(const char *argv);
 void	file_processing(int fd, const char *argv);
 int		get_labels(int fd, t_asm *asm_struct);
 int		check_line(char *tline, t_asm *asm_struct);
+int 	get_name(char *tline, t_asm *asm_struct);
 
 char	*check_comment(char **line);
 void	clean_asm_struct(t_asm **asm_struct);
