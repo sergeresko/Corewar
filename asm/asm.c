@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/09/30 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/01/27 16:46:52 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,37 +83,44 @@ int 	read_file(int fd, t_asm *asm_struct)
 	return (1);
 }
 
+int		get_name(char *tline, t_asm *asm_struct)
+{
+	size_t	i;
+	size_t	newStrLngth; //length of malloced str
+	char	*tempVar;
+
+	i = 0;
+	newStrLngth = 0;
+	tline = ft_strtrim(tline);
+	if (tline[i] == '"')
+	{
+		++i;
+		while (i < ft_strlen(tline) && tline[i] != '"')
+			++i && ++newStrLngth;
+		tempVar = ft_memalloc(sizeof(char) * (newStrLngth + 1));
+		i = i - newStrLngth;
+		newStrLngth = 0;
+		while (i < ft_strlen(tline) && tline[i] != '"')
+			tempVar[newStrLngth++] = tline[i++];
+		if (i == ft_strlen(tline) - 1)
+			return (tempVar);
+	}
+	return (NULL);
+}
+
 /*
  * Function to get champ's name or description or create new label's node.
  */
 int		check_line(char **line, t_asm *asm_struct)
 {
-	int 	i;
-	int		len;
-
-	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name")) {}
-//		return get_champ_name(line, asm_struct);
-	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment")) {}
-//		return get_champ_comment(line, asm_struct);
-	i = 0;
-	len = ft_strlen(*line);
-	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
+	if (ft_strnstr(*line, ".name",5))
 	{
-		if ((*line)[i] == LABEL_CHAR)
-		{
-			if (new_label(&(asm_struct->labels), ft_strsub(*line, 0, i), i))
-				return check_for_command(line, asm_struct, ++i);
-			else
-				perror(ALLOCATION_ERROR);
-			ft_strdel(line);
-			return (0);
-		}
+		asm_struct->header.name[0] = get_name(*line + 5, asm_struct); //add function to save name & description to structure
 	}
-	return check_for_command(line, asm_struct, 0);
-}
-
-int 	check_for_command(char **line, t_asm *asm_struct, int start)
-{
+	else if (!ft_strncmp(*line, ".comment", 8))
+	{
+		asm_struct->header.description[0] = get_name(*line + 8, asm_struct);
+	}
+	ft_printf("%s\n", line);
 	ft_strdel(line);
-	return (1);
 }

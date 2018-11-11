@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/09/30 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2018/11/11 18:06:45 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ typedef struct      s_asm
 int		asm_init(t_asm **asm_struct, const char *argv);
 char	*get_filename(const char *argv);
 void	file_processing(int fd, const char *argv);
-int		check_line(char **line, t_asm *asm_struct);
+int		get_labels(int fd, t_asm *asm_struct);
+int		check_line(char *tline, t_asm *asm_struct);
+int 	get_name(char *tline, t_asm *asm_struct);
 
 int		get_substr_index(const char *big, const char *little);
 int		is_skipable(char **line);
