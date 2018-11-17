@@ -6,7 +6,11 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/01/27 16:46:52 by ozalisky         ###   ########.fr       */
+=======
+/*   Updated: 2018/11/17 18:22:07 by ozalisky         ###   ########.fr       */
+>>>>>>> read name & description of champ
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +87,11 @@ int 	read_file(int fd, t_asm *asm_struct)
 	return (1);
 }
 
+<<<<<<< HEAD
 int		get_name(char *tline, t_asm *asm_struct)
+=======
+char*		get_name(char *tline, t_asm *asm_struct)
+>>>>>>> read name & description of champ
 {
 	size_t	i;
 	size_t	newStrLngth; //length of malloced str
@@ -113,6 +121,7 @@ int		get_name(char *tline, t_asm *asm_struct)
  */
 int		check_line(char **line, t_asm *asm_struct)
 {
+<<<<<<< HEAD
 	if (ft_strnstr(*line, ".name",5))
 	{
 		asm_struct->header.name[0] = get_name(*line + 5, asm_struct); //add function to save name & description to structure
@@ -123,4 +132,17 @@ int		check_line(char **line, t_asm *asm_struct)
 	}
 	ft_printf("%s\n", line);
 	ft_strdel(line);
+=======
+	if (ft_strnstr(tline, ".name",5))
+	{
+		asm_struct->instructionName = get_name(tline + 5, asm_struct);
+	}
+	else if (!ft_strncmp(tline, ".comment", 8))
+	{
+		asm_struct->descriptionComment = get_name(tline + 8, asm_struct);
+	}
+
+	ft_printf("%s\n", tline);
+	ft_strdel(&tline);
+>>>>>>> read name & description of champ
 }

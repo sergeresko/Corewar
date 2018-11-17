@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/11 18:06:45 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/11/17 18:17:02 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,19 @@ typedef struct		s_label
 // main structure with all valuable content
 typedef struct      s_asm
 {
+<<<<<<< HEAD
 	t_champ_header	header;
 	t_label         *labels;
 	char 			*filename;
     unsigned int    counter;
+=======
+	t_header		*header;
+	t_label			*labels;
+	char			*filename;
+	char			*instructionName; // .name
+	char			*descriptionComment; // .comment
+    unsigned int	counter;
+>>>>>>> read name & description of champ
 
 }                   t_asm;
 
@@ -70,7 +79,7 @@ char	*get_filename(const char *argv);
 void	file_processing(int fd, const char *argv);
 int		get_labels(int fd, t_asm *asm_struct);
 int		check_line(char *tline, t_asm *asm_struct);
-int 	get_name(char *tline, t_asm *asm_struct);
+char* 	get_name(char *tline, t_asm *asm_struct);
 
 int		get_substr_index(const char *big, const char *little);
 int		is_skipable(char **line);
