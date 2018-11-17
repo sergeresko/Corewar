@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/11 19:46:59 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/11/17 18:22:07 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,29 @@ int		get_labels(int fd, t_asm *asm_struct)
 	return (1);
 }
 
-int		isSpaceTab(char c)
+char*		get_name(char *tline, t_asm *asm_struct)
 {
-	if (c == 32 || c == 9)
-		return (1);
-	return (0);
-}
+	size_t	i;
+	size_t	newStrLngth; //length of malloced str
+	char	*tempVar;
 
-int		get_name(char *tline, t_asm *asm_struct)
-{
-	size_t i;
-	size_t line_len;
-
-	i = 5;
-	line_len = ft_strlen(tline);
-	while (isSpaceTab(tline[i]) && i < line_len)
-		++i;
-	while (i < line_len)
+	i = 0;
+	newStrLngth = 0;
+	tline = ft_strtrim(tline);
+	if (tline[i] == '"')
 	{
-		if (tline[i] == '"')
-		{
-//			copy_name_struct
-		}
+		++i;
+		while (i < ft_strlen(tline) && tline[i] != '"')
+			++i && ++newStrLngth;
+		tempVar = ft_memalloc(sizeof(char) * (newStrLngth + 1));
+		i = i - newStrLngth;
+		newStrLngth = 0;
+		while (i < ft_strlen(tline) && tline[i] != '"')
+			tempVar[newStrLngth++] = tline[i++];
+		if (i == ft_strlen(tline) - 1)
+			return (tempVar);
 	}
+	return (NULL);
 }
 
 /*
@@ -114,17 +114,15 @@ int		get_name(char *tline, t_asm *asm_struct)
  */
 int		check_line(char *tline, t_asm *asm_struct)
 {
-//	if (!ft_strncmp(tline, ".name", 5)) //find if  line contains '.name'
-	if (ft_strstr(tline, ".name"))
+	if (ft_strnstr(tline, ".name",5))
 	{
-
-		get_name(tline, asm_struct);
+		asm_struct->instructionName = get_name(tline + 5, asm_struct);
 	}
-	else if (!ft_strncmp(tline, ".comment", 5))
+	else if (!ft_strncmp(tline, ".comment", 8))
 	{
-
+		asm_struct->descriptionComment = get_name(tline + 8, asm_struct);
 	}
-	else
+
 	ft_printf("%s\n", tline);
 	ft_strdel(&tline);
 }
