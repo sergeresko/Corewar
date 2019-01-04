@@ -91,4 +91,5 @@ int		check_line(char *tline, t_asm *asm_struct)
 {
 	ft_printf("%s\n", tline);
 	ft_strdel(&tline);
+	return (1);
 }
