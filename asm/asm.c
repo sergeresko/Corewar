@@ -48,6 +48,10 @@ void	 file_processing(int fd, const char *argv)
 		return ;
 	}
 
+	asm_struct->header.size = 320;
+	make_program_name(asm_struct->header.name, "Jumper !");
+	make_program_description(asm_struct->header.desctiption, "en fait C forker !");
+	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
 
@@ -91,4 +95,5 @@ int		check_line(char *tline, t_asm *asm_struct)
 {
 	ft_printf("%s\n", tline);
 	ft_strdel(&tline);
+	return (1);
 }
