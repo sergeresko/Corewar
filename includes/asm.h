@@ -17,14 +17,25 @@
 # include <stdio.h>
 
 # include "op.h"
-# include "../../libft/includes/libft.h"
+# include "../libft/includes/libft.h"
 
 # define MAX_COUNTER 4294967295
+# define BYTE 8
+# define HEADER_LENGTH 4384
+# define NAME_LENGTH 256
+# define DESCRIPTION_LENGTH 4096
 
 # define STDOUT "Process has to be printed to STDOUT but this functional doesn't ready yet :("
 # define NO_ARGS_ERROR "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
 # define READ_FILE_ERROR "Cannot read file"
 # define ALLOCATION_ERROR "Cannot allocate memory"
+
+typedef struct		s_champ_header
+{
+	unsigned int 	size;
+	char			name[NAME_LENGTH + 1];
+	char 			desctiption[DESCRIPTION_LENGTH + 1];
+}					t_champ_header;
 
 typedef struct      s_addr //структура для хранения адресов мест положения лейблов в чемпионе
 {
@@ -42,7 +53,7 @@ typedef struct		s_label
 
 typedef struct      s_asm
 {
-	t_header        *header;
+	t_champ_header	header;
 	t_label         *labels;
 	char 			*filename;
     unsigned int    counter;
@@ -63,5 +74,12 @@ void	clean_asm_struct(t_asm **asm_struct);
  */
 void	e__no_args(void);
 void	e__open_file(const char *name);
+
+void	output_to_file(t_asm *champ);
+void	format_file_output(int fd, char *champ);
+char	*convert_int_to_hex(int num);
+void	make_program_name(char *hex_name, char *name);
+void	make_program_description(char *hex_description, char *description);
+char	*make_header_string(t_champ_header *header);
 
 #endif
