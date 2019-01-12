@@ -32,14 +32,14 @@ int		asm_init(t_asm **asm_struct, const char *argv)
 
 char	*get_filename(const char *argv)
 {
-	unsigned int	start;
-	unsigned int	len;
+	int	start;
+	int	len;
 
 	len = ft_strlen(argv);
 	if (len <= 2 || argv[len - 1] != 's' || argv[len - 2] != '.')
 		return (NULL);
 	start = len - 1;
-	while (argv[start] != ' ' && argv[start] != '/')
+	while (start >= 0 && argv[start] != ' ' && argv[start] != '/')
 		start--;
 	start++;
 	return (ft_strsub(argv, start, len - start - 2));
