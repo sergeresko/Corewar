@@ -13,29 +13,24 @@
 
 NAME = asm
 
-OBJ = srcs/asm.o
+OBJ = asm.o asm_init.o error_functions.o functions.o make_file_output.o
 
 FLAGS = -Wall -Wextra -Werror
-
-LIBFT = make -C $(LIB_FOLDER)
 
 LIB_FOLDER = ../libft/
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@	$(LIBFT)
 	@	$(CC) -o $(NAME) $(OBJ) -L$(LIB_FOLDER) -lft
 
 %.o: %.c
-	@	$(CC) -o $@ -c $< -Iincludes $(FLAGS)
+	@	$(CC) -o $@ -c $< -I./../includes
 
 clean:
-	@	make -C $(LIB_FOLDER) clean
 	@	rm -f $(OBJ)
 
 fclean: clean
-	@	make -C $(LIB_FOLDER) fclean
 	@	rm -f $(NAME)
 
 re: fclean all

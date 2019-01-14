@@ -21,23 +21,26 @@ int		asm_init(t_asm **asm_struct, const char *argv)
 		return (0);
 	}
 	(*asm_struct)->filename = get_filename(argv);
-	if (!((*asm_struct)->filename) ||
-			!((*asm_struct)->header = ft_memalloc(sizeof(t_header))))
+	if (!((*asm_struct)->filename))
 	{
 		clean_asm_struct(asm_struct);
 		return (0);
 	}
 	(*asm_struct)->counter = MAX_COUNTER;
-	(*asm_struct)->header->magic = COREWAR_EXEC_MAGIC;
 	return (1);
 }
 
 char	*get_filename(const char *argv)
 {
-	unsigned int len;
+	int	start;
+	int	len;
 
 	len = ft_strlen(argv);
 	if (len <= 2 || argv[len - 1] != 's' || argv[len - 2] != '.')
 		return (NULL);
-	return (ft_strsub(argv, 0, len - 2));
+	start = len - 1;
+	while (start >= 0 && argv[start] != ' ' && argv[start] != '/')
+		start--;
+	start++;
+	return (ft_strsub(argv, start, len - start - 2));
 }
