@@ -76,7 +76,7 @@ char	*make_header_string(t_champ_header *header)
 		ft_strncpy(&(result[i]), size, BYTE);
 		ft_strdel(&size);
 		i += BYTE;
-		ft_strncpy(&(result[i]), header->desctiption, ft_strlen(header->desctiption));
+		ft_strncpy(&(result[i]), header->description, ft_strlen(header->description));
 	}
 	return (result);
 }

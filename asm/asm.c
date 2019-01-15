@@ -50,7 +50,7 @@ void	 file_processing(int fd, const char *argv)
 
 	asm_struct->header.size = 320;
 	make_program_name(asm_struct->header.name, "Jumper !");
-	make_program_description(asm_struct->header.desctiption, "en fait C forker !");
+	make_program_description(asm_struct->header.description, "en fait C forker !");
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }

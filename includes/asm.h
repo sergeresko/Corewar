@@ -30,19 +30,22 @@
 # define READ_FILE_ERROR "Cannot read file"
 # define ALLOCATION_ERROR "Cannot allocate memory"
 
+// keep champ's header
 typedef struct		s_champ_header
 {
 	unsigned int 	size;
 	char			name[NAME_LENGTH + 1];
-	char 			desctiption[DESCRIPTION_LENGTH + 1];
+	char 			description[DESCRIPTION_LENGTH + 1];
 }					t_champ_header;
 
-typedef struct      s_addr //структура для хранения адресов мест положения лейблов в чемпионе
+// keep pointers to champ's location where we should paste value
+typedef struct      s_addr
 {
     char            *addr;
     struct s_addr   *next;
 }                   t_addr;
 
+// keep list of labels
 typedef struct		s_label
 {
 	int 			index;
@@ -51,6 +54,7 @@ typedef struct		s_label
 	struct s_label	*next;
 }					t_label;
 
+// main structure with all valuable content
 typedef struct      s_asm
 {
 	t_champ_header	header;
