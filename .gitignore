@@ -3,3 +3,4 @@ szverhov/*
 .idea/*
 cmake-build-debug/*
 makeAll
+CMakeLists.txt
