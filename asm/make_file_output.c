@@ -34,7 +34,7 @@ void	output_to_file(t_asm *champ)
 	close(file_fd);
 }
 
-void	format_file_output(int fd, char *champ)
+void	format_file_output(int fd, char *champ) // pass how much length to output??
 {
 	int 	i;
 	size_t 	len;
@@ -62,9 +62,9 @@ char	*make_header_string(t_champ_header *header)
 	size_t 	len;
 
 	i = 0;
-	if ((result = ft_strnew(HEADER_LENGTH)))
+	if ((result = ft_strnew(HEX_HEADER)))
 	{
-		ft_memset((void *)result, '0', HEADER_LENGTH);
+		ft_memset((void *)result, '0', HEX_HEADER);
 		magic = convert_int_to_hex(COREWAR_EXEC_MAGIC);
 		ft_strncpy(&(result[i]), magic, BYTE);
 		ft_strdel(&magic);

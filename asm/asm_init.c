@@ -30,8 +30,8 @@ int		asm_init(t_asm **asm_struct, const char *argv)
 
 char	*get_filename(const char *argv)
 {
-	size_t	start;
-	size_t	len;
+	int	start;
+	int	len;
 
 	len = ft_strlen(argv);
 	if (len <= 2 || argv[len - 1] != 's' || argv[len - 2] != '.')
@@ -40,7 +40,7 @@ char	*get_filename(const char *argv)
 	while (start >= 0 && argv[start] != ' ' && argv[start] != '/')
 		start--;
 	start++;
-	return (ft_strsub(argv, (unsigned int)start, len - start - 2));
+	return (ft_strsub(argv, start, len - start - 2));
 }
 
 void	clean_asm_struct(t_asm **asm_struct)
