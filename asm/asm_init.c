@@ -14,14 +14,12 @@
 
 int		asm_init(t_asm **asm_struct, const char *argv)
 {
-	*asm_struct = ft_memalloc(sizeof(t_asm));
-	if (!(*asm_struct))
+	if (!(*asm_struct = ft_memalloc(sizeof(t_asm))))
 	{
 		perror(ALLOCATION_ERROR);
 		return (0);
 	}
-	(*asm_struct)->filename = get_filename(argv);
-	if (!((*asm_struct)->filename))
+	if (!((*asm_struct)->filename = get_filename(argv)))
 	{
 		clean_asm_struct(asm_struct);
 		return (0);
@@ -43,4 +41,24 @@ char	*get_filename(const char *argv)
 		start--;
 	start++;
 	return (ft_strsub(argv, start, len - start - 2));
+}
+
+void	clean_asm_struct(t_asm **asm_struct)
+{
+	if ((*asm_struct)->filename)
+		ft_memdel((void **)&((*asm_struct)->filename));
+	if ((*asm_struct)->labels)
+		clean_labels_list(&((*asm_struct)->labels));
+	ft_memdel((void **)asm_struct);
+}
+
+void	clean_labels_list(t_label **labels)
+{
+	if (labels && *labels)
+	{
+		ft_strdel(&((*labels)->name));
+		if ((*labels)->next)
+			clean_labels_list(&((*labels)->next));
+		ft_memdel((void **)labels);
+	}
 }

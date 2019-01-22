@@ -12,25 +12,48 @@
 
 #include "asm.h"
 
-char	*check_comment(char **line)
+char	*get_trimmed_line(char **line)
 {
-	if (**line == '#')
+	char	*tline;
+
+	tline = ft_strtrim(*line);
+	ft_strdel(line);
+	return (tline ? tline : NULL);
+}
+
+int		is_skipable(char **line)
+{
+	if (**line == 0 || **line == '#')
 	{
 		ft_strdel(line);
-		return (NULL);
+		return (1);
 	}
-	return (*line);
+	return (0);
 }
 
-void	clean_asm_struct(t_asm **asm_struct)
+int		get_substr_index(const char *big, const char *little)
 {
-	if ((*asm_struct)->filename)
-		ft_memdel((void **)&(*asm_struct)->filename);
-//	if ((*asm_struct)->labels)
-//		clean_labels_list(&(*asm_struct)->labels);
-	ft_memdel((void **)asm_struct);
-}
+	int		i;
+	int 	j;
+	int 	k;
 
+	i = 0;
+	if (!(*little))
+		return (0);
+	while (big[i])
+	{
+		j = 0;
+		k = i;
+		while (big[i] && little[j] && big[i] == little[j])
+		{
+			if (!little[++j])
+				return (k);
+			i++;
+		}
+		i = ++k;
+	}
+	return (-1);
+}
 
 char	*convert_int_to_hex(int num)
 {
@@ -55,19 +78,19 @@ char	*convert_int_to_hex(int num)
 	return (result);
 }
 
-void	make_program_name(char *hex_name, char *name)
+void	make_hex_name(char *hex_name, char *name)
 {
 	int 	i;
 	int 	j;
 	int 	len;
 	char	*temp;
 
-	ft_memset((void *)hex_name, '0', NAME_LENGTH);
-	hex_name[NAME_LENGTH] = '\0';
+	ft_memset((void *)hex_name, '0', HEX_NAME_LENGTH);
+	hex_name[HEX_NAME_LENGTH] = '\0';
 	i = 0;
 	j = 0;
 	len = ft_strlen(name);
-	while (i < len && j < NAME_LENGTH - 1)
+	while (i < len && j < HEX_NAME_LENGTH - 1)
 	{
 		temp = ft_itoa_base(name[i++], 16);
 		hex_name[j++] = ft_tolower(temp[0]);
@@ -76,23 +99,39 @@ void	make_program_name(char *hex_name, char *name)
 	}
 }
 
-void	make_program_description(char *hex_description, char *description)
+void	make_hex_description(char *hex_description, char *description)
 {
 	int 	i;
 	int 	j;
 	int 	len;
 	char	*temp;
 
-	ft_memset((void *)hex_description, '0', DESCRIPTION_LENGTH);
-	hex_description[DESCRIPTION_LENGTH] = '\0';
+	ft_memset((void *)hex_description, '0', HEX_DESCRIPTION_LENGTH);
+	hex_description[HEX_DESCRIPTION_LENGTH] = '\0';
 	i = 0;
 	j = 0;
 	len = ft_strlen(description);
-	while (i < len && j < DESCRIPTION_LENGTH - 1)
+	while (i < len && j < HEX_DESCRIPTION_LENGTH - 1)
 	{
 		temp = ft_itoa_base(description[i++], 16);
 		hex_description[j++] = ft_tolower(temp[0]);
 		hex_description[j++] = ft_tolower(temp[1]);
 		ft_strdel(&temp);
 	}
+}
+
+int		new_label(t_label **labels, char *name, int index)
+{
+	t_label	*new_label;
+
+	if (name && (new_label = ft_memalloc(sizeof(t_label))))
+	{
+		new_label->name = name;
+		new_label->index = index;
+		if (*labels)
+			new_label->next = *labels;
+		*labels = new_label;
+		return (1);
+	}
+	return (0);
 }

@@ -42,15 +42,18 @@ void	 file_processing(int fd, const char *argv)
 
 	if (!asm_init(&asm_struct, argv))
 		return ;
-	if (!get_labels(fd, asm_struct))
+	if (!read_file(fd, asm_struct))
 	{
 		clean_asm_struct(&asm_struct);
 		return ;
 	}
 
+	// delete
 	asm_struct->header.size = 320;
-	make_program_name(asm_struct->header.name, "Jumper !");
-	make_program_description(asm_struct->header.desctiption, "en fait C forker !");
+	make_hex_name(asm_struct->header.name, "Jumper !");
+	make_hex_description(asm_struct->header.description, "en fait C forker !");
+
+
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
@@ -58,32 +61,24 @@ void	 file_processing(int fd, const char *argv)
 /*
  * General function for first file reading and create labels' list as well.
  */
-int		get_labels(int fd, t_asm *asm_struct)
+int 	read_file(int fd, t_asm *asm_struct)
 {
 	int		r;
 	char	*line;
-	char	*tline;		// trimmed line
+	char	*tline;
 
 	while ((r = get_next_line(fd, &line)))
 	{
-		if (r == -1)
+		if (r == -1 || !(tline = get_trimmed_line(&line)))
 		{
 			perror(READ_FILE_ERROR);
 			return (0);
 		}
-		if (!check_comment(&line))
+		if (is_skipable(&tline))
 			continue ;
-		if (*line && (tline = ft_strtrim(line)))
-		{
-			if (!(*tline))
-				ft_strdel(&tline);
-			else if (!check_line(tline, asm_struct))
-			{
-				ft_strdel(&line);
-				return (0);
-			}
-		}
-		ft_strdel(&line);
+		if (!check_line(&tline, asm_struct))
+			return (0);
+		ft_strdel(&tline);
 	}
 	return (1);
 }
@@ -91,9 +86,34 @@ int		get_labels(int fd, t_asm *asm_struct)
 /*
  * Function to get champ's name or description or create new label's node.
  */
-int		check_line(char *tline, t_asm *asm_struct)
+int		check_line(char **line, t_asm *asm_struct)
 {
-	ft_printf("%s\n", tline);
-	ft_strdel(&tline);
+	int 	i;
+	int		len;
+
+	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name")) {}
+//		return get_champ_name(line, asm_struct);
+	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment")) {}
+//		return get_champ_comment(line, asm_struct);
+	i = 0;
+	len = ft_strlen(*line);
+	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
+	{
+		if ((*line)[i] == LABEL_CHAR)
+		{
+			if (new_label(&(asm_struct->labels), ft_strsub(*line, 0, i), i))
+				return check_for_command(line, asm_struct, ++i);
+			else
+				perror(ALLOCATION_ERROR);
+			ft_strdel(line);
+			return (0);
+		}
+	}
+	return check_for_command(line, asm_struct, 0);
+}
+
+int 	check_for_command(char **line, t_asm *asm_struct, int start)
+{
+	ft_strdel(line);
 	return (1);
 }
