@@ -6,11 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/01/27 16:46:52 by ozalisky         ###   ########.fr       */
-=======
-/*   Updated: 2018/11/17 18:22:07 by ozalisky         ###   ########.fr       */
->>>>>>> read name & description of champ
+/*   Updated: 2019/02/02 18:34:17 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +83,10 @@ int 	read_file(int fd, t_asm *asm_struct)
 	return (1);
 }
 
-<<<<<<< HEAD
-int		get_name(char *tline, t_asm *asm_struct)
-=======
-char*		get_name(char *tline, t_asm *asm_struct)
->>>>>>> read name & description of champ
+void*		get_champ_headers(char *tline, char *field)
 {
 	size_t	i;
 	size_t	newStrLngth; //length of malloced str
-	char	*tempVar;
 
 	i = 0;
 	newStrLngth = 0;
@@ -105,15 +96,11 @@ char*		get_name(char *tline, t_asm *asm_struct)
 		++i;
 		while (i < ft_strlen(tline) && tline[i] != '"')
 			++i && ++newStrLngth;
-		tempVar = ft_memalloc(sizeof(char) * (newStrLngth + 1));
 		i = i - newStrLngth;
 		newStrLngth = 0;
 		while (i < ft_strlen(tline) && tline[i] != '"')
-			tempVar[newStrLngth++] = tline[i++];
-		if (i == ft_strlen(tline) - 1)
-			return (tempVar);
+			field[newStrLngth++] = tline[i++];
 	}
-	return (NULL);
 }
 
 /*
@@ -121,28 +108,32 @@ char*		get_name(char *tline, t_asm *asm_struct)
  */
 int		check_line(char **line, t_asm *asm_struct)
 {
-<<<<<<< HEAD
-	if (ft_strnstr(*line, ".name",5))
-	{
-		asm_struct->header.name[0] = get_name(*line + 5, asm_struct); //add function to save name & description to structure
-	}
-	else if (!ft_strncmp(*line, ".comment", 8))
-	{
-		asm_struct->header.description[0] = get_name(*line + 8, asm_struct);
-	}
-	ft_printf("%s\n", line);
-	ft_strdel(line);
-=======
-	if (ft_strnstr(tline, ".name",5))
-	{
-		asm_struct->instructionName = get_name(tline + 5, asm_struct);
-	}
-	else if (!ft_strncmp(tline, ".comment", 8))
-	{
-		asm_struct->descriptionComment = get_name(tline + 8, asm_struct);
-	}
+	int 	i;
+	int		len;
 
-	ft_printf("%s\n", tline);
-	ft_strdel(&tline);
->>>>>>> read name & description of champ
+	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
+		get_champ_headers(*line + 5, asm_struct->header.name);
+	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
+		get_champ_headers(*line + 8, asm_struct->header.description);
+	i = 0;
+	len = ft_strlen(*line);
+	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
+	{
+		if ((*line)[i] == LABEL_CHAR)
+		{
+			if (new_label(&(asm_struct->labels), ft_strsub(*line, 0, i), i))
+				return check_for_command(line, asm_struct, ++i);
+			else
+				perror(ALLOCATION_ERROR);
+			ft_strdel(line);
+			return (0);
+		}
+	}
+	return check_for_command(line, asm_struct, 0);
+}
+
+int 	check_for_command(char **line, t_asm *asm_struct, int start)
+{
+	ft_strdel(line);
+	return (1);
 }
