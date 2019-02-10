@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/02 18:34:17 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/02/10 15:41:18 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,20 @@ int 	read_file(int fd, t_asm *asm_struct)
 
 	while ((r = get_next_line(fd, &line)))
 	{
-		if (r == -1 || !(tline = get_trimmed_line(&line)))
+		if (r == -1 || !(tline = get_trimmed_line(&line, asm_struct)))
 		{
 			perror(READ_FILE_ERROR);
 			return (0);
 		}
-		if (is_skipable(&tline))
+		if (is_skipable(&tline, asm_struct))
 			continue ;
+		else if (asm_struct->data.errorCase == 1)
+		{
+			--asm_struct->data.line;
+			asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
+//			TODO when multiple lines & last empty line got spaces
+			e__read_file(asm_struct, 1);
+		}
 		if (!check_line(&tline, asm_struct))
 			return (0);
 		ft_strdel(&tline);
@@ -83,14 +90,15 @@ int 	read_file(int fd, t_asm *asm_struct)
 	return (1);
 }
 
-void*		get_champ_headers(char *tline, char *field)
+void	get_champ_headers(char *tline, char *field, t_asm *asm_struct)
 {
 	size_t	i;
 	size_t	newStrLngth; //length of malloced str
 
 	i = 0;
 	newStrLngth = 0;
-	tline = ft_strtrim(tline);
+	while (tline[i] == ' ')
+		++i;
 	if (tline[i] == '"')
 	{
 		++i;
@@ -100,6 +108,10 @@ void*		get_champ_headers(char *tline, char *field)
 		newStrLngth = 0;
 		while (i < ft_strlen(tline) && tline[i] != '"')
 			field[newStrLngth++] = tline[i++];
+	}
+	else if (tline[i] == '\0'){
+		asm_struct->data.errorCase = 1;
+//		e__read_file(asm_struct, "ENDLINE");
 	}
 }
 
@@ -112,9 +124,9 @@ int		check_line(char **line, t_asm *asm_struct)
 	int		len;
 
 	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
-		get_champ_headers(*line + 5, asm_struct->header.name);
+		get_champ_headers(*line + 5, asm_struct->header.name, asm_struct);
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
-		get_champ_headers(*line + 8, asm_struct->header.description);
+		get_champ_headers(*line + 8, asm_struct->header.description, asm_struct);
 	i = 0;
 	len = ft_strlen(*line);
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))

@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/02 17:01:17 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/02/10 15:14:19 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,47 @@
 // keep champ's header
 typedef struct		s_champ_header
 {
-	unsigned int 	size;
+	unsigned int	size;
 	char			name[HEX_NAME_LENGTH + 1];
-	char 			description[HEX_DESCRIPTION_LENGTH + 1];
+	char			description[HEX_DESCRIPTION_LENGTH + 1];
 }					t_champ_header;
 
 // keep pointers to champ's location where we should paste value
-typedef struct      s_addr
+typedef struct		s_addr
 {
-	char            *addr;
-	struct s_addr   *next;
-}                   t_addr;
+	char			*addr;
+	struct s_addr	*next;
+}					t_addr;
 
 // keep list of labels
 typedef struct		s_label
 {
 	int 			index;
 	char 			*name;
-	t_addr          *addr;
+	t_addr			*addr;
 	struct s_label	*next;
 }					t_label;
 
+// keep list of data for error management
+typedef struct		s_data
+{
+	int				line;
+	int				row;
+	int				command_counter;
+	int				errorCase;
+	int				skippedLine;
+}					t_data;
+
 // main structure with all valuable content
-typedef struct      s_asm
+typedef struct		s_asm
 {
 	t_champ_header	header;
-	t_label         *labels;
+	t_label			*labels;
+	t_data			data;
 	char 			*filename;
-	unsigned int    counter;
+	unsigned int	counter;
 
-}                   t_asm;
+}					t_asm;
 
 int		asm_init(t_asm **asm_struct, const char *argv);
 char	*get_filename(const char *argv);
@@ -71,7 +82,7 @@ void	file_processing(int fd, const char *argv);
 int		check_line(char **line, t_asm *asm_struct);
 
 int		get_substr_index(const char *big, const char *little);
-int		is_skipable(char **line);
+int		is_skipable(char **line, t_asm *asm_struct);
 void	clean_asm_struct(t_asm **asm_struct);
 
 /*
@@ -79,6 +90,7 @@ void	clean_asm_struct(t_asm **asm_struct);
  */
 void	e__no_args(void);
 void	e__open_file(const char *name);
+void	e__read_file(t_asm *asm_struct, int errorCase);
 
 void	output_to_file(t_asm *champ);
 void	format_file_output(int fd, char *champ);
@@ -93,6 +105,6 @@ void	clean_labels_list(t_label **labels);
 int		new_label(t_label **labels, char *name, int index);
 
 int 	read_file(int fd, t_asm *asm_struct);
-char	*get_trimmed_line(char **line);
+char	*get_trimmed_line(char **line,t_asm *asm_struct);
 
 #endif
