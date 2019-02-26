@@ -3,28 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   functions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/05 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/02/10 15:48:09 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char	*get_trimmed_line(char **line)
+char	*get_trimmed_line(char **line, t_asm *asm_struct)
 {
 	char	*tline;
 
+	++asm_struct->data.line;
+	asm_struct->data.row = (asm_struct->data.errorCase) ?
+			asm_struct->data.row : (int)ft_strlen(*line);
+	asm_struct->data.row = (asm_struct->data.skippedLine) ?
+			(int)ft_strlen(*line) : asm_struct->data.row;
 	tline = ft_strtrim(*line);
 	ft_strdel(line);
 	return (tline ? tline : NULL);
 }
 
-int		is_skipable(char **line)
+int		is_skipable(char **line, t_asm *asm_struct)
 {
 	if (**line == 0 || **line == '#')
 	{
+		asm_struct->data.skippedLine = 1;
 		ft_strdel(line);
 		return (1);
 	}
