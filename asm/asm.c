@@ -121,14 +121,12 @@ void	get_champ_headers(char *tline, char *field, t_asm *asm_struct)
 int		check_line(char **line, t_asm *asm_struct)
 {
 	int 	i;
-	int		len;
 
 	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
 		get_champ_headers(*line + 5, asm_struct->header.name, asm_struct);
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
 		get_champ_headers(*line + 8, asm_struct->header.description, asm_struct);
 	i = 0;
-	len = ft_strlen(*line);
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
 	{
 		if ((*line)[i] == LABEL_CHAR)
