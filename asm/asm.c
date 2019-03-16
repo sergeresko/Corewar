@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:41:18 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/03/16 15:35:51 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int 	read_file(int fd, t_asm *asm_struct)
 		}
 		if (is_skipable(&tline, asm_struct))
 			continue ;
-		else if (asm_struct->data.errorCase == 1)
+		else if (asm_struct->data.errorCase > 0)
 		{
 			--asm_struct->data.line;
 			asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
@@ -127,6 +127,8 @@ int		check_line(char **line, t_asm *asm_struct)
 		get_champ_headers(*line + 5, asm_struct->header.name, asm_struct);
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
 		get_champ_headers(*line + 8, asm_struct->header.description, asm_struct);
+	else if (!get_substr_index(*line, ".")) //TODO when line has other ".command" fix wrong line on line 79
+		asm_struct->data.errorCase = 2;
 	i = 0;
 	len = ft_strlen(*line);
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
