@@ -95,8 +95,8 @@ void	e__read_file(t_asm *asm_struct, int errorCase);
 void	output_to_file(t_asm *champ);
 void	format_file_output(int fd, char *champ);
 char	*convert_int_to_hex(int num);
-void	make_hex_name(char *hex_name, char *name);
-void	make_hex_description(char *hex_description, char *description);
+
+
 char	*make_header_string(t_champ_header *header);
 
 int 	check_for_command(char **line, t_asm *asm_struct, int start);
@@ -106,5 +106,14 @@ int		new_label(t_label **labels, char *name, int index);
 
 int 	read_file(int fd, t_asm *asm_struct);
 char	*get_trimmed_line(char **line,t_asm *asm_struct);
+
+
+/*
+ * Set champ's name and description
+ */
+void	get_champs_name(char *line, t_asm *asm_struct);
+void	make_hex_name(char *hex_name, char *name);
+void	get_champs_description(char *line, t_asm *asm_struct);
+void	make_hex_description(char *hex_description, char *description);
 
 #endif
