@@ -48,12 +48,6 @@ void	 file_processing(int fd, const char *argv)
 		return ;
 	}
 
-	// delete
-	asm_struct->header.size = 320;
-	make_hex_name(asm_struct->header.name, "Jumper !");
-	make_hex_description(asm_struct->header.description, "en fait C forker !");
-
-
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
@@ -90,31 +84,6 @@ int 	read_file(int fd, t_asm *asm_struct)
 	return (1);
 }
 
-void	get_champ_headers(char *tline, char *field, t_asm *asm_struct)
-{
-	size_t	i;
-	size_t	newStrLngth; //length of malloced str
-
-	i = 0;
-	newStrLngth = 0;
-	while (tline[i] == ' ')
-		++i;
-	if (tline[i] == '"')
-	{
-		++i;
-		while (i < ft_strlen(tline) && tline[i] != '"')
-			++i && ++newStrLngth;
-		i = i - newStrLngth;
-		newStrLngth = 0;
-		while (i < ft_strlen(tline) && tline[i] != '"')
-			field[newStrLngth++] = tline[i++];
-	}
-	else if (tline[i] == '\0'){
-		asm_struct->data.errorCase = 1;
-//		e__read_file(asm_struct, "ENDLINE");
-	}
-}
-
 /*
  * Function to get champ's name or description or create new label's node.
  */
@@ -123,9 +92,9 @@ int		check_line(char **line, t_asm *asm_struct)
 	int 	i;
 
 	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
-		get_champ_headers(*line + 5, asm_struct->header.name, asm_struct);
+		get_champs_name(*line + 5, asm_struct);
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
-		get_champ_headers(*line + 8, asm_struct->header.description, asm_struct);
+		get_champs_description(*line + 8, asm_struct);
 	i = 0;
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
 	{
