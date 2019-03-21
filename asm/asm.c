@@ -48,15 +48,22 @@ void	 file_processing(int fd, const char *argv)
 		return ;
 	}
 
-	// delete
-	asm_struct->header.size = 320;
-	make_hex_name(asm_struct->header.name, "Jumper !");
-	make_hex_description(asm_struct->header.description, "en fait C forker !");
-
-
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
+
+/*
+ * function to process error codes
+ */
+void 	error_handling(t_asm *asm_struct)
+{
+	--asm_struct->data.line;
+	asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
+//			TODO when multiple lines & last empty line got spaces
+//TODO wrong line number when e-code is 2
+	e__read_file(asm_struct, 1);
+}
+
 
 /*
  * General function for first file reading and create labels' list as well.
@@ -76,43 +83,13 @@ int 	read_file(int fd, t_asm *asm_struct)
 		}
 		if (is_skipable(&tline, asm_struct))
 			continue ;
-		else if (asm_struct->data.errorCase > 0)
-		{
-			--asm_struct->data.line;
-			asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
-//			TODO when multiple lines & last empty line got spaces
-			e__read_file(asm_struct, 1);
-		}
+		if (asm_struct->data.errorCase > 0)
+			error_handling(asm_struct);
 		if (!check_line(&tline, asm_struct))
 			return (0);
 		ft_strdel(&tline);
 	}
 	return (1);
-}
-
-void	get_champ_headers(char *tline, char *field, t_asm *asm_struct)
-{
-	size_t	i;
-	size_t	newStrLngth; //length of malloced str
-
-	i = 0;
-	newStrLngth = 0;
-	while (tline[i] == ' ')
-		++i;
-	if (tline[i] == '"')
-	{
-		++i;
-		while (i < ft_strlen(tline) && tline[i] != '"')
-			++i && ++newStrLngth;
-		i = i - newStrLngth;
-		newStrLngth = 0;
-		while (i < ft_strlen(tline) && tline[i] != '"')
-			field[newStrLngth++] = tline[i++];
-	}
-	else if (tline[i] == '\0'){
-		asm_struct->data.errorCase = 1;
-//		e__read_file(asm_struct, "ENDLINE");
-	}
 }
 
 /*
@@ -121,16 +98,14 @@ void	get_champ_headers(char *tline, char *field, t_asm *asm_struct)
 int		check_line(char **line, t_asm *asm_struct)
 {
 	int 	i;
-	int		len;
 
 	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
-		get_champ_headers(*line + 5, asm_struct->header.name, asm_struct);
+		get_champs_name(*line + 5, asm_struct);
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
-		get_champ_headers(*line + 8, asm_struct->header.description, asm_struct);
-	else if (!get_substr_index(*line, ".")) //TODO when line has other ".command" fix wrong line on line 79
+		get_champs_description(*line + 8, asm_struct);
+	else if (!get_substr_index(*line, "."))
 		asm_struct->data.errorCase = 2;
 	i = 0;
-	len = ft_strlen(*line);
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
 	{
 		if ((*line)[i] == LABEL_CHAR)

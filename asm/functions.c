@@ -84,48 +84,6 @@ char	*convert_int_to_hex(int num)
 	return (result);
 }
 
-void	make_hex_name(char *hex_name, char *name)
-{
-	int 	i;
-	int 	j;
-	int 	len;
-	char	*temp;
-
-	ft_memset((void *)hex_name, '0', HEX_NAME_LENGTH);
-	hex_name[HEX_NAME_LENGTH] = '\0';
-	i = 0;
-	j = 0;
-	len = ft_strlen(name);
-	while (i < len && j < HEX_NAME_LENGTH - 1)
-	{
-		temp = ft_itoa_base(name[i++], 16);
-		hex_name[j++] = ft_tolower(temp[0]);
-		hex_name[j++] = ft_tolower(temp[1]);
-		ft_strdel(&temp);
-	}
-}
-
-void	make_hex_description(char *hex_description, char *description)
-{
-	int 	i;
-	int 	j;
-	int 	len;
-	char	*temp;
-
-	ft_memset((void *)hex_description, '0', HEX_DESCRIPTION_LENGTH);
-	hex_description[HEX_DESCRIPTION_LENGTH] = '\0';
-	i = 0;
-	j = 0;
-	len = ft_strlen(description);
-	while (i < len && j < HEX_DESCRIPTION_LENGTH - 1)
-	{
-		temp = ft_itoa_base(description[i++], 16);
-		hex_description[j++] = ft_tolower(temp[0]);
-		hex_description[j++] = ft_tolower(temp[1]);
-		ft_strdel(&temp);
-	}
-}
-
 int		new_label(t_label **labels, char *name, int index)
 {
 	t_label	*new_label;
