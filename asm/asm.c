@@ -59,7 +59,7 @@ void 	error_handling(t_asm *asm_struct)
 {
 	--asm_struct->data.line;
 	asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
-//			TODO when multiple lines & last empty line got spaces
+//TODO when multiple lines & last empty line got spaces
 //TODO wrong line number when e-code is 2
 	e__read_file(asm_struct, 1);
 }
@@ -104,7 +104,7 @@ int		check_line(char **line, t_asm *asm_struct)
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
 		get_champs_description(*line + 8, asm_struct);
 	else if (!get_substr_index(*line, "."))
-		asm_struct->data.errorCase = 2;
+		e__read_file(asm_struct, 2);
 	i = 0;
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
 	{
