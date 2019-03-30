@@ -21,6 +21,11 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 			asm_struct->data.row : (int)ft_strlen(*line);
 	asm_struct->data.row = (asm_struct->data.skippedLine) ?
 			(int)ft_strlen(*line) : asm_struct->data.row;
+	if (get_substr_index(*line, "\n") == -1)
+	{
+		e__read_file(asm_struct, 5);
+		return tline;
+	}
 	tline = ft_strtrim(*line);
 	ft_strdel(line);
 	return (tline ? tline : NULL);

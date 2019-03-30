@@ -55,20 +55,20 @@ void	 file_processing(int fd, const char *argv)
 /*
  * function to process error codes
  */
-void 	error_handling(t_asm *asm_struct)
+int		error_handling(t_asm *asm_struct)
 {
 	--asm_struct->data.line;
 	asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
 //TODO when multiple lines & last empty line got spaces
 //TODO wrong line number when e-code is 2
-	e__read_file(asm_struct, 1);
+	return e__read_file(asm_struct, 1);
 }
 
 
 /*
  * General function for first file reading and create labels' list as well.
  */
-int 	read_file(int fd, t_asm *asm_struct)
+int		read_file(int fd, t_asm *asm_struct)
 {
 	int		r;
 	char	*line;
@@ -84,7 +84,7 @@ int 	read_file(int fd, t_asm *asm_struct)
 		if (is_skipable(&tline, asm_struct))
 			continue ;
 		if (asm_struct->data.errorCase > 0)
-			error_handling(asm_struct);
+			return error_handling(asm_struct);
 		if (!check_line(&tline, asm_struct))
 			return (0);
 		ft_strdel(&tline);
@@ -103,8 +103,8 @@ int		check_line(char **line, t_asm *asm_struct)
 		get_champs_name(*line + 5, asm_struct);
 	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
 		get_champs_description(*line + 8, asm_struct);
-	else if (!get_substr_index(*line, "."))
-		e__read_file(asm_struct, 2);
+	else if (get_substr_index(*line, ".") >= 0)
+		return e__read_file(asm_struct, 2);
 	i = 0;
 	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
 	{

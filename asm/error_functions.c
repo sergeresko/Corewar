@@ -24,7 +24,7 @@ void	e__open_file(const char *name)
 	exit(-1);
 }
 
-void	e__read_file(t_asm *asm_struct, int errorCase)
+int		e__read_file(t_asm *asm_struct, int errorCase)
 {
 	switch (errorCase) {
 		case 1: ft_printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE\n",
@@ -45,5 +45,5 @@ void	e__read_file(t_asm *asm_struct, int errorCase)
 					"forgot to end with a newline ?)");
 			break;
 	}
-	exit(-1);
+	return 0;
 }

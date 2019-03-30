@@ -39,6 +39,21 @@ typedef struct		s_champ_header
 	char			description[HEX_DESCRIPTION_LENGTH + 1];
 }					t_champ_header;
 
+//keep command structure
+typedef struct		s_command
+{
+	char			code;
+	char			codage;
+	void			*arg_1;
+	char			*arg_1_type;
+	void			*arg_2;
+	char			*arg_2_type;
+	void			*arg_3;
+	char			*arg_3_type;
+	int				label_size;
+	struct s_command	*next;
+}					t_command;
+
 // keep pointers to champ's location where we should paste value
 typedef struct		s_addr
 {
@@ -90,7 +105,7 @@ void	clean_asm_struct(t_asm **asm_struct);
  */
 void	e__no_args(void);
 void	e__open_file(const char *name);
-void	e__read_file(t_asm *asm_struct, int errorCase);
+int		e__read_file(t_asm *asm_struct, int errorCase);
 
 void	output_to_file(t_asm *champ);
 void	format_file_output(int fd, char *champ);
