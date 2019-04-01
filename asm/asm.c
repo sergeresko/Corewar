@@ -100,12 +100,12 @@ int		check_line(char **line, t_asm *asm_struct)
 	char	*label_name;
 	t_label	*new_label;
 
-	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
+	if (!asm_struct->header.name[0] && !get_substr_index(*line, NAME_CMD_STRING))
 	{
 		get_champs_name(*line + 5, asm_struct);
 		return (1);
 	}
-	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
+	else if (!asm_struct->header.description[0] && !get_substr_index(*line, COMMENT_CMD_STRING))
 	{
 		get_champs_description(*line + 8, asm_struct);
 		return (1);
