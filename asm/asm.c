@@ -48,6 +48,13 @@ void	 file_processing(int fd, const char *argv)
 		return ;
 	}
 
+//	ft_printf("---> Here!\n");
+//	t_label *temp = asm_struct->labels;
+//	while (temp)
+//	{
+//		ft_printf("%s\n", temp->name);
+//		temp = temp->next;
+//	}
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
@@ -86,10 +93,12 @@ int 	read_file(int fd, t_asm *asm_struct)
 
 /*
  * Function to get champ's name or description or create new label's node.
+ * Read flow must be like in printf project with recursion!!!!!!!!!!!!11111
  */
 int		check_line(char **line, t_asm *asm_struct)
 {
-	int 	i;
+	char	*label_name;
+	t_label	*new_label;
 
 	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
 	{
@@ -101,19 +110,9 @@ int		check_line(char **line, t_asm *asm_struct)
 		get_champs_description(*line + 8, asm_struct);
 		return (1);
 	}
-	i = 0;
-	while (ft_strchr(LABEL_CHARS, (*line)[i++]))
-	{
-		if ((*line)[i] == LABEL_CHAR)
-		{
-			if (new_label(&(asm_struct->labels), ft_strsub(*line, 0, i), i))
-				return check_for_command(line, asm_struct, ++i);
-			else
-				perror(ALLOCATION_ERROR);
-			ft_strdel(line);
-			return (0);
-		}
-	}
+	if ((label_name = get_label_name(line)))
+		if ((new_label = new_label_node(label_name)))
+			push_label_front(&(asm_struct->labels), new_label);
 	return check_for_command(line, asm_struct, 0);
 }
 
@@ -123,7 +122,7 @@ int 	check_for_command(char **line, t_asm *asm_struct, int start)
 	char	*command;
 
 	command = ft_strnew(10);
-//	ft_printf("%s\n", *line);
+	ft_printf("%s\n", *line);
 	while ((*line)[start] == ' ' || (*line)[start] == '\t' || (*line)[start] == '\n' || (*line)[start] == '\0')
 		start++;
 	while (ft_islower((*line)[start]))
