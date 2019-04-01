@@ -153,5 +153,3 @@ void	push_label_front(t_label **labels, t_label *label)
 
 
 
-
-
