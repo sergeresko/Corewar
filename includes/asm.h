@@ -21,6 +21,8 @@
 
 # define MAX_COUNTER 4294967295
 
+#define TRUE 1
+#define FALSE 0
 # define BYTE 8
 # define HEX_HEADER 4384
 # define HEX_NAME_LENGTH 256
@@ -65,11 +67,20 @@ typedef struct		s_data
 	int				skippedLine;
 }					t_data;
 
+typedef struct		s_com
+{
+	char			code;
+	char			codage;
+	int				label_size;
+	struct s_com	*next;
+}					t_com;
+
 // main structure with all valuable content
 typedef struct		s_asm
 {
 	t_champ_header	header;
 	t_label			*labels;
+	t_com			*commands;
 	t_data			data;
 	char 			*filename;
 	unsigned int	counter;
@@ -84,6 +95,7 @@ int		check_line(char **line, t_asm *asm_struct);
 int		get_substr_index(const char *big, const char *little);
 int		is_skipable(char **line, t_asm *asm_struct);
 void	clean_asm_struct(t_asm **asm_struct);
+void	clean_commands_list(t_com **commands);
 
 /*
  * Errors functions
@@ -102,7 +114,6 @@ char	*make_header_string(t_champ_header *header);
 int 	check_for_command(char **line, t_asm *asm_struct, int start);
 
 void	clean_labels_list(t_label **labels);
-int		new_label(t_label **labels, char *name, int index);
 
 int 	read_file(int fd, t_asm *asm_struct);
 char	*get_trimmed_line(char **line,t_asm *asm_struct);
@@ -116,12 +127,18 @@ void	make_hex_name(char *hex_name, char *name);
 void	get_champs_description(char *line, t_asm *asm_struct);
 void	make_hex_description(char *hex_description, char *description);
 
+t_com	*check_command(char *command);
+t_com	*check_command_2(char *command);
+t_com	*make_command_struct(char code, char codage, int label_size);
+
 /*
  * Functions
  */
 char	*get_label_name(char **tline);
+char	*get_command_name(char **tline);
 char	*cut_some_piece(char *line, unsigned int start);
 t_label	*new_label_node(char *label_name);
 void	push_label_front(t_label **labels, t_label *label);
+void	push_command_front(t_com **commands, t_com *command);
 
 #endif
