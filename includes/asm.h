@@ -131,4 +131,12 @@ void	make_hex_name(char *hex_name, char *name);
 void	get_champs_description(char *line, t_asm *asm_struct);
 void	make_hex_description(char *hex_description, char *description);
 
+/*
+ * Functions
+ */
+char	*get_label_name(char **tline);
+char	*cut_some_piece(char *line, unsigned int start);
+t_label	*new_label_node(char *label_name);
+void	push_label_front(t_label **labels, t_label *label);
+
 #endif

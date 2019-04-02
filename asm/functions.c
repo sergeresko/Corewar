@@ -84,18 +84,74 @@ char	*convert_int_to_hex(int num)
 	return (result);
 }
 
-int		new_label(t_label **labels, char *name, int index)
+// modify to work with line labels as well as with arg labels
+char	*get_label_name(char **tline)
+{
+	int 	i;
+	char	*label_name;
+
+	i = 0;
+	label_name = NULL;
+	while(ft_strchr(LABEL_CHARS, (*tline)[i++]))
+	{
+		if ((*tline)[i] == LABEL_CHAR)
+		{
+			label_name = ft_strsub(*tline, 0, i);
+			if (!label_name)
+				perror(ALLOCATION_ERROR);
+			*tline = cut_some_piece(*tline, ++i);
+		}
+	}
+	return (label_name);
+}
+
+char	*cut_some_piece(char *line, unsigned int start)
+{
+	char	*temp;
+
+	temp = ft_strsub(line, start, ft_strlen(line) - start);
+	if (!temp)
+		perror(ALLOCATION_ERROR);
+	ft_strdel(&line);
+	return (temp);
+}
+
+// add check for created label name
+t_label	*new_label_node(char *label_name)
 {
 	t_label	*new_label;
 
-	if (name && (new_label = ft_memalloc(sizeof(t_label))))
+	if ((new_label = ft_memalloc(sizeof(t_label))))
 	{
-		new_label->name = name;
-		new_label->index = index;
-		if (*labels)
-			new_label->next = *labels;
-		*labels = new_label;
-		return (1);
+		new_label->name = label_name;
+//		new_label->index = index;
 	}
-	return (0);
+	else
+		perror(ALLOCATION_ERROR);
+	return (new_label);
 }
+
+void	push_label_front(t_label **labels, t_label *label)
+{
+	if (!labels)		// handle error
+		ft_printf("Label's list == 'NULL'\n");
+	if (labels)
+	{
+		label->next = *labels;
+		*labels = label;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
