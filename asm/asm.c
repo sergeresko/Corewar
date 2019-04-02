@@ -48,13 +48,22 @@ void	 file_processing(int fd, const char *argv)
 		return ;
 	}
 
-//	ft_printf("---> Here!\n");
-//	t_label *temp = asm_struct->labels;
-//	while (temp)
-//	{
-//		ft_printf("%s\n", temp->name);
-//		temp = temp->next;
-//	}
+	ft_printf("---> Here some results!\n");
+
+	t_label *l_temp = asm_struct->labels;
+	while (l_temp)
+	{
+		ft_printf("%s ", l_temp->name);
+		l_temp = l_temp->next;
+	}
+	ft_printf("\n");
+	t_com *c_temp = asm_struct->commands;
+	while (c_temp)
+	{
+		ft_printf("%#x ", c_temp->code);
+		c_temp = c_temp->next;
+	}
+	ft_printf("\n");
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
@@ -118,17 +127,18 @@ int		check_line(char **line, t_asm *asm_struct)
 
 int 	check_for_command(char **line, t_asm *asm_struct, int start)
 {
-	int 	i = 0;
-	char	*command;
+	char	*tline;
+	t_com	*new_command;
+	char	*command_name;
 
-	command = ft_strnew(10);
-	ft_printf("%s\n", *line);
-	while ((*line)[start] == ' ' || (*line)[start] == '\t' || (*line)[start] == '\n' || (*line)[start] == '\0')
-		start++;
-	while (ft_islower((*line)[start]))
-		command[i++] = (*line)[start++];
-	ft_printf("%s\n", command);
-	ft_strdel(&command);
-	ft_strdel(line);
+	tline = get_trimmed_line(line, asm_struct);
+	if ((command_name = get_command_name(&tline)))
+	{
+		if ((new_command = check_command(command_name)))
+			push_command_front(&(asm_struct->commands), new_command);
+		ft_strdel(&command_name);
+		ft_strdel(line);
+		ft_strdel(&tline);
+	}
 	return (1);
 }

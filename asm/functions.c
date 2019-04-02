@@ -134,7 +134,7 @@ t_label	*new_label_node(char *label_name)
 void	push_label_front(t_label **labels, t_label *label)
 {
 	if (!labels)		// handle error
-		ft_printf("Label's list == 'NULL'\n");
+		ft_printf("Labels list == 'NULL'\n");
 	if (labels)
 	{
 		label->next = *labels;
@@ -142,6 +142,36 @@ void	push_label_front(t_label **labels, t_label *label)
 	}
 }
 
+char	*get_command_name(char **tline)
+{
+	int 	i;
+	char 	*command_name;
+
+	i = 0;
+	command_name = NULL;
+	while (ft_islower((*tline)[i++]))
+	{
+		if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
+		{
+			command_name = ft_strsub(*tline, 0, i);
+			if (!command_name)
+				perror(ALLOCATION_ERROR);
+			*tline = cut_some_piece(*tline, ++i);
+		}
+	}
+	return (command_name);
+}
+
+void	push_command_front(t_com **commands, t_com *command)
+{
+	if (!commands)		// handle error
+		ft_printf("Commands list == 'NULL'\n");
+	if (commands)
+	{
+		command->next = *commands;
+		*commands = command;
+	}
+}
 
 
 

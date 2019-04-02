@@ -12,39 +12,8 @@
 
 #include "asm.h"
 
-#define TRUE 1
-#define FALSE 0
 #define LABEL_SIZE_2 2
 #define LABEL_SIZE_4 4
-#define COMMAND_MAX_LENGTH 5
-
-t_com	*check_command(char *command);
-t_com	*check_command_2(char *command);
-t_com	*make_command_struct(char code, int is_codage, int label_size);
-
-t_com	*get_command_from_line(char **tline)
-{
-	int		i;
-	char	*temp;
-	char	*command;
-
-	if (!(*tline) || !ft_islower(**tline))
-		return (NULL);		// add error handling
-	i = 0;
-	if (!(command = ft_strnew(sizeof(char) * COMMAND_MAX_LENGTH)))
-		perror("Allocation error!");		// add error handling
-	while (ft_islower((*tline)[i]))
-	{
-		if (i == COMMAND_MAX_LENGTH)
-			return (NULL);		// add error handling
-		command[i] = (*tline)[i];
-		i++;
-	}
-	temp = ft_strtrim(ft_strsub(*tline, (unsigned int)i, ft_strlen(*tline) - i));
-	ft_strdel(tline);
-	tline = &temp;
-	return check_command(command);
-}
 
 t_com	*check_command(char *command)
 {
@@ -90,14 +59,14 @@ t_com	*check_command_2(char *command)
 		return (NULL);
 }
 
-t_com	*make_command_struct(char code, int is_codage, int label_size)
+t_com	*make_command_struct(char code, char codage, int label_size)
 {
 	t_com	*new_command_struct;
 
 	if ((new_command_struct = ft_memalloc(sizeof(t_com))))
 	{
 		new_command_struct->code = code;
-		new_command_struct->is_codage = is_codage;
+		new_command_struct->codage = codage;
 		new_command_struct->label_size = label_size;
 		return (new_command_struct);
 	}
