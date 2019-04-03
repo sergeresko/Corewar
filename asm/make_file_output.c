@@ -53,7 +53,7 @@ void	format_file_output(int fd, char *champ) // pass how much length to output??
 	}
 }
 
-char	*make_header_string(t_champ_header *header)
+char	*make_header_string(t_header *header)
 {
 	int 	i;
 	char	*size;

@@ -34,21 +34,12 @@ int 	main(int argc, char *argv[])
 }
 
 /*
- * General function for all file reading/creating actions.
+ * Test output function. Delete on production!
  */
-void	 file_processing(int fd, const char *argv)
+void	test_output(t_asm *asm_struct)
 {
-	t_asm *asm_struct;
-
-	if (!asm_init(&asm_struct, argv))
-		return ;
-	if (!read_file(fd, asm_struct))
-	{
-		clean_asm_struct(&asm_struct);
-		return ;
-	}
-
-	ft_printf("---> Here some results!\n");
+	if (!asm_struct) return;
+	ft_printf("----> TEST OUTPUT!\n");
 
 	t_label *l_temp = asm_struct->labels;
 	while (l_temp)
@@ -64,6 +55,25 @@ void	 file_processing(int fd, const char *argv)
 		c_temp = c_temp->next;
 	}
 	ft_printf("\n");
+	ft_printf("<-----------------\n");
+}
+
+/*
+ * General function for all file reading/creating actions.
+ */
+void	 file_processing(int fd, const char *argv)
+{
+	t_asm *asm_struct;
+
+	if (!asm_init(&asm_struct, argv))
+		return ;
+	if (!read_file(fd, asm_struct))
+	{
+		clean_asm_struct(&asm_struct);
+		return ;
+	}
+
+	test_output(asm_struct);
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
@@ -142,3 +152,4 @@ int 	check_for_command(char **line, t_asm *asm_struct, int start)
 	}
 	return (1);
 }
+

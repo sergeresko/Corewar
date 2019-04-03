@@ -17,6 +17,7 @@
 # include <stdio.h>
 
 # include "op.h"
+# include "errors.h"
 # include "../libft/includes/libft.h"
 
 # define MAX_COUNTER 4294967295
@@ -25,39 +26,22 @@
 #define FALSE 0
 # define BYTE 8
 # define HEX_HEADER 4384
-# define HEX_NAME_LENGTH 256
-# define HEX_DESCRIPTION_LENGTH 4096
 
-# define STDOUT "Process has to be printed to STDOUT but this functional doesn't ready yet :("
-# define NO_ARGS_ERROR "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
-# define READ_FILE_ERROR "Cannot read file"
-# define ALLOCATION_ERROR "Cannot allocate memory"
 
-// keep champ's header
-typedef struct		s_champ_header
+typedef struct		s_header
 {
 	unsigned int	size;
 	char			name[HEX_NAME_LENGTH + 1];
-	char			description[HEX_DESCRIPTION_LENGTH + 1];
-}					t_champ_header;
+	char			description[HEX_DESC_LENGTH + 1];
+}					t_header;
 
-// keep pointers to champ's location where we should paste value
-typedef struct		s_addr
-{
-	char			*addr;
-	struct s_addr	*next;
-}					t_addr;
-
-// keep list of labels
 typedef struct		s_label
 {
 	int 			index;
 	char 			*name;
-	t_addr			*addr;
 	struct s_label	*next;
 }					t_label;
 
-// keep list of data for error management
 typedef struct		s_data
 {
 	int				line;
@@ -75,10 +59,9 @@ typedef struct		s_com
 	struct s_com	*next;
 }					t_com;
 
-// main structure with all valuable content
 typedef struct		s_asm
 {
-	t_champ_header	header;
+	t_header		header;
 	t_label			*labels;
 	t_com			*commands;
 	t_data			data;
@@ -109,7 +92,7 @@ void	format_file_output(int fd, char *champ);
 char	*convert_int_to_hex(int num);
 
 
-char	*make_header_string(t_champ_header *header);
+char	*make_header_string(t_header *header);
 
 int 	check_for_command(char **line, t_asm *asm_struct, int start);
 

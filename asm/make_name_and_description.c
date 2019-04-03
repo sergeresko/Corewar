@@ -69,7 +69,7 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 
 	i = 0;
 	j = 0;
-	if (!(field = ft_strnew(DESCRIPTION_LENGTH)))
+	if (!(field = ft_strnew(DESC_LENGTH)))
 		return ;
 	while (line[i] == ' ')
 		i++;
@@ -96,12 +96,12 @@ void	make_hex_description(char *hex_description, char *description)
 	int 	len;
 	char	*temp;
 
-	ft_memset((void *)hex_description, '0', HEX_DESCRIPTION_LENGTH);
-	hex_description[HEX_DESCRIPTION_LENGTH] = '\0';
+	ft_memset((void *)hex_description, '0', HEX_DESC_LENGTH);
+	hex_description[HEX_DESC_LENGTH] = '\0';
 	i = 0;
 	j = 0;
 	len = ft_strlen(description);
-	while (i < len && j < HEX_DESCRIPTION_LENGTH - 1)
+	while (i < len && j < HEX_DESC_LENGTH - 1)
 	{
 		temp = ft_itoa_base(description[i++], 16);
 		hex_description[j++] = ft_tolower(temp[0]);
