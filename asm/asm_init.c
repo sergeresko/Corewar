@@ -49,6 +49,8 @@ void	clean_asm_struct(t_asm **asm_struct)
 		ft_memdel((void **)&((*asm_struct)->filename));
 	if ((*asm_struct)->labels)
 		clean_labels_list(&((*asm_struct)->labels));
+	if ((*asm_struct)->commands)
+		clean_commands_list(&((*asm_struct)->commands));
 	ft_memdel((void **)asm_struct);
 }
 
@@ -60,5 +62,15 @@ void	clean_labels_list(t_label **labels)
 		if ((*labels)->next)
 			clean_labels_list(&((*labels)->next));
 		ft_memdel((void **)labels);
+	}
+}
+
+void	clean_commands_list(t_com **commands)
+{
+	if (commands && *commands)
+	{
+		if ((*commands)->next)
+			clean_commands_list(&((*commands)->next));
+		ft_memdel((void **)commands);
 	}
 }

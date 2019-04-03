@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 19:53:53 by vlvereta          #+#    #+#             */
-/*   Updated: 2017/11/22 19:57:59 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/04/04 00:46:55 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "asm.h"
 
 /*
 **	main function. Checks errors and performs functionality
@@ -80,6 +81,8 @@ int			write_line(char **line, t_fdlist *node, int is_read)
 			return (-1);
 		node->buf[node->r] = '\0';
 		node->i = 0;
+		if (node->r == 0 && ft_strlen(*line) > 0 && get_substr_index(*line, "\n") == -1)
+			return (-2);
 		return (!(node->r) ? is_read : write_line(line, node, is_read));
 	}
 	j = node->i;

@@ -48,13 +48,22 @@ void	 file_processing(int fd, const char *argv)
 		return ;
 	}
 
-//	ft_printf("---> Here!\n");
-//	t_label *temp = asm_struct->labels;
-//	while (temp)
-//	{
-//		ft_printf("%s\n", temp->name);
-//		temp = temp->next;
-//	}
+	ft_printf("---> Here some results!\n");
+
+	t_label *l_temp = asm_struct->labels;
+	while (l_temp)
+	{
+		ft_printf("%s ", l_temp->name);
+		l_temp = l_temp->next;
+	}
+	ft_printf("\n");
+	t_com *c_temp = asm_struct->commands;
+	while (c_temp)
+	{
+		ft_printf("%#x ", c_temp->code);
+		c_temp = c_temp->next;
+	}
+	ft_printf("\n");
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }
@@ -88,6 +97,10 @@ int		read_file(int fd, t_asm *asm_struct)
 			perror(READ_FILE_ERROR);
 			return (0);
 		}
+		if (r == -2)
+		{
+			return e__read_file(asm_struct, 5);
+		}
 		if (is_skipable(&tline, asm_struct))
 			continue ;
 		if (asm_struct->data.errorCase > 0)
@@ -108,12 +121,12 @@ int		check_line(char **line, t_asm *asm_struct)
 	char	*label_name;
 	t_label	*new_label;
 
-	if (!asm_struct->header.name[0] && !get_substr_index(*line, ".name"))
+	if (!asm_struct->header.name[0] && !get_substr_index(*line, NAME_CMD_STRING))
 	{
 		get_champs_name(*line + 5, asm_struct);
 		return (1);
 	}
-	else if (!asm_struct->header.description[0] && !get_substr_index(*line, ".comment"))
+	else if (!asm_struct->header.description[0] && !get_substr_index(*line, COMMENT_CMD_STRING))
 	{
 		get_champs_description(*line + 8, asm_struct);
 		return (1);
@@ -128,17 +141,18 @@ int		check_line(char **line, t_asm *asm_struct)
 
 int 	check_for_command(char **line, t_asm *asm_struct, int start)
 {
-	int 	i = 0;
-	char	*command;
+	char	*tline;
+	t_com	*new_command;
+	char	*command_name;
 
-	command = ft_strnew(10);
-	ft_printf("%s\n", *line);
-	while ((*line)[start] == ' ' || (*line)[start] == '\t' || (*line)[start] == '\n' || (*line)[start] == '\0')
-		start++;
-	while (ft_islower((*line)[start]))
-		command[i++] = (*line)[start++];
-	ft_printf("%s\n", command);
-	ft_strdel(&command);
-	ft_strdel(line);
+	tline = get_trimmed_line(line, asm_struct);
+	if ((command_name = get_command_name(&tline)))
+	{
+		if ((new_command = check_command(command_name)))
+			push_command_front(&(asm_struct->commands), new_command);
+		ft_strdel(&command_name);
+		ft_strdel(line);
+		ft_strdel(&tline);
+	}
 	return (1);
 }

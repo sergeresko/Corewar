@@ -15,6 +15,7 @@ add_executable(asm
         asm/error_functions.c
         asm/make_file_output.c
         asm/make_name_and_description.c
+        asm/commands_list.c
 
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c
