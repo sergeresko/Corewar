@@ -26,15 +26,25 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	return (tline ? tline : NULL);
 }
 
-int		is_skipable(char **line, t_asm *asm_struct)
+//int		is_skipable(char **line, t_asm *asm_struct)
+//{
+//	if (**line == 0 || **line == '#')
+//	{
+//		asm_struct->data.skippedLine = 1;
+//		ft_strdel(line);
+//		return (1);
+//	}
+//	return (0);
+//}
+
+int		is_comment(char **tline)
 {
-	if (**line == 0 || **line == '#')
+	if (**tline == COMMENT_CHAR || **tline == ALT_COMMENT_CHAR)
 	{
-		asm_struct->data.skippedLine = 1;
-		ft_strdel(line);
-		return (1);
+		ft_strdel(tline);
+		return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
 int		get_substr_index(const char *big, const char *little)
