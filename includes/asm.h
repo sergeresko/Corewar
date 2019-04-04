@@ -63,6 +63,7 @@ typedef struct		s_asm
 {
 	t_header		header;
 	t_label			*labels;
+	t_com			*command;
 	t_com			*commands;
 	t_data			data;
 	char 			*filename;
@@ -98,7 +99,6 @@ int 	check_for_command(char **line, t_asm *asm_struct, int start);
 
 void	clean_labels_list(t_label **labels);
 
-int 	read_file(int fd, t_asm *asm_struct);
 char	*get_trimmed_line(char **line,t_asm *asm_struct);
 
 
@@ -123,5 +123,14 @@ char	*cut_some_piece(char *line, unsigned int start);
 t_label	*new_label_node(char *label_name);
 void	push_label_front(t_label **labels, t_label *label);
 void	push_command_front(t_com **commands, t_com *command);
+
+int		is_comment(char **tline);
+
+void	read_file(int fd, t_asm *asm_struct);
+void	read_line(char **tline, t_asm *asm_struct);
+size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
+size_t read_direct(char **tline, size_t i, t_asm *asm_struct);
+size_t read_indirect(char **tline, size_t i, t_asm *asm_struct);
+size_t read_string(char **tline, size_t i, t_asm *asm_struct);
 
 #endif

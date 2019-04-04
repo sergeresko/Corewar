@@ -52,15 +52,15 @@ void	test_output(t_asm *asm_struct)
 		ft_printf("%s ", l_temp->name);
 		l_temp = l_temp->next;
 	}
-	ft_printf("\n");
+//	ft_printf("\n");
 //	t_com *c_temp = asm_struct->commands;
 //	while (c_temp)
 //	{
 //		ft_printf("%#x ", c_temp->code);
 //		c_temp = c_temp->next;
 //	}
-//	ft_printf("\n");
-//	ft_printf("<-----------------\n");
+	ft_printf("\n");
+	ft_printf("<-----------------\n");
 }
 
 /*
@@ -130,6 +130,7 @@ void	read_line(char **tline, t_asm *asm_struct)
 			break ;
 		}
 	}
+	// function to check is asm_struct->command, check and push it into commands, calc index, remove.
 	ft_strdel(tline);
 }
 
