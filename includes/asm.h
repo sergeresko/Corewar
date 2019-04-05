@@ -129,8 +129,11 @@ int		is_comment(char **tline);
 void	read_file(int fd, t_asm *asm_struct);
 void	read_line(char **tline, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
-size_t read_direct(char **tline, size_t i, t_asm *asm_struct);
-size_t read_indirect(char **tline, size_t i, t_asm *asm_struct);
-size_t read_string(char **tline, size_t i, t_asm *asm_struct);
+size_t	read_register(char **tline, size_t i, t_asm *asm_struct);
+size_t	read_direct(char **tline, size_t i, t_asm *asm_struct);
+size_t	read_indirect(char **tline, size_t i, t_asm *asm_struct);
+size_t	read_string(char **tline, size_t i, t_asm *asm_struct);
+
+int		check_register(char *tline, size_t i);
 
 #endif
