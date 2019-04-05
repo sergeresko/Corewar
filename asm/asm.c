@@ -107,7 +107,7 @@ void	read_file(int fd, t_asm *asm_struct)
 
 void	read_line(char **tline, t_asm *asm_struct)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while ((*tline)[i])
@@ -116,10 +116,12 @@ void	read_line(char **tline, t_asm *asm_struct)
 			break ;
 		else if ((*tline)[i] == '.')
 			i = read_dot_instruction(tline, i, asm_struct);
-		else if ((*tline)[i] == '%')
+		else if ((*tline)[i] == DIRECT_CHAR)
 			i = read_direct(tline, i, asm_struct);
-		else if ((*tline)[i] == ':')
+		else if ((*tline)[i] == LABEL_CHAR)
 			i = read_indirect(tline, i, asm_struct);
+		else if ((*tline)[i] == 'r' && check_register(*tline, i))
+			i = read_register(tline, i, asm_struct);
 		else if (ft_strchr(LABEL_CHARS, (*tline)[i]))
 			i = read_string(tline, i, asm_struct);
 		else if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
@@ -149,21 +151,33 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 	return ft_strlen(*tline);
 }
 
-size_t read_direct(char **tline, size_t i, t_asm *asm_struct)
+size_t	read_register(char **tline, size_t i, t_asm *asm_struct)
 {
 	ft_printf("%s\n", *tline);
 	return ft_strlen(*tline);
 }
 
-size_t read_indirect(char **tline, size_t i, t_asm *asm_struct)
+size_t	read_direct(char **tline, size_t i, t_asm *asm_struct)
 {
 	ft_printf("%s\n", *tline);
 	return ft_strlen(*tline);
 }
 
-size_t read_string(char **tline, size_t i, t_asm *asm_struct)
+size_t	read_indirect(char **tline, size_t i, t_asm *asm_struct)
 {
 	ft_printf("%s\n", *tline);
+	return ft_strlen(*tline);
+}
+
+size_t	read_string(char **tline, size_t i, t_asm *asm_struct)
+{
+	size_t	j;
+
+	if ((j = check_label(*tline, i, TRUE)))
+	{
+//		read_label(*tline, i, j);
+		return (++j);
+	}
 	return ft_strlen(*tline);
 }
 

@@ -184,6 +184,37 @@ void	push_command_front(t_com **commands, t_com *command)
 }
 
 
+size_t	check_label(char *tline, size_t end, int check_label_char)
+{
+	size_t	start;
+
+	start = end;
+	while (ft_strchr(LABEL_CHARS, tline[end]))
+		end++;
+	if (start == end || (check_label_char && tline[end] != LABEL_CHAR))
+		return (FALSE);
+	return (end);
+}
+
+int		check_register(char *tline, size_t i)
+{
+	int		two;
+
+	two = 2;
+	while (two > 0)
+	{
+		if (ft_isdigit(tline[++i]))
+		{
+			if (tline[i + 1] == ' ' || tline[i + 1] == '\t' || tline[i + 1] == '\n' || tline[i + 1] == SEPARATOR_CHAR || tline[i + 1] == '\0')
+				return (ft_atoi(&tline[i + (two - 2)]) < REG_NUMBER ? TRUE : FALSE);
+			two--;
+			continue ;
+		}
+		break ;
+	}
+	return (FALSE);
+}
+
 
 
 

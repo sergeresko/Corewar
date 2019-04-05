@@ -133,7 +133,7 @@ size_t	read_register(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_direct(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_indirect(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_string(char **tline, size_t i, t_asm *asm_struct);
-
+size_t	check_label(char *tline, size_t i, int check_label_char);
 int		check_register(char *tline, size_t i);
 
 #endif
