@@ -66,7 +66,7 @@ t_com	*make_command_struct(char code, char codage, int label_size)
 	if ((new_command_struct = ft_memalloc(sizeof(t_com))))
 	{
 		new_command_struct->code = code;
-		new_command_struct->codage = codage;
+		new_command_struct->is_codage = codage;
 		new_command_struct->label_size = label_size;
 		return (new_command_struct);
 	}

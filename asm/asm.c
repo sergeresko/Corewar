@@ -153,19 +153,19 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 
 size_t	read_register(char **tline, size_t i, t_asm *asm_struct)
 {
-	ft_printf("%s\n", *tline);
+	ft_printf("%s\n", &((*tline)[i]));
 	return ft_strlen(*tline);
 }
 
 size_t	read_direct(char **tline, size_t i, t_asm *asm_struct)
 {
-	ft_printf("%s\n", *tline);
+	ft_printf("%s\n", &((*tline)[i]));
 	return ft_strlen(*tline);
 }
 
 size_t	read_indirect(char **tline, size_t i, t_asm *asm_struct)
 {
-	ft_printf("%s\n", *tline);
+	ft_printf("%s\n", &((*tline)[i]));
 	return ft_strlen(*tline);
 }
 
@@ -178,87 +178,10 @@ size_t	read_string(char **tline, size_t i, t_asm *asm_struct)
 		read_label(*tline, i, j, asm_struct);
 		return (++j);
 	}
-	return ft_strlen(*tline);
 	j = i;
-	while (ft_islower((*tline)[j]))
+	while (includes(LABEL_CHARS, (*tline)[j]))
 		j++;
-//	read_command(*tline, i, j, asm_struct);
+	read_command(*tline, i, j, asm_struct);
+	ft_memdel((void **)&(asm_struct->command));
 	return (j);
 }
-
-
-/*
- * General function for first file reading and create labels' list as well.
- */
-//int 	read_file(int fd, t_asm *asm_struct)
-//{
-//	int		r;
-//	char	*line;
-//	char	*tline;
-//
-//	while ((r = get_next_line(fd, &line)))
-//	{
-//		if (r == -1 || !(tline = get_trimmed_line(&line, asm_struct)))
-//		{
-//			perror(READ_FILE_ERROR);
-//			return (0);
-//		}
-//		if (is_skipable(&tline, asm_struct))
-//			continue ;
-//		else if (asm_struct->data.errorCase == 1)
-//		{
-//			--asm_struct->data.line;
-//			asm_struct->data.skippedLine ? asm_struct->data.row = 0 : 1;
-////			TODO when multiple lines & last empty line got spaces
-//			e__read_file(asm_struct, 1);
-//		}
-//		if (!check_line(&tline, asm_struct))
-//			return (0);
-//		ft_strdel(&tline);
-//	}
-//	return (1);
-//}
-
-/*
- * Function to get champ's name or description or create new label's node.
- * Read flow must be like in printf project with recursion!!!!!!!!!!!!11111
- */
-//int		check_line(char **line, t_asm *asm_struct)
-//{
-//	char	*label_name;
-//	t_label	*new_label;
-//
-//	if (!asm_struct->header.name[0] && !get_substr_index(*line, NAME_CMD_STRING))
-//	{
-//		get_champs_name(*line + 5, asm_struct);
-//		return (1);
-//	}
-//	else if (!asm_struct->header.description[0] && !get_substr_index(*line, COMMENT_CMD_STRING))
-//	{
-//		get_champs_description(*line + 8, asm_struct);
-//		return (1);
-//	}
-//	if ((label_name = get_label_name(line)))
-//		if ((new_label = new_label_node(label_name)))
-//			push_label_front(&(asm_struct->labels), new_label);
-//	return check_for_command(line, asm_struct, 0);
-//}
-
-//int 	check_for_command(char **line, t_asm *asm_struct, int start)
-//{
-//	char	*tline;
-//	t_com	*new_command;
-//	char	*command_name;
-//
-//	tline = get_trimmed_line(line, asm_struct);
-//	if ((command_name = get_command_name(&tline)))
-//	{
-//		if ((new_command = check_command(command_name)))
-//			push_command_front(&(asm_struct->commands), new_command);
-//		ft_strdel(&command_name);
-//		ft_strdel(line);
-//		ft_strdel(&tline);
-//	}
-//	return (1);
-//}
-

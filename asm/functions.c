@@ -26,27 +26,6 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	return (tline ? tline : NULL);
 }
 
-//int		is_skipable(char **line, t_asm *asm_struct)
-//{
-//	if (**line == 0 || **line == '#')
-//	{
-//		asm_struct->data.skippedLine = 1;
-//		ft_strdel(line);
-//		return (1);
-//	}
-//	return (0);
-//}
-
-int		is_comment(char **tline)
-{
-	if (**tline == COMMENT_CHAR || **tline == ALT_COMMENT_CHAR)
-	{
-		ft_strdel(tline);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 int		get_substr_index(const char *big, const char *little)
 {
 	int		i;
@@ -94,73 +73,30 @@ char	*convert_int_to_hex(int num)
 	return (result);
 }
 
-// modify to work with line labels as well as with arg labels
-char	*get_label_name(char **tline)
+void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 {
-	int 	i;
-	char	*label_name;
+	char	*name;
+	t_com	*command;
 
-	i = 0;
-	label_name = NULL;
-	while(ft_strchr(LABEL_CHARS, (*tline)[i++]))
+	name = ft_strsub(tline, (unsigned int)start, end - start);
+//	if (ERROR_MODE || !asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+//	{
+//		ft_printf("Syntax error at token: %s\n", name);
+//		exit(-1);
+//	}
+	if (name)
 	{
-		if ((*tline)[i] == LABEL_CHAR)
+		if ((command = check_command(name)))
+			asm_struct->command = command;
+		else
 		{
-			label_name = ft_strsub(*tline, 0, i);
-			if (!label_name)
-				perror(ALLOCATION_ERROR);
-			*tline = cut_some_piece(*tline, ++i);
+			ft_printf("Lexical error: %s\n", name);
 		}
-	}
-	return (label_name);
-}
-
-char	*cut_some_piece(char *line, unsigned int start)
-{
-	char	*temp;
-
-	temp = ft_strsub(line, start, ft_strlen(line) - start);
-	if (!temp)
-		perror(ALLOCATION_ERROR);
-	ft_strdel(&line);
-	return (temp);
-}
-
-// add check for created label name
-t_label	*new_label_node(char *label_name)
-{
-	t_label	*new_label;
-
-	if ((new_label = ft_memalloc(sizeof(t_label))))
-	{
-		new_label->name = label_name;
-//		new_label->index = index;
+		ft_strdel(&name);
 	}
 	else
 		perror(ALLOCATION_ERROR);
-	return (new_label);
-}
 
-
-
-char	*get_command_name(char **tline)
-{
-	int 	i;
-	char 	*command_name;
-
-	i = 0;
-	command_name = NULL;
-	while (ft_islower((*tline)[i++]))
-	{
-		if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
-		{
-			command_name = ft_strsub(*tline, 0, i);
-			if (!command_name)
-				perror(ALLOCATION_ERROR);
-			*tline = cut_some_piece(*tline, ++i);
-		}
-	}
-	return (command_name);
 }
 
 void	push_command_front(t_com **commands, t_com *command)
@@ -180,7 +116,7 @@ size_t	check_label(char *tline, size_t end, int check_label_char)
 	size_t	start;
 
 	start = end;
-	while (ft_strchr(LABEL_CHARS, tline[end]))
+	while (includes(LABEL_CHARS, tline[end]))
 		end++;
 	if (start == end || (check_label_char && tline[end] != LABEL_CHAR))
 		return (FALSE);
@@ -193,13 +129,12 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_label	*label;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
-	label = ft_memalloc(sizeof(t_label));
-	// no name or no comment or open command
-//	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+//	if (ERROR_MODE || !asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
 //	{
 //		ft_printf("Syntax error at token: %s\n", name);
 //		exit(-1);
 //	}
+	label = ft_memalloc(sizeof(t_label));
 	if (name && label)
 	{
 		label->name = name;
@@ -240,6 +175,18 @@ int		check_register(char *tline, size_t i)
 	return (FALSE);
 }
 
+int		includes(const char *str, char c)
+{
+	if (!c || !str || !(*str))
+		return (FALSE);
+	while (*str)
+	{
+		if (*str == c)
+			return (TRUE);
+		str++;
+	}
+	return (FALSE);
+}
 
 
 

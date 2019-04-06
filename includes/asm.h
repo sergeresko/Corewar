@@ -25,6 +25,7 @@
 #define TRUE 1
 #define FALSE 0
 # define BYTE 8
+# define ERROR_MODE FALSE
 # define HEX_HEADER 4384
 
 
@@ -54,6 +55,7 @@ typedef struct		s_data
 typedef struct		s_com
 {
 	char			code;
+	char 			is_codage;
 	char			codage;
 	int				label_size;
 	struct s_com	*next;
@@ -95,12 +97,13 @@ char	*convert_int_to_hex(int num);
 
 char	*make_header_string(t_header *header);
 
-int 	check_for_command(char **line, t_asm *asm_struct, int start);
 
 void	clean_labels_list(t_label **labels);
 
 char	*get_trimmed_line(char **line,t_asm *asm_struct);
 
+
+int		includes(const char *str, char c);
 
 /*
  * Set champ's name and description
@@ -117,14 +120,8 @@ t_com	*make_command_struct(char code, char codage, int label_size);
 /*
  * Functions
  */
-char	*get_label_name(char **tline);
-char	*get_command_name(char **tline);
-char	*cut_some_piece(char *line, unsigned int start);
-t_label	*new_label_node(char *label_name);
 void	push_label_front(t_label **labels, t_label *label);
 void	push_command_front(t_com **commands, t_com *command);
-
-int		is_comment(char **tline);
 
 void	read_file(int fd, t_asm *asm_struct);
 void	read_line(char **tline, t_asm *asm_struct);
@@ -134,7 +131,8 @@ size_t	read_direct(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_indirect(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_string(char **tline, size_t i, t_asm *asm_struct);
 void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct);
-size_t	check_label(char *tline, size_t i, int check_label_char);
+void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct);
+size_t	check_label(char *tline, size_t end, int check_label_char);
 int		check_register(char *tline, size_t i);
 
 #endif
