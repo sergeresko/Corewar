@@ -141,16 +141,7 @@ t_label	*new_label_node(char *label_name)
 	return (new_label);
 }
 
-void	push_label_front(t_label **labels, t_label *label)
-{
-	if (!labels)		// handle error
-		ft_printf("Labels list == 'NULL'\n");
-	if (labels)
-	{
-		label->next = *labels;
-		*labels = label;
-	}
-}
+
 
 char	*get_command_name(char **tline)
 {
@@ -194,6 +185,40 @@ size_t	check_label(char *tline, size_t end, int check_label_char)
 	if (start == end || (check_label_char && tline[end] != LABEL_CHAR))
 		return (FALSE);
 	return (end);
+}
+
+void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
+{
+	char	*name;
+	t_label	*label;
+
+	name = ft_strsub(tline, (unsigned int)start, end - start);
+	label = ft_memalloc(sizeof(t_label));
+	// no name or no comment or open command
+//	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+//	{
+//		ft_printf("Syntax error at token: %s\n", name);
+//		exit(-1);
+//	}
+	if (name && label)
+	{
+		label->name = name;
+//		label->index = index;
+		push_label_front(&(asm_struct->labels), label);
+	}
+	else
+		perror(ALLOCATION_ERROR);
+}
+
+void	push_label_front(t_label **labels, t_label *label)
+{
+	if (!labels)		// handle error
+		ft_printf("Labels list == 'NULL'\n");
+	if (labels)
+	{
+		label->next = *labels;
+		*labels = label;
+	}
 }
 
 int		check_register(char *tline, size_t i)

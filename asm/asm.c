@@ -175,10 +175,15 @@ size_t	read_string(char **tline, size_t i, t_asm *asm_struct)
 
 	if ((j = check_label(*tline, i, TRUE)))
 	{
-//		read_label(*tline, i, j);
+		read_label(*tline, i, j, asm_struct);
 		return (++j);
 	}
 	return ft_strlen(*tline);
+	j = i;
+	while (ft_islower((*tline)[j]))
+		j++;
+//	read_command(*tline, i, j, asm_struct);
+	return (j);
 }
 
 
