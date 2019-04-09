@@ -79,11 +79,11 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_com	*command;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
-//	if (ERROR_MODE || !asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
-//	{
-//		ft_printf("Syntax error at token: %s\n", name);
-//		exit(-1);
-//	}
+	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+	{
+		ft_printf("Syntax error at token: %s\n", name);
+		exit(-1);
+	}
 	if (name)
 	{
 		if ((command = check_command(name)))
@@ -129,11 +129,11 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_label	*label;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
-//	if (ERROR_MODE || !asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
-//	{
-//		ft_printf("Syntax error at token: %s\n", name);
-//		exit(-1);
-//	}
+	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+	{
+		ft_printf("Syntax error at token: %s\n", name);
+		exit(-1);
+	}
 	label = ft_memalloc(sizeof(t_label));
 	if (name && label)
 	{
@@ -188,6 +188,13 @@ int		includes(const char *str, char c)
 	return (FALSE);
 }
 
+void	check_command_line(t_asm *asm_struct)
+{
+	ft_printf("Check command line!\n");
+	t_com	*new_command = ft_memalloc(sizeof(t_com));
+	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
+	ft_memdel((void **)(&(asm_struct->command)));
+}
 
 
 

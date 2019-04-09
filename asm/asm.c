@@ -12,6 +12,36 @@
 
 #include "asm.h"
 
+/*
+ * Test output function. Delete on production!
+ */
+void	test_output(t_asm *asm_struct)
+{
+	if (!asm_struct) return;
+	ft_printf("----> TEST OUTPUT!\n");
+
+//	if (asm_struct->header.name[0])
+//		ft_printf("Name: %s\n", asm_struct->header.name);
+//	if (asm_struct->header.description[0])
+//		ft_printf("Description: %s\n", asm_struct->header.description);
+
+	t_label *l_temp = asm_struct->labels;
+	while (l_temp)
+	{
+		ft_printf("%s ", l_temp->name);
+		l_temp = l_temp->next;
+	}
+	ft_printf("\n");
+	t_com *c_temp = asm_struct->commands;
+	while (c_temp)
+	{
+		ft_printf("%#x ", c_temp->code);
+		c_temp = c_temp->next;
+	}
+	ft_printf("\n");
+	ft_printf("<-----------------\n");
+}
+
 int 	main(int argc, char *argv[])
 {
 	int		fd;
@@ -34,44 +64,21 @@ int 	main(int argc, char *argv[])
 }
 
 /*
- * Test output function. Delete on production!
- */
-void	test_output(t_asm *asm_struct)
-{
-	if (!asm_struct) return;
-	ft_printf("----> TEST OUTPUT!\n");
-
-	if (asm_struct->header.name[0])
-		ft_printf("Name: %s\n", asm_struct->header.name);
-	if (asm_struct->header.description[0])
-		ft_printf("Description: %s\n", asm_struct->header.description);
-
-	t_label *l_temp = asm_struct->labels;
-	while (l_temp)
-	{
-		ft_printf("%s ", l_temp->name);
-		l_temp = l_temp->next;
-	}
-//	ft_printf("\n");
-//	t_com *c_temp = asm_struct->commands;
-//	while (c_temp)
-//	{
-//		ft_printf("%#x ", c_temp->code);
-//		c_temp = c_temp->next;
-//	}
-	ft_printf("\n");
-	ft_printf("<-----------------\n");
-}
-
-/*
  * General function for all file reading/creating actions.
  */
 void	 file_processing(int fd, const char *argv)
 {
 	t_asm *asm_struct;
-
 	if (!asm_init(&asm_struct, argv))
 		return ;
+	/*
+	 * Test data!
+	 */
+	make_hex_name(asm_struct->header.name, "Test");
+	make_hex_description(asm_struct->header.description, "Test");
+	/*                           */
+
+
 	read_file(fd, asm_struct);
 
 	test_output(asm_struct);
@@ -101,11 +108,11 @@ void	read_file(int fd, t_asm *asm_struct)
 		if (!tline[0])
 			ft_strdel(&tline);
 		else
-			read_line(&tline, asm_struct);
+			read_line_1(&tline, asm_struct);
 	}
 }
 
-void	read_line(char **tline, t_asm *asm_struct)
+void	read_line_1(char **tline, t_asm *asm_struct)
 {
 	size_t	i;
 
@@ -124,16 +131,23 @@ void	read_line(char **tline, t_asm *asm_struct)
 			i = read_register(tline, i, asm_struct);
 		else if (ft_strchr(LABEL_CHARS, (*tline)[i]))
 			i = read_string(tline, i, asm_struct);
-		else if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
-			i++;
 		else
-		{
-			ft_printf("Lexical error -> exit(-1)\n");
-			break ;
-		}
+			i = read_line_2(tline, i, asm_struct);
 	}
-	// function to check is asm_struct->command, check and push it into commands, calc index, remove.
+	if (asm_struct->command)
+		check_command_line(asm_struct);
 	ft_strdel(tline);
+}
+
+size_t	read_line_2(char **tline, size_t i, t_asm *asm_struct)
+{
+	if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
+		return ++i;
+	else
+	{
+		ft_printf("Lexical error -> exit(-1)\n");
+		return (ft_strlen(*tline));
+	}
 }
 
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
@@ -182,6 +196,5 @@ size_t	read_string(char **tline, size_t i, t_asm *asm_struct)
 	while (includes(LABEL_CHARS, (*tline)[j]))
 		j++;
 	read_command(*tline, i, j, asm_struct);
-	ft_memdel((void **)&(asm_struct->command));
 	return (j);
 }

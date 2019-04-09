@@ -26,7 +26,6 @@
 #define TRUE 1
 #define FALSE 0
 # define BYTE 8
-# define ERROR_MODE FALSE
 # define HEX_HEADER 4384
 
 
@@ -118,7 +117,7 @@ void	make_hex_description(char *hex_description, char *description);
 t_com	*check_command(char *command);
 t_com	*check_command_2(char *command);
 t_com	*make_command_struct(char code, char codage, int label_size);
-
+void	check_command_line(t_asm *asm_struct);
 /*
  * Functions
  */
@@ -126,7 +125,8 @@ void	push_label_front(t_label **labels, t_label *label);
 void	push_command_front(t_com **commands, t_com *command);
 
 void	read_file(int fd, t_asm *asm_struct);
-void	read_line(char **tline, t_asm *asm_struct);
+void	read_line_1(char **tline, t_asm *asm_struct);
+size_t 	read_line_2(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_register(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_direct(char **tline, size_t i, t_asm *asm_struct);
