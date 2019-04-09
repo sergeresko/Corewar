@@ -18,6 +18,7 @@
 
 # include "op.h"
 # include "errors.h"
+# include "arguments.h"
 # include "../libft/includes/libft.h"
 
 # define MAX_COUNTER 4294967295
@@ -57,6 +58,9 @@ typedef struct		s_com
 	char			code;
 	char 			is_codage;
 	char			codage;
+	t_arg_type		arg_0_type;
+	t_arg_type		arg_1_type;
+	t_arg_type		arg_2_type;
 	int				label_size;
 	struct s_com	*next;
 }					t_com;
@@ -76,10 +80,8 @@ typedef struct		s_asm
 int		asm_init(t_asm **asm_struct, const char *argv);
 char	*get_filename(const char *argv);
 void	file_processing(int fd, const char *argv);
-int		check_line(char **line, t_asm *asm_struct);
 
 int		get_substr_index(const char *big, const char *little);
-int		is_skipable(char **line, t_asm *asm_struct);
 void	clean_asm_struct(t_asm **asm_struct);
 void	clean_commands_list(t_com **commands);
 
