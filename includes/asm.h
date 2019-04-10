@@ -55,11 +55,11 @@ typedef struct		s_data
 typedef struct		s_com
 {
 	char			code;
+	char 			*name;
 	char 			is_codage;
 	char			codage;
-	t_arg_type		arg_0_type;
-	t_arg_type		arg_1_type;
-	t_arg_type		arg_2_type;
+	t_arg_type		arg_types[3];
+	size_t			arguments[3];
 	int				label_size;
 	struct s_com	*next;
 }					t_com;
@@ -116,7 +116,7 @@ void	make_hex_description(char *hex_description, char *description);
 
 t_com	*check_command(char *command);
 t_com	*check_command_2(char *command);
-t_com	*make_command_struct(char code, char codage, int label_size);
+t_com	*make_command_struct(char *name, char code, char codage, int label_size);
 void	check_command_line(t_asm *asm_struct);
 /*
  * Functions
@@ -128,13 +128,20 @@ void	read_file(int fd, t_asm *asm_struct);
 void	read_line_1(char **tline, t_asm *asm_struct);
 size_t 	read_line_2(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
-size_t	read_register(char **tline, size_t i, t_asm *asm_struct);
+size_t	read_register(char **tline, size_t i, t_com *command);
 size_t	read_direct(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_indirect(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_string(char **tline, size_t i, t_asm *asm_struct);
 void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct);
 void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct);
 size_t	check_label(char *tline, size_t end, int check_label_char);
-int		check_register(char *tline, size_t i);
+int 	is_register(char *tline, size_t i);
+size_t	check_register(char *tline, size_t i);
+
+int 	get_argument_number(t_com *command);
+int 	check_argument_1(char *command, int arg_num, t_arg_type arg_type);
+int 	check_argument_2(char *command, int arg_num, t_arg_type arg_type);
+int 	is_argument_possible(const t_arg_type arg_types[], t_arg_type arg_type);
+void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, size_t argument);
 
 #endif

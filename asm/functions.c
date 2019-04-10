@@ -81,7 +81,7 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	name = ft_strsub(tline, (unsigned int)start, end - start);
 	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
 	{
-		ft_printf("Syntax error at token: %s\n", name);
+		ft_printf("Syntax error, command %s\n", name);
 		exit(-1);
 	}
 	if (name)
@@ -92,7 +92,6 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 		{
 			ft_printf("Lexical error: %s\n", name);
 		}
-		ft_strdel(&name);
 	}
 	else
 		perror(ALLOCATION_ERROR);
@@ -131,7 +130,7 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	name = ft_strsub(tline, (unsigned int)start, end - start);
 	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
 	{
-		ft_printf("Syntax error at token: %s\n", name);
+		ft_printf("Syntax error, label %s\n", name);
 		exit(-1);
 	}
 	label = ft_memalloc(sizeof(t_label));
@@ -156,21 +155,13 @@ void	push_label_front(t_label **labels, t_label *label)
 	}
 }
 
-int		check_register(char *tline, size_t i)
+int 	is_register(char *tline, size_t i)
 {
-	int		two;
-
-	two = 2;
-	while (two > 0)
+	if (ft_isdigit(tline[++i]))
 	{
-		if (ft_isdigit(tline[++i]))
-		{
-			if (tline[i + 1] == ' ' || tline[i + 1] == '\t' || tline[i + 1] == '\n' || tline[i + 1] == SEPARATOR_CHAR || tline[i + 1] == '\0')
-				return (ft_atoi(&tline[i + (two - 2)]) < REG_NUMBER ? TRUE : FALSE);
-			two--;
-			continue ;
-		}
-		break ;
+		i += !ft_isdigit(tline[i + 1]) ? 1 : 2;
+		if (tline[i] == ' ' || tline[i] == '\t' || tline[i] == '\n' || tline[i] == '\0' || tline[i] == SEPARATOR_CHAR)
+			return (TRUE);
 	}
 	return (FALSE);
 }
@@ -194,6 +185,17 @@ void	check_command_line(t_asm *asm_struct)
 	t_com	*new_command = ft_memalloc(sizeof(t_com));
 	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
 	ft_memdel((void **)(&(asm_struct->command)));
+}
+
+void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, size_t argument)
+{
+	command->arg_types[arg_num] = arg_type;
+	if (arg_type == T_REG)
+		command->arguments[arg_num] = (unsigned char)argument;
+	else if (arg_type == T_DIR)
+		command->arguments[arg_num] = (unsigned short)argument;
+	else
+		command->arguments[arg_num] = argument;
 }
 
 

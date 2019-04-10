@@ -35,7 +35,11 @@ void	test_output(t_asm *asm_struct)
 	t_com *c_temp = asm_struct->commands;
 	while (c_temp)
 	{
-		ft_printf("%#x ", c_temp->code);
+		ft_printf("%s -> ", c_temp->name);
+		ft_printf("[\n");
+		for (int i = 0; i < 3; i++)
+			ft_printf("  [ %d = %u ]\n", c_temp->arg_types[i], c_temp->arguments[i]);
+		ft_printf("]\n");
 		c_temp = c_temp->next;
 	}
 	ft_printf("\n");
@@ -127,8 +131,8 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 			i = read_direct(tline, i, asm_struct);
 		else if ((*tline)[i] == LABEL_CHAR)
 			i = read_indirect(tline, i, asm_struct);
-		else if ((*tline)[i] == 'r' && check_register(*tline, i))
-			i = read_register(tline, i, asm_struct);
+		else if ((*tline)[i] == 'r' && is_register(*tline, i))
+			i = read_register(tline, i, asm_struct->command);
 		else if (ft_strchr(LABEL_CHARS, (*tline)[i]))
 			i = read_string(tline, i, asm_struct);
 		else
@@ -165,10 +169,37 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 	return ft_strlen(*tline);
 }
 
-size_t	read_register(char **tline, size_t i, t_asm *asm_struct)
+size_t	read_register(char **tline, size_t i, t_com *command)
 {
-	ft_printf("%s\n", &((*tline)[i]));
-	return ft_strlen(*tline);
+	int 	reg;
+	int 	checked;
+	int		arg_num;
+
+	reg = ft_atoi(&((*tline)[++i]));
+	if (!command)
+	{
+		ft_printf("Syntax error, register \"%s\"\n", ft_strjoin("r", ft_itoa(reg)));
+		exit(-1);
+	}
+	if ((arg_num = get_argument_number(command)) == -1)
+	{
+		ft_printf("Argument number - %d\n", arg_num);
+		exit(-1);
+	}
+	if ((checked = check_argument_1(command->name, arg_num, T_REG)) == -1)
+	{
+		ft_printf("Syntax error, register \"%s\"\n", ft_strjoin("r", ft_itoa(reg)));
+		exit(-1);
+	}
+	if (!checked)
+	{
+		ft_printf("Invalid parameter %d type register for instruction %s\n", arg_num, command->name);
+		exit(-1);
+	}
+	write_argument(command, arg_num, T_REG, (size_t)reg);
+	while (ft_isdigit((*tline)[i]))
+		i++;
+	return (i);
 }
 
 size_t	read_direct(char **tline, size_t i, t_asm *asm_struct)
