@@ -195,7 +195,24 @@ void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, size_t arg
 	else if (arg_type == T_DIR)
 		command->arguments[arg_num] = (unsigned short)argument;
 	else
-		command->arguments[arg_num] = argument;
+		command->arguments[arg_num] = (unsigned int)argument;
+}
+
+size_t 	check_proper_ending(const char *line, size_t i)
+{
+	while (line[i])
+	{
+		if (line[i] == ' ' || line[i] == '\t')
+			++i;
+		else if (line[i] == SEPARATOR_CHAR || line[i] == '\n')
+			return (++i);
+		else
+		{
+			g_error_mode = TRUE;
+			return (i);
+		}
+	}
+	return (i);
 }
 
 
