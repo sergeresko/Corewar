@@ -183,7 +183,7 @@ void	check_command_line(t_asm *asm_struct)
 {
 	if (asm_struct->command->is_codage)
 		asm_struct->command->codage = make_codage(asm_struct->command);
-	g_index = command_length(asm_struct->command);
+	g_index += command_length(asm_struct->command);
 	t_com	*new_command = ft_memalloc(sizeof(t_com));
 	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
 	ft_memdel((void **)(&(asm_struct->command)));
@@ -204,6 +204,7 @@ char	make_codage(t_com *command)
 			result = result | (char)DIR_CODE;
 		else if (command->arg_types[count] == T_IND)
 			result = result | (char)IND_CODE;
+		ft_printf("- - -> %s", byte_in_bits(result));
 		result <<= 2;
 		count++;
 	}
