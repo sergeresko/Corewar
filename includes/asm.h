@@ -131,20 +131,22 @@ void	read_line_1(char **tline, t_asm *asm_struct);
 size_t 	read_line_2(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_register(char **tline, size_t i, t_com *command);
-size_t	read_direct(char **tline, size_t i, t_asm *asm_struct);
-size_t	read_indirect(char **tline, size_t i, t_com *command);
-size_t	read_indirect_label(char **tline, size_t i, t_com *command);
+int		read_direct(char **tline, int i, t_com *command);
+int		read_direct_label(char **tline, int i, t_com *command);
+int		read_indirect(char **tline, int i, t_com *command);
+int		read_indirect_label(char **tline, int i, t_com *command);
 size_t	read_string(char **tline, size_t i, t_asm *asm_struct);
 void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct);
 void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct);
-size_t	check_label(char *tline, size_t end, int check_label_char);
+int		check_label(char *tline, int end, int check_label_char);
 int 	is_register(char *tline, size_t i);
 
 int 	get_argument_number(t_com *command);
 int 	check_argument_1(char *command, int arg_num, t_arg_type arg_type);
 int 	check_argument_2(char *command, int arg_num, t_arg_type arg_type);
 int 	is_argument_possible(const t_arg_type arg_types[], t_arg_type arg_type);
-void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, size_t argument);
+void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argument);
+void	write_label_argument(t_com *command, int arg_num, t_arg_type arg_type, char **label);
 
-size_t 	check_proper_ending(const char *line, size_t i);
+int 	check_proper_ending(const char *line, int i);
 #endif

@@ -90,17 +90,23 @@ void	clean_commands_list(t_com **commands)
 		if ((*commands)->next)
 			clean_commands_list(&((*commands)->next));
 		ft_strdel(&((*commands)->name));
+		if ((*commands)->arg_labels[0])
+			ft_strdel(&((*commands)->arg_labels[0]));
+		if ((*commands)->arg_labels[1])
+			ft_strdel(&((*commands)->arg_labels[1]));
+		if ((*commands)->arg_labels[2])
+			ft_strdel(&((*commands)->arg_labels[2]));
 		ft_memdel((void **)commands);
 	}
 }
 
 int 	get_argument_number(t_com *command)
 {
-	if (!command->arguments[0])
+	if (!command->arg_types[0])
 		return (0);
-	if (!command->arguments[1])
+	if (!command->arg_types[1])
 		return (1);
-	if (!command->arguments[2])
+	if (!command->arg_types[2])
 		return (2);
 	return (-1);
 }

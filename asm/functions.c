@@ -110,9 +110,9 @@ void	push_command_front(t_com **commands, t_com *command)
 }
 
 
-size_t	check_label(char *tline, size_t end, int check_label_char)
+int		check_label(char *tline, int end, int check_label_char)
 {
-	size_t	start;
+	int		start;
 
 	start = end;
 	while (includes(LABEL_CHARS, tline[end]))
@@ -187,18 +187,24 @@ void	check_command_line(t_asm *asm_struct)
 	ft_memdel((void **)(&(asm_struct->command)));
 }
 
-void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, size_t argument)
+void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argument)
 {
 	command->arg_types[arg_num] = arg_type;
 	if (arg_type == T_REG)
-		command->arguments[arg_num] = (unsigned char)argument;
+		command->arguments[arg_num] = (char)argument;
 	else if (arg_type == T_DIR)
-		command->arguments[arg_num] = (unsigned short)argument;
+		command->arguments[arg_num] = (short)argument;
 	else
-		command->arguments[arg_num] = (unsigned int)argument;
+		command->arguments[arg_num] = argument;
 }
 
-size_t 	check_proper_ending(const char *line, size_t i)
+void	write_label_argument(t_com *command, int arg_num, t_arg_type arg_type, char **label)
+{
+	command->arg_types[arg_num] = arg_type;
+	command->arg_labels[arg_num] = *label;
+}
+
+int 	check_proper_ending(const char *line, int i)
 {
 	while (line[i])
 	{
