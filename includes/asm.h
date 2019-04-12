@@ -28,6 +28,7 @@
 # define BYTE 8
 # define HEX_HEADER 4384
 
+extern int g_index;
 extern int g_error_mode;
 
 typedef struct		s_header
@@ -149,6 +150,7 @@ void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argume
 void	write_label_argument(t_com *command, int arg_num, t_arg_type arg_type, char **label);
 
 char	make_codage(t_com *command);
+int 	command_length(t_com *command);
 char	*byte_in_bits(char c);
 int 	check_proper_ending(const char *line, int i);
 #endif

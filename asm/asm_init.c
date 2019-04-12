@@ -12,6 +12,7 @@
 
 #include "asm.h"
 
+int g_index = 0;
 int g_error_mode = FALSE;
 const t_arg_type LIVE[3][3] = {{T_DIR, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 const t_arg_type LD[3][3] = {{T_DIR, T_IND, 0}, {T_REG, 0, 0}, {0, 0, 0}};

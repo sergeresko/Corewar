@@ -31,7 +31,8 @@ void	test_output(t_asm *asm_struct)
 	ft_printf("Labels list: ");
 	while (l_temp)
 	{
-		ft_printf("%s", l_temp->name);
+		ft_printf("%s - %d", l_temp->name, l_temp->index);
+
 		l_temp = l_temp->next;
 		if (l_temp)
 			ft_printf(", ");

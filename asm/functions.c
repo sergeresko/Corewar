@@ -137,7 +137,7 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	if (name && label)
 	{
 		label->name = name;
-//		label->index = index;
+		label->index = g_index;
 		push_label_front(&(asm_struct->labels), label);
 	}
 	else
@@ -183,6 +183,7 @@ void	check_command_line(t_asm *asm_struct)
 {
 	if (asm_struct->command->is_codage)
 		asm_struct->command->codage = make_codage(asm_struct->command);
+	g_index = command_length(asm_struct->command);
 	t_com	*new_command = ft_memalloc(sizeof(t_com));
 	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
 	ft_memdel((void **)(&(asm_struct->command)));
@@ -226,6 +227,28 @@ char	*byte_in_bits(char c)
 		return (result);
 	}
 	return (NULL);
+}
+
+int 	command_length(t_com *command)
+{
+	int 	count;
+	int 	result;
+
+	count = 0;
+	result = 1;
+	while (count < 3)
+	{
+		if (command->arg_types[count] == T_REG)
+			result += T_REG;
+		else if (command->arg_types[count] == T_DIR)
+			result += command->label_size == T_DIR ? T_DIR : T_IND;
+		else if (command->arg_types[count] == T_IND)
+			result += T_IND;
+		count++;
+	}
+	if (command->is_codage)
+		result += 1;
+	return (result);
 }
 
 void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argument)
