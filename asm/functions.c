@@ -181,10 +181,51 @@ int		includes(const char *str, char c)
 
 void	check_command_line(t_asm *asm_struct)
 {
-	ft_printf("Check command line!\n");
+	if (asm_struct->command->is_codage)
+		asm_struct->command->codage = make_codage(asm_struct->command);
 	t_com	*new_command = ft_memalloc(sizeof(t_com));
 	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
 	ft_memdel((void **)(&(asm_struct->command)));
+}
+
+char	make_codage(t_com *command)
+{
+	int 	count;
+	char	result;
+
+	count = 0;
+	result = 0;
+	while (count < 3)
+	{
+		if (command->arg_types[count] == T_REG)
+			result = result | (char)REG_CODE;
+		else if (command->arg_types[count] == T_DIR)
+			result = result | (char)DIR_CODE;
+		else if (command->arg_types[count] == T_IND)
+			result = result | (char)IND_CODE;
+		result <<= 2;
+		count++;
+	}
+	return (result);
+}
+
+char	*byte_in_bits(char c)
+{
+	int 	i;
+	char	*result;
+
+	if ((result = ft_strnew(sizeof(char) * 8)))
+	{
+		ft_memset(result, '0', 8);
+		i = 8;
+		while (i > 0)
+		{
+			result[--i] = c % 2 + '0';
+			c /= 2;
+		}
+		return (result);
+	}
+	return (NULL);
 }
 
 void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argument)

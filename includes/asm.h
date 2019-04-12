@@ -148,5 +148,7 @@ int 	is_argument_possible(const t_arg_type arg_types[], t_arg_type arg_type);
 void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argument);
 void	write_label_argument(t_com *command, int arg_num, t_arg_type arg_type, char **label);
 
+char	make_codage(t_com *command);
+char	*byte_in_bits(char c);
 int 	check_proper_ending(const char *line, int i);
 #endif

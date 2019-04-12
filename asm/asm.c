@@ -18,7 +18,7 @@
 void	test_output(t_asm *asm_struct)
 {
 	if (!asm_struct) return;
-	ft_printf("----> TEST OUTPUT!\n");
+	ft_printf("TEST OUTPUT!\n");
 	ft_printf("- - - - - - - - - - - - -\n");
 
 //	if (asm_struct->header.name[0])
@@ -50,6 +50,12 @@ void	test_output(t_asm *asm_struct)
 		{
 			ft_printf("  Arg_%d: \n", i);
 			ft_printf("    type: %d, label: %s, itself: %d;\n", c_temp->arg_types[i], c_temp->arg_labels[i], c_temp->arguments[i]);
+		}
+		if (c_temp->is_codage)
+		{
+			char *temp = byte_in_bits(c_temp->codage);
+			ft_printf("  Codage: %s\n", temp);
+			ft_strdel(&temp);
 		}
 		ft_printf("]\n");
 		c_temp = c_temp->next;
