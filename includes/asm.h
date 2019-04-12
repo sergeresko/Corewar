@@ -49,7 +49,6 @@ typedef struct		s_data
 {
 	int				line;
 	int				row;
-	int				command_counter;
 	int				errorCase;
 	int				skippedLine;
 }					t_data;
@@ -75,7 +74,6 @@ typedef struct		s_asm
 	t_com			*commands;
 	t_data			data;
 	char 			*filename;
-	unsigned int	counter;
 
 }					t_asm;
 

@@ -204,8 +204,7 @@ char	make_codage(t_com *command)
 			result = result | (char)DIR_CODE;
 		else if (command->arg_types[count] == T_IND)
 			result = result | (char)IND_CODE;
-		ft_printf("- - -> %s", byte_in_bits(result));
-		result <<= 2;
+		result = result << 2;
 		count++;
 	}
 	return (result);
@@ -218,7 +217,6 @@ char	*byte_in_bits(char c)
 
 	if ((result = ft_strnew(sizeof(char) * 8)))
 	{
-		ft_memset(result, '0', 8);
 		i = 8;
 		while (i > 0)
 		{
