@@ -81,6 +81,26 @@ void	clean_commands_list(t_com **commands)
 	}
 }
 
+void	clean_command(t_com **command)
+{
+	t_com	*temp;
+
+	if (command && *command)
+	{
+		temp = *command;
+		if (temp->next)
+			return ;
+		ft_strdel(&(temp->name));
+		if (temp->arg_labels[0])
+			ft_strdel(&(temp->arg_labels[0]));
+		if (temp->arg_labels[1])
+			ft_strdel(&(temp->arg_labels[1]));
+		if (temp->arg_labels[2])
+			ft_strdel(&(temp->arg_labels[2]));
+		ft_memdel((void **)command);
+	}
+}
+
 
 
 

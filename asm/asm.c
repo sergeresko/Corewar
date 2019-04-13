@@ -27,6 +27,7 @@ void	test_output(t_asm *asm_struct)
 //		ft_printf("Description: %s\n", asm_struct->header.description);
 
 	ft_printf("Size of the champion: %d\n", g_index);
+
 	// Labels output
 	t_label *l_temp = asm_struct->labels;
 	ft_printf("Labels list: ");
@@ -91,7 +92,9 @@ int 	main(int argc, char *argv[])
  */
 void	 file_processing(int fd, const char *argv)
 {
+	char	*champion;
 	t_asm *asm_struct;
+
 	if (!asm_init(&asm_struct, argv))
 		return ;
 	/*
@@ -103,8 +106,12 @@ void	 file_processing(int fd, const char *argv)
 
 
 	read_file(fd, asm_struct);
+	close(fd);
+	champion = cook_champion(asm_struct);
+	ft_printf("Champion itself: %s\n", champion);
+	ft_strdel(&champion);
 
-	test_output(asm_struct);
+//	test_output(asm_struct);
 	output_to_file(asm_struct);
 	clean_asm_struct(&asm_struct);
 }

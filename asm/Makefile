@@ -21,6 +21,8 @@ OBJ = asm.o \
     make_file_output.o \
     make_name_and_description.o \
     check_command.o \
+    helpers.o \
+    check_argument.o
 
 FLAGS = -Wall -Wextra -Werror
 

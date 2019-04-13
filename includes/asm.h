@@ -51,6 +51,7 @@ typedef struct		s_com
 {
 	char			code;
 	char 			*name;
+	int 			length;
 	char 			is_codage;
 	char			codage;
 	t_arg_type		arg_types[3];
@@ -145,4 +146,13 @@ char	make_codage(t_com *command);
 int 	command_length(t_com *command);
 char	*byte_in_bits(char c);
 int 	check_proper_ending(const char *line, int i);
+
+char	*cook_champion(t_asm *asm_struct);
+void	cook_command(t_com *command, int i, char **champion);
+int		cook_argument(t_com *command, int arg_num, int index, char **champion);
+char	*byte_in_hex(char c);
+char	*short_in_hex(short s);
+char	*integer_in_hex(int num);
+void	clean_command(t_com **command);
+
 #endif
