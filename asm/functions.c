@@ -130,17 +130,6 @@ void	push_label_front(t_label **labels, t_label *label)
 	}
 }
 
-int 	is_register(char *tline, size_t i)
-{
-	if (ft_isdigit(tline[++i]))
-	{
-		i += !ft_isdigit(tline[i + 1]) ? 1 : 2;
-		if (tline[i] == ' ' || tline[i] == '\t' || tline[i] == '\n' || tline[i] == '\0' || tline[i] == SEPARATOR_CHAR)
-			return (TRUE);
-	}
-	return (FALSE);
-}
-
 int		includes(const char *str, char c)
 {
 	if (!c || !str || !(*str))
