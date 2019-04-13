@@ -21,12 +21,9 @@
 # include "globals.h"
 # include "../libft/includes/libft.h"
 
-# define MAX_COUNTER 4294967295
-
 #define TRUE 1
 #define FALSE 0
 # define BYTE 8
-# define HEX_HEADER 4384
 
 typedef struct		s_header
 {

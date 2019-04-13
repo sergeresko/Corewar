@@ -15,6 +15,31 @@
 #define LABEL_SIZE_2 2
 #define LABEL_SIZE_4 4
 
+void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
+{
+	char	*name;
+	t_com	*command;
+
+	name = ft_strsub(tline, (unsigned int)start, end - start);
+	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+	{
+		ft_printf("Syntax error, command %s\n", name);
+		exit(-1);
+	}
+	if (name)
+	{
+		if ((command = check_command(name)))
+			asm_struct->command = command;
+		else
+		{
+			ft_printf("Lexical error: %s\n", name);
+		}
+	}
+	else
+		perror(ALLOCATION_ERROR);
+
+}
+
 t_com	*check_command(char *command)
 {
 	if (ft_strequ("live", command))

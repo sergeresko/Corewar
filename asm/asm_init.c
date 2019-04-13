@@ -24,7 +24,6 @@ int		asm_init(t_asm **asm_struct, const char *argv)
 		clean_asm_struct(asm_struct);
 		return (0);
 	}
-//	(*asm_struct)->counter = MAX_COUNTER;
 	return (1);
 }
 
