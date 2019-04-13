@@ -26,30 +26,6 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	return (tline ? tline : NULL);
 }
 
-int		get_substr_index(const char *big, const char *little)
-{
-	int		i;
-	int 	j;
-	int 	k;
-
-	i = 0;
-	if (!(*little))
-		return (0);
-	while (big[i])
-	{
-		j = 0;
-		k = i;
-		while (big[i] && little[j] && big[i] == little[j])
-		{
-			if (!little[++j])
-				return (k);
-			i++;
-		}
-		i = ++k;
-	}
-	return (-1);
-}
-
 char	*convert_int_to_hex(int num)
 {
 	int		num_len;
@@ -130,19 +106,6 @@ void	push_label_front(t_label **labels, t_label *label)
 	}
 }
 
-int		includes(const char *str, char c)
-{
-	if (!c || !str || !(*str))
-		return (FALSE);
-	while (*str)
-	{
-		if (*str == c)
-			return (TRUE);
-		str++;
-	}
-	return (FALSE);
-}
-
 void	check_command_line(t_asm *asm_struct)
 {
 	if (asm_struct->command->is_codage)
@@ -174,23 +137,7 @@ char	make_codage(t_com *command)
 	return (result);
 }
 
-char	*byte_in_bits(char c)
-{
-	int 	i;
-	char	*result;
 
-	if ((result = ft_strnew(sizeof(char) * 8)))
-	{
-		i = 8;
-		while (i > 0)
-		{
-			result[--i] = c % 2 + '0';
-			c /= 2;
-		}
-		return (result);
-	}
-	return (NULL);
-}
 
 int 	command_length(t_com *command)
 {
