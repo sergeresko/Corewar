@@ -13,7 +13,7 @@
 
 NAME = asm
 
-OBJ = asm.o asm_init.o error_functions.o functions.o make_file_output.o make_name_and_description.o commands_list.o
+OBJ = asm.o asm_init.o error_functions.o functions.o make_file_output.o make_name_and_description.o commands_list.o globals.o
 
 FLAGS = -Wall -Wextra -Werror
 

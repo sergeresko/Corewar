@@ -26,6 +26,7 @@ void	test_output(t_asm *asm_struct)
 //	if (asm_struct->header.description[0])
 //		ft_printf("Description: %s\n", asm_struct->header.description);
 
+	ft_printf("Size of the champion: %d\n", g_index);
 	// Labels output
 	t_label *l_temp = asm_struct->labels;
 	ft_printf("Labels list: ");

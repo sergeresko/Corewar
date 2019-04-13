@@ -42,7 +42,7 @@ t_com	*check_command(char *command)
 t_com	*check_command_2(char *command)
 {
 	if (ft_strequ("ldi", command))
-		return (make_command_struct(command, 10, FALSE, LABEL_SIZE_2));
+		return (make_command_struct(command, 10, TRUE, LABEL_SIZE_2));
 	if (ft_strequ("sti", command))
 		return (make_command_struct(command, 11, TRUE, LABEL_SIZE_2));
 	if (ft_strequ("fork", command))

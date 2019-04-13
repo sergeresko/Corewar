@@ -18,7 +18,7 @@
 
 # include "op.h"
 # include "errors.h"
-# include "arguments.h"
+# include "globals.h"
 # include "../libft/includes/libft.h"
 
 # define MAX_COUNTER 4294967295
@@ -27,9 +27,6 @@
 #define FALSE 0
 # define BYTE 8
 # define HEX_HEADER 4384
-
-extern int g_index;
-extern int g_error_mode;
 
 typedef struct		s_header
 {

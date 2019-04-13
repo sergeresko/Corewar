@@ -238,11 +238,11 @@ int 	command_length(t_com *command)
 	while (count < 3)
 	{
 		if (command->arg_types[count] == T_REG)
-			result += T_REG;
+			result += 1;
 		else if (command->arg_types[count] == T_DIR)
-			result += command->label_size == T_DIR ? T_DIR : T_IND;
+			result += command->label_size;
 		else if (command->arg_types[count] == T_IND)
-			result += T_IND;
+			result += 2;
 		count++;
 	}
 	if (command->is_codage)
