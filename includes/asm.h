@@ -68,6 +68,7 @@ typedef struct		s_asm
 	t_com			*command;
 	t_com			*commands;
 	t_data			data;
+	char 			*champion;
 	char 			*filename;
 
 }					t_asm;
@@ -147,9 +148,11 @@ int 	command_length(t_com *command);
 char	*byte_in_bits(char c);
 int 	check_proper_ending(const char *line, int i);
 
-char	*cook_champion(t_asm *asm_struct);
-void	cook_command(t_com *command, int i, char **champion);
-int		cook_argument(t_com *command, int arg_num, int index, char **champion);
+void	cook_champion(t_asm *asm_struct);
+void	cook_command(t_com *command, int i, t_asm *asm_struct);
+int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct);
+int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_struct);
+int 	get_label_index(t_label *labels, char *label_name);
 char	*byte_in_hex(char c);
 char	*short_in_hex(short s);
 char	*integer_in_hex(int num);

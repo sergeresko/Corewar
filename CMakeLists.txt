@@ -9,6 +9,8 @@ include_directories(libft/includes)
 add_executable(asm
         includes/asm.h
         includes/op.h
+        includes/errors.h
+        includes/globals.h
         asm/asm.c
         asm/asm_init.c
         asm/functions.c
@@ -16,6 +18,10 @@ add_executable(asm
         asm/make_file_output.c
         asm/make_name_and_description.c
         asm/check_command.c
+        asm/check_argument.c
+        asm/globals.c
+        asm/helpers.c
+
 
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c

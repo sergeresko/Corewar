@@ -92,7 +92,6 @@ int 	main(int argc, char *argv[])
  */
 void	 file_processing(int fd, const char *argv)
 {
-	char	*champion;
 	t_asm *asm_struct;
 
 	if (!asm_init(&asm_struct, argv))
@@ -107,9 +106,9 @@ void	 file_processing(int fd, const char *argv)
 
 	read_file(fd, asm_struct);
 	close(fd);
-	champion = cook_champion(asm_struct);
-	ft_printf("Champion itself: %s\n", champion);
-	ft_strdel(&champion);
+	cook_champion(asm_struct);
+	ft_printf("Champion itself: %s\n", asm_struct->champion);
+	ft_strdel(&(asm_struct->champion));
 
 //	test_output(asm_struct);
 	output_to_file(asm_struct);
