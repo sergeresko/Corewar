@@ -52,6 +52,7 @@ typedef struct		s_com
 	char			code;
 	char 			*name;
 	int 			length;
+	int 			index;
 	char 			is_codage;
 	char			codage;
 	t_arg_type		arg_types[3];
@@ -153,9 +154,10 @@ void	cook_command(t_com *command, int i, t_asm *asm_struct);
 int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct);
 int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_struct);
 int 	get_label_index(t_label *labels, char *label_name);
-char	*byte_in_hex(char c);
-char	*short_in_hex(short s);
-char	*integer_in_hex(int num);
+char	*byte_in_hex(unsigned char c);
+char	*short_in_hex(unsigned short s);
+char	*integer_in_hex(unsigned int num);
+char	*get_revert_integer(t_com *command, int delta);
 void	clean_command(t_com **command);
 
 #endif

@@ -111,6 +111,7 @@ void	check_command_line(t_asm *asm_struct)
 	if (asm_struct->command->is_codage)
 		asm_struct->command->codage = make_codage(asm_struct->command);
 	asm_struct->command->length = command_length(asm_struct->command);
+	asm_struct->command->index = g_index;
 	g_index += asm_struct->command->length;
 	t_com	*new_command = ft_memalloc(sizeof(t_com));
 	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
@@ -214,33 +215,34 @@ void	cook_champion(t_asm *asm_struct)
 void	cook_command(t_com *command, int i, t_asm *asm_struct)
 {
 	char	*temp;
-	char	**champion;
 	int 	current_index;
 
-	champion = &(asm_struct->champion);
 	if (command->next)
 		cook_command(command->next, i + command->length, asm_struct);
 	current_index = (g_index - i - command->length) * 2;
-	temp = byte_in_hex(command->code);
+	temp = byte_in_hex((unsigned char)command->code);
 	ft_strncpy(&(asm_struct->champion[current_index]), temp, 2);
 	current_index += 2;
 	ft_strdel(&temp);
-	temp = byte_in_hex(command->codage);
-	ft_strncpy(&(asm_struct->champion[current_index]), temp, 2);
-	current_index += 2;
-	ft_strdel(&temp);
+	if (command->is_codage)
+	{
+		temp = byte_in_hex((unsigned char)command->codage);
+		ft_strncpy(&(asm_struct->champion[current_index]), temp, 2);
+		current_index += 2;
+		ft_strdel(&temp);
+	}
 	if (command->arg_types[0])
-		current_index = command->arguments[0]
+		current_index = !command->arg_labels[0]
 			? cook_argument(command, 0, current_index, asm_struct)
 			: cook_label_argument(command, 0, current_index, asm_struct);
 	if (command->arg_types[1])
-		current_index = command->arguments[1]
-						? cook_argument(command, 1, current_index, asm_struct)
-						: cook_label_argument(command, 1, current_index, asm_struct);
+		current_index = !command->arg_labels[1]
+			? cook_argument(command, 1, current_index, asm_struct)
+			: cook_label_argument(command, 1, current_index, asm_struct);
 	if (command->arg_types[2])
-		current_index = command->arguments[2]
-						? cook_argument(command, 2, current_index, asm_struct)
-						: cook_label_argument(command, 2, current_index, asm_struct);
+		!command->arg_labels[2]
+			? cook_argument(command, 2, current_index, asm_struct)
+			: cook_label_argument(command, 2, current_index, asm_struct);
 }
 
 int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct)
@@ -249,22 +251,22 @@ int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct)
 
 	if (command->arg_types[arg_num] == T_REG)
 	{
-		temp = byte_in_hex((char)command->arguments[arg_num]);
+		temp = byte_in_hex((unsigned char)command->arguments[arg_num]);
 		ft_strncpy(&(asm_struct->champion[index]), temp, 2);
 		index += 2;
 	}
 	else if (command->arg_types[arg_num] == T_DIR)
 	{
 		if (command->label_size == 2)
-			short_in_hex((short)command->arguments[arg_num]);
+			temp = short_in_hex((unsigned short)command->arguments[arg_num]);
 		else
-			integer_in_hex(command->arguments[arg_num]);
-		ft_strncpy(&(asm_struct->champion[index]), temp, command->label_size == 2 ? 2 : 4);
-		index += command->label_size == 2 ? 2 : 4;
+			temp = integer_in_hex(command->arguments[arg_num]);
+		ft_strncpy(&(asm_struct->champion[index]), temp, command->label_size == 2 ? 4 : 8);
+		index += command->label_size == 2 ? 4 : 8;
 	}
 	else if (command->arg_types[arg_num] == T_IND)
 	{
-		temp = short_in_hex((short)command->arguments[arg_num]);
+		temp = short_in_hex((unsigned short)command->arguments[arg_num]);
 		ft_strncpy(&(asm_struct->champion[index]), temp, 4);
 		index += 4;
 	}
@@ -274,13 +276,25 @@ int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct)
 
 int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_struct)
 {
+	char	*temp;
+	int 	delta;
 	int 	label_index;
 
 	if ((label_index = get_label_index(asm_struct->labels, command->arg_labels[arg_num])) != -1)
 	{
 		if (command->arg_types[arg_num] == T_DIR)
 		{
-			ft_printf("Direct %s label index = %d\n", command->arg_labels[arg_num], label_index);
+			ft_printf("Direct %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
+			if ((delta = label_index - command->index) >= 0)
+				temp = command->label_size == 2
+					? short_in_hex(delta)
+					: integer_in_hex(delta);
+			else
+				temp = get_revert_integer(command, -delta);
+			ft_strncpy(&(asm_struct->champion[index]), temp, command->label_size == 2 ? 4 : 8);
+			index += command->label_size == 2 ? 4 : 8;
+			ft_strdel(&temp);
+			return index;
 		}
 		else if (command->arg_types[arg_num] == T_IND)
 		{
@@ -288,12 +302,23 @@ int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_stru
 		}
 		return (index + 1 + (int)ft_strlen(command->arg_labels[arg_num]));
 	}
-	ft_printf("No such label %s while attempting to dereference token %s \"%c%s\"",
+	ft_printf("No such label %s while attempting to dereference token %s \"%c%s\"\n",
 			command->arg_labels[arg_num],
 			command->arg_types[arg_num] == T_DIR ? "DIRECT_LABEL" : "INDIRECT_LABEL",
 			command->arg_types[arg_num] == T_DIR ? '%' : ':', command->arg_labels[arg_num]);
 	exit(-1);
 }
+
+char	*get_revert_integer(t_com *command, int delta)
+{
+	unsigned int 	revert_delta;
+
+	revert_delta = ~delta + 1;
+	return command->label_size == 2
+		? short_in_hex(revert_delta)
+		: integer_in_hex(revert_delta);
+}
+
 
 int 	get_label_index(t_label *labels, char *label_name)
 {
@@ -309,7 +334,7 @@ int 	get_label_index(t_label *labels, char *label_name)
 	return (-1);
 }
 
-char	*byte_in_hex(char c)
+char	*byte_in_hex(unsigned char c)
 {
 	int 	i;
 	int 	j;
@@ -330,7 +355,7 @@ char	*byte_in_hex(char c)
 	exit(-1);
 }
 
-char	*short_in_hex(short s)
+char	*short_in_hex(unsigned short s)
 {
 	int 	i;
 	int 	j;
@@ -351,7 +376,7 @@ char	*short_in_hex(short s)
 	exit(-1);
 }
 
-char	*integer_in_hex(int num)
+char	*integer_in_hex(unsigned int num)
 {
 	int 	i;
 	int 	j;
