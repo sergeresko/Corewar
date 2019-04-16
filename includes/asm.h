@@ -157,7 +157,7 @@ int 	get_label_index(t_label *labels, char *label_name);
 char	*byte_in_hex(unsigned char c);
 char	*short_in_hex(unsigned short s);
 char	*integer_in_hex(unsigned int num);
-char	*get_revert_integer(t_com *command, int delta);
+char	*get_revert_integer(t_com *command, int arg_num, int delta);
 void	clean_command(t_com **command);
 
 #endif

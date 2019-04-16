@@ -24,7 +24,7 @@ void	output_to_file(t_asm *champ)
 	file_fd = open(filename, O_TRUNC | O_CREAT | O_WRONLY | O_APPEND, 0744);
 	head_str = make_header_string(&(champ->header));
 	body_str = "";
-	champion = ft_strjoin(head_str, body_str);
+	champion = ft_strjoin(head_str, champ->champion);
 	format_file_output(file_fd, champion);
 	ft_printf("Writing output program to %s\n", filename);
 	ft_strdel(&head_str);

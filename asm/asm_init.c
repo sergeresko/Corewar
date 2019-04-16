@@ -50,6 +50,8 @@ void	clean_asm_struct(t_asm **asm_struct)
 		clean_labels_list(&((*asm_struct)->labels));
 	if ((*asm_struct)->commands)
 		clean_commands_list(&((*asm_struct)->commands));
+	if ((*asm_struct)->champion)
+		ft_strdel(&(*asm_struct)->champion);
 	ft_memdel((void **)asm_struct);
 }
 

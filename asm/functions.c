@@ -290,7 +290,7 @@ int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_stru
 					? short_in_hex(delta)
 					: integer_in_hex(delta);
 			else
-				temp = get_revert_integer(command, -delta);
+				temp = get_revert_integer(command, arg_num, -delta);
 			ft_strncpy(&(asm_struct->champion[index]), temp, command->label_size == 2 ? 4 : 8);
 			index += command->label_size == 2 ? 4 : 8;
 			ft_strdel(&temp);
@@ -298,7 +298,15 @@ int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_stru
 		}
 		else if (command->arg_types[arg_num] == T_IND)
 		{
-			ft_printf("Indirect %s label index = %d\n", command->arg_labels[arg_num], label_index);
+			ft_printf("Indirect %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
+			if ((delta = label_index - command->index) >= 0)
+				temp = short_in_hex(delta);
+			else
+				temp = get_revert_integer(command, arg_num, -delta);
+			ft_strncpy(&(asm_struct->champion[index]), temp, 4);
+			index += 4;
+			ft_strdel(&temp);
+			return index;
 		}
 		return (index + 1 + (int)ft_strlen(command->arg_labels[arg_num]));
 	}
@@ -309,11 +317,13 @@ int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_stru
 	exit(-1);
 }
 
-char	*get_revert_integer(t_com *command, int delta)
+char	*get_revert_integer(t_com *command, int arg_num, int delta)
 {
 	unsigned int 	revert_delta;
 
 	revert_delta = ~delta + 1;
+	if (command->arg_types[arg_num] == T_IND)
+		return short_in_hex(revert_delta);
 	return command->label_size == 2
 		? short_in_hex(revert_delta)
 		: integer_in_hex(revert_delta);
