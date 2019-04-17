@@ -15,7 +15,7 @@ NAME = asm
 
 OBJ = asm.o \
     globals.o \
-    asm_init.o \
+    asm_init_and_file_output.o \
     error_functions.o \
     functions.o \
     make_file_output.o \

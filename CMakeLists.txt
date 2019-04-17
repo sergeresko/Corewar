@@ -12,10 +12,9 @@ add_executable(asm
         includes/errors.h
         includes/globals.h
         asm/asm.c
-        asm/asm_init.c
+        asm/asm_init_and_file_output.c
         asm/functions.c
         asm/error_functions.c
-        asm/make_file_output.c
         asm/make_name_and_description.c
         asm/check_command.c
         asm/check_argument.c
