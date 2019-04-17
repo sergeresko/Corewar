@@ -18,6 +18,11 @@
 int g_index = 0;
 
 /*
+ * Dumping annotated mode
+ */
+int g_dump_mode = FALSE;
+
+/*
  * Global error mode for reading
  */
 int g_error_mode = FALSE;

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define STDOUT "Process has to be printed to STDOUT but this functional doesn't ready yet :("
-# define NO_ARGS_ERROR "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
+# define USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
 # define READ_FILE_ERROR "Cannot read file"
 # define TRIM_LINE_ERROR "Cannot allocate memory while trimming a line"
 # define ALLOCATION_ERROR "Cannot allocate memory"

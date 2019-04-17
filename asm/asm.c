@@ -75,13 +75,12 @@ int 	main(int argc, char *argv[])
 		if ((fd = open(argv[argc - 1], O_RDONLY)) < 0)
 			e__open_file(argv[argc - 1]);
 		if (argc == 3 && ft_strequ(argv[1], "-a"))
-			ft_putendl(STDOUT);
-		else
-			file_processing(fd, argv[argc - 1]);
+			g_dump_mode(TRUE);
+		file_processing(fd, argv[argc - 1]);
 		close(fd);
 	}
 	else
-		e__no_args();
+		e__args_amount();
 
 	system("leaks asm");
 	return (0);
@@ -105,7 +104,6 @@ void	 file_processing(int fd, const char *argv)
 
 
 	read_file(fd, asm_struct);
-	close(fd);
 	cook_champion(asm_struct);
 //	ft_printf("Champion itself: %s\n", asm_struct->champion);
 

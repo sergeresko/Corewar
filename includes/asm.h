@@ -85,7 +85,7 @@ void	clean_commands_list(t_com **commands);
 /*
  * Errors functions
  */
-void	e__no_args(void);
+void	e__args_amount(void);
 void	e__open_file(const char *name);
 void	e__read_file(t_asm *asm_struct, int errorCase);
 

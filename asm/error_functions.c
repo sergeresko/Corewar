@@ -12,9 +12,9 @@
 
 #include "asm.h"
 
-void	e__no_args(void)
+void	e__args_amount(void)
 {
-	ft_putendl(NO_ARGS_ERROR);
+	ft_putendl(USAGE);
 	exit(-1);
 }
 
