@@ -22,7 +22,9 @@ OBJ = asm.o \
     make_name_and_description.o \
     check_command.o \
     helpers.o \
-    check_argument.o
+    check_argument.o \
+    cleaning.o \
+    hex_converters.o
 
 FLAGS = -Wall -Wextra -Werror
 

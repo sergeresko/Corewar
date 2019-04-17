@@ -21,7 +21,8 @@ add_executable(asm
         asm/check_argument.c
         asm/globals.c
         asm/helpers.c
-
+        asm/cleaning.c
+        asm/hex_converters.c
 
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c

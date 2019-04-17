@@ -103,8 +103,13 @@ void	 file_processing(int fd, const char *argv)
 
 
 	read_file(fd, asm_struct);
-	cook_champion(asm_struct);
-	output_to_file(asm_struct);
+	if (!g_dump_mode)
+	{
+		cook_champion(asm_struct);
+		output_to_file(asm_struct);
+	}
+	else
+		ft_printf("Dumping annotated program on standard output\n");
 
 //	test_output(asm_struct);
 
