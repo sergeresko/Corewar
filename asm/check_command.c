@@ -36,7 +36,7 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 		}
 	}
 	else
-		perror(ALLOCATION_ERROR);
+		perror("");
 
 }
 

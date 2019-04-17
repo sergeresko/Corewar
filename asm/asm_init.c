@@ -15,10 +15,7 @@
 int		asm_init(t_asm **asm_struct, const char *argv)
 {
 	if (!(*asm_struct = ft_memalloc(sizeof(t_asm))))
-	{
-		perror(ALLOCATION_ERROR);
 		return (0);
-	}
 	if (!((*asm_struct)->filename = get_filename(argv)))
 	{
 		clean_asm_struct(asm_struct);

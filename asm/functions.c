@@ -92,7 +92,7 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 		push_label_front(&(asm_struct->labels), label);
 	}
 	else
-		perror(ALLOCATION_ERROR);
+		perror("");
 }
 
 void	push_label_front(t_label **labels, t_label *label)
@@ -209,7 +209,7 @@ void	cook_champion(t_asm *asm_struct)
 		cook_command(asm_struct->commands, i, asm_struct);
 	}
 	else
-		perror(ALLOCATION_ERROR);
+		perror("");
 }
 
 void	cook_command(t_com *command, int i, t_asm *asm_struct)

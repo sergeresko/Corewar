@@ -75,7 +75,7 @@ int 	main(int argc, char *argv[])
 		if ((fd = open(argv[argc - 1], O_RDONLY)) < 0)
 			e__open_file(argv[argc - 1]);
 		if (argc == 3 && ft_strequ(argv[1], "-a"))
-			g_dump_mode(TRUE);
+			g_dump_mode = TRUE;
 		file_processing(fd, argv[argc - 1]);
 		close(fd);
 	}
@@ -86,15 +86,14 @@ int 	main(int argc, char *argv[])
 	return (0);
 }
 
-/*
- * General function for all file reading/creating actions.
- */
 void	 file_processing(int fd, const char *argv)
 {
 	t_asm *asm_struct;
 
 	if (!asm_init(&asm_struct, argv))
-		return ;
+		e__asm_initialization();
+
+
 	/*
 	 * Test data!
 	 */
@@ -105,10 +104,10 @@ void	 file_processing(int fd, const char *argv)
 
 	read_file(fd, asm_struct);
 	cook_champion(asm_struct);
-//	ft_printf("Champion itself: %s\n", asm_struct->champion);
+	output_to_file(asm_struct);
 
 //	test_output(asm_struct);
-	output_to_file(asm_struct);
+
 	clean_asm_struct(&asm_struct);
 }
 
@@ -121,15 +120,9 @@ void	read_file(int fd, t_asm *asm_struct)
 	while ((r = get_next_line(fd, &line)))
 	{
 		if (r == -1)
-		{
-			perror(READ_FILE_ERROR);
-			exit(-1);
-		}
+			e__read_file();
 		if (!(tline = get_trimmed_line(&line, asm_struct)))
-		{
-			perror(TRIM_LINE_ERROR);
-			exit(-1);
-		}
+			e__trim_line(line);
 		ft_strdel(&line);
 		if (!tline[0])
 			ft_strdel(&tline);

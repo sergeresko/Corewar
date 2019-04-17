@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 # define USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
+# define INITIALIZATION_ERROR "Asm initialization failed"
+
+# define OPEN_FILE_ERROR "Cannot open file "
 # define READ_FILE_ERROR "Cannot read file"
-# define TRIM_LINE_ERROR "Cannot allocate memory while trimming a line"
-# define ALLOCATION_ERROR "Cannot allocate memory"
+# define TRIM_LINE_ERROR "Something went wrong while trimming a line: "

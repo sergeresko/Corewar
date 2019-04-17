@@ -18,21 +18,28 @@ void	e__args_amount(void)
 	exit(-1);
 }
 
-void	e__open_file(const char *name)
+void	e__asm_initialization(void)
 {
-	ft_printf("Can't read source file %s\n", name);
+	ft_putendl(INITIALIZATION_ERROR);
 	exit(-1);
 }
 
-void	e__read_file(t_asm *asm_struct, int errorCase)
+void	e__open_file(const char *name)
 {
-	switch (errorCase) {
-		case 1: ft_printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE\n",
-						  asm_struct->data.line, asm_struct->data.row + 1);
-			break;
-		default: ft_printf("Default\n", asm_struct->data.line,
-				asm_struct->data.row);
-	}
+	ft_putstr(OPEN_FILE_ERROR);
+	ft_printf("'%s'\n", name);
+	exit(-1);
+}
 
+void	e__read_file(void)
+{
+	ft_putendl(READ_FILE_ERROR);
+	exit(-1);
+}
+
+void	e__trim_line(const char *line)
+{
+	ft_putstr(TRIM_LINE_ERROR);
+	ft_printf("'%s'\n", line);
 	exit(-1);
 }

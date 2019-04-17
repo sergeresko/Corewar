@@ -23,7 +23,7 @@ extern int g_index;
 /*
  * Dumping annotated mode
  */
-int g_dump_mode = FALSE;
+int g_dump_mode;
 
 /*
  * Global error mode for reading
