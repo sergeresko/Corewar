@@ -33,7 +33,7 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 		j = 0;
 		while (i < ft_strlen(line) && line[i] != '"')
 			field[j++] = line[i++];
-		make_hex_name(asm_struct->header.name, field);
+		make_hex_name(asm_struct->header.hex_name, field);
 		ft_strdel(&field);
 	}
 	else if (line[i] == '\0')
@@ -82,7 +82,7 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 		j = 0;
 		while (i < ft_strlen(line) && line[i] != '"')
 			field[j++] = line[i++];
-		make_hex_description(asm_struct->header.description, field);
+		make_hex_description(asm_struct->header.hex_description, field);
 		ft_strdel(&field);
 	}
 	else if (line[i] == '\0')

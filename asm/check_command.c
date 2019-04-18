@@ -21,7 +21,7 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_com	*command;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
-	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+	if (!asm_struct->header.hex_name[0] || !asm_struct->header.hex_description[0] || asm_struct->command)
 	{
 		ft_printf("Syntax error, command %s\n", name);
 		exit(-1);

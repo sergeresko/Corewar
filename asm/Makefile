@@ -18,13 +18,13 @@ OBJ = asm.o \
     asm_init_and_file_output.o \
     error_functions.o \
     functions.o \
-    make_file_output.o \
     make_name_and_description.o \
     check_command.o \
     helpers.o \
     check_argument.o \
     cleaning.o \
-    hex_converters.o
+    hex_converters.o \
+    dump_output.o
 
 FLAGS = -Wall -Wextra -Werror
 
