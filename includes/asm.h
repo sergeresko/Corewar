@@ -168,8 +168,10 @@ char	*get_revert_integer(t_com *command, int arg_num, int delta);
 
 void	dump_output(t_asm *asm_struct);
 void	rush_through_commands(t_com *command, int index, t_asm *asm_struct);
+void	print_real_value(t_com *command);
+void	print_by_bytes(int arg, int bytes);
 void	print_in_length(int length, char **str);
 void	print_command_line(t_com *command, int index);
-void	print_additional_command_line(t_com *command, int line);
+void print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
 
 #endif
