@@ -10,11 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Toutes les tailles sont en octets.
-** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
-*/
-
 #define IND_SIZE				2
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
@@ -32,6 +27,8 @@
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 #define COMMENT_CHAR			'#'
+#define ALT_COMMENT_CHAR		';'
+
 #define LABEL_CHAR				':'
 #define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
@@ -60,17 +57,11 @@ typedef char	t_arg_type;
 #define T_LAB					8
 
 /*
-**
-*/
-
-# define PROG_NAME_LENGTH		(128)
-# define COMMENT_LENGTH			(2048)
+ * Champ's header
+ */
+# define HEX_HEADER 			4384
+# define NAME_LENGTH			128
+# define HEX_NAME_LENGTH 		256
+# define DESC_LENGTH			2048
+# define HEX_DESC_LENGTH 		4096
 # define COREWAR_EXEC_MAGIC		0xea83f3
-
-typedef struct		s_header
-{
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					t_header;

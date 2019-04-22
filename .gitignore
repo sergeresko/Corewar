@@ -1,6 +1,4 @@
-szverhov/*
 .DS_Store
 .idea/*
 cmake-build-debug/*
-makeAll
 CMakeLists.txt
