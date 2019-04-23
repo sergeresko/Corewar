@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <vlvereta@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:41:18 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/04/23 22:45:30 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void    e__args_amount(void)
     ft_putendl("    -n        : Ncurses output mode");
     ft_putendl("    --stealth : Hides the real contents of the memory");
     ft_putendl("################################################################################");
+    exit(-1);
 }
