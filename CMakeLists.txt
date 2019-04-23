@@ -107,5 +107,6 @@ add_executable(asm
 
 add_executable(corewar
         corewar/corewar.c
+        corewar/errors.c
 
         ${LIBFT})

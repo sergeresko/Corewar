@@ -13,6 +13,12 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
+# include "errors.h"
 # include "../libft/includes/libft.h"
+
+/*
+ * Errors management
+ */
+void    e__args_amount(void);
 
 #endif

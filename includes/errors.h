@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
-# define INITIALIZATION_ERROR "Asm initialization failed"
+# define ASM_USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
+# define ASM_INITIALIZATION_ERROR "Asm initialization failed"
+
+# define COR_USAGE "Usage: ./corewar [-d N -s N -v N | -b --stealth | -n --stealth] [-a] <champion1.cor> <...>\n    -a        : Prints output from \"aff\" (Default is to hide it)"
 
 # define OPEN_FILE_ERROR "Cannot open file "
 # define READ_FILE_ERROR "Cannot read file"

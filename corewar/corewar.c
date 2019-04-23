@@ -14,6 +14,8 @@
 
 int     main(int argc, char *argv[])
 {
+    if (argc == 1)
+        e__args_amount();
     ft_printf("Hello, World!\n");
     system("leaks corewar");
     return (0);
