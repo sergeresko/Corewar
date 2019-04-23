@@ -9,8 +9,6 @@ include_directories(libft/includes)
 add_executable(asm
         includes/asm.h
         includes/op.h
-        includes/errors.h
-        includes/globals.h
         asm/asm.c
         asm/asm_init_and_file_output.c
         asm/functions.c

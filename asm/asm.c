@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:41:18 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/04/18 22:39:36 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ void	read_file(int fd, t_asm *asm_struct)
 	while ((r = get_next_line(fd, &line)))
 	{
 		if (r == -1)
-			e__read_file();
+			e__read_file(asm_struct, 6);
+		if (r == 5)
+			return e__read_file(asm_struct, 5);
 		if (!(tline = get_trimmed_line(&line, asm_struct)))
 			e__trim_line(line);
 		ft_strdel(&line);
@@ -178,6 +180,7 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 {
 	if (get_substr_index(*tline, NAME_CMD_STRING) == i)
 	{
+		get_champs_name(*tline, asm_struct);
 		ft_printf("%s\n", &((*tline)[i]));
 	}
 	else if (get_substr_index(*tline, COMMENT_CMD_STRING) == i)

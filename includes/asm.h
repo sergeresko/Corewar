@@ -88,7 +88,7 @@ void	clean_commands_list(t_com **commands);
 void	e__args_amount(void);
 void	e__asm_initialization(void);
 void	e__open_file(const char *name);
-void	e__read_file(void);
+void	e__read_file(t_asm *asm_struct, int errorCase);
 void	e__trim_line(const char *line);
 
 
