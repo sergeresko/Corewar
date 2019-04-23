@@ -79,7 +79,7 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_label	*label;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
-	if (!asm_struct->header.name[0] || !asm_struct->header.description[0] || asm_struct->command)
+	if (!asm_struct->header.hex_name[0] || !asm_struct->header.hex_description[0] || asm_struct->command)
 	{
 		ft_printf("Syntax error, label \"%s:\"\n", name);
 		exit(-1);
@@ -342,6 +342,20 @@ int 	get_label_index(t_label *labels, char *label_name)
 		temp = temp->next;
 	}
 	return (-1);
+}
+
+char	*get_label_name(t_label *labels, int index)
+{
+	t_label	*temp;
+
+	temp = labels;
+	while (temp)
+	{
+		if (temp->index == index)
+			return temp->name;
+		temp = temp->next;
+	}
+	return (NULL);
 }
 
 

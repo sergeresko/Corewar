@@ -55,14 +55,14 @@ char	*make_header_string(t_header *header)
 		ft_strncpy(&(result[i]), magic, BYTE);
 		ft_strdel(&magic);
 		i += BYTE;
-		len = ft_strlen(header->name);
-		ft_strncpy(&(result[i]), header->name, len);
+		len = ft_strlen(header->hex_name);
+		ft_strncpy(&(result[i]), header->hex_name, len);
 		i += len + BYTE;
 		size = convert_int_to_hex(header->size);
 		ft_strncpy(&(result[i]), size, BYTE);
 		ft_strdel(&size);
 		i += BYTE;
-		ft_strncpy(&(result[i]), header->description, ft_strlen(header->description));
+		ft_strncpy(&(result[i]), header->hex_description, ft_strlen(header->hex_description));
 	}
 	return (result);
 }

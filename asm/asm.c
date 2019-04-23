@@ -97,8 +97,12 @@ void	 file_processing(int fd, const char *argv)
 	/*
 	 * Test data!
 	 */
-	make_hex_name(asm_struct->header.name, "Test");
-	make_hex_description(asm_struct->header.description, "Test");
+	char *name = "Jumper !";
+	char *description = "en fait C forker !";
+	ft_strncpy(asm_struct->header.name, name, ft_strlen(name));
+	ft_strncpy(asm_struct->header.description, description, ft_strlen(description));
+	make_hex_name(asm_struct->header.hex_name, "Jumper !");
+	make_hex_description(asm_struct->header.hex_description, "en fait C forker !");
 	/*                           */
 
 
@@ -109,7 +113,7 @@ void	 file_processing(int fd, const char *argv)
 		output_to_file(asm_struct);
 	}
 	else
-		ft_printf("Dumping annotated program on standard output\n");
+		dump_output(asm_struct);
 
 //	test_output(asm_struct);
 
@@ -185,7 +189,7 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 	}
 	else if (get_substr_index(*tline, COMMENT_CMD_STRING) == i)
 	{
-		ft_printf("%s\n", &((*tline)[i]));
+//		ft_printf("%s\n", &((*tline)[i]));
 	}
 	else
 		ft_printf("Lexical error -> exit(-1)\n");

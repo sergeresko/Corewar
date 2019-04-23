@@ -28,8 +28,10 @@
 typedef struct		s_header
 {
 	unsigned int	size;
-	char			name[HEX_NAME_LENGTH + 1];
-	char			description[HEX_DESC_LENGTH + 1];
+	char			name[NAME_LENGTH + 1];
+	char 			description[DESC_LENGTH + 1];
+	char			hex_name[HEX_NAME_LENGTH + 1];
+	char			hex_description[HEX_DESC_LENGTH + 1];
 }					t_header;
 
 typedef struct		s_label
@@ -53,8 +55,8 @@ typedef struct		s_com
 	char 			*name;
 	int 			length;
 	int 			index;
-	char 			is_codage;
-	char			codage;
+	int 			is_codage;
+	unsigned char	codage;
 	t_arg_type		arg_types[3];
 	int				arguments[3];
 	char 			*arg_labels[3];
@@ -157,10 +159,19 @@ void	cook_command(t_com *command, int i, t_asm *asm_struct);
 int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct);
 int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_struct);
 int 	get_label_index(t_label *labels, char *label_name);
+char	*get_label_name(t_label *labels, int index);
 char	*byte_in_hex(unsigned char c);
 char	*short_in_hex(unsigned short s);
 char	*integer_in_hex(unsigned int num);
 char	*get_revert_integer(t_com *command, int arg_num, int delta);
-void	clean_command(t_com **command);
+
+
+void	dump_output(t_asm *asm_struct);
+void	rush_through_commands(t_com *command, int index, t_asm *asm_struct);
+void	print_real_value(t_com *command);
+void	print_by_bytes(int arg, int bytes);
+void	print_in_length(int length, char **str);
+void	print_command_line(t_com *command, int index);
+void print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
 
 #endif
