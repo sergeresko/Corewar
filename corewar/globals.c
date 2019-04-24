@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 23:13:07 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/23 23:13:07 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:19:38 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 /*
  * Dumping annotated mode
  */
-int g_dump_mode = -1;
+int g_is_dump = FALSE;
+int g_dump_cycles = -1;

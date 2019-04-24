@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.h                                               :+:      :+:    :+:   */
+/*   errors.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,6 +9,9 @@
 /*   Updated: 2013/11/06 14:21:46 by zaz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef ERRORS_H
+# define ERRORS_H
 
 # define ASM_USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
 # define ASM_INITIALIZATION_ERROR "Asm initialization failed"
@@ -18,3 +21,7 @@
 # define OPEN_FILE_ERROR "Cannot open file "
 # define READ_FILE_ERROR "Cannot read file"
 # define TRIM_LINE_ERROR "Something went wrong while trimming a line: "
+
+void    e__args_amount(void);
+
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <vlvereta@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:41:18 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:59:12 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define COREWAR_H
 
 # include "errors.h"
+# include "globals.h"
 # include "../libft/includes/libft.h"
 
-/*
- * Errors management
- */
-void    e__args_amount(void);
+void    check_arguments(int amount, char **args);
 
 #endif

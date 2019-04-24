@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:14:19 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:20:56 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@
 # include "errors.h"
 # include "globals.h"
 # include "../libft/includes/libft.h"
-
-#define TRUE 1
-#define FALSE 0
-# define BYTE 8
 
 typedef struct		s_header
 {
@@ -87,7 +83,6 @@ void	clean_commands_list(t_com **commands);
 /*
  * Errors functions
  */
-void	e__args_amount(void);
 void	e__asm_initialization(void);
 void	e__open_file(const char *name);
 void	e__read_file(void);

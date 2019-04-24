@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/13 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:22:13 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,32 @@
 # define GLOBALS_H
 
 # include "asm.h"
+# include "corewar.h"
+
+# define TRUE 1
+# define FALSE 0
+# define BYTE 8
 
 /*
- * Current index and size of the champion
+ * Current index and size of the champion / asm
  */
 extern int g_index;
 
 /*
- * Dumping annotated mode
+ * Dumping annotated mode / asm
  */
 extern int g_dump_mode;
 
 /*
- * Global error mode for reading
+ * Global error mode for reading / asm
  */
 extern int g_error_mode;
+
+/*
+ * Is dump flag / corewar
+ */
+extern int g_is_dump;
+extern int g_dump_cycles;
 
 /*
  * Commands' arguments list
