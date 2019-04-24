@@ -6,7 +6,7 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/23 23:39:07 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/04/24 23:56:16 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void check_instruction(char *eline, t_asm *asm_struct, int i)
 {
-	printf("INSTRUCTION \"%s\"\n", eline);
+	printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
+			asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 
@@ -43,7 +44,8 @@ void check_colon(char *eline, t_asm *asm_struct, int i)
 	char *colon_line;
 	if (get_substr_index(eline, ":") == 0)
 	{
-		printf("INDIRECT_LABEL \"%s\"\n", eline);
+		printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT_LABEL \"%s\"\n",
+			   asm_struct->data.line, i + 1, eline);
 		exit(-1);
 	}
 	if (eline[0] == '%')
@@ -60,7 +62,8 @@ void check_colon(char *eline, t_asm *asm_struct, int i)
 		++j;
 	}
 	colon_line[j] = eline[j];
-	printf("LABEL \"%s\"\n", colon_line);
+	printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
+		   asm_struct->data.line, i + 1, colon_line);
 	exit(-1);//TODO check if colon in the begin or end
 }
 
@@ -87,13 +90,15 @@ void check_commands(char *eline, t_asm *asm_struct, int i)
 {
 	if (get_substr_index(eline, NAME_CMD_STRING) == 0)
 	{
-		printf("COMMAND_NAME .name[%d:%d]\n",asm_struct->data.line,i);
+		printf("Syntax error at token [TOKEN][%03d:%03d] COMMAND_NAME \".name\"\n",
+			   asm_struct->data.line, i + 1);
 		exit(-1);
 	}
 
 	if (get_substr_index(eline, COMMENT_CMD_STRING) == 0)
 	{
-		printf("COMMAND_NAME .command[%d:%d]\n",asm_struct->data.line,i);
+		printf("Syntax error at token [TOKEN][%03d:%03d] COMMAND_COMMENT \".comment\"\n",
+			   asm_struct->data.line, i + 1);
 		exit(-1);
 	}
 	check_lexical(eline, asm_struct, i);
@@ -162,7 +167,8 @@ void	get_error_code(char *line, t_asm *asm_struct, int i)
 
 	if (line[i] == 35)
 	{
-		printf("endline");
+		printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE \n",
+			   asm_struct->data.line, (int)(ft_strlen(line)) + 1);
 		exit(-1);
 	}
 	else if ((line[i] > 64 && line[i] < 91) || (line[i] > 96 && line[i] < 123) ||
@@ -173,8 +179,7 @@ void	get_error_code(char *line, t_asm *asm_struct, int i)
 		if ((line[i] > 47 && line[i] < 58) || line[i] == '-')
 			check_indirect(eline, asm_struct, i);
 
-		printf("INSTRUCTION \"%s\"", eline);
-		exit(-1);
+		check_instruction(eline, asm_struct, i);
 	}
 	else if (line[i] > 47 && line[i] < 58)
 	{
