@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/24 22:52:11 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/04/25 22:58:50 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ void    e__args_amount(void)
 //    ft_putendl("    --stealth : Hides the real contents of the memory");
 //    ft_putendl("################################################################################");
     exit(-1);
+}
+
+void	e__open_file(const char *name)
+{
+	ft_printf(OPEN_FILE_ERROR);
+	ft_printf("%s\n", name);
+	exit(-1);
+}
+
+void	exit_with_usage(void)
+{
+	ft_putendl(COR_USAGE);
+	exit(-1);
 }
