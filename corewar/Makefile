@@ -13,7 +13,6 @@
 NAME = corewar
 
 OBJ = corewar.o \
-	globals.o \
     errors.o
 
 FLAGS = -Wall -Wextra - Werror
