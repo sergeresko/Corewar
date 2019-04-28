@@ -6,10 +6,11 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/24 23:56:16 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/04/29 01:52:58 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include "asm.h"
 
 void check_instruction(char *eline, t_asm *asm_struct, int i)
@@ -64,7 +65,7 @@ void check_colon(char *eline, t_asm *asm_struct, int i)
 	colon_line[j] = eline[j];
 	printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
 		   asm_struct->data.line, i + 1, colon_line);
-	exit(-1);//TODO check if colon in the begin or end
+	exit(-1);
 }
 
 int		ft_nbr_lngth(long n)
@@ -104,19 +105,46 @@ void check_commands(char *eline, t_asm *asm_struct, int i)
 	check_lexical(eline, asm_struct, i);
 }
 
+bool check_for_letters(char *eline, t_asm *asm_struct, int i)
+{
+	int j;
+
+	j = 0;
+	while (j < ft_strlen(eline))
+	{
+		if (!(eline[j]> 47 && eline[j] < 58 ))
+			return (true);
+		++j;
+	}
+	return (false);
+}
+
+void check_for_symbols(char *eline, t_asm *asm_struct, int i)
+{
+	int j;
+
+	j = 0;
+	while (j < ft_strlen(eline))
+	{
+		if (!(eline[j]> 47 && eline[j] < 58 ) && !(eline[j] > 64 && eline[j] < 91 )
+		&& !(eline[j] > 96 && eline[j] < 123 ))
+			check_lexical(eline, asm_struct, i + j + 1);
+		++j;
+	}
+}
+
 void check_indirect(char *eline, t_asm *asm_struct, int i)
 {
 	if (eline[0] == '-' && !(eline[1] > 47 && eline[1] < 58))
 		check_lexical(eline, asm_struct, i);
 	if (eline[1] == ':')
 		check_direct_label(eline, asm_struct, i);
-	if ((eline[0] > 47 && eline[0] < 58) && eline[1] != '\0' && !(eline[1] > 47 && eline[1] < 58))
+	check_for_symbols(eline, asm_struct, i);
+	if (check_for_letters(eline, asm_struct, i))
 		check_instruction(eline, asm_struct, i);
-	long num_string = ft_atoi(eline);
-	printf("INDIRECT \"%s\"\n", eline);  //TODO check 000 & 000a
+	printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT \"%s\"\n",asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
-
 
 void check_direct(char *eline, t_asm *asm_struct, int i)
 {
