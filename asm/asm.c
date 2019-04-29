@@ -6,7 +6,7 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/18 22:39:36 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:13:56 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 		else if ((*tline)[i] == '.')
 			i = read_dot_instruction(tline, i, asm_struct);
 		else if ((*tline)[i] == DIRECT_CHAR)
-			i = read_direct(tline, i, asm_struct->command);
+			i = read_direct(tline, i, asm_struct->command, asm_struct);
 		else if ((*tline)[i] == LABEL_CHAR || ft_isdigit((*tline)[i]) || (*tline)[i] == '-')
 			i = read_indirect(tline, i, asm_struct->command);
 		else if ((*tline)[i] == 'r' && is_register(*tline, i))
@@ -192,7 +192,11 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 //		ft_printf("%s\n", &((*tline)[i]));
 	}
 	else
-		ft_printf("Lexical error -> exit(-1)\n");
+	{
+		ft_printf("Lexical error at [%d:%d]\n", asm_struct->data.line,
+		(int)get_substr_index(*tline, ".") + asm_struct->data.skipped_spaces);
+		exit(-1);
+	}
 	return ft_strlen(*tline);
 }
 
@@ -229,7 +233,7 @@ size_t	read_register(char **tline, size_t i, t_com *command)
 	return (check_proper_ending(*tline, i));
 }
 
-int	read_direct(char **tline, int i, t_com *command)
+int	read_direct(char **tline, int i, t_com *command, t_asm *asm_struct)
 {
 	int 	arg;
 	int 	arg_num;

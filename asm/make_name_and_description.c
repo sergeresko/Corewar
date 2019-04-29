@@ -6,7 +6,7 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/29 01:52:58 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:34:48 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ void check_register(char *eline, t_asm *asm_struct, int i)
 		++j;
 	else
 		check_instruction(eline, asm_struct, i);
-	printf("REGISTER \"%s\"\n", eline);
+	printf("Syntax error at token [TOKEN][%03d:%03d] REGISTER \"%s\"\n",
+		   asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 
 void check_direct_label(char *eline, t_asm *asm_struct, int i)
 {
-	printf("DIRECT_LABEL \"%s\"", eline);
+	printf("Syntax error at token [TOKEN][%03d:%03d] DIRECT_LABEL \"%s\"\n",
+		   asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 
@@ -83,7 +85,7 @@ int		ft_nbr_lngth(long n)
 
 void check_lexical(char *eline, t_asm *asm_struct, int i)
 {
-	printf("Lexical error at [%d:%d]\n",asm_struct->data.line,i);
+	printf("Lexical error at [%d:%d]\n",asm_struct->data.line, i + 1);
 	exit(-1);
 }
 
@@ -193,7 +195,7 @@ void	get_error_code(char *line, t_asm *asm_struct, int i)
 	if (get_substr_index(eline, ":") >= 0)
 		check_colon(eline, asm_struct, i);
 
-	if (line[i] == 35)
+	if (line[i] == 35 || line[i] == '\0')
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE \n",
 			   asm_struct->data.line, (int)(ft_strlen(line)) + 1);
@@ -216,17 +218,21 @@ void	get_error_code(char *line, t_asm *asm_struct, int i)
 	}
 	else if (line[i] == ',')
 	{
-		printf("SEPARATOR \"%c\"",line[i]);
-		exit(-1);
-	}
-	else if (line[i] == 33)
-	{
-		printf("lexical");
+		printf("Syntax error at token [TOKEN][%03d:%03d] SEPARATOR \",\" \n",
+			   asm_struct->data.line, i + 1);
 		exit(-1);
 	}
 	else if (line[i] == '.')
 	{
 		check_commands(eline, asm_struct, i);
+	}
+	else if (line[i] == '%')
+	{
+		check_direct(eline, asm_struct, i);
+	}
+	else
+	{
+		check_lexical(eline, asm_struct, i);
 	}
 }
 
@@ -261,9 +267,10 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 			get_error_code(line, asm_struct, i);
 		make_hex_name(asm_struct->header.hex_name, field);
 		ft_strdel(&field);
+		asm_struct->data.got_name = 1;
 	}
 	else
-		get_error_code(line, asm_struct, i); //TODO error management
+		get_error_code(line, asm_struct, i);
 	++i;
 	while (line[i] == ' ')
 		i++;

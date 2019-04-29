@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:14:19 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/04/29 23:49:23 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct		s_data
 	int				row;
 	int				errorCase;
 	int				skippedLine;
+	int				skipped_spaces;
+	int				got_name;
+	int				got_description;
 }					t_data;
 
 typedef struct		s_com
@@ -132,7 +135,7 @@ void	read_line_1(char **tline, t_asm *asm_struct);
 size_t 	read_line_2(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_register(char **tline, size_t i, t_com *command);
-int		read_direct(char **tline, int i, t_com *command);
+int		read_direct(char **tline, int i, t_com *command, t_asm *asm_struct);
 int		read_direct_label(char **tline, int i, t_com *command);
 int		read_indirect(char **tline, int i, t_com *command);
 int		read_indirect_label(char **tline, int i, t_com *command);
