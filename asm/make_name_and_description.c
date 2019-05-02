@@ -6,7 +6,7 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/30 00:34:48 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/03 00:52:58 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,12 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 	j = 0;
 	if (!(field = ft_strnew(DESC_LENGTH)))
 		return ;
+	if (line[i] == '.')
+		i++;
+	if (strncmp(".comment", line, 8) != 0)
+		printf("qweq"); //TODO go to error management
+	else
+		i = i + 7;
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == '"')
@@ -324,6 +330,7 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 			field[j++] = line[i++];
 		make_hex_description(asm_struct->header.hex_description, field);
 		ft_strdel(&field);
+		asm_struct->data.got_description = 1;
 	}
 	else if (line[i] == '\0')
 		asm_struct->data.errorCase = 1;

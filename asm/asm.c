@@ -189,7 +189,8 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 	}
 	else if (get_substr_index(*tline, COMMENT_CMD_STRING) == i)
 	{
-//		ft_printf("%s\n", &((*tline)[i]));
+		get_champs_description(*tline, asm_struct);
+		ft_printf("%s\n", &((*tline)[i]));
 	}
 	else
 	{
