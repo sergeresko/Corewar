@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/25 23:20:05 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/04 11:14:35 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int     main(int argc, char *argv[])
     if (argc == 1)
         e__args_amount();
     players = check_arguments(argc, argv);
+//    set_players_numbers(players, 0);
 
 	_test(players);
 	clean_players_list(&players);
@@ -50,13 +51,14 @@ t_player	*check_arguments(int amount, char **args)
     int         i;
     int 		cur_number;
     t_player    *players;
+	static int	players_amount = 0;
 
-    i = 1;
+	i = 1;
 
     players = NULL;
+	cur_number = -1;
     while (i < amount)
     {
-		cur_number = -1;
         if (ft_strequ(args[i], "-dump") && (i + 1) < amount)
         {
         	g_is_dump = TRUE;
@@ -71,63 +73,116 @@ t_player	*check_arguments(int amount, char **args)
 				exit_with_usage();
 		}
         else
-			create_new_player(&players, args[i], cur_number);
+        {
+			create_new_player(&players, args[i], &cur_number);
+			if (++players_amount > MAX_PLAYERS)
+			{
+				ft_putendl("Max players number exceeded!");
+				exit(-1);
+			}
+		}
         i++;
     }
+	set_players_numbers(players, players_amount);
     return (players);
 }
 
-void	create_new_player(t_player **players, const char *arg, int number)
+void	create_new_player(t_player **players, const char *arg, int *n)
 {
+	int 		number;
 	t_player	*new_player;
 
+	number = *n;
 	if (!(new_player = ft_memalloc(sizeof(t_player))))
 	{
-		perror("Creating new player!");
+		perror("Create new player");
 		exit(-1);
 	}
+	new_player->self = FALSE;
 	new_player->filename = arg;
-	new_player->number = check_player_number(players, number);
+	new_player->number = check_player_number(players, arg, MAX_PLAYERS, number);
 	if ((new_player->fd = open(new_player->filename, O_RDONLY)) == -1)
 		e__open_file(new_player->filename);
-	push_player_front(players, new_player);
+	push_player_back(players, new_player);
+	*n = -1;
 }
 
-void	push_player_front(t_player **players, t_player *player)
+void	push_player_back(t_player **players, t_player *player)
 {
+	t_player	*temp;
+
 	if (!players)		// handle error
 		ft_printf("Players list == NULL\n");
-	if (players)
+	if (players && *players)
 	{
-		player->next = *players;
-		*players = player;
+		temp = *players;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = player;
 	}
+	else
+		*players = player;
 }
 
-int		check_player_number(t_player **players, int number)
-{
-	t_player	*player;
+int check_player_number(t_player **players, const char *self_name, int max, int number) {
+	t_player *player;
 
-	if (number != -1 && number < MAX_PLAYERS)
+	if (number > max)
+	{
+		ft_printf("Player '%s' specifies number (%d) higher than players amount\n", self_name, number);
+		exit(-1);
+	}
+	if (number != -1 && number <= max)
 	{
 		if (players && *players)
 		{
 			player = *players;
 			while (player)
 			{
-				if (player->number == number)
-					return (-1);
+				if (!player->self && player->number == number)
+				{
+					ft_printf("Player '%s' specifies number (%d) which another player has already set\n", self_name, number);
+					exit(-1);
+				}
+				player->self = FALSE;
 				player = player->next;
 			}
-			return (number);
 		}
+		return (number);
 	}
 	return (-1);
 }
 
-int		set_player_number(t_player **players, int number)
+void	set_players_numbers(t_player *players, int amount)
 {
-	return (1);
+	int 		n;
+	int 		numbers[amount];
+	t_player	*temp;
+
+	ft_bzero(numbers, sizeof(int) * amount);
+	temp = players;
+	while (temp)
+	{
+		temp->self = TRUE;
+		if ((n = check_player_number(&players, temp->filename, amount, temp->number)) != -1)
+			numbers[n - 1] = 1;
+		temp = temp->next;
+	}
+	for (int i = 0; i < amount; i++)
+	{
+		ft_printf("Number: %d\n", numbers[i]);
+	}
+	n = -1;
+	while (players)
+	{
+		if (players->number == -1)
+		{
+			while (numbers[++n])
+				;
+			players->number = n + 1;
+		}
+		players = players->next;
+	}
 }
 
 void	clean_players_list(t_player **players)
