@@ -168,10 +168,6 @@ void	set_players_numbers(t_player *players, int amount)
 			numbers[n - 1] = 1;
 		temp = temp->next;
 	}
-	for (int i = 0; i < amount; i++)
-	{
-		ft_printf("Number: %d\n", numbers[i]);
-	}
 	n = -1;
 	while (players)
 	{
