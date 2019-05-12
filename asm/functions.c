@@ -191,6 +191,11 @@ int 	check_proper_ending(const char *line, int i)
 	{
 		if (line[i] == ' ' || line[i] == '\t')
 			++i;
+		else if (line[i] == '#')
+		{
+			while (line[i] != '\0')
+				++i;
+		}
 		else if (line[i] == SEPARATOR_CHAR || line[i] == '\n')
 			return (++i);
 		else
