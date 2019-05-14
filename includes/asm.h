@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/24 22:20:56 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/14 23:00:36 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 
 # include "op.h"
+# include "common.h"
 # include "errors.h"
 # include "globals.h"
 # include "../libft/includes/libft.h"
@@ -91,7 +92,6 @@ void	e__trim_line(const char *line);
 
 void	output_to_file(t_asm *champ);
 void	format_file_output(int fd, char *champ);
-char	*convert_int_to_hex(int num);
 
 
 char	*make_header_string(t_header *header);

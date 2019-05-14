@@ -59,6 +59,7 @@ typedef char	t_arg_type;
 /*
  * Champ's header
  */
+# define CHAR_HEADER			5480
 # define HEX_HEADER 			4384
 # define NAME_LENGTH			128
 # define HEX_NAME_LENGTH 		256
