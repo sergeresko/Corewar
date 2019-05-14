@@ -103,10 +103,10 @@ add_executable(asm
         asm/hex_converters.c
         asm/dump_output.c
 
-        ${LIBFT})
+        ${LIBFT} common/common_1.c)
 
 add_executable(corewar
         corewar/corewar.c
         corewar/errors.c
 
-        ${LIBFT})
+        ${LIBFT} common/common_1.c)
