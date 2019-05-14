@@ -6,21 +6,14 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:00:36 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/14 23:19:02 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-# include <fcntl.h>
-# include <stdio.h>
-
-# include "op.h"
 # include "common.h"
-# include "errors.h"
-# include "globals.h"
-# include "../libft/includes/libft.h"
 
 typedef struct		s_header
 {

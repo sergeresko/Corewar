@@ -24,7 +24,8 @@ OBJ = asm.o \
     check_argument.o \
     cleaning.o \
     hex_converters.o \
-    dump_output.o
+    dump_output.o \
+    ../common/common_1.o
 
 FLAGS = -Wall -Wextra -Werror
 
