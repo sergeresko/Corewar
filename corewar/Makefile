@@ -6,14 +6,15 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/04/23 22:38:07 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/14 23:29:31 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 OBJ = corewar.o \
-    errors.o
+    errors.o \
+    ../common/common_1.o
 
 FLAGS = -Wall -Wextra - Werror
 

@@ -26,29 +26,6 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	return (tline ? tline : NULL);
 }
 
-char	*convert_int_to_hex(int num)
-{
-	int		num_len;
-	int 	res_len;
-	char	*result;
-	char	*number;
-
-	result = NULL;
-	if ((number = ft_itoa_base(num, 16)))
-	{
-		num_len = ft_strlen(number);
-		if ((result = ft_strnew(9)))
-		{
-			res_len = 8;
-			result = ft_memset((void *)result, '0', res_len);
-			while (num_len > 0)
-				result[--res_len] = ft_tolower(number[--num_len]);
-		}
-		ft_strdel(&number);
-	}
-	return (result);
-}
-
 void	push_command_front(t_com **commands, t_com *command)
 {
 	if (!commands)		// handle error
@@ -59,7 +36,6 @@ void	push_command_front(t_com **commands, t_com *command)
 		*commands = command;
 	}
 }
-
 
 int		check_label(char *tline, int end, int check_label_char)
 {
