@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:01:45 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/17 00:21:29 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,33 +194,20 @@ void	clean_players_list(t_player **players)
 /*
  * Helpers
  */
-char	*clean_from_whitespaces(char *str)
+unsigned int	parse_int(void *buf)
 {
-	int		i;
-	int		len;
-	char	*result;
-	char	*temporary;
+	int				i;
+	int 			size;
+	unsigned int	result;
 
 	i = 0;
-	result = NULL;
-	len = ft_strlen(str);
-	if (!(temporary = ft_strnew(sizeof(char) * len)))
+	size = 4;
+	result = 0;
+	while (size)
 	{
-		perror("clean_from_whitespaces");
-		exit(-1);
+		result += ((unsigned char *)buf)[--size] << i;
+		i += 8;
 	}
-	while (*str)
-	{
-		if (*str != ' ' && *str != '\n')
-			temporary[i++] = *str;
-		str++;
-	}
-	if (!(result = ft_strsub(temporary, 0, ft_strlen(temporary))))
-	{
-		perror("clean_from_whitespaces");
-		exit(-1);
-	}
-	ft_strdel(&temporary);
 	return (result);
 }
 
@@ -230,29 +217,30 @@ char	*clean_from_whitespaces(char *str)
 void	read_headers(t_player *players)
 {
 	char	*header;
-	char	*clean_header;
 
-	if (!(header = ft_strnew(sizeof(char) * CHAR_HEADER)))
+	if (!(header = ft_strnew(sizeof(char) * 2188)))
 	{
 		perror("read_headers");
 		exit(-1);
 	}
 	while (players)
 	{
-		ft_bzero(header, CHAR_HEADER);
-		if (read(players->fd, header, CHAR_HEADER) != -1
-			&& (clean_header = clean_from_whitespaces(header)))
-		{
-			ft_printf("%s\n", clean_header);
-			check_magic(clean_header);
+		ft_bzero(header, 2188);
+		read(players->fd, header, 2188);
+		ft_printf("Magic: %x\n", parse_int(header));
 
-			ft_strdel(&clean_header);
-		}
-		else
-		{
-			ft_printf("Player %s header isn't in order!\n", players->filename);
-			exit(-1);
-		}
+		ft_printf("Name: ");
+		for (int i = 4; i < 132; i++)
+			ft_printf("%x", header[i]);
+		ft_putchar('\n');
+
+		ft_printf("Size: %u\n", parse_int(&header[136]));
+
+		ft_printf("Description: ");
+		for (int i = 140; i < 2184; i++)
+			ft_printf("%x", header[i]);
+		ft_putchar('\n');
+
 		players = players->next;
 	}
 	ft_strdel(&header);
