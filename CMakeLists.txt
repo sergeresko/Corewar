@@ -109,4 +109,4 @@ add_executable(corewar
         corewar/corewar.c
         corewar/errors.c
 
-        ${LIBFT} common/common_1.c)
+        ${LIBFT} common/common_1.c corewar/read_headers.c corewar/helpers_1.c)

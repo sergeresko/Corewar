@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/17 00:21:29 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:03:33 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,115 +194,4 @@ void	clean_players_list(t_player **players)
         ft_strdel(&((*players)->comment));
 		ft_memdel((void **)players);
 	}
-}
-
-/*
- * Helpers
- */
-unsigned int	parse_int(void *buf)
-{
-	int				i;
-	int 			size;
-	unsigned int	result;
-
-	i = 0;
-	size = 4;
-	result = 0;
-	while (size)
-	{
-		result += ((unsigned char *)buf)[--size] << i;
-		i += 8;
-	}
-	return (result);
-}
-
-void    is_no_null_error(char *str, int i)
-{
-    if (str[i])
-    {
-        ft_printf("No null at %d\n", i);
-        exit(-1);
-    }
-}
-
-
-/*
- * Read and validation part
- */
-void	read_headers(t_player *players)
-{
-	char	*header;
-
-	if (!(header = ft_strnew(sizeof(char) * 2188)))
-	{
-		perror("read_headers_1");
-        exit(-1);
-	}
-	while (players)
-	{
-		ft_bzero(header, 2188);
-		if (read(players->fd, header, 2188) != 2188)
-        {
-		    perror("read_headers_2");
-		    exit(-1);
-        }
-		check_magic(header, players);
-		players->name = read_player_name(header);
-        is_no_null_error(header, 132);  // after magic and name
-        players->size = parse_int(&(header[136]));
-        players->comment = read_player_comment(header);
-        is_no_null_error(header, 2184); // last 4 bytes in header part
-		players = players->next;
-	}
-	ft_strdel(&header);
-}
-
-void	check_magic(char *header, t_player *player)
-{
-	if (parse_int(header) != COREWAR_EXEC_MAGIC)
-    {
-        ft_printf("No magic in \"%s\"\n", player->filename);
-        exit(-1);
-    }
-}
-
-char    *read_player_name(const char *header)
-{
-    int     i;
-    char    *name;
-
-    if (!(name = ft_strnew(sizeof(char) * NAME_LENGTH)))
-    {
-        perror("read_player_name");
-        exit(-1);
-    }
-    i = 0;
-    header += 4;    // after magic
-    while (header[i] && i < NAME_LENGTH)
-    {
-        name[i] = (char)header[i];
-        i++;
-    }
-    return (name);
-}
-
-char    *read_player_comment(const char *header)
-{
-    int     i;
-    char    *comment;
-
-    if (!(comment = ft_strnew(sizeof(char) * DESC_LENGTH)))
-    {
-        perror("read_player_comment");
-        exit(-1);
-    }
-    i = 0;
-    header += 140;  // after magic and name
-    while (header[i] && i < DESC_LENGTH)
-    {
-        ft_putchar(header[i]);
-        comment[i] = (char)header[i];
-        i++;
-    }
-    return (comment);
 }
