@@ -6,7 +6,7 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/03 00:52:58 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/17 01:08:09 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,12 +328,21 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 		j = 0;
 		while (i < ft_strlen(line) && line[i] != '"')
 			field[j++] = line[i++];
+		if (line[i] == '\0')
+			get_error_code(line, asm_struct, i);
 		make_hex_description(asm_struct->header.hex_description, field);
 		ft_strdel(&field);
 		asm_struct->data.got_description = 1;
 	}
-	else if (line[i] == '\0')
-		asm_struct->data.errorCase = 1;
+	else
+		get_error_code(line, asm_struct, i);
+	++i;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] != '\0' && line[i] != '#')
+		get_error_code(line, asm_struct, i);
+//	else if (line[i] == '\0')
+//		asm_struct->data.errorCase = 1;
 }
 
 void	make_hex_description(char *hex_description, char *description)
