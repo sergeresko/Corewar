@@ -245,9 +245,9 @@ void	read_headers(t_player *players)
         }
 		check_magic(header, players);
 		players->name = read_player_name(header);
-//        is_null_error(header, ...);
+        is_no_null_error(header, 132); // after magic and name
 //        read_player_comment(header, players);
-//        is_null_error(header, ...);
+        is_no_null_error(header, 2184); // last 4 bytes in header part
 
 //		ft_printf("Magic: %x\n", parse_int(header));
 //
