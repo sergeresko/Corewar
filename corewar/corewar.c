@@ -211,6 +211,16 @@ unsigned int	parse_int(void *buf)
 	return (result);
 }
 
+void    is_no_null_error(char *str, int i)
+{
+    if (str[i])
+    {
+        ft_printf("No null at %d\n", i);
+        exit(-1);
+    }
+}
+
+
 /*
  * Read and validation part
  */
@@ -220,40 +230,48 @@ void	read_headers(t_player *players)
 
 	if (!(header = ft_strnew(sizeof(char) * 2188)))
 	{
-		perror("read_headers");
-		exit(-1);
+		perror("read_headers_1");
+        exit(-1);
 	}
 	while (players)
 	{
 		ft_bzero(header, 2188);
-		read(players->fd, header, 2188);
-		ft_printf("Magic: %x\n", parse_int(header));
+		if (read(players->fd, header, 2188) != 2188)
+        {
+		    perror("read_headers_2");
+		    exit(-1);
+        }
+		check_magic(header, players);
+		ft_printf("Magic OK!");
+//		read_player_name(header, players);
+//        is_null_error(header, ...);
+//        read_player_comment(header, players);
+//        is_null_error(header, ...);
 
-		ft_printf("Name: ");
-		for (int i = 4; i < 132; i++)
-			ft_printf("%x", header[i]);
-		ft_putchar('\n');
-
-		ft_printf("Size: %u\n", parse_int(&header[136]));
-
-		ft_printf("Description: ");
-		for (int i = 140; i < 2184; i++)
-			ft_printf("%x", header[i]);
-		ft_putchar('\n');
+//		ft_printf("Magic: %x\n", parse_int(header));
+//
+//		ft_printf("Name: ");
+//		for (int i = 4; i < 132; i++)
+//			ft_printf("%x", header[i]);
+//		ft_putchar('\n');
+//
+//		ft_printf("Size: %u\n", parse_int(&header[136]));
+//
+//		ft_printf("Description: ");
+//		for (int i = 140; i < 2184; i++)
+//			ft_printf("%x", header[i]);
+//		ft_putchar('\n');
 
 		players = players->next;
 	}
 	ft_strdel(&header);
 }
 
-void	check_magic(char *header)
+void	check_magic(char *header, t_player *player)
 {
-	char	*magic;
-
-	if (!(magic = ft_strsub(header, 0, BYTE)))
-	{
-		perror("check_magic");
-		exit(-1);
-	}
-	ft_printf("%s === %s\n", magic, convert_int_to_hex(COREWAR_EXEC_MAGIC));
+	if (parse_int(header) != COREWAR_EXEC_MAGIC)
+    {
+        ft_printf("No magic in \"%s\"\n", player->filename);
+        exit(-1);
+    }
 }

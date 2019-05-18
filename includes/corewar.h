@@ -38,11 +38,12 @@ void				clean_players_list(t_player **players);
  * Helpers
  */
 unsigned int		parse_int(void *buf);
+void                is_no_null_error(char *str, int i);
 
 /*
  * Read and validation part
  */
 void				read_headers(t_player *players);
-void				check_magic(char *header);
+void	            check_magic(char *header, t_player *player);
 
 #endif
