@@ -25,10 +25,12 @@ void _test(t_player *players)
 	{
 		ft_printf("Player's filename: %s\n", players->filename);
 		ft_printf("Number: %d\n", players->number);
+		ft_printf("Name: \"%s\"\n", players->name);
+//        ft_printf("Comment: \"%s\"\n", players->comment);
 		players = players->next;
 	}
 
-	ft_putendl("\nEnd of test output!   < - - -\n");
+	ft_putendl("\nEnd of test output!   - - - >\n");
 }
 
 int     main(int argc, char *argv[])
@@ -40,7 +42,7 @@ int     main(int argc, char *argv[])
     players = check_arguments(argc, argv);
     read_headers(players);
 
-//	_test(players);
+	_test(players);
 	clean_players_list(&players);
     system("leaks corewar");
     return (0);
@@ -242,8 +244,7 @@ void	read_headers(t_player *players)
 		    exit(-1);
         }
 		check_magic(header, players);
-		ft_printf("Magic OK!");
-//		read_player_name(header, players);
+		players->name = read_player_name(header);
 //        is_null_error(header, ...);
 //        read_player_comment(header, players);
 //        is_null_error(header, ...);
@@ -274,4 +275,24 @@ void	check_magic(char *header, t_player *player)
         ft_printf("No magic in \"%s\"\n", player->filename);
         exit(-1);
     }
+}
+
+char    *read_player_name(char *header)
+{
+    int     i;
+    char    *name;
+
+    if (!(name = ft_strnew(sizeof(char) * 128)))
+    {
+        perror("read_player_name");
+        exit(-1);
+    }
+    i = 0;
+    header += 4; // after magic
+    while (header[i] && i < NAME_LENGTH)
+    {
+        name[i] = (char)header[i];
+        i++;
+    }
+    return name;
 }

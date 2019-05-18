@@ -45,5 +45,6 @@ void                is_no_null_error(char *str, int i);
  */
 void				read_headers(t_player *players);
 void	            check_magic(char *header, t_player *player);
+char                *read_player_name(char *header);
 
 #endif
