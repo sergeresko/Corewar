@@ -10,12 +10,17 @@ add_executable(asm
         includes/asm.h
         includes/op.h
         asm/asm.c
-        asm/asm_init.c
+        asm/asm_init_and_file_output.c
         asm/functions.c
         asm/error_functions.c
-        asm/make_file_output.c
         asm/make_name_and_description.c
-        asm/commands_list.c
+        asm/check_command.c
+        asm/check_argument.c
+        asm/globals.c
+        asm/helpers.c
+        asm/cleaning.c
+        asm/hex_converters.c
+        asm/dump_output.c
 
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c
