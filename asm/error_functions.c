@@ -14,13 +14,13 @@
 
 void	e__args_amount(void)
 {
-	ft_putendl(USAGE);
+	ft_putendl(ASM_USAGE);
 	exit(-1);
 }
 
 void	e__asm_initialization(void)
 {
-	ft_putendl(INITIALIZATION_ERROR);
+	ft_putendl(ASM_INITIALIZATION_ERROR);
 	exit(-1);
 }
 

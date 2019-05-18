@@ -1,27 +1,12 @@
 cmake_minimum_required(VERSION 3.12)
-project(asm C)
+project(corewar C)
 
 set(CMAKE_C_STANDARD 11)
 
 include_directories(includes)
 include_directories(libft/includes)
 
-add_executable(asm
-        includes/asm.h
-        includes/op.h
-        asm/asm.c
-        asm/asm_init_and_file_output.c
-        asm/functions.c
-        asm/error_functions.c
-        asm/make_name_and_description.c
-        asm/check_command.c
-        asm/check_argument.c
-        asm/globals.c
-        asm/helpers.c
-        asm/cleaning.c
-        asm/hex_converters.c
-        asm/dump_output.c
-
+set(LIBFT
         libft/ft_printf/additional_types_or_flags.c
         libft/ft_printf/extra_functions.c
         libft/ft_printf/ft_printf.c
@@ -103,3 +88,25 @@ add_executable(asm
         libft/srcs/ft_tolower.c
         libft/srcs/ft_toupper.c
         libft/srcs/is_only_digits.c)
+
+add_executable(asm
+        asm/asm.c
+        asm/asm_init_and_file_output.c
+        asm/functions.c
+        asm/error_functions.c
+        asm/make_name_and_description.c
+        asm/check_command.c
+        asm/check_argument.c
+        asm/globals.c
+        asm/helpers.c
+        asm/cleaning.c
+        asm/hex_converters.c
+        asm/dump_output.c
+
+        ${LIBFT} common/common_1.c)
+
+add_executable(corewar
+        corewar/corewar.c
+        corewar/errors.c
+
+        ${LIBFT} common/common_1.c)

@@ -6,24 +6,14 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/29 23:49:23 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/18 16:56:04 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-# include <fcntl.h>
-# include <stdio.h>
-
-# include "op.h"
-# include "errors.h"
-# include "globals.h"
-# include "../libft/includes/libft.h"
-
-#define TRUE 1
-#define FALSE 0
-# define BYTE 8
+# include "common.h"
 
 typedef struct		s_header
 {
@@ -91,16 +81,15 @@ void	clean_commands_list(t_com **commands);
 /*
  * Errors functions
  */
-void	e__args_amount(void);
 void	e__asm_initialization(void);
 void	e__open_file(const char *name);
 void	e__read_file(t_asm *asm_struct, int errorCase);
+
 void	e__trim_line(const char *line);
 
 
 void	output_to_file(t_asm *champ);
 void	format_file_output(int fd, char *champ);
-char	*convert_int_to_hex(int num);
 
 
 char	*make_header_string(t_header *header);

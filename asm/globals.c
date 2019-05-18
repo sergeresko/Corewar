@@ -6,11 +6,11 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/13 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/14 23:11:19 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "globals.h"
+#include "asm.h"
 
 /*
  * Current index and size of the champion
