@@ -23,10 +23,11 @@ void _test(t_player *players)
 		ft_printf("Dump nbr_cycles: %d\n", g_dump_cycles);
 	while (players)
 	{
-		ft_printf("Player's filename: %s\n", players->filename);
+        ft_printf("Name: \"%s\"\n", players->name);
 		ft_printf("Number: %d\n", players->number);
-		ft_printf("Name: \"%s\"\n", players->name);
-//        ft_printf("Comment: \"%s\"\n", players->comment);
+		ft_printf("Size: %d\n", players->size);
+        ft_printf("Comment: \"%s\"\n", players->comment);
+        ft_printf("Player's filename: \"%s\"\n", players->filename);
 		players = players->next;
 	}
 
@@ -189,6 +190,8 @@ void	clean_players_list(t_player **players)
 	{
 		if ((*players)->next)
 			clean_players_list(&((*players)->next));
+		ft_strdel(&((*players)->name));
+        ft_strdel(&((*players)->comment));
 		ft_memdel((void **)players);
 	}
 }
@@ -245,24 +248,10 @@ void	read_headers(t_player *players)
         }
 		check_magic(header, players);
 		players->name = read_player_name(header);
-        is_no_null_error(header, 132); // after magic and name
-//        read_player_comment(header, players);
+        is_no_null_error(header, 132);  // after magic and name
+        players->size = parse_int(&(header[136]));
+        players->comment = read_player_comment(header);
         is_no_null_error(header, 2184); // last 4 bytes in header part
-
-//		ft_printf("Magic: %x\n", parse_int(header));
-//
-//		ft_printf("Name: ");
-//		for (int i = 4; i < 132; i++)
-//			ft_printf("%x", header[i]);
-//		ft_putchar('\n');
-//
-//		ft_printf("Size: %u\n", parse_int(&header[136]));
-//
-//		ft_printf("Description: ");
-//		for (int i = 140; i < 2184; i++)
-//			ft_printf("%x", header[i]);
-//		ft_putchar('\n');
-
 		players = players->next;
 	}
 	ft_strdel(&header);
@@ -277,22 +266,43 @@ void	check_magic(char *header, t_player *player)
     }
 }
 
-char    *read_player_name(char *header)
+char    *read_player_name(const char *header)
 {
     int     i;
     char    *name;
 
-    if (!(name = ft_strnew(sizeof(char) * 128)))
+    if (!(name = ft_strnew(sizeof(char) * NAME_LENGTH)))
     {
         perror("read_player_name");
         exit(-1);
     }
     i = 0;
-    header += 4; // after magic
+    header += 4;    // after magic
     while (header[i] && i < NAME_LENGTH)
     {
         name[i] = (char)header[i];
         i++;
     }
-    return name;
+    return (name);
+}
+
+char    *read_player_comment(const char *header)
+{
+    int     i;
+    char    *comment;
+
+    if (!(comment = ft_strnew(sizeof(char) * DESC_LENGTH)))
+    {
+        perror("read_player_comment");
+        exit(-1);
+    }
+    i = 0;
+    header += 140;  // after magic and name
+    while (header[i] && i < DESC_LENGTH)
+    {
+        ft_putchar(header[i]);
+        comment[i] = (char)header[i];
+        i++;
+    }
+    return (comment);
 }
