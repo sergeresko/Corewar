@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:19:02 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:34:28 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_header
 	char			hex_description[HEX_DESC_LENGTH + 1];
 }					t_header;
 
+
 typedef struct		s_label
 {
 	int 			index;
@@ -37,6 +38,9 @@ typedef struct		s_data
 	int				row;
 	int				errorCase;
 	int				skippedLine;
+	int				skipped_spaces;
+	int				got_name;
+	int				got_description;
 }					t_data;
 
 typedef struct		s_com
@@ -78,8 +82,9 @@ void	clean_commands_list(t_com **commands);
  * Errors functions
  */
 void	e__asm_initialization(void);
+void	e__open_file(const char *name);
+void	e__read_file(t_asm *asm_struct, int errorCase);
 
-void	e__read_file(void);
 void	e__trim_line(const char *line);
 
 
@@ -120,7 +125,7 @@ void	read_line_1(char **tline, t_asm *asm_struct);
 size_t 	read_line_2(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_register(char **tline, size_t i, t_com *command);
-int		read_direct(char **tline, int i, t_com *command);
+int		read_direct(char **tline, int i, t_com *command, t_asm *asm_struct);
 int		read_direct_label(char **tline, int i, t_com *command);
 int		read_indirect(char **tline, int i, t_com *command);
 int		read_indirect_label(char **tline, int i, t_com *command);
