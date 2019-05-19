@@ -103,7 +103,7 @@ add_executable(asm
         asm/hex_converters.c
         asm/dump_output.c
 
-        ${LIBFT} common/common_1.c)
+        ${LIBFT} common/common_1.c libft/srcs/ft_atoi_base.c)
 
 add_executable(corewar
         corewar/corewar.c

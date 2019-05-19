@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 14:41:49 by vlvereta          #+#    #+#             */
-/*   Updated: 2017/10/25 14:53:44 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/19 16:36:22 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ uint32_t			ft_swap_bits32(uint32_t x);
 uint64_t			ft_swap_bits64(uint64_t x);
 int					get_next_line(const int fd, char **line);
 int					ft_printf(const char *format, ...);
+int					ft_atoi_base(char *num, int base);
+int					ft_power(int nb, int power);
 
 #endif
