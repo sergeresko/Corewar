@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/18 17:03:33 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/19 18:53:42 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int     main(int argc, char *argv[])
 
 	_test(players);
 	clean_players_list(&players);
-    system("leaks corewar");
+    system("leaks -q corewar");
     return (0);
 }
 
