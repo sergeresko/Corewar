@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putchar_fd_wo_check.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 15:43:34 by vlvereta          #+#    #+#             */
-/*   Updated: 2017/10/25 15:44:17 by vlvereta         ###   ########.fr       */
+/*   Created: 2019/05/19 19:40:41 by ozalisky          #+#    #+#             */
+/*   Updated: 2019/05/19 19:40:41 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd_wo_check(char c, int fd)
 {
-	if (ft_isascii(c) && fd > 0)
-		write(fd, &c, 1);
+	write(fd, &c, 1);
 }

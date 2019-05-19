@@ -115,5 +115,6 @@ int					get_next_line(const int fd, char **line);
 int					ft_printf(const char *format, ...);
 int					ft_atoi_base(char *num, int base);
 int					ft_power(int nb, int power);
+void				ft_putchar_fd_wo_check(char c, int fd);
 
 #endif

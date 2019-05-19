@@ -6,7 +6,7 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/19 19:27:01 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/19 19:28:42 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	format_file_output(int fd, char *champ)
 	{
 		hex[0] = champ[i++];
 		hex[1] = champ[i++];
-		ft_putchar_fd(ft_atoi_base(hex, 16), fd);
+		ft_putchar_fd_wo_check(ft_atoi_base(hex, 16), fd);
 		if (i == len)
 			break ;
 	}
