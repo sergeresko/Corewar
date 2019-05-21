@@ -25,6 +25,7 @@ OBJ = asm.o \
     cleaning.o \
     hex_converters.o \
     dump_output.o \
+    disassembler/disassembler.o \
     ../common/common_1.o
 
 FLAGS = -Wall -Wextra -Werror

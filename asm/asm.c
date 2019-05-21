@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/30 00:13:56 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:56:55 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int 	main(int argc, char *argv[])
 			e__open_file(argv[argc - 1]);
 		if (argc == 3 && ft_strequ(argv[1], "-a"))
 			g_dump_mode = TRUE;
-		file_processing(fd, argv[argc - 1]);
+		if (argc == 3 && ft_strequ(argv[1], "-d"))
+			disassemble_processing();
+		else
+			file_processing(fd, argv[argc - 1]);
 		close(fd);
 	}
 	else

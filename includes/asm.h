@@ -165,6 +165,11 @@ void	print_real_value(t_com *command);
 void	print_by_bytes(int arg, int bytes);
 void	print_in_length(int length, char **str);
 void	print_command_line(t_com *command, int index);
-void print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
+void	print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
+
+/*
+ * Bonus part: Disassemble!
+ */
+void	disassemble_processing();
 
 #endif
