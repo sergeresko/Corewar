@@ -6,14 +6,15 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/17 00:17:08 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:31:10 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "common.h" 
+# include "common.h"
+# include "../libft/includes/libft.h"
 
 typedef struct		s_player
 {

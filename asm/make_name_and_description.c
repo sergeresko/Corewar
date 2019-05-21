@@ -45,7 +45,7 @@ void check_colon(char *eline, t_asm *asm_struct, int i)
 {
 	int j = 0;
 	char *colon_line;
-	if (get_substr_index(eline, ":") == 0)
+	if (ft_get_substr_index(eline, ":") == 0)
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT_LABEL \"%s\"\n",
 			   asm_struct->data.line, i + 1, eline);
@@ -91,14 +91,14 @@ void check_lexical(char *eline, t_asm *asm_struct, int i)
 
 void check_commands(char *eline, t_asm *asm_struct, int i)
 {
-	if (get_substr_index(eline, NAME_CMD_STRING) == 0)
+	if (ft_get_substr_index(eline, NAME_CMD_STRING) == 0)
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] COMMAND_NAME \".name\"\n",
 			   asm_struct->data.line, i + 1);
 		exit(-1);
 	}
 
-	if (get_substr_index(eline, COMMENT_CMD_STRING) == 0)
+	if (ft_get_substr_index(eline, COMMENT_CMD_STRING) == 0)
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] COMMAND_COMMENT \".comment\"\n",
 			   asm_struct->data.line, i + 1);
@@ -192,7 +192,7 @@ void	get_error_code(char *line, t_asm *asm_struct, int i)
 	while(line[j] != ' ' && line[j] != '\0' && line[j] != '"')
 		eline[elineIndex++] = line[j++];
 
-	if (get_substr_index(eline, ":") >= 0)
+	if (ft_get_substr_index(eline, ":") >= 0)
 		check_colon(eline, asm_struct, i);
 
 	if (line[i] == 35 || line[i] == '\0')

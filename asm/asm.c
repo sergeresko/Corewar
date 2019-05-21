@@ -182,12 +182,12 @@ size_t	read_line_2(char **tline, size_t i, t_asm *asm_struct)
 
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 {
-	if (get_substr_index(*tline, NAME_CMD_STRING) == i)
+	if (ft_get_substr_index(*tline, NAME_CMD_STRING) == i)
 	{
 		get_champs_name(*tline, asm_struct);
 		ft_printf("%s\n", &((*tline)[i]));
 	}
-	else if (get_substr_index(*tline, COMMENT_CMD_STRING) == i)
+	else if (ft_get_substr_index(*tline, COMMENT_CMD_STRING) == i)
 	{
 		get_champs_description(*tline, asm_struct);
 		ft_printf("%s\n", &((*tline)[i]));
@@ -195,7 +195,7 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 	else
 	{
 		ft_printf("Lexical error at [%d:%d]\n", asm_struct->data.line,
-		(int)get_substr_index(*tline, ".") + asm_struct->data.skipped_spaces);
+		(int) ft_get_substr_index(*tline, ".") + asm_struct->data.skipped_spaces);
 		exit(-1);
 	}
 	return ft_strlen(*tline);

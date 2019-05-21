@@ -87,7 +87,8 @@ set(LIBFT
         libft/srcs/ft_swap_bits64.c
         libft/srcs/ft_tolower.c
         libft/srcs/ft_toupper.c
-        libft/srcs/is_only_digits.c)
+        libft/srcs/is_only_digits.c
+        libft/srcs/ft_get_substr_index.c)
 
 add_executable(asm
         asm/asm.c

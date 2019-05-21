@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 14:41:49 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/19 16:36:22 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:37:45 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int					ft_printf(const char *format, ...);
 int					ft_atoi_base(char *num, int base);
 int					ft_power(int nb, int power);
 void				ft_putchar_fd_wo_check(char c, int fd);
+int					ft_get_substr_index(const char *big, const char *little);
 
 #endif

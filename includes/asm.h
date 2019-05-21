@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/18 17:34:28 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:31:10 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ASM_H
 
 # include "common.h"
+# include "../libft/includes/libft.h"
 
 typedef struct		s_header
 {
@@ -74,7 +75,6 @@ int		asm_init(t_asm **asm_struct, const char *argv);
 char	*get_filename(const char *argv);
 void	file_processing(int fd, const char *argv);
 
-int		get_substr_index(const char *big, const char *little);
 void	clean_asm_struct(t_asm **asm_struct);
 void	clean_commands_list(t_com **commands);
 
