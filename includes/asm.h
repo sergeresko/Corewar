@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 17:31:10 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:59:25 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,6 @@ void	print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
 /*
  * Bonus part: Disassemble!
  */
-void	disassemble_processing();
+void	disassemble_processing(int fd, const char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 17:56:55 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:59:25 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int 	main(int argc, char *argv[])
 		if (argc == 3 && ft_strequ(argv[1], "-a"))
 			g_dump_mode = TRUE;
 		if (argc == 3 && ft_strequ(argv[1], "-d"))
-			disassemble_processing();
+			disassemble_processing(fd, argv[argc - 1]);
 		else
 			file_processing(fd, argv[argc - 1]);
 		close(fd);
