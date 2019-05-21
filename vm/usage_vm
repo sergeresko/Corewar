@@ -1,0 +1,10 @@
+usage:	./corewar [-utlcv] [-dump[64|32] nbr_cycles] [-n number[1..4]] <name.cor> ...
+	-u	: show this message
+	-t	: listen to the tune
+	-l	: system leaks
+	-c	: enable colors
+	-v	: enable visualization
+	-dump nbr_cycles : after nbr_cycles dump the memory and quit the game (64 or 32 octets per line)
+	-n number[1..4]	 : set number of player(champ) to `number`
+	<name.cor> ...	 : up to the 4 champions in one battle
+	//-d - different levels of detalisation

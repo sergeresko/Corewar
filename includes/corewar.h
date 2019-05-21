@@ -13,7 +13,7 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "common.h"
+# include "common.h" 
 
 typedef struct		s_player
 {
