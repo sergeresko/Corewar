@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_init_and_file_output.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/08 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/19 19:28:42 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,18 @@ void	format_file_output(int fd, char *champ)
 {
 	int 	i;
 	size_t 	len;
+	char *hex;
 
 	i = 0;
+	hex = ft_strnew(2);
 	len = ft_strlen(champ);
 	while (i < len)
 	{
-		ft_putchar_fd(champ[i++], fd);
-		if (!(i % 32))
-			ft_putchar_fd('\n', fd);
-		else if (!(i % 4))
-			ft_putchar_fd(' ', fd);
+		hex[0] = champ[i++];
+		hex[1] = champ[i++];
+		ft_putchar_fd_wo_check(ft_atoi_base(hex, 16), fd);
 		if (i == len)
 			break ;
 	}
+	free(hex);
 }

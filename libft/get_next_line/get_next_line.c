@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 19:53:53 by vlvereta          #+#    #+#             */
-/*   Updated: 2017/11/22 19:57:59 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:16:45 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ int			write_line(char **line, t_fdlist *node, int is_read)
 			return (-1);
 		node->buf[node->r] = '\0';
 		node->i = 0;
+		if (node->r == 0 && ft_strlen(*line) > 0
+		&& ft_get_substr_index(*line, "\n") == -1)
+			return (5);
 		return (!(node->r) ? is_read : write_line(line, node, is_read));
 	}
 	j = node->i;

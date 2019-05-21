@@ -6,14 +6,15 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:23:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:31:10 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "common.h" 
+# include "common.h"
+# include "../libft/includes/libft.h"
 
 typedef struct		s_player
 {
@@ -37,12 +38,15 @@ void				clean_players_list(t_player **players);
 /*
  * Helpers
  */
-char				*clean_from_whitespaces(char *str);
+unsigned int		parse_int(void *buf);
+void                is_no_null_error(char *str, int i);
 
 /*
  * Read and validation part
  */
 void				read_headers(t_player *players);
-void				check_magic(char *header);
+void	            check_magic(char *header, t_player *player);
+char                *read_player_name(const char *header);
+char                *read_player_comment(const char *header);
 
 #endif

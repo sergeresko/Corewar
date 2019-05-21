@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:41:18 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:23:46 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_com	*command;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
+	if (!asm_struct->data.got_name || !asm_struct->data.got_description)
+	{
+		printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
+			   asm_struct->data.line, (int)start + 1, name);
+		exit(-1);
+	}
 	if (!asm_struct->header.hex_name[0] || !asm_struct->header.hex_description[0] || asm_struct->command)
 	{
 		ft_printf("Syntax error, command %s\n", name);

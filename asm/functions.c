@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/02/10 15:48:09 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:20:36 by zaliskyi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	asm_struct->data.row = (asm_struct->data.skippedLine) ?
 			(int)ft_strlen(*line) : asm_struct->data.row;
 	tline = ft_strtrim(*line);
+	asm_struct->data.skipped_spaces = (int) ft_get_substr_index(*line, ".") + 1;
 	ft_strdel(line);
 	return (tline ? tline : NULL);
 }
@@ -55,6 +56,12 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	t_label	*label;
 
 	name = ft_strsub(tline, (unsigned int)start, end - start);
+	if (!asm_struct->data.got_name || !asm_struct->data.got_description)
+	{
+		printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
+			   asm_struct->data.line, (int)(start + 1), name);
+		exit(-1);
+	}
 	if (!asm_struct->header.hex_name[0] || !asm_struct->header.hex_description[0] || asm_struct->command)
 	{
 		ft_printf("Syntax error, label \"%s:\"\n", name);
@@ -160,6 +167,11 @@ int 	check_proper_ending(const char *line, int i)
 	{
 		if (line[i] == ' ' || line[i] == '\t')
 			++i;
+		else if (line[i] == '#')
+		{
+			while (line[i] != '\0')
+				++i;
+		}
 		else if (line[i] == SEPARATOR_CHAR || line[i] == '\n')
 			return (++i);
 		else

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:01:45 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:03:33 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ void _test(t_player *players)
 		ft_printf("Dump nbr_cycles: %d\n", g_dump_cycles);
 	while (players)
 	{
-		ft_printf("Player's filename: %s\n", players->filename);
+        ft_printf("Name: \"%s\"\n", players->name);
 		ft_printf("Number: %d\n", players->number);
+		ft_printf("Size: %d\n", players->size);
+        ft_printf("Comment: \"%s\"\n", players->comment);
+        ft_printf("Player's filename: \"%s\"\n", players->filename);
 		players = players->next;
 	}
 
-	ft_putendl("\nEnd of test output!   < - - -\n");
+	ft_putendl("\nEnd of test output!   - - - >\n");
 }
 
 int     main(int argc, char *argv[])
@@ -40,7 +43,7 @@ int     main(int argc, char *argv[])
     players = check_arguments(argc, argv);
     read_headers(players);
 
-//	_test(players);
+	_test(players);
 	clean_players_list(&players);
     system("leaks corewar");
     return (0);
@@ -187,85 +190,8 @@ void	clean_players_list(t_player **players)
 	{
 		if ((*players)->next)
 			clean_players_list(&((*players)->next));
+		ft_strdel(&((*players)->name));
+        ft_strdel(&((*players)->comment));
 		ft_memdel((void **)players);
 	}
-}
-
-/*
- * Helpers
- */
-char	*clean_from_whitespaces(char *str)
-{
-	int		i;
-	int		len;
-	char	*result;
-	char	*temporary;
-
-	i = 0;
-	result = NULL;
-	len = ft_strlen(str);
-	if (!(temporary = ft_strnew(sizeof(char) * len)))
-	{
-		perror("clean_from_whitespaces");
-		exit(-1);
-	}
-	while (*str)
-	{
-		if (*str != ' ' && *str != '\n')
-			temporary[i++] = *str;
-		str++;
-	}
-	if (!(result = ft_strsub(temporary, 0, ft_strlen(temporary))))
-	{
-		perror("clean_from_whitespaces");
-		exit(-1);
-	}
-	ft_strdel(&temporary);
-	return (result);
-}
-
-/*
- * Read and validation part
- */
-void	read_headers(t_player *players)
-{
-	char	*header;
-	char	*clean_header;
-
-	if (!(header = ft_strnew(sizeof(char) * CHAR_HEADER)))
-	{
-		perror("read_headers");
-		exit(-1);
-	}
-	while (players)
-	{
-		ft_bzero(header, CHAR_HEADER);
-		if (read(players->fd, header, CHAR_HEADER) != -1
-			&& (clean_header = clean_from_whitespaces(header)))
-		{
-			ft_printf("%s\n", clean_header);
-			check_magic(clean_header);
-
-			ft_strdel(&clean_header);
-		}
-		else
-		{
-			ft_printf("Player %s header isn't in order!\n", players->filename);
-			exit(-1);
-		}
-		players = players->next;
-	}
-	ft_strdel(&header);
-}
-
-void	check_magic(char *header)
-{
-	char	*magic;
-
-	if (!(magic = ft_strsub(header, 0, BYTE)))
-	{
-		perror("check_magic");
-		exit(-1);
-	}
-	ft_printf("%s === %s\n", magic, convert_int_to_hex(COREWAR_EXEC_MAGIC));
 }

@@ -14,6 +14,8 @@ NAME = corewar
 
 OBJ = corewar.o \
     errors.o \
+    read_headers.o \
+    helpers_1.o \
     ../common/common_1.o
 
 FLAGS = -Wall -Wextra - Werror

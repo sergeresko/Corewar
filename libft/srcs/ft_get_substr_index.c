@@ -1,46 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   ft_get_substr_index.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/08 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Created: 2019/05/21 17:36:30 by vlvereta          #+#    #+#             */
+/*   Updated: 2019/05/21 17:37:45 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "libft.h"
 
-int		includes(const char *str, char c)
+int		ft_get_substr_index(const char *big, const char *little)
 {
-	if (!c || !str || !(*str))
-		return (FALSE);
-	while (*str)
-	{
-		if (*str == c)
-			return (TRUE);
-		str++;
-	}
-	return (FALSE);
-}
+	int		i;
+	int 	j;
+	int 	k;
 
-char	*byte_in_bits(char c)
-{
-	int 	i;
-	char	*result;
-
-	if ((result = ft_strnew(sizeof(char) * 8)))
+	i = 0;
+	if (!(*little))
+		return (0);
+	while (big[i])
 	{
-		i = 8;
-		while (i > 0)
+		j = 0;
+		k = i;
+		while (big[i] && little[j] && big[i] == little[j])
 		{
-			result[--i] = c % 2 + '0';
-			c /= 2;
+			if (!little[++j])
+				return (k);
+			i++;
 		}
-		return (result);
+		i = ++k;
 	}
-	return (NULL);
+	return (-1);
 }
-
-

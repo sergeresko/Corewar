@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:27:27 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:29:26 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <fcntl.h>
 # include <stdio.h>
-
-# include "../libft/includes/libft.h"
 
 # define TRUE 1
 # define FALSE 0
