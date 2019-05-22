@@ -6,12 +6,11 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/22 08:57:55 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/22 23:27:38 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include "corewar.h"
 
 void	check_filename(const char *filename)
 {
@@ -58,6 +57,7 @@ void	disassemble_processing(int fd, const char *filename)
 	ft_printf("Name: %s\n", player.name);
 	ft_printf("Comment: %s\n", player.comment);
 	ft_printf("Size: %d bytes\n", player.size);
+
 
 	ft_strdel(&(player.name));
 	ft_strdel(&(player.comment));

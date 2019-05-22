@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 17:31:10 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/22 23:27:38 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,6 @@
 
 # include "common.h"
 # include "../libft/includes/libft.h"
-
-typedef struct		s_player
-{
-	char 			*name;
-	char 			*comment;
-	int				size;
-	int 			number;
-	int 			fd;
-	int 			self;
-	const char 		*filename;
-	struct s_player	*next;
-}					t_player;
 
 t_player			*check_arguments(int amount, char **args);
 void				create_new_player(t_player **players, const char *arg, int *n);
@@ -44,9 +32,6 @@ void                is_no_null_error(char *str, int i);
 /*
  * Read and validation part
  */
-void				read_headers(t_player *players);
-void	            check_magic(char *header, t_player *player);
-char                *read_player_name(const char *header);
-char                *read_player_comment(const char *header);
+
 
 #endif

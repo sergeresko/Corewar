@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 18:00:39 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/22 23:28:41 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,23 @@ extern const t_arg_type AFF[3][3];
 /*
  * Common staff
  */
+typedef struct		s_player
+{
+	char 			*name;
+	char 			*comment;
+	int				size;
+	int 			number;
+	int 			fd;
+	int 			self;
+	const char 		*filename;
+	struct s_player	*next;
+}					t_player;
+
 char	*convert_int_to_hex(int num);
+void				read_headers(t_player *players);
+void	            check_magic(char *header, t_player *player);
+char                *read_player_name(const char *header);
+char                *read_player_comment(const char *header);
 
 /*
  * Error staff
