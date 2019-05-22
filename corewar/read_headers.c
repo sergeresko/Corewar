@@ -83,7 +83,6 @@ char	*read_player_comment(const char *header)
 	header += 140;
 	while (header[i] && i < DESC_LENGTH)
 	{
-		ft_putchar(header[i]);
 		comment[i] = (char)header[i];
 		i++;
 	}
