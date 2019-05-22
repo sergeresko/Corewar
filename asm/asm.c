@@ -188,12 +188,12 @@ size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
 	if (ft_get_substr_index(*tline, NAME_CMD_STRING) == i)
 	{
 		get_champs_name(*tline, asm_struct);
-		ft_printf("%s\n", &((*tline)[i]));
+//		ft_printf("%s\n", &((*tline)[i]));
 	}
 	else if (ft_get_substr_index(*tline, COMMENT_CMD_STRING) == i)
 	{
 		get_champs_description(*tline, asm_struct);
-		ft_printf("%s\n", &((*tline)[i]));
+//		ft_printf("%s\n", &((*tline)[i]));
 	}
 	else
 	{

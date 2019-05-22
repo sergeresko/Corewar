@@ -272,7 +272,7 @@ int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_stru
 	{
 		if (command->arg_types[arg_num] == T_DIR)
 		{
-			ft_printf("Direct %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
+//			ft_printf("Direct %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
 			if ((delta = label_index - command->index) >= 0)
 				temp = command->label_size == 2
 					? short_in_hex(delta)
@@ -286,7 +286,7 @@ int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_stru
 		}
 		else if (command->arg_types[arg_num] == T_IND)
 		{
-			ft_printf("Indirect %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
+//			ft_printf("Indirect %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
 			if ((delta = label_index - command->index) >= 0)
 				temp = short_in_hex(delta);
 			else
