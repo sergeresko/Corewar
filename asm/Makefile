@@ -26,8 +26,8 @@ OBJ = asm.o \
     hex_converters.o \
     dump_output.o \
     disassembler/disassembler.o \
-    ../corewar/read_headers.o \
-    ../corewar/helpers_1.o \
+    ../common/read_headers.o \
+    ../common/helpers_1.o \
     ../common/common_1.o
 
 FLAGS = -Wall -Wextra -Werror

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "asm.h"
 #include "corewar.h"
 
 void	read_headers(t_player *players)
