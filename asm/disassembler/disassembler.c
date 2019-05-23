@@ -6,11 +6,57 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/23 00:06:34 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/23 08:52:03 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	get_args_types_by_codage(unsigned char c, t_com *command) {
+	unsigned char	t;
+
+	t = c >> 6;
+	command->arg_types[0] = t == IND_CODE ? T_IND : t;
+	t = c << 2;
+	command->arg_types[1] = t >> 6 == IND_CODE ? T_IND : t;
+	t = c << 4;
+	command->arg_types[2] = t >> 6 == IND_CODE ? T_IND : t;
+}
+
+char	*get_command_name_by_code(int c)
+{
+	char	commands[16][5] = {
+			"live", "ld", "st", "add", "sub", "and", "or", "xor",
+			"zjmp", "ldi", "sti", "fork", "lld", "lldi", "lfork", "aff"
+	};
+	c--;
+	if (c < 0 || c > 16)
+	{
+		ft_printf("Command code '%x' is NOT valid\n", c);
+		exit(-1);
+	}
+	return (ft_strdup(commands[c]));
+}
+
+void	read_code(char *code, int lenght, int fd)
+{
+	int 	i;
+	char	*com_name;
+	t_com	*command;
+
+	i = 4;	// skip last null
+	while (i < lenght)
+	{
+		com_name = get_command_name_by_code(code[i++]);
+		command = check_command(com_name);
+		if (command->is_codage)
+			get_args_types_by_codage(code[i++], command);
+//		i = read_args_by_codage(code, i, command);
+//		write_args_to_file(fd, command);
+		ft_strdel(&com_name);
+		ft_memdel((void **)&(command));
+	}
+}
 
 void	execution_code_processing(int new_file_fd, t_player *player)
 {
@@ -26,7 +72,7 @@ void	execution_code_processing(int new_file_fd, t_player *player)
 		perror("execution_code_processing_2");
 		exit(-1);
 	}
-
+	read_code(code, player->size, new_file_fd);
 	ft_strdel(&code);
 }
 

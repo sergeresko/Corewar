@@ -26,7 +26,6 @@ void				clean_players_list(t_player **players);
 /*
  * Helpers
  */
-unsigned int		parse_int(void *buf);
 void                is_no_null_error(char *str, int i);
 
 /*

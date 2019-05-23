@@ -144,6 +144,8 @@ typedef struct		s_player
 }					t_player;
 
 char	*convert_int_to_hex(int num);
+unsigned int		parse_int(void *buf);
+
 void				read_headers(t_player *players);
 void	            check_magic(char *header, t_player *player);
 char                *read_player_name(const char *header);
