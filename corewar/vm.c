@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/19 19:17:44 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 13:45:34 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,34 @@ void	perform_round(t_vm *vm)
 
 // ----------------
 
+static t_player	*get_player_by_number(t_vm *vm, int n)
+{
+	t_player	*player;
+
+	player = vm->players;
+	while (player)
+	{
+		if (player->number == n)
+		{
+			return (player);
+		}
+		player = player->next;
+	}
+	return (NULL);
+}
+
 void	load_players(t_vm *vm)
 {
 	int const	step = MEM_SIZE / vm->nbr_players;
 	int			i;
+	t_player	*player;
 
 	i = 0;
 	ft_bzero(vm->arena, MEM_SIZE);
 	while (i < vm->nbr_players)
 	{
-		// ...
-		ft_memcpy(vm->arena + step * i, vm->players[i]->code, vm->players[i]->size);
+		player = get_player_by_number(vm, i);
+		ft_memcpy(vm->arena + step * i, player->code, player->size);
 		++i;
 	}
 }

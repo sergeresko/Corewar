@@ -6,14 +6,11 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/19 18:53:42 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 13:39:31 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-int g_is_dump = FALSE;
-int g_dump_cycles = -1;
 
 void _test(t_player *players)
 {
@@ -36,36 +33,36 @@ void _test(t_player *players)
 
 int     main(int argc, char *argv[])
 {
-	t_player	*players;
+	t_vm	vm;
 
     if (argc == 1)
         e__args_amount();
-    players = check_arguments(argc, argv);
-    read_headers(players);
+    vm.players = check_arguments(argc, argv);
+    read_headers(vm.players);
 
-	_test(players);
-	clean_players_list(&players);
+	_test(vm.players);
+	clean_players_list(&(vm.players));
     system("leaks -q corewar");
     return (0);
 }
 
-t_player	*check_arguments(int amount, char **args)
+t_player	*check_arguments(t_vm *vm, int amount, char **args)
 {
     int         i;
     int 		cur_number;
-    t_player    *players;
-	static int	players_amount = 0;
 
+	vm->is_dump = FALSE;
+	vm->dump_cycles = -1;
+    vm->players = NULL;
+	vm->nbr_players = 0;
 	i = 1;
-
-    players = NULL;
 	cur_number = -1;
     while (i < amount)
     {
         if (ft_strequ(args[i], "-dump") && (i + 1) < amount)
         {
-        	g_is_dump = TRUE;
-			g_dump_cycles = ft_atoi(args[++i]);
+        	vm->is_dump = TRUE;
+			vm->dump_cycles = ft_atoi(args[++i]);
 			if (amount == i + 1)
 				exit_with_usage();
 		}
@@ -77,8 +74,8 @@ t_player	*check_arguments(int amount, char **args)
 		}
         else
         {
-			create_new_player(&players, args[i], &cur_number);
-			if (++players_amount > MAX_PLAYERS)
+			create_new_player(&(vm->players), args[i], &cur_number);
+			if (++(vm->nbr_players) > MAX_PLAYERS)
 			{
 				ft_putendl("Max players number exceeded!");
 				exit(-1);
@@ -86,7 +83,7 @@ t_player	*check_arguments(int amount, char **args)
 		}
         i++;
     }
-	set_players_numbers(players, players_amount);
+	set_players_numbers(vm->players, vm->nbr_players);
     return (players);
 }
 
@@ -159,7 +156,7 @@ int		check_player_number(t_player **players, const char *self_name, int max, int
 void	set_players_numbers(t_player *players, int amount)
 {
 	int 		n;
-	int 		numbers[amount];
+	int 		numbers[amount];	// can't do this thing according to the Norm
 	t_player	*temp;
 
 	ft_bzero(numbers, sizeof(int) * amount);

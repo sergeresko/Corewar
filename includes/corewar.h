@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/19 18:22:30 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 13:40:13 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ typedef struct		s_process
 
 typedef struct		s_vm
 {										// initial values:
+	t_player		*players;				// NULL
+	int				nbr_players;			// 0
+	int				is_dump;				// FALSE
+	int				dump_cycles;			// -1
 	char			arena[MEM_SIZE];		// zeroes and players' binary code
 //	t_op			op[17];
 	int				cycle;					// 0
