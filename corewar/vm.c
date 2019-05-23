@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/23 16:36:32 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 17:55:23 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,9 +226,9 @@ void	perform_battle(t_vm *vm)
 	// ...
 	load_players(vm);
 	//
-	dump_memory(vm->arena);
-	system("leaks -q corewar");
-	exit(0);
+	dump_memory(vm->arena);			// this is
+	system("leaks -q corewar");		// here just
+	exit(0);						// for testing
 	//
 	while (vm->processes != NULL /* ... */)
 	{

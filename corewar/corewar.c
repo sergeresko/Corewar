@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/23 15:59:46 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 17:50:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	read_exec_code(t_player *players)
 			ft_printf("Size mismatch for player \"%s\"\n", players->name);
 			exit(-1);
 		}
+		close(players->fd);
 		players = players->next;
 	}
 }
