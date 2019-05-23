@@ -6,11 +6,34 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/23 13:45:34 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 16:36:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+// -------------
+
+void	list_push(t_list **head, void *content)
+{
+	t_list	*item;
+
+	item = malloc(sizeof(t_list));
+	item->content = content;
+	item->next = *head;
+	*head = item;
+}
+
+void	list_pop(t_list **head)
+{
+	t_list	*item;
+
+	item = *head;
+	*head = item->next;
+	free(item);
+}
+
+// -------------
 
 int		is_valid_op_code(char c)		// t_bool
 {
@@ -27,12 +50,12 @@ void	perform_process(t_vm *vm, t_process *p)
 			p->pc = (p->pc + 1) % MEM_SIZE;		// advance `p->pc` by 1 byte
 			return ;
 		}
-		p->delay = vm->op[p->op_code].delay;
+//		p->delay = vm->op[p->op_code].delay;	// TODO:
 	}
 	--(p->delay);
 	if (p->delay == 0)
 	{
-		execute_operation(vm, p);		// <----------
+//		execute_operation(vm, p);		// <---------- TODO:
 	}
 }
 
@@ -48,7 +71,7 @@ void	perform_cycle(t_vm *vm)
 	item = vm->processes;
 	while (item != NULL)
 	{
-		perform_process(vm, item->data);
+		perform_process(vm, item->content);
 		item = item->next;
 	}
 }
@@ -65,10 +88,10 @@ void	perform_check(t_vm *vm)
 	t_process	*p;
 
 	++(vm->nbr_checks);			// increment
-	*addr = &(vm->processes);
+	addr = &(vm->processes);
 	while (*addr != NULL)
 	{
-		p = (*addr)->data;
+		p = (*addr)->content;
 		if (p->cycle_when_last_live <= oldest_cycle)
 		{
 			list_pop(addr);		// delete process `p`
@@ -108,6 +131,36 @@ void	perform_round(t_vm *vm)
 		vm->nbr_checks = 0;
 	}
 }
+// ----------------
+
+static void	print_hex(unsigned char b)
+{
+	char	s[2];
+
+	s[0] = (char)(b / 16);
+	s[0] += (s[0] < 10) ? '0' : ('a' - 10);
+	s[1] = (char)(b % 16);
+	s[1] += (s[1] < 10) ? '0' : ('a' - 10);
+	write(1, s, 2);
+}
+
+void	dump_memory(void const *arena)
+{
+	char const	*s;
+	int			i;
+
+	s = arena;
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		print_hex(s[i]);
+		if (i % 2)
+		{
+			ft_putchar((i + 1) % 32 ? ' ' : '\n');
+		}
+		++i;
+	}
+}
 
 // ----------------
 
@@ -127,25 +180,38 @@ static t_player	*get_player_by_number(t_vm *vm, int n)
 	return (NULL);
 }
 
+t_process	*create_process(int player_number)
+{
+	t_process	*p;
+
+	if ((p = ft_memalloc(sizeof(t_process))) == NULL)	// initialized with zeroes
+	{
+		perror("create_process");
+		exit(-1);
+	}
+	p->registers[0] = -player_number;	// TODO: ?
+	return (p);
+}
+
 void	load_players(t_vm *vm)
 {
 	int const	step = MEM_SIZE / vm->nbr_players;
 	int			i;
 	t_player	*player;
+	t_process	*process;
 
-	i = 0;
 	ft_bzero(vm->arena, MEM_SIZE);
+	vm->processes = NULL;
+	i = 0;
 	while (i < vm->nbr_players)
 	{
-		player = get_player_by_number(vm, i);
-		ft_memcpy(vm->arena + step * i, player->code, player->size);
+		player = get_player_by_number(vm, i + 1);
+		ft_memcpy(vm->arena + step * i, player->exec_code, player->size);
+		process = create_process(i + 1);
+		process->pc = step * i;
+		list_push(&(vm->processes), process);
 		++i;
 	}
-}
-
-void	init_processes(t_vm *vm)
-{
-
 }
 
 /*
@@ -158,6 +224,12 @@ void	perform_battle(t_vm *vm)
 	vm->cycles_to_die = CYCLE_TO_DIE;		// init
 	vm->nbr_checks = 0;						// init
 	// ...
+	load_players(vm);
+	//
+	dump_memory(vm->arena);
+	system("leaks -q corewar");
+	exit(0);
+	//
 	while (vm->processes != NULL /* ... */)
 	{
 		perform_round(vm);

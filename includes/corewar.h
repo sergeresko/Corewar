@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/23 14:15:24 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 15:12:44 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,13 @@ typedef struct		s_player
 	char 			*name;
 	char 			*comment;
 	int				size;
+	void			*exec_code;
 	int 			number;
 	int 			fd;
 	int 			self;
 	const char 		*filename;
 	struct s_player	*next;
 }					t_player;
-
-t_player			*check_arguments(int amount, char **args);
-void				create_new_player(t_player **players, const char *arg, int *n);
-void				push_player_back(t_player **players, t_player *player);
-int					check_player_number(t_player **players, const char *self_name, int max, int number);
-void				set_players_numbers(t_player *players, int counter);
-void				clean_players_list(t_player **players);
 
 typedef struct		s_process
 {
@@ -63,6 +57,13 @@ typedef struct		s_vm
 	int				nbr_live;				// 0 at the beginning of each round
 }					t_vm;
 
+void				check_arguments(t_vm *vm, int amount, char **args);
+void				create_new_player(t_player **players, const char *arg, int *n);
+void				push_player_back(t_player **players, t_player *player);
+int					check_player_number(t_player **players, const char *self_name, int max, int number);
+void				set_players_numbers(t_player *players, int counter);
+void				clean_players_list(t_player **players);
+
 /*
  * Helpers
  */
@@ -76,5 +77,11 @@ void				read_headers(t_player *players);
 void	            check_magic(char *header, t_player *player);
 char                *read_player_name(const char *header);
 char                *read_player_comment(const char *header);
+
+/*
+**
+*/
+
+void				perform_battle(t_vm *vm);
 
 #endif

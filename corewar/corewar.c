@@ -6,28 +6,50 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/23 13:39:31 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 15:59:46 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void _test(t_player *players)
+void	read_exec_code(t_player *players)
 {
-	ft_putendl("Test output!   < - - -\n");
+	char	c;
 
-	if (g_is_dump)
-		ft_printf("Dump nbr_cycles: %d\n", g_dump_cycles);
 	while (players)
 	{
-        ft_printf("Name: \"%s\"\n", players->name);
-		ft_printf("Number: %d\n", players->number);
-		ft_printf("Size: %d\n", players->size);
-        ft_printf("Comment: \"%s\"\n", players->comment);
-        ft_printf("Player's filename: \"%s\"\n", players->filename);
+		if ((players->exec_code = malloc(players->size)) == NULL
+				|| read(players->fd, players->exec_code, players->size) != players->size)
+		{
+			perror("read_exec_code");
+			exit (-1);
+		}
+		if (read(players->fd, &c, 1) != 0)
+		{
+			ft_printf("Size mismatch for player \"%s\"\n", players->name);
+			exit(-1);
+		}
 		players = players->next;
 	}
+}
 
+void _test(t_vm const *vm)
+{
+	t_player	*player;
+
+	player = vm->players;
+	ft_putendl("Test output!   < - - -\n");
+	if (vm->is_dump)
+		ft_printf("Dump nbr_cycles: %d\n", vm->dump_cycles);
+	while (player)
+	{
+        ft_printf("Name: \"%s\"\n", player->name);
+		ft_printf("Number: %d\n", player->number);
+		ft_printf("Size: %d\n", player->size);
+        ft_printf("Comment: \"%s\"\n", player->comment);
+        ft_printf("Player's filename: \"%s\"\n", player->filename);
+		player = player->next;
+	}
 	ft_putendl("\nEnd of test output!   - - - >\n");
 }
 
@@ -37,16 +59,20 @@ int     main(int argc, char *argv[])
 
     if (argc == 1)
         e__args_amount();
-    vm.players = check_arguments(argc, argv);
+    check_arguments(&vm, argc, argv);
     read_headers(vm.players);
+	read_exec_code(vm.players);
 
-	_test(vm.players);
-	clean_players_list(&(vm.players));
+	_test(&vm);
+
+	perform_battle(&vm);
+
+	clean_players_list(&(vm.players));		// not needed
     system("leaks -q corewar");
     return (0);
 }
 
-t_player	*check_arguments(t_vm *vm, int amount, char **args)
+void	check_arguments(t_vm *vm, int amount, char **args)
 {
     int         i;
     int 		cur_number;
@@ -84,7 +110,6 @@ t_player	*check_arguments(t_vm *vm, int amount, char **args)
         i++;
     }
 	set_players_numbers(vm->players, vm->nbr_players);
-    return (players);
 }
 
 void	create_new_player(t_player **players, const char *arg, int *n)
@@ -189,6 +214,7 @@ void	clean_players_list(t_player **players)
 			clean_players_list(&((*players)->next));
 		ft_strdel(&((*players)->name));
         ft_strdel(&((*players)->comment));
+		free((*players)->exec_code);
 		ft_memdel((void **)players);
 	}
 }
