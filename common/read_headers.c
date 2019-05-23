@@ -6,10 +6,11 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 17:01:54 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/19 18:57:41 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 14:11:56 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "asm.h"
 #include "corewar.h"
 
 void	read_headers(t_player *players)
@@ -87,7 +88,6 @@ char	*read_player_comment(const char *header)
 	header += 140;
 	while (header[i] && i < DESC_LENGTH)
 	{
-//		ft_putchar(header[i]);
 		comment[i] = (char)header[i];
 		i++;
 	}

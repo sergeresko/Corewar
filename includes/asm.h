@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:19:02 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 17:59:25 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ASM_H
 
 # include "common.h"
+# include "../libft/includes/libft.h"
 
 typedef struct		s_header
 {
@@ -23,6 +24,7 @@ typedef struct		s_header
 	char			hex_name[HEX_NAME_LENGTH + 1];
 	char			hex_description[HEX_DESC_LENGTH + 1];
 }					t_header;
+
 
 typedef struct		s_label
 {
@@ -37,6 +39,9 @@ typedef struct		s_data
 	int				row;
 	int				errorCase;
 	int				skippedLine;
+	int				skipped_spaces;
+	int				got_name;
+	int				got_description;
 }					t_data;
 
 typedef struct		s_com
@@ -70,7 +75,6 @@ int		asm_init(t_asm **asm_struct, const char *argv);
 char	*get_filename(const char *argv);
 void	file_processing(int fd, const char *argv);
 
-int		get_substr_index(const char *big, const char *little);
 void	clean_asm_struct(t_asm **asm_struct);
 void	clean_commands_list(t_com **commands);
 
@@ -78,8 +82,9 @@ void	clean_commands_list(t_com **commands);
  * Errors functions
  */
 void	e__asm_initialization(void);
+void	e__open_file(const char *name);
+void	e__read_file(t_asm *asm_struct, int errorCase);
 
-void	e__read_file(void);
 void	e__trim_line(const char *line);
 
 
@@ -120,7 +125,7 @@ void	read_line_1(char **tline, t_asm *asm_struct);
 size_t 	read_line_2(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct);
 size_t	read_register(char **tline, size_t i, t_com *command);
-int		read_direct(char **tline, int i, t_com *command);
+int		read_direct(char **tline, int i, t_com *command, t_asm *asm_struct);
 int		read_direct_label(char **tline, int i, t_com *command);
 int		read_indirect(char **tline, int i, t_com *command);
 int		read_indirect_label(char **tline, int i, t_com *command);
@@ -160,6 +165,11 @@ void	print_real_value(t_com *command);
 void	print_by_bytes(int arg, int bytes);
 void	print_in_length(int length, char **str);
 void	print_command_line(t_com *command, int index);
-void print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
+void	print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
+
+/*
+ * Bonus part: Disassemble!
+ */
+void	disassemble_processing(int fd, const char *filename);
 
 #endif

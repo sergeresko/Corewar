@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/23 13:40:13 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/23 14:15:24 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define COREWAR_H
 
 # include "common.h"
+# include "../libft/includes/libft.h"
 
 typedef struct		s_player
 {
