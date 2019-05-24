@@ -6,11 +6,37 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/24 08:45:31 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/25 00:18:56 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	write_args_to_file(int fd, t_com *command)
+{
+	int 	i;
+	char	*value;
+
+	i = 0;
+	ft_putstr_fd(command->name, fd);
+//	ft_putchar_fd(LABEL_CHAR, fd);
+	while (i < 3 && command->arg_types[i])
+	{
+		ft_putchar_fd(' ', fd);
+		value = ft_itoa(command->arguments[i]);
+		ft_printf("VAlue: %s\n", value);
+		if (command->arg_types[i] == T_REG)
+			ft_putchar_fd('r', fd);
+		else if (command->arg_types[i] == T_DIR)
+			ft_putchar_fd('%', fd);
+		ft_putstr_fd(value, fd);
+		if (++i < 3 && command->arg_types[i])
+			ft_putchar_fd(SEPARATOR_CHAR, fd);
+		else
+			ft_putchar_fd('\n', fd);
+		ft_strdel(&value);
+	}
+}
 
 int 	read_direct_by_type(const char *code, int i, t_com *command, int arg_num)
 {
@@ -124,7 +150,7 @@ void	read_code(char *code, int length, int fd)
 		else
 			set_args_types(command);
 		i = read_args_by_types(code, i, command);
-//		write_args_to_file(fd, command);
+		write_args_to_file(fd, command);
 		ft_strdel(&com_name);
 		ft_memdel((void **)&(command));
 	}
