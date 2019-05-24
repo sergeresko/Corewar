@@ -6,21 +6,91 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/23 08:52:03 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/24 08:45:31 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+int 	read_direct_by_type(const char *code, int i, t_com *command, int arg_num)
+{
+	int 	j;
+	int		direct;
+
+	j = 0;
+	direct = 0;
+	while (j < command->label_size)
+	{
+		direct <<= 8;
+		direct |= (unsigned char)code[i++];
+		j++;
+	}
+	if (command->label_size == LABEL_SIZE_2)
+		command->arguments[arg_num] = (short)direct;
+	else if (command->label_size == LABEL_SIZE_4)
+		command->arguments[arg_num] = direct;
+	return (i);
+}
+
+int 	read_indirect_by_type(const char *code, int i, t_com *command, int arg_num)
+{
+	short	indirect;
+
+	indirect = 0;
+	indirect |= (unsigned char)code[i++];
+	indirect <<= 8;
+	indirect |= (unsigned char)code[i++];
+	command->arguments[arg_num] = indirect;
+	return (i);
+}
+
+int 	read_register_by_type(const char *code, int i, t_com *command, int arg_num)
+{
+	command->arguments[arg_num] = code[i++];
+	return (i);
+}
+
+int 	read_args_by_types(char *code, int i, t_com *command)
+{
+	int		j;
+
+	j = 0;
+	while (j < 3)
+	{
+		if (command->arg_types[j] == T_REG)
+			i = read_register_by_type(code, i, command, j);
+		else if (command->arg_types[j] == T_DIR)
+			i = read_direct_by_type(code, i, command, j);
+		else if (command->arg_types[j] == T_IND)
+			i = read_indirect_by_type(code, i, command, j);
+		j++;
+	}
+	return (i);
+}
+
+void	set_args_types(t_com *command)
+{
+	if (ft_strequ(command->name, "live"))
+		command->arg_types[0] = T_DIR;
+	else if (ft_strequ(command->name, "zjmp"))
+		command->arg_types[0] = T_DIR;
+	else if (ft_strequ(command->name, "fork"))
+		command->arg_types[0] = T_DIR;
+	else if (ft_strequ(command->name, "lfork"))
+		command->arg_types[0] = T_DIR;
+}
+
 void	get_args_types_by_codage(unsigned char c, t_com *command) {
 	unsigned char	t;
 
 	t = c >> 6;
-	command->arg_types[0] = t == IND_CODE ? T_IND : t;
+	command->arg_types[0] = (t == IND_CODE) ? T_IND : t;
 	t = c << 2;
-	command->arg_types[1] = t >> 6 == IND_CODE ? T_IND : t;
+	t >>= 6;
+	command->arg_types[1] = (t == IND_CODE) ? T_IND : t;
 	t = c << 4;
-	command->arg_types[2] = t >> 6 == IND_CODE ? T_IND : t;
+	t >>= 6;
+	command->arg_types[2] = (t == IND_CODE) ? T_IND : t;
 }
 
 char	*get_command_name_by_code(int c)
@@ -38,20 +108,22 @@ char	*get_command_name_by_code(int c)
 	return (ft_strdup(commands[c]));
 }
 
-void	read_code(char *code, int lenght, int fd)
+void	read_code(char *code, int length, int fd)
 {
 	int 	i;
 	char	*com_name;
 	t_com	*command;
 
-	i = 4;	// skip last null
-	while (i < lenght)
+	i = 0;
+	while (i < length)
 	{
 		com_name = get_command_name_by_code(code[i++]);
 		command = check_command(com_name);
 		if (command->is_codage)
 			get_args_types_by_codage(code[i++], command);
-//		i = read_args_by_codage(code, i, command);
+		else
+			set_args_types(command);
+		i = read_args_by_types(code, i, command);
 //		write_args_to_file(fd, command);
 		ft_strdel(&com_name);
 		ft_memdel((void **)&(command));
@@ -67,6 +139,7 @@ void	execution_code_processing(int new_file_fd, t_player *player)
 		perror("execution_code_processing_1");
 		exit(-1);
 	}
+	read(player->fd, code, 4);	// mega hack!
 	if (read(player->fd, code, player->size) != player->size)
 	{
 		perror("execution_code_processing_2");
@@ -178,15 +251,10 @@ void	disassemble_processing(int fd, const char *filename)
 	player_initialization(&player, fd, filename);
 	check_filename(player.filename);
 	read_headers(&player);
-	ft_printf("Name: %s\n", player.name);
-	ft_printf("Comment: %s\n", player.comment);
-	ft_printf("Size: %d bytes\n", player.size);
-
 	new_file_fd = create_new_file(&player);
 	write_header(new_file_fd, &player);
 	execution_code_processing(new_file_fd, &player);
 	close(new_file_fd);
-
 	ft_strdel(&(player.name));
 	ft_strdel(&(player.comment));
 }

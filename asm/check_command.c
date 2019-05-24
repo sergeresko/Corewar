@@ -12,9 +12,6 @@
 
 #include "asm.h"
 
-#define LABEL_SIZE_2 2
-#define LABEL_SIZE_4 4
-
 void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 {
 	char	*name;

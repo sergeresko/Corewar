@@ -20,6 +20,9 @@
 # define FALSE 0
 # define BYTE 8
 
+# define LABEL_SIZE_2 2
+# define LABEL_SIZE_4 4
+
 #define IND_SIZE				2
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
