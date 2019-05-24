@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/25 00:18:56 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/25 00:20:24 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ void	write_args_to_file(int fd, t_com *command)
 
 	i = 0;
 	ft_putstr_fd(command->name, fd);
-//	ft_putchar_fd(LABEL_CHAR, fd);
 	while (i < 3 && command->arg_types[i])
 	{
 		ft_putchar_fd(' ', fd);
 		value = ft_itoa(command->arguments[i]);
-		ft_printf("VAlue: %s\n", value);
 		if (command->arg_types[i] == T_REG)
 			ft_putchar_fd('r', fd);
 		else if (command->arg_types[i] == T_DIR)
