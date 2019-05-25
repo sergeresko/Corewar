@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/14 23:29:31 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/23 14:44:50 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,12 @@ NAME = corewar
 
 OBJ = corewar.o \
     errors.o \
-    ../common/read_headers.o \
-    ../common/helpers_1.o \
-    ../common/common_1.o
+	../common/read_headers.o \
+	../common/helpers_1.o \
+    ../common/common_1.o \
+	vm.o
 
-FLAGS = -Wall -Wextra - Werror
+FLAGS = -Wall -Wextra -Werror
 
 LIB_FOLDER = ../libft
 
@@ -28,7 +29,7 @@ $(NAME): $(OBJ)
 	@   $(CC) -o $(NAME) $(OBJ) -L$(LIB_FOLDER) -lft
 
 %.o: %.c
-	@	$(CC) -o $@ -c $< -I./../includes
+	@	$(CC) $(FLAGS) -o $@ -c $< -I../includes
 
 clean:
 	@	rm -f $(OBJ)
