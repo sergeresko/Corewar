@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.h                                               :+:      :+:    :+:   */
+/*   op_vm.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/20 18:26:00 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/20 18:26:01 by omaiko           ###   ########.fr       */
+/*   Created: 2019/05/25 12:31:07 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/25 12:31:17 by omaiko           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OP_H
+#ifndef OP_VM_H
 
-# define OP_H
-
+# define OP_VM_H
 # define IND_SIZE				2
 # define REG_SIZE				4
 # define DIR_SIZE				REG_SIZE
@@ -56,35 +55,12 @@ typedef char					t_arg_type;
 # define PROG_NAME_LENGTH		128
 # define COMMENT_LENGTH			2048
 # define COREWAR_EXEC_MAGIC		0xea83f3
-
-typedef struct	s_ops
-{
-	char	*name;
-	int		opcode;
-	int		args_amount;
-	int		args_lst[3];
-	int		s_tdir;
-	int		args_ct;
-}				t_ops;
-
-static t_ops g_ops[17] = {
-	{NULL, 0, 0, {0, 0, 0}, 0, 0},
-	{"live", 1, 1, {T_DIR, 0, 0}, 4, 0},
-	{"ld", 2, 2, {T_DIR | T_IND, T_REG, 0}, 4, 1},
-	{"st", 3, 2, {T_REG, T_IND | T_REG, 0}, 4, 1},
-	{"add", 4, 3, {T_REG, T_REG, T_REG}, 4, 1},
-	{"sub", 5, 3, {T_REG, T_REG, T_REG}, 4, 1},
-	{"and", 6, 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 4, 1},
-	{"or", 7, 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 4, 1},
-	{"xor", 8, 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 4, 1},
-	{"zjmp", 9, 1, {T_DIR, 0, 0}, 2, 0},
-	{"ldi", 10, 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 2, 1},
-	{"sti", 11, 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 2, 1},
-	{"fork", 12, 1, {T_DIR, 0, 0}, 2, 0},
-	{"lld", 13, 2, {T_DIR | T_IND, T_REG, 0}, 4, 1},
-	{"lldi", 14, 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 2, 1},
-	{"lfork", 15, 1, {T_DIR, 0, 0}, 2, 0},
-	{"aff", 16, 1, {T_REG, 0, 0}, 4, 1}
-};
+# define MUS_PATH				"tunes/OUR_MUSIC_HERE.mp3"
+# define CYCLES(k)				g_ops[k].cycles
+# define OPCODE(k)				g_ops[k].opcode
+# define S_TDIR(k)				g_ops[k].s_tdir
+# define ARGS_CT(k)				g_ops[k].args_ct
+# define ARGS_AMOUNT(k)			g_ops[k].args_amount
+# define ARG_LST(k, l)			g_ops[k].args_lst[l]
 
 #endif

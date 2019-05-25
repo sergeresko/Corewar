@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 21:07:49 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/21 19:01:38 by omaiko           ###   ########.fr       */
+/*   Updated: 2019/05/21 19:04:46 by omaiko           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		start_data(t_cw *cw)
 		{
 			champ = cw->champ[k];
 			ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
-			champ.id, champ.exec_amount, champ.name, champ.comment);
+			champ.num, champ.exec_amount, champ.name, champ.comment);
 			k += 1;
 		}
 	}
