@@ -56,11 +56,11 @@ typedef char					t_arg_type;
 # define COMMENT_LENGTH			2048
 # define COREWAR_EXEC_MAGIC		0xea83f3
 # define MUS_PATH				"tunes/OUR_MUSIC_HERE.mp3"
-# define CYCLES(k)				g_ops[k - 1].cycles
-# define OPCODE(k)				g_ops[k - 1].opcode
-# define S_TDIR(k)				g_ops[k - 1].s_tdir
-# define ARGS_CT(k)				g_ops[k - 1].args_ct
-# define ARGS_AMOUNT(k)			g_ops[k - 1].args_amount
-# define ARG_LST(k, l)			g_ops[k - 1].args_lst[l]
+# define CYCLES(k)				g_ops[k].cycles
+# define OPCODE(k)				g_ops[k].opcode
+# define S_TDIR(k)				g_ops[k].s_tdir
+# define ARGS_CT(k)				g_ops[k].args_ct
+# define ARGS_AMOUNT(k)			g_ops[k].args_amount
+# define ARG_LST(k, l)			g_ops[k].args_lst[l]
 
 #endif

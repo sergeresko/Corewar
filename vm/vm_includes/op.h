@@ -68,6 +68,7 @@ typedef struct	s_ops
 }				t_ops;
 
 static t_ops g_ops[17] = {
+	{NULL, 0, 0, {0, 0, 0}, 0, 0},
 	{"live", 1, 1, {T_DIR, 0, 0}, 4, 0},
 	{"ld", 2, 2, {T_DIR | T_IND, T_REG, 0}, 4, 1},
 	{"st", 3, 2, {T_REG, T_IND | T_REG, 0}, 4, 1},
@@ -83,8 +84,7 @@ static t_ops g_ops[17] = {
 	{"lld", 13, 2, {T_DIR | T_IND, T_REG, 0}, 4, 1},
 	{"lldi", 14, 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 2, 1},
 	{"lfork", 15, 1, {T_DIR, 0, 0}, 2, 0},
-	{"aff", 16, 1, {T_REG, 0, 0}, 4, 1},
-	{NULL, 0, 0, {0, 0, 0}, 0, 0}
+	{"aff", 16, 1, {T_REG, 0, 0}, 4, 1}
 };
 
 #endif
