@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/25 14:17:49 by vlvereta          #+#    #+#              #
-#    Updated: 2017/10/25 14:26:24 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/21 17:43:48 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,12 @@ OBJ = srcs/ft_atoi.o srcs/ft_bzero.o srcs/ft_isalnum.o srcs/ft_isalpha.o \
 	srcs/ft_strrchr.o srcs/ft_strsplit.o srcs/ft_strstr.o srcs/ft_strsub.o \
 	srcs/ft_strtrim.o srcs/ft_tolower.o srcs/ft_strlower.o \
 	srcs/ft_toupper.o srcs/ft_strupper.o srcs/is_only_digits.o \
-	srcs/ft_swap_bits32.o srcs/ft_swap_bits64.o \
-	get_next_line/get_next_line.o \
+	srcs/ft_swap_bits32.o srcs/ft_swap_bits64.o srcs/ft_get_substr_index.o \
+	get_next_line/get_next_line.o srcs/ft_atoi_base.o srcs/ft_putchar_fd_wo_check.o \
 	ft_printf/additional_types_or_flags.o ft_printf/extra_functions.o \
 	ft_printf/ft_printf.o ft_printf/initialization.o ft_printf/percent_and_co.o \
 	ft_printf/type_di.o ft_printf/type_high_c.o ft_printf/type_high_s.o \
-	ft_printf/type_low_s.o ft_printf/type_pox.o ft_printf/type_unsigned.o
+	ft_printf/type_low_s.o ft_printf/type_pox.o ft_printf/type_unsigned.o \
 
 HEADER = ./includes/libft.h
 HEADER_GNL = ./includes/get_next_line.h

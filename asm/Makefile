@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/04/23 22:37:49 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/21 18:25:29 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ OBJ = asm.o \
     cleaning.o \
     hex_converters.o \
     dump_output.o \
+    disassembler/disassembler.o \
+    ../common/read_headers.o \
+    ../common/helpers_1.o \
     ../common/common_1.o
 
 FLAGS = -Wall -Wextra -Werror

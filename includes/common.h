@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/14 23:27:27 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/21 18:00:39 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <fcntl.h>
 # include <stdio.h>
-
-# include "../libft/includes/libft.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -79,7 +77,7 @@ typedef char	t_arg_type;
 # define HEX_DESC_LENGTH 		4096
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-# define ASM_USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output"
+# define ASM_USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output\n    -d : Disassembling .cor file"
 # define ASM_INITIALIZATION_ERROR "Asm initialization failed"
 
 # define COR_USAGE "Usage: ./corewar [-d N -s N -v N | -b --stealth | -n --stealth] [-a] <champion1.cor> <...>\n    -a        : Prints output from \"aff\" (Default is to hide it)"

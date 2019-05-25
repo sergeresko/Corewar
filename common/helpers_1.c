@@ -1,46 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   helpers_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/08 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Created: 2019/05/18 17:03:08 by vlvereta          #+#    #+#             */
+/*   Updated: 2019/05/18 17:07:54 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "corewar.h"
 
-int		includes(const char *str, char c)
+unsigned int	parse_int(void *buf)
 {
-	if (!c || !str || !(*str))
-		return (FALSE);
-	while (*str)
+	int				i;
+	int				size;
+	unsigned int	result;
+
+	i = 0;
+	size = 4;
+	result = 0;
+	while (size)
 	{
-		if (*str == c)
-			return (TRUE);
-		str++;
+		result += ((unsigned char *)buf)[--size] << i;
+		i += 8;
 	}
-	return (FALSE);
+	return (result);
 }
 
-char	*byte_in_bits(char c)
+void			is_no_null_error(char *str, int i)
 {
-	int 	i;
-	char	*result;
-
-	if ((result = ft_strnew(sizeof(char) * 8)))
+	if (str[i])
 	{
-		i = 8;
-		while (i > 0)
-		{
-			result[--i] = c % 2 + '0';
-			c /= 2;
-		}
-		return (result);
+		ft_printf("No null at %d\n", i);
+		exit(-1);
 	}
-	return (NULL);
 }
-
-
