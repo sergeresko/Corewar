@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 18:00:39 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/22 23:28:41 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define TRUE 1
 # define FALSE 0
 # define BYTE 8
+
+# define LABEL_SIZE_2 2
+# define LABEL_SIZE_4 4
 
 #define IND_SIZE				2
 #define REG_SIZE				4
@@ -131,7 +134,27 @@ extern const t_arg_type AFF[3][3];
 /*
  * Common staff
  */
+typedef struct		s_player
+{
+	char 			*name;
+	char 			*comment;
+	int				size;
+	void			*exec_code;
+	int 			number;
+	int 			fd;
+	int 			self;
+	const char 		*filename;
+	struct s_player	*next;
+}					t_player;
+
+
 char	*convert_int_to_hex(int num);
+unsigned int		parse_int(void *buf);
+
+void				read_headers(t_player *players);
+void	            check_magic(char *header, t_player *player);
+char                *read_player_name(const char *header);
+char                *read_player_comment(const char *header);
 
 /*
  * Error staff
