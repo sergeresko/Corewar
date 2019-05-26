@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:48:19 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 17:50:51 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,6 @@ int 	read_indirect_by_type(const char *code, int i, t_com *command, int arg_num)
 void	read_code(char *code, int length, int fd);
 void	write_header(int fd, t_player *player);
 void	write_args_to_file(int fd, t_com *command);
+void	clean_split(char **split);
 
 #endif
