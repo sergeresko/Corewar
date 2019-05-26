@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 17:59:25 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 17:48:19 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,23 @@ void	print_command_line(t_com *command, int index);
 void	print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
 
 /*
- * Bonus part: Disassemble!
+ * Bonus part: Disassembler!
  */
 void	disassemble_processing(int fd, const char *filename);
+void	check_filename(const char *filename);
+void	execution_code_processing(int new_file_fd, t_player *player);
+void	player_initialization(t_player *player, int fd, const char *filename);
+char	*get_filename_from_path(const char *filepath);
+char	*get_command_name_by_code(int c);
+void	get_args_types_by_codage(unsigned char c, t_com *command);
+void	set_args_types(t_com *command);
+int		create_new_file(t_player *player);
+int 	read_args_by_types(char *code, int i, t_com *command);
+int 	read_register_by_type(const char *code, int i, t_com *command, int arg_num);
+int 	read_direct_by_type(const char *code, int i, t_com *command, int arg_num);
+int 	read_indirect_by_type(const char *code, int i, t_com *command, int arg_num);
+void	read_code(char *code, int length, int fd);
+void	write_header(int fd, t_player *player);
+void	write_args_to_file(int fd, t_com *command);
 
 #endif
