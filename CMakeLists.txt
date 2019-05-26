@@ -112,5 +112,6 @@ add_executable(asm
 add_executable(corewar
         corewar/corewar.c
         corewar/errors.c
+        corewar/vm.c
 
         ${LIBFT} common/common_1.c common/read_headers.c common/helpers_1.c)

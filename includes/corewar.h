@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 16:59:53 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 17:00:43 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 
 # include "common.h"
 # include "../libft/includes/libft.h"
-
-typedef struct		s_player
-{
-	char 			*name;
-	char 			*comment;
-	int				size;
-	void			*exec_code;
-	int 			number;
-	int 			fd;
-	int 			self;
-	const char 		*filename;
-	struct s_player	*next;
-}					t_player;
 
 typedef struct		s_process
 {

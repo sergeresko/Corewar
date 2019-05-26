@@ -139,12 +139,14 @@ typedef struct		s_player
 	char 			*name;
 	char 			*comment;
 	int				size;
+	void			*exec_code;
 	int 			number;
 	int 			fd;
 	int 			self;
 	const char 		*filename;
 	struct s_player	*next;
 }					t_player;
+
 
 char	*convert_int_to_hex(int num);
 unsigned int		parse_int(void *buf);
