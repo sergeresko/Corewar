@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/30 00:23:46 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:39:03 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,20 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	if (!asm_struct->data.got_name || !asm_struct->data.got_description)
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
-			   asm_struct->data.line, (int)start + 1, name);
+	asm_struct->data.line, (int)start + 1, name);
 		exit(-1);
 	}
-	if (!asm_struct->header.hex_name[0] || !asm_struct->header.hex_description[0] || asm_struct->command)
+	if (!asm_struct->header.hex_name[0]
+		|| !asm_struct->header.hex_description[0] || asm_struct->command)
 	{
 		ft_printf("Syntax error, command %s\n", name);
 		exit(-1);
 	}
+	read_command_2(name, command, asm_struct);
+}
+
+void	read_command_2(char *name, t_com *command, t_asm *asm_struct)
+{
 	if (name)
 	{
 		if ((command = check_command(name)))
@@ -39,8 +45,7 @@ void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct)
 		}
 	}
 	else
-		perror("");
-
+		perror("read_command_2");
 }
 
 t_com	*check_command(char *command)
@@ -64,7 +69,7 @@ t_com	*check_command(char *command)
 	else if (ft_strequ("zjmp", command))
 		return (make_command_struct(command, 9, FALSE, LABEL_SIZE_2));
 	else
-		return check_command_2(command);
+		return (check_command_2(command));
 }
 
 t_com	*check_command_2(char *command)

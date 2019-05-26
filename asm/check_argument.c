@@ -6,24 +6,26 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 18:19:18 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:35:15 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int 	is_register(char *tline, size_t i)
+int		is_register(char *tline, size_t i)
 {
 	if (ft_isdigit(tline[++i]))
 	{
 		i += !ft_isdigit(tline[i + 1]) ? 1 : 2;
-		if (tline[i] == ' ' || tline[i] == '\t' || tline[i] == '\n' || tline[i] == '\0' || tline[i] == SEPARATOR_CHAR)
+		if (tline[i] == ' ' || tline[i] == '\t'
+			|| tline[i] == '\n' || tline[i] == '\0'
+				|| tline[i] == SEPARATOR_CHAR)
 			return (TRUE);
 	}
 	return (FALSE);
 }
 
-int 	get_argument_number(t_com *command)
+int		get_argument_number(t_com *command)
 {
 	if (!command->arg_types[0])
 		return (0);
@@ -34,9 +36,9 @@ int 	get_argument_number(t_com *command)
 	return (-1);
 }
 
-int 	is_argument_possible(const t_arg_type arg_types[], t_arg_type arg_type)
+int		is_argument_possible(const t_arg_type arg_types[], t_arg_type arg_type)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	if (!arg_types[0] && !arg_types[1] && !arg_types[2])
@@ -50,7 +52,7 @@ int 	is_argument_possible(const t_arg_type arg_types[], t_arg_type arg_type)
 	return (FALSE);
 }
 
-int 	check_argument_1(char *command, int arg_num, t_arg_type arg_type)
+int		check_argument_1(char *command, int arg_num, t_arg_type arg_type)
 {
 	if (ft_strequ(command, "live"))
 		return (is_argument_possible(g_live[arg_num], arg_type));
@@ -73,10 +75,10 @@ int 	check_argument_1(char *command, int arg_num, t_arg_type arg_type)
 	else if (ft_strequ(command, "ldi"))
 		return (is_argument_possible(g_ldi[arg_num], arg_type));
 	else
-		return check_argument_2(command, arg_num, arg_type);
+		return (check_argument_2(command, arg_num, arg_type));
 }
 
-int 	check_argument_2(char *command, int arg_num, t_arg_type arg_type)
+int		check_argument_2(char *command, int arg_num, t_arg_type arg_type)
 {
 	if (ft_strequ(command, "sti"))
 		return (is_argument_possible(g_sti[arg_num], arg_type));

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 18:28:55 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:31:58 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		read_indirect_label(char **tline, int i, t_com *command);
 size_t	read_string(char **tline, size_t i, t_asm *asm_struct);
 void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct);
 void	read_command(char *tline, size_t start, size_t end, t_asm *asm_struct);
+void	read_command_2(char *name, t_com *command, t_asm *asm_struct);
 int		check_label(char *tline, int end, int check_label_char);
 int 	is_register(char *tline, size_t i);
 
