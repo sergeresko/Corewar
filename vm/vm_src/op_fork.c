@@ -20,8 +20,8 @@ void		op_fork(t_cw *cw, t_car *car)
 	address = take_arg_by_class(cw, car, 0);
 	place = car->place + (address % IDX_MOD);
 	place %= MEM_SIZE;
-	//создать новую каретку
-	//скопировать в неё данные
+	one_more_car(cw, car->prev, place);
+	move_car_body(cw->car, car);
 	/*if (!cw->ind->v && cw->ind->ops)
 		ft_printf("P %4d | fork  %d (%d)\n",
 		car->num, address, place);*/
