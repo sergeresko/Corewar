@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:50:51 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:06:34 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,9 @@ void	get_args_types_by_codage(unsigned char c, t_com *command);
 void	set_args_types(t_com *command);
 int		create_new_file(t_player *player);
 int 	read_args_by_types(char *code, int i, t_com *command);
-int 	read_register_by_type(const char *code, int i, t_com *command, int arg_num);
-int 	read_direct_by_type(const char *code, int i, t_com *command, int arg_num);
-int 	read_indirect_by_type(const char *code, int i, t_com *command, int arg_num);
+int 	read_reg_by_type(const char *code, int i, t_com *command, int arg_num);
+int 	read_dir_by_type(const char *code, int i, t_com *command, int arg_num);
+int 	read_ind_by_type(const char *code, int i, t_com *command, int arg_num);
 void	read_code(char *code, int length, int fd);
 void	write_header(int fd, t_player *player);
 void	write_args_to_file(int fd, t_com *command);

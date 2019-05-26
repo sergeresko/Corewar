@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:48:23 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:48:23 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:05:20 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	write_header(int fd, t_player *player)
 
 void	write_args_to_file(int fd, t_com *command)
 {
-	int 	i;
+	int		i;
 	char	*value;
 
 	i = 0;

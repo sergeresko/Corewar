@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:40:10 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:40:10 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 17:58:44 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	player_initialization(t_player *player, int fd, const char *filename)
 
 char	*get_filename_from_path(const char *filepath)
 {
-	int 	i;
+	int		i;
 	char	*name;
 	char	**temp1;
 	char	**temp2;
@@ -49,10 +49,11 @@ char	*get_filename_from_path(const char *filepath)
 
 char	*get_command_name_by_code(int c)
 {
-	char	commands[16][5] = {
-			"live", "ld", "st", "add", "sub", "and", "or", "xor",
-			"zjmp", "ldi", "sti", "fork", "lld", "lldi", "lfork", "aff"
+	static char	commands[16][5] = {
+		"live", "ld", "st", "add", "sub", "and", "or", "xor",
+		"zjmp", "ldi", "sti", "fork", "lld", "lldi", "lfork", "aff"
 	};
+
 	c--;
 	if (c < 0 || c > 16)
 	{
@@ -78,7 +79,7 @@ void	get_args_types_by_codage(unsigned char c, t_com *command)
 
 int		create_new_file(t_player *player)
 {
-	int 	fd;
+	int		fd;
 	char	*new_file;
 
 	if (!(new_file = get_filename_from_path(player->filename)))

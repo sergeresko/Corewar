@@ -6,13 +6,13 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:37:05 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:42:47 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:07:27 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int 	read_args_by_types(char *code, int i, t_com *command)
+int		read_args_by_types(char *code, int i, t_com *command)
 {
 	int		j;
 
@@ -20,25 +20,25 @@ int 	read_args_by_types(char *code, int i, t_com *command)
 	while (j < 3)
 	{
 		if (command->arg_types[j] == T_REG)
-			i = read_register_by_type(code, i, command, j);
+			i = read_reg_by_type(code, i, command, j);
 		else if (command->arg_types[j] == T_DIR)
-			i = read_direct_by_type(code, i, command, j);
+			i = read_dir_by_type(code, i, command, j);
 		else if (command->arg_types[j] == T_IND)
-			i = read_indirect_by_type(code, i, command, j);
+			i = read_ind_by_type(code, i, command, j);
 		j++;
 	}
 	return (i);
 }
 
-int 	read_register_by_type(const char *code, int i, t_com *command, int arg_num)
+int		read_reg_by_type(const char *code, int i, t_com *command, int arg_num)
 {
 	command->arguments[arg_num] = code[i++];
 	return (i);
 }
 
-int 	read_direct_by_type(const char *code, int i, t_com *command, int arg_num)
+int		read_dir_by_type(const char *code, int i, t_com *command, int arg_num)
 {
-	int 	j;
+	int		j;
 	int		direct;
 
 	j = 0;
@@ -56,7 +56,7 @@ int 	read_direct_by_type(const char *code, int i, t_com *command, int arg_num)
 	return (i);
 }
 
-int 	read_indirect_by_type(const char *code, int i, t_com *command, int arg_num)
+int		read_ind_by_type(const char *code, int i, t_com *command, int arg_num)
 {
 	short	indirect;
 
@@ -70,7 +70,7 @@ int 	read_indirect_by_type(const char *code, int i, t_com *command, int arg_num)
 
 void	read_code(char *code, int length, int fd)
 {
-	int 	i;
+	int		i;
 	char	*com_name;
 	t_com	*command;
 
