@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:37 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/25 15:51:39 by omaiko           ###   ########.fr       */
+/*   Updated: 2019/05/26 20:27:36 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,15 @@
 
 void		op_sub(t_cw *cw, t_car *car)
 {
-	int k;
-	int	temp;
-	int	place;
-	int	num_reg[3];
+	int const	reg_1 = read_from_field(vm->field, car->arg_place[0], 1);
+	int const	reg_2 = read_from_field(vm->field, car->arg_place[1], 1);
+	int const	value = car->regs[reg_1] - car->regs[reg_2];
+	int const	reg_3 = read_from_field(vm->field, car->arg_place[2], 1);
 
-	k = 0;
-	while (k < 3)
-	{
-		place = take_arg_place(car, k);
-		num_reg[i] = (unsigned char)take_arg_from_field(cw->field, place, 1);
-		k += 1;
-	}
-	/*if (!cw->ind->v && cw->ind->ops)
+	car->regs[reg_3] = value;
+	car->carry = (value == 0);
+	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | sub r%d r%d r%d\n",
-		car->num, num_reg[0], num_reg[1], num_reg[2]);*/
-	temp = car->regs[num_reg[0]] - car->regs[num_reg[1]];
-	car->regs[num_reg[2]] = temp;
-	car->carry = (temp == 0) ? 1 : 0;
-	replace_c(cw, car);
+		car->num, reg_1, reg_2, reg_3);*/
+	car->place = (car->place + car->offset) % MEM_SIZE;
 }

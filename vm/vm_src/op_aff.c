@@ -6,22 +6,20 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:52:50 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/25 15:52:51 by omaiko           ###   ########.fr       */
+/*   Updated: 2019/05/26 20:56:28 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		op_aff(t_cw *cw, t_car *car)
+void			op_aff(t_vm *vm, t_car *car)
 {
-	int	register_num;
-	int	place;
-	int	amount;
+	int const	reg = read_from_field(vm->field, car->arg_place[0], 1);
+	int const	value = car->regs[reg];
 
-	place = car->place + 1;
-	register_num = (unsigned char)take_arg_from_field(cw->field, place, 1);
-	amount = car->regs[register_num];
-	/*if (!cw->ind->v)
-		ft_printf("Aff: %c\n", (char)amount);*/
-	replace_c(cw, car);
+	/*if (!vm->ind->v)		// ??
+	{
+		ft_printf("Aff: %c\n", (char)value);
+	}*/
+	car->place = (car->place + car->offset) % MEM_SIZE;
 }
