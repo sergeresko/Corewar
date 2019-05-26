@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/21 17:59:25 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:56:30 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	 file_processing(int fd, const char *argv)
 	ft_strncpy(asm_struct->header.name, name, ft_strlen(name));
 	ft_strncpy(asm_struct->header.description, description, ft_strlen(description));
 	make_hex_name(asm_struct->header.hex_name, "Jumper !");
-	make_hex_description(asm_struct->header.hex_description, "en fait C forker !");
+	make_hex_desc(asm_struct->header.hex_description, "en fait C forker !");
 	/*                           */
 
 
@@ -155,9 +155,9 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 		if ((*tline)[i] == COMMENT_CHAR || (*tline)[i] == ALT_COMMENT_CHAR)
 			break ;
 		else if ((*tline)[i] == '.')
-			i = read_dot_instruction(tline, i, asm_struct);
+			i = read_dot_instr(tline, i, asm_struct);
 		else if ((*tline)[i] == DIRECT_CHAR)
-			i = read_direct(tline, i, asm_struct->command, asm_struct);
+			i = read_dir(tline, i, asm_struct->command, asm_struct);
 		else if ((*tline)[i] == LABEL_CHAR || ft_isdigit((*tline)[i]) || (*tline)[i] == '-')
 			i = read_indirect(tline, i, asm_struct->command);
 		else if ((*tline)[i] == 'r' && is_register(*tline, i))
@@ -183,7 +183,7 @@ size_t	read_line_2(char **tline, size_t i, t_asm *asm_struct)
 	}
 }
 
-size_t	read_dot_instruction(char **tline, size_t i, t_asm *asm_struct)
+size_t	read_dot_instr(char **tline, size_t i, t_asm *asm_struct)
 {
 	if (ft_get_substr_index(*tline, NAME_CMD_STRING) == i)
 	{
@@ -221,7 +221,7 @@ size_t	read_register(char **tline, size_t i, t_com *command)
 		ft_printf("Argument number - %d\n", arg_num);
 		exit(-1);
 	}
-	if ((checked = check_argument_1(command->name, arg_num, T_REG)) == -1)
+	if ((checked = check_arg_1(command->name, arg_num, T_REG)) == -1)
 	{
 		ft_printf("Syntax error, register \"r%d\"\n", arg);
 		exit(-1);
@@ -231,46 +231,46 @@ size_t	read_register(char **tline, size_t i, t_com *command)
 		ft_printf("Invalid parameter %d type register for instruction %s\n", arg_num, command->name);
 		exit(-1);
 	}
-	write_argument(command, arg_num, T_REG, arg);
+	write_arg(command, arg_num, T_REG, arg);
 	while (ft_isdigit((*tline)[i]))
 		i++;
 	return (check_proper_ending(*tline, i));
 }
 
-int	read_direct(char **tline, int i, t_com *command, t_asm *asm_struct)
+int	read_dir(char **tl, int i, t_com *com, t_asm *asm_struct)
 {
 	int 	arg;
 	int 	arg_num;
 	int 	checked;
 
-	if ((*tline)[++i] == LABEL_CHAR)
-		return read_direct_label(tline, i, command);
-	arg = ft_atoi(&((*tline)[i]));
-	if (g_error_mode || !command)
+	if ((*tl)[++i] == LABEL_CHAR)
+		return read_direct_label(tl, i, com);
+	arg = ft_atoi(&((*tl)[i]));
+	if (g_error_mode || !com)
 	{
 		ft_printf("Syntax error, direct \"%%%d\"\n", arg);
 		exit(-1);
 	}
-	if ((arg_num = get_argument_number(command)) == -1)
+	if ((arg_num = get_argument_number(com)) == -1)
 	{
 		ft_printf("Argument number - %d\n", arg_num);
 		exit(-1);
 	}
-	if ((checked = check_argument_1(command->name, arg_num, T_DIR)) == -1)
+	if ((checked = check_arg_1(com->name, arg_num, T_DIR)) == -1)
 	{
 		ft_printf("Syntax error, direct \"%%%d\"\n", arg);
 		exit(-1);
 	}
 	if (!checked)
 	{
-		ft_printf("Invalid parameter %d type direct for instruction %s\n", arg_num, command->name);
+		ft_printf("Invalid parameter %d type direct for instruction %s\n", arg_num, com->name);
 		exit(-1);
 	}
-	write_argument(command, arg_num, T_DIR, arg);
-	i += (*tline)[i] != '-' ? 0 : 1;
-	while (ft_isdigit((*tline)[i]))
+	write_arg(com, arg_num, T_DIR, arg);
+	i += (*tl)[i] != '-' ? 0 : 1;
+	while (ft_isdigit((*tl)[i]))
 		i++;
-	return (check_proper_ending(*tline, i));
+	return (check_proper_ending(*tl, i));
 }
 
 int		read_direct_label(char **tline, int i, t_com *command)
@@ -293,7 +293,7 @@ int		read_direct_label(char **tline, int i, t_com *command)
 			ft_printf("Argument number - %d\n", arg_num);
 			exit(-1);
 		}
-		if ((checked = check_argument_1(command->name, arg_num, T_DIR)) == -1)
+		if ((checked = check_arg_1(command->name, arg_num, T_DIR)) == -1)
 		{
 			ft_printf("Syntax error, direct \"%%:%s\"\n", label);
 			exit(-1);
@@ -303,7 +303,7 @@ int		read_direct_label(char **tline, int i, t_com *command)
 			ft_printf("Invalid parameter %d type direct for instruction %s\n", arg_num, command->name);
 			exit(-1);
 		}
-		write_label_argument(command, arg_num, T_DIR, &label);
+		write_l_a(command, arg_num, T_DIR, &label);
 		return (check_proper_ending(*tline, j));
 	}
 	return (i);
@@ -328,7 +328,7 @@ int		read_indirect(char **tline, int i, t_com *command)
 		ft_printf("Argument number - %d\n", arg_num);
 		exit(-1);
 	}
-	if ((checked = check_argument_1(command->name, arg_num, T_IND)) == -1)
+	if ((checked = check_arg_1(command->name, arg_num, T_IND)) == -1)
 	{
 		ft_printf("Syntax error, indirect \"%d\"\n", arg);
 		exit(-1);
@@ -338,7 +338,7 @@ int		read_indirect(char **tline, int i, t_com *command)
 		ft_printf("Invalid parameter %d type indirect for instruction %s\n", arg_num, command->name);
 		exit(-1);
 	}
-	write_argument(command, arg_num, T_IND, arg);
+	write_arg(command, arg_num, T_IND, arg);
 	i += (*tline)[i] != '-' ? 0 : 1;
 	while (ft_isdigit((*tline)[i]))
 		i++;
@@ -365,7 +365,7 @@ int		read_indirect_label(char **tline, int i, t_com *command)
 			ft_printf("Argument number - %d\n", arg_num);
 			exit(-1);
 		}
-		if ((checked = check_argument_1(command->name, arg_num, T_IND)) == -1)
+		if ((checked = check_arg_1(command->name, arg_num, T_IND)) == -1)
 		{
 			ft_printf("Syntax error, indirect \"%%:%s\"\n", label);
 			exit(-1);
@@ -375,7 +375,7 @@ int		read_indirect_label(char **tline, int i, t_com *command)
 			ft_printf("Invalid parameter %d type indirect for instruction %s\n", arg_num, command->name);
 			exit(-1);
 		}
-		write_label_argument(command, arg_num, T_IND, &label);
+		write_l_a(command, arg_num, T_IND, &label);
 		return (check_proper_ending(*tline, j));
 	}
 	return (i);
@@ -393,6 +393,6 @@ size_t	read_string(char **tline, size_t i, t_asm *asm_struct)
 	j = i;
 	while (includes(LABEL_CHARS, (*tline)[j]))
 		j++;
-	read_command(*tline, i, j, asm_struct);
+	read_com(*tline, i, j, asm_struct);
 	return (j);
 }

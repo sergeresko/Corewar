@@ -31,9 +31,9 @@ void	e__open_file(const char *name)
 	exit(-1);
 }
 
-void		e__read_file(t_asm *asm_struct, int errorCase)
+void		e__read_file(t_asm *asm_struct, int error_case)
 {
-	switch (errorCase) {
+	switch (error_case) {
 		case 1: ft_printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE\n",
 						  asm_struct->data.line, asm_struct->data.row + 1);
 			break;

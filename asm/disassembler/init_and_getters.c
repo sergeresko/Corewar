@@ -12,11 +12,11 @@
 
 #include "asm.h"
 
-void	player_initialization(t_player *player, int fd, const char *filename)
+void	player_init(t_player *pl, int fd, const char *file)
 {
-	ft_bzero((void *)player, sizeof(t_player));
-	player->fd = fd;
-	player->filename = filename;
+	ft_bzero((void *)pl, sizeof(t_player));
+	pl->fd = fd;
+	pl->filename = file;
 }
 
 char	*get_filename_from_path(const char *filepath)

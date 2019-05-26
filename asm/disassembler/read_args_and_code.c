@@ -20,43 +20,43 @@ int		read_args_by_types(char *code, int i, t_com *command)
 	while (j < 3)
 	{
 		if (command->arg_types[j] == T_REG)
-			i = read_reg_by_type(code, i, command, j);
+			i = read_reg_byt(code, i, command, j);
 		else if (command->arg_types[j] == T_DIR)
-			i = read_dir_by_type(code, i, command, j);
+			i = read_dir_byt(code, i, command, j);
 		else if (command->arg_types[j] == T_IND)
-			i = read_ind_by_type(code, i, command, j);
+			i = read_ind_byt(code, i, command, j);
 		j++;
 	}
 	return (i);
 }
 
-int		read_reg_by_type(const char *code, int i, t_com *command, int arg_num)
+int		read_reg_byt(const char *code, int i, t_com *com, int a_n)
 {
-	command->arguments[arg_num] = code[i++];
+	com->arguments[a_n] = code[i++];
 	return (i);
 }
 
-int		read_dir_by_type(const char *code, int i, t_com *command, int arg_num)
+int		read_dir_byt(const char *code, int i, t_com *com, int a_n)
 {
 	int		j;
 	int		direct;
 
 	j = 0;
 	direct = 0;
-	while (j < command->label_size)
+	while (j < com->label_size)
 	{
 		direct <<= 8;
 		direct |= (unsigned char)code[i++];
 		j++;
 	}
-	if (command->label_size == LABEL_SIZE_2)
-		command->arguments[arg_num] = (short)direct;
-	else if (command->label_size == LABEL_SIZE_4)
-		command->arguments[arg_num] = direct;
+	if (com->label_size == LABEL_SIZE_2)
+		com->arguments[a_n] = (short)direct;
+	else if (com->label_size == LABEL_SIZE_4)
+		com->arguments[a_n] = direct;
 	return (i);
 }
 
-int		read_ind_by_type(const char *code, int i, t_com *command, int arg_num)
+int		read_ind_byt(const char *code, int i, t_com *com, int a_n)
 {
 	short	indirect;
 
@@ -64,7 +64,7 @@ int		read_ind_by_type(const char *code, int i, t_com *command, int arg_num)
 	indirect |= (unsigned char)code[i++];
 	indirect <<= 8;
 	indirect |= (unsigned char)code[i++];
-	command->arguments[arg_num] = indirect;
+	com->arguments[a_n] = indirect;
 	return (i);
 }
 

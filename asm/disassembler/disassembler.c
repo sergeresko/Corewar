@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:49:29 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 17:59:25 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	disassemble_processing(int fd, const char *filename)
 	t_player	player;
 	int			new_file_fd;
 
-	player_initialization(&player, fd, filename);
+	player_init(&player, fd, filename);
 	check_filename(player.filename);
 	read_headers(&player);
 	new_file_fd = create_new_file(&player);
 	write_header(new_file_fd, &player);
-	execution_code_processing(new_file_fd, &player);
+	exec_code_proc(new_file_fd, &player);
 	close(new_file_fd);
 	ft_strdel(&(player.name));
 	ft_strdel(&(player.comment));
@@ -51,7 +51,7 @@ void	check_filename(const char *filename)
 	clean_split(splitname);
 }
 
-void	execution_code_processing(int new_file_fd, t_player *player)
+void	exec_code_proc(int new_file_fd, t_player *player)
 {
 	int		test;
 	char	*code;
