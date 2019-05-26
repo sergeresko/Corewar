@@ -27,7 +27,7 @@ int		includes(const char *str, char c)
 
 char	*byte_in_bits(char c)
 {
-	int 	i;
+	int		i;
 	char	*result;
 
 	if ((result = ft_strnew(sizeof(char) * 8)))
@@ -42,5 +42,3 @@ char	*byte_in_bits(char c)
 	}
 	return (NULL);
 }
-
-

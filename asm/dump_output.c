@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaning.c                                         :+:      :+:    :+:   */
+/*   dump_output.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/08 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:26:19 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,43 +42,7 @@ void	rush_through_commands(t_com *command, int index, t_asm *asm_struct)
 	ft_putchar('\n');
 }
 
-void	print_command_line(t_com *command, int index)
-{
-	int 	i;
-	char	*temp;
-
-	i = -1;
-	temp = ft_itoa(index);
-	print_in_length(5, &temp);
-	ft_putchar('(');
-	temp = ft_itoa(command->length);
-	print_in_length(3, &temp);
-	ft_putstr(") :        ");
-	print_in_length(10, &(command->name));
-	while (++i < 3)
-	{
-		if (command->arg_types[i] == T_REG)
-		{
-			temp = ft_itoa(command->arguments[i]);
-			ft_putchar('r');
-			print_in_length(17, &temp);
-		}
-		else if (command->arg_types[i] == T_DIR)
-		{
-			temp = command->arg_labels[i] ? ft_strjoin(":", command->arg_labels[i]) : ft_itoa(command->arguments[i]);
-			ft_putchar('%');
-			print_in_length(17, &temp);
-		}
-		else if (command->arg_types[i] == T_IND)
-		{
-			temp = command->arg_labels[i] ? ft_strjoin(":", command->arg_labels[i]) : ft_itoa(command->arguments[i]);
-			print_in_length(18, &temp);
-		}
-	}
-	ft_putchar('\n');
-}
-
-void print_additional_command_line(t_com *command, int line, t_asm *ast_struct)
+void	print_additional_command_line(t_com *command, int line, t_asm *ast_struct)
 {
 	int 	i;
 	char	*temp;

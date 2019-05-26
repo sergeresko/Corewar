@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 18:06:34 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:28:55 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void	print_real_value(t_com *command);
 void	print_by_bytes(int arg, int bytes);
 void	print_in_length(int length, char **str);
 void	print_command_line(t_com *command, int index);
+void print_command_line_loop(t_com *command, int i, char *temp);
 void	print_additional_command_line(t_com *command, int line, t_asm *ast_struct);
 
 /*

@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/21 18:25:29 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/26 18:29:27 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ OBJ = asm.o \
     cleaning.o \
     hex_converters.o \
     dump_output.o \
+    print_commands.o \
     disassembler/disassembler.o \
     disassembler/init_and_getters.o \
     disassembler/read_args_and_code.o \
