@@ -26,6 +26,9 @@ OBJ = asm.o \
     hex_converters.o \
     dump_output.o \
     disassembler/disassembler.o \
+    disassembler/init_and_getters.o \
+    disassembler/read_args_and_code.o \
+    disassembler/set_args_and_writers.o \
     ../common/read_headers.o \
     ../common/helpers_1.o \
     ../common/common_1.o
