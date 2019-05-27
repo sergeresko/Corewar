@@ -14,17 +14,17 @@
 
 // -------------
 
-void	list_push(t_list **head, void *content)
+void		list_push(t_list **head, void *content)
 {
 	t_list	*item;
 
-	item = malloc(sizeof(t_list));
+	item = malloc(sizeof(t_list));		// TODO: check if not NULL
 	item->content = content;
 	item->next = *head;
 	*head = item;
 }
 
-void	list_pop(t_list **head)
+void		list_pop(t_list **head)
 {
 	t_list	*item;
 
@@ -35,32 +35,36 @@ void	list_pop(t_list **head)
 
 // -------------
 
-int		is_valid_op_code(char c)		// t_bool
+/*
+**	returns TRUE or FALSE
+*/
+
+int		is_valid_opcode(char c)		// t_bool
 {
 	return (1 <= c && c <= 16);
 }
 
-void	perform_process(t_vm *vm, t_process *p)
+void	execute_car(t_vm *vm, t_car *car)
 {
-	if (p->delay == 0)				// i.e. if `p->pc` is at a new position
+	if (car->delay == 0)		// i.e. if `car->place` is at a new position
 	{
-		p->op_code = vm->arena[p->pc];
-		if (!is_valid_op_code(p->op_code))
+		car->opcode = vm->field[car->place].square;		// use `read_from_field`
+		if (!is_valid_opcode(car->opcode))
 		{
-			p->pc = (p->pc + 1) % MEM_SIZE;		// advance `p->pc` by 1 byte
+			car->place = (car->place + 1) % MEM_SIZE;	// advance `car->place` by 1 byte
 			return ;
 		}
-//		p->delay = vm->op[p->op_code].delay;	// TODO:
+		car->delay = g_ops[car->opcode].delay;
 	}
-	--(p->delay);
-	if (p->delay == 0)
+	--(car->delay);
+	if (car->delay == 0)
 	{
-//		execute_operation(vm, p);		// <---------- TODO:
+		execute_operation(vm, car);
 	}
 }
 
 /*
-**	`perform_cycle` calls `perform_process` for each process
+**	`perform_cycle` calls `execute_car` for each car
 */
 
 void	perform_cycle(t_vm *vm)
@@ -68,7 +72,7 @@ void	perform_cycle(t_vm *vm)
 	t_list		*item;
 
 	++(vm->cycle);				// increment
-	item = vm->processes;
+	item = vm->cars;
 	while (item != NULL)
 	{
 		perform_process(vm, item->content);
@@ -77,24 +81,24 @@ void	perform_cycle(t_vm *vm)
 }
 
 /*
-**	`perform_check` kills all processes that haven't executed `live` since the
-**	previous check
+**	`perform_check` kills all cars that haven't executed `live` since
+**	the previous check
 */
 
 void	perform_check(t_vm *vm)
 {
 	int const	oldest_cycle = vm->cycle - vm->cycles_to_die;
 	t_list		**addr;
-	t_process	*p;
+	t_car		*car;
 
 	++(vm->nbr_checks);			// increment
-	addr = &(vm->processes);
+	addr = &(vm->cars);
 	while (*addr != NULL)
 	{
-		p = (*addr)->content;
-		if (p->cycle_when_last_live <= oldest_cycle)
+		car = (*addr)->content;
+		if (car->cycle_when_last_live <= oldest_cycle)
 		{
-			list_pop(addr);		// delete process `p`
+			list_pop(addr);		// delete car `car`		// free ?
 		}
 		else
 		{
@@ -133,27 +137,25 @@ void	perform_round(t_vm *vm)
 }
 // ----------------
 
-static void	print_hex(unsigned char b)
+static void	print_hex(unsigned char byte)
 {
-	char	s[2];
+	char	str[2];
 
-	s[0] = (char)(b / 16);
-	s[0] += (s[0] < 10) ? '0' : ('a' - 10);
-	s[1] = (char)(b % 16);
-	s[1] += (s[1] < 10) ? '0' : ('a' - 10);
-	write(1, s, 2);
+	str[0] = (char)(byte / 16);
+	str[0] += (str[0] < 10) ? '0' : ('a' - 10);
+	str[1] = (char)(byte % 16);
+	str[1] += (str[1] < 10) ? '0' : ('a' - 10);
+	write(1, str, 2);
 }
 
-void	dump_memory(void const *arena)
+void		dump_memory(t_field const *field)
 {
-	char const	*s;
-	int			i;
+	int		i;
 
-	s = arena;
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		print_hex(s[i]);
+		print_hex(field[i].square);
 		if (i % 2)
 		{
 			ft_putchar((i + 1) % 32 ? ' ' : '\n');
@@ -180,37 +182,37 @@ static t_player	*get_player_by_number(t_vm *vm, int n)
 	return (NULL);
 }
 
-t_process	*create_process(int player_number)
+t_car	*create_car(int player_number)
 {
-	t_process	*p;
+	t_car	*car;
 
-	if ((p = ft_memalloc(sizeof(t_process))) == NULL)	// initialized with zeroes
+	if ((car = ft_memalloc(sizeof(t_car))) == NULL)	// initialized with zeroes
 	{
 		perror("create_process");
 		exit(-1);
 	}
-	p->registers[0] = -player_number;	// TODO: ?
-	return (p);
+	car->regs[0] = -player_number;	// TODO: ?
+	return (car);
 }
 
 void	load_players(t_vm *vm)
 {
 	int const	step = MEM_SIZE / vm->nbr_players;
-	int			i;
+	int			k;
 	t_player	*player;
-	t_process	*process;
+	t_car		*car;
 
 	ft_bzero(vm->arena, MEM_SIZE);
-	vm->processes = NULL;
-	i = 0;
-	while (i < vm->nbr_players)
+	vm->cars = NULL;
+	k = 0;
+	while (k < vm->nbr_players)
 	{
-		player = get_player_by_number(vm, i + 1);
-		ft_memcpy(vm->arena + step * i, player->exec_code, player->size);
-		process = create_process(i + 1);
-		process->pc = step * i;
-		list_push(&(vm->processes), process);
-		++i;
+		player = get_player_by_number(vm, k + 1);
+		ft_memcpy(vm->arena + step * k, player->exec_code, player->size); // TODO:
+		car = create_car(k + 1);
+		car->place = step * k;
+		list_push(&(vm->cars), car);
+		++k;
 	}
 }
 
@@ -226,11 +228,11 @@ void	perform_battle(t_vm *vm)
 	// ...
 	load_players(vm);
 	//
-	dump_memory(vm->arena);			// this is
+	dump_memory(vm->field);			// this is
 	system("leaks -q corewar");		// here just
 	exit(0);						// for testing
 	//
-	while (vm->processes != NULL /* ... */)
+	while (vm->cars != NULL /* ... */)
 	{
 		perform_round(vm);
 	}

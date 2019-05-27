@@ -20,7 +20,7 @@
 ** [	4            -> 8 (T_LAB)	]
 */
 
-static uint8_t	arg_code_to_mask(uint8_t code)
+static int	arg_code_to_mask(int code)
 {
 	return (1 << code >> 1);
 }
@@ -33,8 +33,8 @@ static uint8_t	arg_code_to_mask(uint8_t code)
 void			decypher_coding_byte(t_vm const *vm, t_car *car)
 {
 	uint8_t		coding_byte;	// TODO: rewrite so that `coding_byte` can be `int`
-	int			offset;		// unsigned short ?
-	int			arg;			// unsigned ?
+	int			offset;
+	int			arg;
 
 	coding_byte = read_from_field(vm->field, (car->place + 1) % MEM_SIZE, 1);
 	offset = 2;

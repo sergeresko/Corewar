@@ -39,13 +39,14 @@ typedef struct	s_ind
 
 typedef struct	s_champ
 {
-	int				num;
-	unsigned int	exec_amount;
-	unsigned int	ongoing_lives;
-	unsigned int	recent_cycle;
-	unsigned char	*exec_code;
-	char			name[PROG_NAME_LENGTH + 1];
-	char			comment[COMMENT_LENGTH + 1];
+//	int		id;
+	char	*filename;
+	char	name[PROG_NAME_LENGTH + 1];
+	char	comment[COMMENT_LENGTH + 1];
+	int		size;
+	char	*exec_code;
+//	unsigned int	ongoing_lives;
+//	unsigned int	recent_cycle;
 }				t_champ;
 
 typedef struct	s_field
@@ -74,6 +75,18 @@ typedef struct	s_car
 //	struct s_car		*then;
 }				t_car;
 
+typedef struct	s_vm
+{									// initial values:
+//	t_ind			*ind;
+	t_field			field[MEM_SIZE];	// zeroes and players' executable code
+	int				cycle;				// 0
+	int				cycle_to_die;		// CYCLE_TO_DIE (1536)
+//	int				last_living_player;	// the largest player's id
+	t_list			*cars;				// NULL
+	int				nbr_checks;			// 0
+	int				nbr_live;			// 0 at the beginning of each round
+}				t_vm;
+
 typedef struct	s_cw
 {
 	t_ind			*ind;
@@ -82,19 +95,19 @@ typedef struct	s_cw
 	t_field			field[MEM_SIZE];
 	t_car			*car;
 	unsigned int	amount_of_alives[4];
-	int				tune_on;
-	int				x;
-	int				y;
+//	int				tune_on;
+//	int				x;
+//	int				y;
 	int				ac;
 	int				fd;
-	int				c_per_sec; // for_visual
+//	int				c_per_sec; // for_visual
 	int				ongoing_cycle;
-	int				running; // pause_or_run_for_visual
+//	int				running; // pause_or_run_for_visual
 	int				champs_amount;
 	int				carry_nbr;
 	int				alive_carry_nbr;
 	int				scan_cycle;
-	int				ctd;
+	int				ctd;	// cycle_do_die
 	int				alive_nbr;
 	int				scan_nbr;
 	int				free_num[5];
