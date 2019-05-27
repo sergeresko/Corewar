@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//include
+#include "vm.h"
 
 uint8_t		get_reg(t_vm const *vm, t_car const *car, int arg)
 {

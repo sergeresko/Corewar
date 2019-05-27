@@ -23,7 +23,7 @@ void			op_sti(t_vm *vm, t_car *car)
 	write_to_field(vm->field, (car->place + address) % MEM_SIZE, value);
 	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | sti r%d %d %d\n",
-		car->num, reg, operand_1, operand_2);*/
+		car->id, reg, operand_1, operand_2);*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
 /*

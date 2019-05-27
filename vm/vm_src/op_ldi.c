@@ -24,7 +24,7 @@ void			op_ldi(t_vm *vm, t_car *car)
 	/*if (!vm->ind->v && vm->ind->ops)
 	{
 		ft_printf("P %4d | ldi %d %d r%d\n",
-				car->num, operand_1, operand_2, reg);
+				car->id, operand_1, operand_2, reg);
 	}*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

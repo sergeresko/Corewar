@@ -23,6 +23,6 @@ void			op_or(t_cw *cw, t_car *car)
 	car->carry = (value == 0);
 	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | or %d %d r%d\n",
-		car->num, operand_1, operand_2, reg);*/
+		car->id, operand_1, operand_2, reg);*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

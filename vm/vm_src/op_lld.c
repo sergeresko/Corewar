@@ -22,6 +22,6 @@ void			op_lld(t_cw *cw, t_car *car)								//
 	car->regs[reg] = value;
 	car->carry = (value == 0);
 	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | lld %d r%d\n", car->num, value, reg);*/			//
+		ft_printf("P %4d | lld %d r%d\n", car->id, value, reg);*/			//
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

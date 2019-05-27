@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:20:11 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/27 13:34:13 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 13:58:40 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static uint8_t	arg_code_to_mask(uint8_t code)
 
 void			decypher_coding_byte(t_vm const *vm, t_car *car)
 {
-	uint8_t		coding_byte;
+	uint8_t		coding_byte;	// TODO: rewrite so that `coding_byte` can be `int`
 	int			offset;		// unsigned short ?
 	int			arg;			// unsigned ?
 
@@ -54,18 +54,19 @@ void			decypher_coding_byte(t_vm const *vm, t_car *car)
 
 /*
 **	check whether a given number represents a number of a register
+**	(return TRUE or FALSE)
 */
 
-static t_bool	is_valid_register(uint8_t number)
+static int	is_valid_register(uint8_t number)
 {
 	return (1 <= number && number <= REG_NUMBER);
 }
 
 /*
-**	check whether all register numbers are correct
+**	check whether all register numbers are correct (return TRUE or FALSE)
 */
 
-t_bool			check_registers(t_vm const *vm, t_car const *car)
+int			check_registers(t_vm const *vm, t_car const *car)
 {
 	int			arg;
 	uint8_t		reg;

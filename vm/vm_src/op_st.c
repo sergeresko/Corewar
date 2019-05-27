@@ -31,7 +31,7 @@ void			op_st(t_vm *vm, t_car *car)
 	}
 	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | st r%d %d\n",	// ??????????
-		car->num, reg, address);*/
+		car->id, reg, address);*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
 /*

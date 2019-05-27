@@ -23,7 +23,7 @@ void			op_zjmp(t_vm *vm, t_car *car)
 	/*if (vm->ind->ops && !vm->ind->v)
 	{
 		ft_printf("P %4d | zjmp %d %s\n",
-				car->num, value, car->carry ? "OK" : "FAILED");
+				car->id, value, car->carry ? "OK" : "FAILED");
 	}*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

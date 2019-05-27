@@ -6,15 +6,15 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:32:17 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/26 15:35:58 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 14:01:51 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //include
 
-uint8_t		get_arg_size(t_car const *car, int k)
+int				get_arg_size(t_car const *car, int arg)
 {
-	uint8_t const	class = car->arg_class[k];
+	int const	class = car->arg_class[arg];
 
 	if (class == T_DIR)
 	{

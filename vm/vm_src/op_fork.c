@@ -21,6 +21,6 @@ void			op_fork(t_vm *vm, t_car *car)
 	move_car_body(vm->car, car);			//
 	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | fork  %d (%d)\n",
-		car->num, address, place);*/
+		car->id, address, place);*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

@@ -41,7 +41,7 @@ void		op_live(t_cw *cw, t_car *car)
 	parameter = (int)take_arg_from_field(cw->field, car->place + 1, amount);
 	k = 0;
 	/*if (cw->ind->ops && !cw->ind->v)
-		ft_printf("P %4d | live %d\n", car->num, parameter);*/
+		ft_printf("P %4d | live %d\n", car->id, parameter);*/
 	while (k < cw->champs_amount)
 	{
 		if (parameter == -cw->champ[k].num)

@@ -23,12 +23,27 @@ static int		get_value_dir(t_vm const *vm, t_car const *car, int place)
 {
 	int const	size = g_ops[car->opcode].dir_size;
 
-	return (read_from_field(vm->field, place, size));
+	if (size == 2)
+	{
+		return ((short)read_from_field(vm->field, place, size));
+	}
+	else
+	{
+		return ((int)read_from_field(vm->field, place, size));
+	}
 }
 
 static int		get_value_ind(t_vm const *vm, t_car const *car, int place)
 {
-	// TODO:
+	int			address;
+
+	address = (short)read_from_field(vm->field, place, IND_SIZE);
+	if (car->opcode != 13)		// not `lld`
+	{
+		address %= IDX_MOD;
+	}
+	place = (car->place + address) % MEM_SIZE;
+	return ((int)read_from_field(vm->field, place, 4));
 }
 
 int				get_value(t_vm const *vm, t_car const *car, int arg)
