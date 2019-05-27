@@ -1,40 +1,40 @@
 .name		"Oh, You Fork my TRALALA ..."
 .comment	"HMMMM, my ding-ding-dong !!"
 
-# LD : charge la valeur du 1er param dans le registre
+# g_ld : charge la valeur du 1er param dans le registre
 
-# ST : stocke la valeur du registre vers le second paramètre.
+# g_st : stocke la valeur du registre vers le second paramètre.
 
-# ADD : Additionne les 2 premiers registres, et met le résultat dans le 3eme.
+# g_add : Additionne les 2 premiers registres, et met le résultat dans le 3eme.
 
-# SUB : Soustrait les 2 premiers registres, et met le résultat dans le 3eme.
+# g_sub : Soustrait les 2 premiers registres, et met le résultat dans le 3eme.
 
-# AND : Applique un & (ET bit-a-bit) sur les 2 premiers registres, et met le 
+# g_and : Applique un & (ET bit-a-bit) sur les 2 premiers registres, et met le
 # résultat dans le 3eme.
 
-# OR : Applique un OU (bit-a-bit) sur les 2 premiers registres, et met le 
+# g_or : Applique un OU (bit-a-bit) sur les 2 premiers registres, et met le
 #résultat dans le troisième.
 
-# XOR : Fait un OU exclusif bit a bit (c'est comme un OU normal, mais 1^1 = 0)
+# g_xor : Fait un OU exclusif bit a bit (c'est comme un OU normal, mais 1^1 = 0)
 
-# ZJMP : saute a l'adresse si le carry est a 1.
+# g_zjmp : saute a l'adresse si le carry est a 1.
 
-# LDI : additionne les 2 premiers, traite ca comme une adresse, y lit une valeur
+# g_ldi : additionne les 2 premiers, traite ca comme une adresse, y lit une valeur
 # de la taille d’un registre et la met dans le 3eme.
 
-# STI  : additionne les 2 derniers, utilise cette somme comme une adresse ou 
+# g_sti  : additionne les 2 derniers, utilise cette somme comme une adresse ou
 # sera copiee la valeur du 1er param
 
-# FORK : Crée un nouveau processus, qui hérite des diﬀérents états de son père,
+# g_fork : Crée un nouveau processus, qui hérite des diﬀérents états de son père,
  # à part son PC, qui est mis à (PC + (1er paramètre % IDX_MOD)).
 
-# LLD : similaire a ld sans la restriction de IDX_MOD (ici 512) (a confirmer)
+# g_lld : similaire a ld sans la restriction de IDX_MOD (ici 512) (a confirmer)
 
-# LLDI : Pareil que ldi, mais n’applique aucun modulo aux adresses.
+# g_lldi : Pareil que ldi, mais n’applique aucun modulo aux adresses.
 
-# LFORK : Pareil qu’un fork sans modulo à l'adresse.
+# g_lfork : Pareil qu’un fork sans modulo à l'adresse.
 
-# AFF : affiche sur la sortie standard le char ASCII
+# g_aff : affiche sur la sortie standard le char ASCII
 
 entry:
 	st		r1, 6

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/22 23:28:41 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:19:18 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,22 +114,22 @@ extern int g_dump_cycles;
 /*
  * Commands' arguments list
  */
-extern const t_arg_type LIVE[3][3];
-extern const t_arg_type LD[3][3];
-extern const t_arg_type ST[3][3];
-extern const t_arg_type ADD[3][3];
-extern const t_arg_type SUB[3][3];
-extern const t_arg_type AND[3][3];
-extern const t_arg_type OR[3][3];
-extern const t_arg_type XOR[3][3];
-extern const t_arg_type ZJMP[3][3];
-extern const t_arg_type LDI[3][3];
-extern const t_arg_type STI[3][3];
-extern const t_arg_type FORK[3][3];
-extern const t_arg_type LLD[3][3];
-extern const t_arg_type LLDI[3][3];
-extern const t_arg_type LFORK[3][3];
-extern const t_arg_type AFF[3][3];
+extern const t_arg_type g_live[3][3];
+extern const t_arg_type g_ld[3][3];
+extern const t_arg_type g_st[3][3];
+extern const t_arg_type g_add[3][3];
+extern const t_arg_type g_sub[3][3];
+extern const t_arg_type g_and[3][3];
+extern const t_arg_type g_or[3][3];
+extern const t_arg_type g_xor[3][3];
+extern const t_arg_type g_zjmp[3][3];
+extern const t_arg_type g_ldi[3][3];
+extern const t_arg_type g_sti[3][3];
+extern const t_arg_type g_fork[3][3];
+extern const t_arg_type g_lld[3][3];
+extern const t_arg_type g_lldi[3][3];
+extern const t_arg_type g_lfork[3][3];
+extern const t_arg_type g_aff[3][3];
 
 /*
  * Common staff

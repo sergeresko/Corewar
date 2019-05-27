@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/04/30 00:20:36 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:56:53 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	char	*tline;
 
 	++asm_struct->data.line;
-	asm_struct->data.row = (asm_struct->data.errorCase) ?
+	asm_struct->data.row = (asm_struct->data.error_case) ?
 			asm_struct->data.row : (int)ft_strlen(*line);
-	asm_struct->data.row = (asm_struct->data.skippedLine) ?
+	asm_struct->data.row = (asm_struct->data.skipped_line) ?
 			(int)ft_strlen(*line) : asm_struct->data.row;
 	tline = ft_strtrim(*line);
 	asm_struct->data.skipped_spaces = (int) ft_get_substr_index(*line, ".") + 1;
@@ -50,19 +50,19 @@ int		check_label(char *tline, int end, int check_label_char)
 	return (end);
 }
 
-void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
+void	read_label(char *tl, size_t st, size_t end, t_asm *asm_str)
 {
 	char	*name;
 	t_label	*label;
 
-	name = ft_strsub(tline, (unsigned int)start, end - start);
-	if (!asm_struct->data.got_name || !asm_struct->data.got_description)
+	name = ft_strsub(tl, (unsigned int)st, end - st);
+	if (!asm_str->data.got_name || !asm_str->data.got_description)
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
-			   asm_struct->data.line, (int)(start + 1), name);
+			   asm_str->data.line, (int)(st + 1), name);
 		exit(-1);
 	}
-	if (!asm_struct->header.hex_name[0] || !asm_struct->header.hex_description[0] || asm_struct->command)
+	if (!asm_str->header.hex_name[0] || !asm_str->header.hex_description[0] || asm_str->command)
 	{
 		ft_printf("Syntax error, label \"%s:\"\n", name);
 		exit(-1);
@@ -72,7 +72,7 @@ void	read_label(char *tline, size_t start, size_t end, t_asm *asm_struct)
 	{
 		label->name = name;
 		label->index = g_index;
-		push_label_front(&(asm_struct->labels), label);
+		push_label_front(&(asm_str->labels), label);
 	}
 	else
 		perror("");
@@ -144,21 +144,21 @@ int 	command_length(t_com *command)
 	return (result);
 }
 
-void	write_argument(t_com *command, int arg_num, t_arg_type arg_type, int argument)
+void	write_arg(t_com *com, int a_n, t_arg_type a_t, int arg)
 {
-	command->arg_types[arg_num] = arg_type;
-	if (arg_type == T_REG)
-		command->arguments[arg_num] = (char)argument;
-	else if (arg_type == T_DIR)
-		command->arguments[arg_num] = (short)argument;
+	com->arg_types[a_n] = a_t;
+	if (a_t == T_REG)
+		com->arguments[a_n] = (char)arg;
+	else if (a_t == T_DIR)
+		com->arguments[a_n] = (short)arg;
 	else
-		command->arguments[arg_num] = argument;
+		com->arguments[a_n] = arg;
 }
 
-void	write_label_argument(t_com *command, int arg_num, t_arg_type arg_type, char **label)
+void	write_l_a(t_com *com, int a_n, t_arg_type a_t, char **l)
 {
-	command->arg_types[arg_num] = arg_type;
-	command->arg_labels[arg_num] = *label;
+	com->arg_types[a_n] = a_t;
+	com->arg_labels[a_n] = *l;
 }
 
 int 	check_proper_ending(const char *line, int i)
@@ -221,87 +221,87 @@ void	cook_command(t_com *command, int i, t_asm *asm_struct)
 	}
 	if (command->arg_types[0])
 		current_index = !command->arg_labels[0]
-			? cook_argument(command, 0, current_index, asm_struct)
-			: cook_label_argument(command, 0, current_index, asm_struct);
+			? cook_arg(command, 0, current_index, asm_struct)
+			: cook_l_arg(command, 0, current_index, asm_struct);
 	if (command->arg_types[1])
 		current_index = !command->arg_labels[1]
-			? cook_argument(command, 1, current_index, asm_struct)
-			: cook_label_argument(command, 1, current_index, asm_struct);
+			? cook_arg(command, 1, current_index, asm_struct)
+			: cook_l_arg(command, 1, current_index, asm_struct);
 	if (command->arg_types[2])
 		!command->arg_labels[2]
-			? cook_argument(command, 2, current_index, asm_struct)
-			: cook_label_argument(command, 2, current_index, asm_struct);
+			? cook_arg(command, 2, current_index, asm_struct)
+			: cook_l_arg(command, 2, current_index, asm_struct);
 }
 
-int		cook_argument(t_com *command, int arg_num, int index, t_asm *asm_struct)
+int		cook_arg(t_com *com, int a_n, int index, t_asm *asm_str)
 {
 	char	*temp;
 
-	if (command->arg_types[arg_num] == T_REG)
+	if (com->arg_types[a_n] == T_REG)
 	{
-		temp = byte_in_hex((unsigned char)command->arguments[arg_num]);
-		ft_strncpy(&(asm_struct->champion[index]), temp, 2);
+		temp = byte_in_hex((unsigned char)com->arguments[a_n]);
+		ft_strncpy(&(asm_str->champion[index]), temp, 2);
 		index += 2;
 	}
-	else if (command->arg_types[arg_num] == T_DIR)
+	else if (com->arg_types[a_n] == T_DIR)
 	{
-		if (command->label_size == 2)
-			temp = short_in_hex((unsigned short)command->arguments[arg_num]);
+		if (com->label_size == 2)
+			temp = short_in_hex((unsigned short)com->arguments[a_n]);
 		else
-			temp = integer_in_hex(command->arguments[arg_num]);
-		ft_strncpy(&(asm_struct->champion[index]), temp, command->label_size == 2 ? 4 : 8);
-		index += command->label_size == 2 ? 4 : 8;
+			temp = integer_in_hex(com->arguments[a_n]);
+		ft_strncpy(&(asm_str->champion[index]), temp, com->label_size == 2 ? 4 : 8);
+		index += com->label_size == 2 ? 4 : 8;
 	}
-	else if (command->arg_types[arg_num] == T_IND)
+	else if (com->arg_types[a_n] == T_IND)
 	{
-		temp = short_in_hex((unsigned short)command->arguments[arg_num]);
-		ft_strncpy(&(asm_struct->champion[index]), temp, 4);
+		temp = short_in_hex((unsigned short)com->arguments[a_n]);
+		ft_strncpy(&(asm_str->champion[index]), temp, 4);
 		index += 4;
 	}
 	ft_strdel(&temp);
 	return (index);
 }
 
-int 	cook_label_argument(t_com *command, int arg_num, int index, t_asm *asm_struct)
+int 	cook_l_arg(t_com *com, int a_n, int index, t_asm *asm_str)
 {
 	char	*temp;
 	int 	delta;
 	int 	label_index;
 
-	if ((label_index = get_label_index(asm_struct->labels, command->arg_labels[arg_num])) != -1)
+	if ((label_index = get_label_index(asm_str->labels, com->arg_labels[a_n])) != -1)
 	{
-		if (command->arg_types[arg_num] == T_DIR)
+		if (com->arg_types[a_n] == T_DIR)
 		{
 //			ft_printf("Direct %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
-			if ((delta = label_index - command->index) >= 0)
-				temp = command->label_size == 2
+			if ((delta = label_index - com->index) >= 0)
+				temp = com->label_size == 2
 					? short_in_hex(delta)
 					: integer_in_hex(delta);
 			else
-				temp = get_revert_integer(command, arg_num, -delta);
-			ft_strncpy(&(asm_struct->champion[index]), temp, command->label_size == 2 ? 4 : 8);
-			index += command->label_size == 2 ? 4 : 8;
+				temp = get_revert_integer(com, a_n, -delta);
+			ft_strncpy(&(asm_str->champion[index]), temp, com->label_size == 2 ? 4 : 8);
+			index += com->label_size == 2 ? 4 : 8;
 			ft_strdel(&temp);
 			return index;
 		}
-		else if (command->arg_types[arg_num] == T_IND)
+		else if (com->arg_types[a_n] == T_IND)
 		{
 //			ft_printf("Indirect %s label index = %d, command index = %d\n", command->arg_labels[arg_num], label_index, command->index);
-			if ((delta = label_index - command->index) >= 0)
+			if ((delta = label_index - com->index) >= 0)
 				temp = short_in_hex(delta);
 			else
-				temp = get_revert_integer(command, arg_num, -delta);
-			ft_strncpy(&(asm_struct->champion[index]), temp, 4);
+				temp = get_revert_integer(com, a_n, -delta);
+			ft_strncpy(&(asm_str->champion[index]), temp, 4);
 			index += 4;
 			ft_strdel(&temp);
 			return index;
 		}
-		return (index + 1 + (int)ft_strlen(command->arg_labels[arg_num]));
+		return (index + 1 + (int)ft_strlen(com->arg_labels[a_n]));
 	}
 	ft_printf("No such label %s while attempting to dereference token %s \"%c%s\"\n",
-			command->arg_labels[arg_num],
-			command->arg_types[arg_num] == T_DIR ? "DIRECT_LABEL" : "INDIRECT_LABEL",
-			command->arg_types[arg_num] == T_DIR ? '%' : ':', command->arg_labels[arg_num]);
+			com->arg_labels[a_n],
+			com->arg_types[a_n] == T_DIR ? "DIRECT_LABEL" : "INDIRECT_LABEL",
+			com->arg_types[a_n] == T_DIR ? '%' : ':', com->arg_labels[a_n]);
 	exit(-1);
 }
 

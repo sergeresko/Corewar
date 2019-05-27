@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaning.c                                         :+:      :+:    :+:   */
+/*   dump_output.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/08 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:28:55 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,67 +18,31 @@ void	dump_output(t_asm *asm_struct)
 	ft_printf("Program size : %d bytes\n", g_index);
 	ft_printf("Name : \"%s\"\n", asm_struct->header.name);
 	ft_printf("Comment : \"%s\"\n\n", asm_struct->header.description);
-	rush_through_commands(asm_struct->commands, 0, asm_struct);
+	rush_through_com(asm_struct->commands, 0, asm_struct);
 }
 
-void	rush_through_commands(t_com *command, int index, t_asm *asm_struct)
+void	rush_through_com(t_com *com, int index, t_asm *asm_str)
 {
 	char	*temp;
 	char	*label_name;
 	int 	current_index;
 
-	if (command->next)
-		rush_through_commands(command->next, index + command->length, asm_struct);
-	current_index = g_index - index - command->length;
-	if ((label_name = get_label_name(asm_struct->labels, current_index)))
+	if (com->next)
+		rush_through_com(com->next, index + com->length, asm_str);
+	current_index = g_index - index - com->length;
+	if ((label_name = get_label_name(asm_str->labels, current_index)))
 	{
 		temp = ft_itoa(current_index);
 		print_in_length(11, &temp);
 		ft_printf(":    %s:\n", label_name);
 	}
-	print_command_line(command, current_index);
-	print_additional_command_line(command, 1, asm_struct);
-	print_additional_command_line(command, 2, asm_struct);
+	print_command_line(com, current_index);
+	print_add_com_line(com, 1, asm_str);
+	print_add_com_line(com, 2, asm_str);
 	ft_putchar('\n');
 }
 
-void	print_command_line(t_com *command, int index)
-{
-	int 	i;
-	char	*temp;
-
-	i = -1;
-	temp = ft_itoa(index);
-	print_in_length(5, &temp);
-	ft_putchar('(');
-	temp = ft_itoa(command->length);
-	print_in_length(3, &temp);
-	ft_putstr(") :        ");
-	print_in_length(10, &(command->name));
-	while (++i < 3)
-	{
-		if (command->arg_types[i] == T_REG)
-		{
-			temp = ft_itoa(command->arguments[i]);
-			ft_putchar('r');
-			print_in_length(17, &temp);
-		}
-		else if (command->arg_types[i] == T_DIR)
-		{
-			temp = command->arg_labels[i] ? ft_strjoin(":", command->arg_labels[i]) : ft_itoa(command->arguments[i]);
-			ft_putchar('%');
-			print_in_length(17, &temp);
-		}
-		else if (command->arg_types[i] == T_IND)
-		{
-			temp = command->arg_labels[i] ? ft_strjoin(":", command->arg_labels[i]) : ft_itoa(command->arguments[i]);
-			print_in_length(18, &temp);
-		}
-	}
-	ft_putchar('\n');
-}
-
-void print_additional_command_line(t_com *command, int line, t_asm *ast_struct)
+void	print_add_com_line(t_com *com, int line, t_asm *ast_str)
 {
 	int 	i;
 	char	*temp;
@@ -87,26 +51,26 @@ void print_additional_command_line(t_com *command, int line, t_asm *ast_struct)
 
 	i = -1;
 	ft_printf("                    ");
-	temp = ft_itoa(command->code);
+	temp = ft_itoa(com->code);
 	print_in_length(4, &temp);
-	temp = command->is_codage ? ft_itoa(command->codage) : NULL;
+	temp = com->is_codage ? ft_itoa(com->codage) : NULL;
 	print_in_length(6, &temp);
 	while (++i < 3)
 	{
-		if (command->arg_labels[i])
+		if (com->arg_labels[i])
 		{
-			label_index = get_label_index(ast_struct->labels, command->arg_labels[i]);
-			label_arg = label_index - command->index;
+			label_index = get_label_index(ast_str->labels, com->arg_labels[i]);
+			label_arg = label_index - com->index;
 		}
 		else
-			label_arg = command->arguments[i];
-		if (command->arg_types[i] == T_REG)
+			label_arg = com->arguments[i];
+		if (com->arg_types[i] == T_REG)
 		{
 			temp = ft_itoa((unsigned char)label_arg);
 			print_in_length(18, &temp);
 			continue ;
 		}
-		else if (command->arg_types[i] == T_IND)
+		else if (com->arg_types[i] == T_IND)
 		{
 			if (line == 2)
 			{
@@ -117,7 +81,7 @@ void print_additional_command_line(t_com *command, int line, t_asm *ast_struct)
 			print_by_bytes(label_arg, 2);
 			ft_putstr("          ");
 		}
-		else if (command->arg_types[i] == T_DIR)
+		else if (com->arg_types[i] == T_DIR)
 		{
 			if (line == 2)
 			{
@@ -125,8 +89,8 @@ void print_additional_command_line(t_com *command, int line, t_asm *ast_struct)
 				print_in_length(18, &temp);
 				continue ;
 			}
-			print_by_bytes(label_arg, command->label_size);
-			if (command->label_size == 2)
+			print_by_bytes(label_arg, com->label_size);
+			if (com->label_size == 2)
 				ft_putstr("          ");
 			else
 				ft_putstr("  ");

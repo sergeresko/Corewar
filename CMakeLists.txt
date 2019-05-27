@@ -107,7 +107,7 @@ add_executable(asm
         asm/dump_output.c
         asm/disassembler/disassembler.c
 
-        ${LIBFT} common/common_1.c common/read_headers.c common/helpers_1.c)
+        ${LIBFT} common/common_1.c common/read_headers.c common/helpers_1.c asm/disassembler/read_args_and_code.c asm/disassembler/init_and_getters.c asm/disassembler/set_args_and_writers.c asm/print_commands.c)
 
 add_executable(corewar
         corewar/corewar.c
