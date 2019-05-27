@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:55 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/26 20:25:54 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:57:56 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void			op_xor(t_vm *vm, t_car *car)
 {
-	int const	operand_1 = get_arg_value(vm, car, 0);
-	int const	operand_2 = get_arg_value(vm, car, 1);
+	int const	operand_1 = get_value(vm, car, 0);
+	int const	operand_2 = get_value(vm, car, 1);
 	int const	value = operand_1 ^ operand_2;
-	int const	reg = read_from_field(vm->field, car->arg_place[2], 1);
+	int const	reg = get_reg(vm, car, 2);
 
 	car->regs[reg] = value;
 	car->carry = (value == 0);

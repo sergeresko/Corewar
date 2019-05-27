@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 16:05:51 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/26 19:55:24 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 12:42:43 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void			op_sti(t_vm *vm, t_car *car)
 {
-	int const	reg = take_arg_from_field(vm->field, car->arg_place[0], 1);
+	int const	reg = get_reg(vm, car, 0);
 	int const	value = car->regs[reg];
-	int const	operand_1 = get_arg_value(vm, car, 1);
-	int const	operand_2 = get_arg_value(vm, car, 2);
+	int const	operand_1 = get_value(vm, car, 1);
+	int const	operand_2 = get_value(vm, car, 2);
+	int const	address = (operand_1 + operand_2) % IDX_MOD;
 
-	rewrite_field(vm, car, value, (operand_1 + operand_2) % IDX_MOD);
+	write_to_field(vm->field, (car->place + address) % MEM_SIZE, value);
 	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | sti r%d %d %d\n",
 		car->num, reg, operand_1, operand_2);*/

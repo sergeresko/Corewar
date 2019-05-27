@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:18 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/26 19:56:33 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 12:45:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void			op_st(t_vm *vm, t_car *car)
 {
-	int const	reg = take_arg_from_field(vm->field, car->arg_place[0], 1);
+	int const	reg = get_reg(vm, car, 0);
 	int const	value = car->regs[reg];
 	int			address;
 
 	if (car->arg_class[1] == T_REG)
 	{
-		address = take_arg_from_field(vm->field, car->arg_place[1], 1);
+		address = get_reg(vm, car, 1);
 		car->regs[address] = value;
 	}
 	else
 	{
-		address = take_arg_from_field(vm->field, car->arg_place[1], IND_SIZE);
+		address = read_from_field(vm->field, car->arg_place[1], IND_SIZE);	// ?
 		address %= IDX_MOD;
-		rewrite_field(vm, car, value, address);
+		write_to_field(vm->field, (car->place + address) % MEM_SIZE, value);
 	}
 	/*if (!vm->ind->v && vm->ind->ops)
 		ft_printf("P %4d | st r%d %d\n",	// ??????????

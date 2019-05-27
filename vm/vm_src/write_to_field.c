@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_aff.c                                           :+:      :+:    :+:   */
+/*   write_to_field.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 15:52:50 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:59:50 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/27 12:36:14 by syeresko          #+#    #+#             */
+/*   Updated: 2019/05/27 12:47:24 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void			op_aff(t_vm *vm, t_car *car)
+void		write_to_field(t_field *field, int place, unsigned value)
 {
-	int const	reg = get_reg(vm, car, 0);
-	int const	value = car->regs[reg];
+	int		size;
 
-	/*if (!vm->ind->v)		// ??
+	size = 4;
+	while (size--)
 	{
-		ft_printf("Aff: %c\n", (char)value);
-	}*/
-	car->place = (car->place + car->offset) % MEM_SIZE;
+		place %= MEM_SIZE;
+		field[place].square = (uint8_t)(value >> (size * 8));
+		//field[place].cycles = 50;
+		++place;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:20:11 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/26 21:17:25 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 13:34:13 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ void			decypher_coding_byte(t_vm const *vm, t_car *car)
 {
 	uint8_t		coding_byte;
 	int			offset;		// unsigned short ?
-	int			k;			// unsigned ?
+	int			arg;			// unsigned ?
 
 	coding_byte = read_from_field(vm->field, (car->place + 1) % MEM_SIZE, 1);
 	offset = 2;
-	k = 0;
-	while (k < car->arg_amount)
+	arg = 0;
+	while (arg < car->arg_amount)
 	{
-		car->arg_class[k] = arg_code_to_mask(coding_byte >> 6);
-		car->arg_place[k] = (car->place + offset) % MEM_SIZE;
+		car->arg_class[arg] = arg_code_to_mask(coding_byte >> 6);
+		car->arg_place[arg] = (car->place + offset) % MEM_SIZE;
 		coding_byte <<= 2;
-		offset += get_arg_size(car, k);
-		++k;
+		offset += get_arg_size(car, arg);	// <-- `get_arg_size`
+		++arg;
 	}
 	car->offset = offset;
 }
@@ -67,21 +67,21 @@ static t_bool	is_valid_register(uint8_t number)
 
 t_bool			check_registers(t_vm const *vm, t_car const *car)
 {
-	int			k;
-	uint8_t		number;
+	int			arg;
+	uint8_t		reg;
 
-	k = 0;
-	while (k < car->arg_amount)
+	arg = 0;
+	while (arg < car->arg_amount)
 	{
-		if (car->arg_class[k] == T_REG)
+		if (car->arg_class[arg] == T_REG)
 		{
-			number = read_from_field(vm->field, car->arg_place[k], 1);
-			if (!is_valid_register(number))
+			reg = get_reg(vm, car, arg);
+			if (!is_valid_register(reg))
 			{
 				return (FALSE);
 			}
 		}
-		++k;
+		++arg;
 	}
 	return (TRUE);
 }
@@ -104,7 +104,7 @@ void	execute_operation(t_vm *vm, t_car *car)
 	{
 		car->arg_class[0] = T_DIR;
 		car->arg_place[0] = (car->place + 1) % MEM_SIZE;
-		car->offset = 1 + get_arg_size(car, 0);
+		car->offset = 1 + get_arg_size(car, 0);		// <-- `get_arg_size`
 	}
 	g_ops[car->opcode].operation(vm, car);
 }

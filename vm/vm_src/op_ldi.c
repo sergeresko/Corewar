@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:52:43 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/26 20:44:07 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:59:14 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void			op_ldi(t_vm *vm, t_car *car)
 {
-	int const	operand_1 = get_arg_value(vm, car, 0);
-	int const	operand_2 = get_arg_value(vm, car, 1);
+	int const	operand_1 = get_value(vm, car, 0);
+	int const	operand_2 = get_value(vm, car, 1);
 	int const	place = (car->place + (operand_1 + operand_2) % IDX_MOD) % MEM_SIZE;	// line too long
-	int const	value = get_arg_from_field(vm->field, place, 4);	// replace "4" with a define
-	int const	reg = read_from_field(vm->field, car->arg_place[2], 1);
+	int const	value = read_from_field(vm->field, place, 4);		// replace "4" with a define
+	int const	reg = get_reg(vm, car, 2);
 
 	car->regs[reg] = value;
 	/*if (!vm->ind->v && vm->ind->ops)

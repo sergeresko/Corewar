@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:37 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/26 20:27:36 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:56:59 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void		op_sub(t_cw *cw, t_car *car)
 {
-	int const	reg_1 = read_from_field(vm->field, car->arg_place[0], 1);
-	int const	reg_2 = read_from_field(vm->field, car->arg_place[1], 1);
+	int const	reg_1 = get_reg(vm, car, 0);
+	int const	reg_2 = get_reg(vm, car, 1);
 	int const	value = car->regs[reg_1] - car->regs[reg_2];
-	int const	reg_3 = read_from_field(vm->field, car->arg_place[2], 1);
+	int const	reg_3 = get_reg(vm, car, 2);
 
 	car->regs[reg_3] = value;
 	car->carry = (value == 0);
