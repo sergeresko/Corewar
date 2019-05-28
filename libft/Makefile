@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/25 14:17:49 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/21 17:43:48 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/28 20:12:07 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,29 +16,38 @@ NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror
 
-OBJ = srcs/ft_atoi.o srcs/ft_bzero.o srcs/ft_isalnum.o srcs/ft_isalpha.o \
-	srcs/ft_isascii.o srcs/ft_isdigit.o srcs/ft_islower.o srcs/ft_isprint.o \
-	srcs/ft_isupper.o srcs/ft_itoa.o srcs/ft_itoa_base.o srcs/ft_lstadd.o \
-	srcs/ft_lstdel.o srcs/ft_lstdelone.o srcs/ft_lstiter.o srcs/ft_lstmap.o \
-	srcs/ft_lstnew.o srcs/ft_memalloc.o srcs/ft_memccpy.o srcs/ft_memchr.o \
-	srcs/ft_memcmp.o srcs/ft_memcpy.o srcs/ft_memdel.o srcs/ft_memmove.o \
-	srcs/ft_memset.o srcs/ft_putchar.o srcs/ft_putchar_fd.o srcs/ft_putendl.o \
-	srcs/ft_putendl_fd.o srcs/ft_putnbr.o srcs/ft_putnbr_fd.o \
-	srcs/ft_putstr.o srcs/ft_putstr_fd.o srcs/ft_strcat.o \
-	srcs/ft_strchr.o srcs/ft_strclr.o srcs/ft_strcmp.o srcs/ft_strcpy.o \
-	srcs/ft_strdel.o srcs/ft_strdup.o srcs/ft_strequ.o srcs/ft_striter.o \
-	srcs/ft_striteri.o srcs/ft_strjoin.o srcs/ft_strlcat.o srcs/ft_strlen.o \
-	srcs/ft_strmap.o srcs/ft_strmapi.o srcs/ft_strncat.o srcs/ft_strncmp.o \
-	srcs/ft_strncpy.o srcs/ft_strnequ.o srcs/ft_strnew.o srcs/ft_strnstr.o \
-	srcs/ft_strrchr.o srcs/ft_strsplit.o srcs/ft_strstr.o srcs/ft_strsub.o \
-	srcs/ft_strtrim.o srcs/ft_tolower.o srcs/ft_strlower.o \
-	srcs/ft_toupper.o srcs/ft_strupper.o srcs/is_only_digits.o \
-	srcs/ft_swap_bits32.o srcs/ft_swap_bits64.o srcs/ft_get_substr_index.o \
-	get_next_line/get_next_line.o srcs/ft_atoi_base.o srcs/ft_putchar_fd_wo_check.o \
-	ft_printf/additional_types_or_flags.o ft_printf/extra_functions.o \
-	ft_printf/ft_printf.o ft_printf/initialization.o ft_printf/percent_and_co.o \
-	ft_printf/type_di.o ft_printf/type_high_c.o ft_printf/type_high_s.o \
-	ft_printf/type_low_s.o ft_printf/type_pox.o ft_printf/type_unsigned.o \
+OBJ = $(addprefix srcs/, \
+		ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o \
+		ft_isascii.o ft_isdigit.o ft_islower.o ft_isprint.o \
+		ft_isupper.o ft_itoa.o ft_itoa_base.o ft_lstadd.o \
+		ft_lstdel.o ft_lstdelone.o ft_lstiter.o ft_lstmap.o \
+		ft_lstnew.o ft_memalloc.o ft_memccpy.o ft_memchr.o \
+		ft_memcmp.o ft_memcpy.o ft_memdel.o ft_memmove.o \
+		ft_memset.o ft_putchar.o ft_putchar_fd.o ft_putendl.o \
+		ft_putendl_fd.o ft_putnbr.o ft_putnbr_fd.o \
+		ft_putstr.o ft_putstr_fd.o ft_strcat.o \
+		ft_strchr.o ft_strclr.o ft_strcmp.o ft_strcpy.o \
+		ft_strdel.o ft_strdup.o ft_strequ.o ft_striter.o \
+		ft_striteri.o ft_strjoin.o ft_strlcat.o ft_strlen.o \
+		ft_strmap.o ft_strmapi.o ft_strncat.o ft_strncmp.o \
+		ft_strncpy.o ft_strnequ.o ft_strnew.o ft_strnstr.o \
+		ft_strrchr.o ft_strsplit.o ft_strstr.o ft_strsub.o \
+		ft_strtrim.o ft_tolower.o ft_strlower.o \
+		ft_toupper.o ft_strupper.o is_only_digits.o \
+		ft_swap_bits32.o ft_swap_bits64.o ft_get_substr_index.o \
+		ft_atoi_base.o ft_putchar_fd_wo_check.o \
+	) \
+	$(addprefix get_next_line/, \
+		get_next_line.o \
+	) \
+	$(addprefix ft_printf/, \
+		ft_min.o ft_max.o ft_abs.o ft_putnchar.o \
+		ft_floor_l.o ft_utf8_len.o ft_parse_number.o \
+		ft_printf.o \
+		pf_parse_format.o pf_converters.o pf_count_zeroes.o \
+		pf_print_alpha.o pf_print_signed.o pf_print_unsigned.o \
+		pf_print_pointer.o pf_print_float.o \
+	)
 
 HEADER = ./includes/libft.h
 HEADER_GNL = ./includes/get_next_line.h
@@ -51,7 +60,7 @@ $(NAME): $(OBJ)
 	@	ranlib $(NAME)
 
 %.o: %.c $(HEADER) $(HEADER_GNL) $(HEADER_PRINTF)
-	@	$(CC) -o $@ -c $< -Iincludes $(FLAGS)
+	@	$(CC) -o $@ -c $< -I includes $(FLAGS)
 
 clean:
 	@	rm -f $(OBJ)

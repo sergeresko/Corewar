@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/05 14:36:59 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/02/05 16:09:15 by vlvereta         ###   ########.fr       */
+/*   Created: 2018/10/23 13:37:22 by syeresko          #+#    #+#             */
+/*   Updated: 2019/05/28 19:59:20 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,84 +15,109 @@
 
 # include "libft.h"
 # include <unistd.h>
-# include <stdlib.h>
+# include <inttypes.h>
+# include <wchar.h>
 # include <stdarg.h>
 
-# define AMOUNT 16
+void			ft_putnchar(char c, int times);
 
-typedef struct		s_flags
+int				ft_min(int a, int b);
+int				ft_max(int a, int b);
+int				ft_abs(int a);
+
+/*
+**	floating point functions
+*/
+
+typedef union	u_long_double
 {
-	int				width;
-	int				prec;
-	int				left;
-	int				sign;
-	int				space;
-	int				hash;
-	int				zero;
-	int				l;
-	int				ll;
-	int				h;
-	int				hh;
-	int				j;
-	int				z;
-	int				high_l;
-}					t_flags;
+	long double	f;
+	struct		s_i
+	{
+		uintmax_t		m;
+		unsigned short	e;
+	}			i;
+}				t_long_double;
 
-typedef int			(*t_handler)(void *);
+long double		ft_floor_l(long double num);
 
-typedef struct		s_info
+/*
+**	unicode functions
+*/
+
+int				ft_utf8_len(wchar_t wc);
+
+/*
+**	parsing functions
+*/
+
+int				ft_parse_number(const char **a_str);
+
+/*
+**	ft_printf
+*/
+
+# define PF_FLAGS		"#0- +\'"
+# define PF_MODIFIERS	"hljzL"
+# define PF_CONVERSIONS	"cspdibBouxXf%"
+
+typedef enum	e_modifier
 {
-	va_list			ap;
-	char			*types;
-	t_handler		type_handlers[AMOUNT];
-	t_flags			*cur_flags;
-	char			*output;
-	int				outlen;
-	int				error;
-}					t_info;
+	MOD_NONE = 0,
+	MOD_HH,
+	MOD_H,
+	MOD_L,
+	MOD_LL,
+	MOD_J,
+	MOD_Z,
+	MOD_L_CAPITAL
+}				t_modifier;
 
-int					ft_printf(const char *format, ...);
-int					start_initialization(t_info *p);
-void				type_handlers_init(t_handler type_handlers[]);
-void				flags_to_null(t_flags *flags);
-int					read_flags(char **format, t_info *p);
-int					read_width(char **format, t_info *p);
-void				read_precision(char **format, t_info *p);
-int					read_size(char **format, t_info *p);
-int					clean_return(void *ptr1, void *ptr2, void *ptr3, int ret);
-int					check_flags_for_di(t_info *p, char *s);
-char				*precision_for_di(t_flags *flags, char *s, char sing);
-char				*width_for_di(t_flags *flags, char *s, char sign);
-void				check_flags_for_oux(t_flags *flags, char **str, char type);
-char				*precision_for_oux(t_flags *flags, char *str);
-char				*width_for_oux(t_flags *flags, char *str, int extra_len);
-char				*llu_base(unsigned long long value, int base);
-unsigned long long	to_unsigned(t_info *p);
-void				width_for_char(t_info *p, char c);
-void				char_to_output(t_info *p, char c);
-int					wchar_encoder(unsigned int c, char **unichar);
-int					add_unichar(char **res, int len, char *unichar, int ulen);
-void				width_for_unichar(t_info *p, char *unichar, int len);
-int					read_unistring(int precision, wchar_t *s, char **result);
-int					width_for_unistring(t_flags *flags, char **result, int len);
-int					string_processing(t_info *p, char *s, int len);
-int					width_for_string(t_flags *flags, char **result, int len);
-void				string_to_output(t_info *p, char *s, int len);
+typedef struct	s_fmt
+{
+	int			width;
+	int			prec;
+	unsigned	alt: 1;
+	unsigned	zero: 1;
+	unsigned	left: 1;
+	unsigned	blank: 1;
+	unsigned	plus: 1;
+	unsigned	group: 1;
+	t_modifier	mod;
+	char		conv;
+}				t_fmt;
 
-int					type_low_c(void *info);
-int					type_high_c(void *info);
-int					type_low_di(void *info);
-int					type_high_d(void *info);
-int					type_n(void *info);
-int					type_low_o(void *info);
-int					type_high_o(void *info);
-int					type_p(void *info);
-int					type_low_s(void *info);
-int					type_high_s(void *info);
-int					type_low_u(void *info);
-int					type_high_u(void *info);
-int					type_low_x(void *info);
-int					type_high_x(void *info);
-int					percent_handling(void *info);
+# define PF_PREC_NONE 	(-1)
+
+# define PF_RESET		"\e[0m"
+# define PF_RED			"\e[31m"
+# define PF_GREEN		"\e[32m"
+# define PF_YELLOW		"\e[33m"
+# define PF_BLUE		"\e[34m"
+# define PF_MAGENTA		"\e[35m"
+# define PF_CYAN		"\e[36m"
+
+# define PF_BUF_SIZE 	1024
+
+char			g_pf_buf[PF_BUF_SIZE + 1];
+
+# define PF_BUF_START	g_pf_buf
+# define PF_BUF_END		(g_pf_buf + PF_BUF_SIZE)
+
+char			*pf_itoa(const t_fmt *f, uintmax_t num);
+char			*pf_wctomb(wchar_t wc);
+char			*pf_entier_to_string(long double ent);
+char			*pf_frac_to_string(long double frac, int prec);
+
+int				pf_count_zeroes(const t_fmt *f, int n_prefix, int n_digits);
+
+int				pf_print_alpha(const t_fmt *f, va_list ap);
+int				pf_print_signed(const t_fmt *f, intmax_t num);
+int				pf_print_unsigned(const t_fmt *f, uintmax_t num);
+int				pf_print_pointer(const t_fmt *f, void *ptr);
+int				pf_print_float(const t_fmt *f, long double num);
+
+void			pf_parse_format(t_fmt *a_fmt, const char **a_str, va_list ap);
+int				ft_printf(const char *format, ...);
 
 #endif
