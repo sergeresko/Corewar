@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 18:24:04 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/28 18:57:46 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,25 @@ void	_test_champs(t_vm const *vm)
 	{
 		champ = champs->content;
 		ft_printf("!@#$ ----------------\n");
-        ft_printf("!@#$ filename: \"%s\"\n", champ->filename);
+		ft_printf("!@#$ filename: \"%s\"\n", champ->filename);
 		ft_printf("!@#$ id: %d\n", champ->id);
 		ft_printf("!@#$ size: %d\n", champ->size);
-        ft_printf("!@#$ name: \"%s\"\n", champ->name);
-        ft_printf("!@#$ comment: \"%s\"\n", champ->comment);
+		ft_printf("!@#$ name: \"%s\"\n", champ->name);
+	//	ft_printf("!@#$ comment: \"%s\"\n", champ->comment);
+		ft_putstr("!@#$ comment: ");
+		ft_putendl(champ->comment);
 		champs = champs->next;
 	}
 }
 
-void		init_vm(t_vm *vm)
+static void		init_vm(t_vm *vm)
 {
 	vm->dump_cycles = -1;
 	vm->champ_amount = 0;
 	vm->champs = NULL;
 }
 
-void		get_options(t_vm *vm, int ac, char **av)
+static void		get_options(t_vm *vm, int ac, char **av)
 {
 	(void)ac;
 	av = get_opt_dump(vm, av);
@@ -63,12 +65,14 @@ void		get_options(t_vm *vm, int ac, char **av)
 	}
 }
 
-int			main(int ac, char **av)
+int				main(int ac, char **av)
 {
-	t_vm	vm;
+	t_vm		vm;
 
 	init_vm(&vm);
 	get_options(&vm, ac, av);
+
+	system("leaks -q corewar >&2");
 
 	return (0);
 }
