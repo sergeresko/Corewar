@@ -12,36 +12,13 @@
 
 #include "corewar.h"
 
-// -------------
-
-void		list_push(t_list **head, void *content)
-{
-	t_list	*item;
-
-	item = malloc(sizeof(t_list));		// TODO: check if not NULL
-	item->content = content;
-	item->next = *head;
-	*head = item;
-}
-
-void		list_pop(t_list **head)
-{
-	t_list	*item;
-
-	item = *head;
-	*head = item->next;
-	free(item);
-}
-
-// -------------
-
 /*
 **	returns TRUE or FALSE
 */
 
-int		is_valid_opcode(char c)		// t_bool
+int		is_valid_opcode(int code)
 {
-	return (1 <= c && c <= 16);
+	return (1 <= code && code <= 16);
 }
 
 void	execute_car(t_vm *vm, t_car *car)
@@ -166,23 +143,23 @@ void		dump_memory(t_field const *field)
 
 // ----------------
 
-static t_player	*get_player_by_number(t_vm *vm, int n)
+static t_champ	*get_champ_by_id(t_list *champs, int id)
 {
-	t_player	*player;
+	t_champ		*champ;
 
-	player = vm->players;
-	while (player)
+	while (champs != NULL)
 	{
-		if (player->number == n)
+		champ = champs->content;
+		if (champ->id == id)
 		{
-			return (player);
+			return (champ);
 		}
-		player = player->next;
+		champs = champs->next;
 	}
 	return (NULL);
 }
 
-t_car	*create_car(int player_number)
+t_car	*create_car(int champ_id)
 {
 	t_car	*car;
 
@@ -191,28 +168,53 @@ t_car	*create_car(int player_number)
 		perror("create_process");
 		exit(-1);
 	}
-	car->regs[0] = -player_number;	// TODO: ?
+	car->regs[1] = -champ_id;	// TODO: ?
 	return (car);
 }
 
-void	load_players(t_vm *vm)
+void	clear_field(t_field *field)
 {
-	int const	step = MEM_SIZE / vm->nbr_players;
-	int			k;
-	t_player	*player;
+	int		k;
+
+	k = 0;
+	while (k < MEM_SIZE)
+	{
+		field[k].square = 0;	// only .square
+		++k;
+	}
+}
+
+void	write_to_field(t_field *field, int place, char *exec_code, int size)
+{
+	int		k;
+
+	field += place;
+	k = 0;
+	while (k < size)
+	{
+		field[k].square = exec_code[k];
+		++k;
+	}
+}
+
+void	load_champs(t_vm *vm)
+{
+	int const	step = MEM_SIZE / vm->champ_amount;
+	int			id;
+	t_champ		*champ;
 	t_car		*car;
 
 	ft_bzero(vm->arena, MEM_SIZE);
 	vm->cars = NULL;
-	k = 0;
-	while (k < vm->nbr_players)
+	id = 1;
+	while (id <= vm->champ_amount)
 	{
-		player = get_player_by_number(vm, k + 1);
-		ft_memcpy(vm->arena + step * k, player->exec_code, player->size); // TODO:
+		champ = get_champ_by_id(vm->champs, id);
+		write_to_field(vm->field, step * (id - 1), champ->exec_code, champ->size);
 		car = create_car(k + 1);
-		car->place = step * k;
+		car->place = step * (id - 1);
 		list_push(&(vm->cars), car);
-		++k;
+		++id;
 	}
 }
 
@@ -226,7 +228,7 @@ void	perform_battle(t_vm *vm)
 	vm->cycles_to_die = CYCLE_TO_DIE;		// init
 	vm->nbr_checks = 0;						// init
 	// ...
-	load_players(vm);
+	load_champs(vm);
 	//
 	dump_memory(vm->field);			// this is
 	system("leaks -q corewar");		// here just

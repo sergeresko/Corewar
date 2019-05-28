@@ -41,10 +41,10 @@ typedef struct	s_champ
 {
 //	int		id;
 	char	*filename;
-	char	name[PROG_NAME_LENGTH + 1];
-	char	comment[COMMENT_LENGTH + 1];
+	char	*name;//name[PROG_NAME_LENGTH + 1];
+	char	*comment;//comment[COMMENT_LENGTH + 1];
 	int		size;
-	char	*exec_code;
+	char	*exec_code;			// char * ?
 //	unsigned int	ongoing_lives;
 //	unsigned int	recent_cycle;
 }				t_champ;
