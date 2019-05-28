@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 16:26:35 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/28 18:15:03 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int		choose_champ_id(t_list *champs)
 **	assign id's to all champions who currently have a 0 in `id` field
 */
 
-void			set_champ_ids(t_list *champs)
+void			set_champ_ids(t_list *champs, int champ_amount)
 {
 	t_list		*item;
 	t_champ		*champ;
@@ -62,6 +62,10 @@ void			set_champ_ids(t_list *champs)
 		if (champ->id == 0)
 		{
 			champ->id = choose_champ_id(champs);
+		}
+		else if (champ->id > champ_amount)
+		{
+			throw_error("Champion id exceeds the total number of champions");
 		}
 		item = item->next;
 	}

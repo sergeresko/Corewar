@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 16:20:23 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/28 18:22:38 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,17 @@ static void		add_champ(t_vm *vm, int id, char const *filename)
    
 	if (extension == NULL || !ft_strequ(extension, ".cor"))
 	{
-		throw_error("Champion file must have .cor extention");
+		ft_printf("ERROR: No .cor extension for champion \"%s\".\n", filename);
+		exit(-1);
 	}
 	if ((champ = malloc(sizeof(t_champ))) == NULL)
 	{
-		perror("add_champion");
-		exit(-1);
+		perror_exit("add_champion");
 	}
 	champ->id = id;
 	if ((champ->filename = ft_strdup(filename)) == NULL)
 	{
-		perror("add_champion");
-		exit(-1);
+		perror_exit("add_champion");
 	}
 	list_push_back(&(vm->champs), champ);
 }
@@ -65,7 +64,7 @@ static void		add_champ(t_vm *vm, int id, char const *filename)
 **	or to 0 if there is no option
 */
 
-void			get_opt_champs(t_vm *vm, char const **av)
+void			get_opt_champs(t_vm *vm, char **av)
 {
 	char		*arg;
 	int			id;
@@ -76,10 +75,10 @@ void			get_opt_champs(t_vm *vm, char const **av)
 		if (ft_strequ(arg, "-n"))
 		{
 			if ((arg = *(++av)) == NULL
-					|| (id = ft_atoi(arg)) < 0 || id > MAX_PLAYERS
+					|| (id = ft_atoi(arg)) < 1 || id > MAX_PLAYERS
 					|| already_used_id(vm->champs, id))
 			{
-				throw_error("Invalid value for option -n");
+				throw_error("Invalid champion if for option -n");
 			}
 			if ((arg = *(++av)) == NULL)
 			{

@@ -6,11 +6,11 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 16:13:45 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:41:36 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//include
+#include "corewar.h"
 
 /*
 **	set `vm->dump_cycles` to the value of the dump option
@@ -19,9 +19,9 @@
 **	and to 64 for "-dump64"
 */
 
-static char		**get_opt_dump(t_vm *vm, char **av)
+char		**get_opt_dump(t_vm *vm, char **av)
 {
-	char 		*arg;
+	char 	*arg;
 
 	if ((arg = *(++av)) != NULL)
 	{
@@ -41,6 +41,7 @@ static char		**get_opt_dump(t_vm *vm, char **av)
 		{
 			throw_error("Invalid value for dump option");
 		}
+		return (av);
 	}
 	return (av - 1);
 }

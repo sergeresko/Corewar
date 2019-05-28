@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:00:43 by vlvereta         ###   ########.fr       */
+/*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/28 18:15:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,55 +16,177 @@
 # include "common.h"
 # include "../libft/includes/libft.h"
 
-typedef struct		s_process
+//# include "SDL.h"
+//# include "SDL_mixer.h"
+//# include <ncurses.h>		// for_music_and_visual_part
+//# include <fcntl.h>		// ?
+
+//# include "op_vm.h"
+
+typedef struct	s_ind
 {
-//	int				id;
-	int				pc;
-	int				carry;					// FALSE, t_bool
-	unsigned		registers[REG_NUMBER];		// `uint32_t` or `char[4]`
-	int				delay;					// 0
-	int				cycle_when_last_live;	// 0
-	char			op_code;		// byte
-//	int				shift;
-}					t_process;
+	int	u;
+	int l;
+	int	c;
+	int v;
+	int	t;
+	int	n;
+	int	dump;
+	int	dump_amount;
+	int	dump_bytes;
+	/*int	lives;
+	int	cycles;
+	int	ops;
+	int	deaths;
+	int	actions;*/ //levels_of_detalisation
+}				t_ind;
 
-typedef struct		s_vm
-{										// initial values:
-	t_player		*players;				// NULL
-	int				nbr_players;			// 0
-	int				is_dump;				// FALSE
-	int				dump_cycles;			// -1
-	char			arena[MEM_SIZE];		// zeroes and players' binary code
-//	t_op			op[17];
-	int				cycle;					// 0
-	int				cycles_to_die;			// CYCLE_TO_DIE (1536)
-	int				last_living_player;		// the largest player's id
-	t_list			*processes;
-	int				nbr_checks;				// 0
-	int				nbr_live;				// 0 at the beginning of each round
-}					t_vm;
+typedef struct	s_champ
+{
+	int		id;
+	char	*filename;
+	char	*name;//name[PROG_NAME_LENGTH + 1];
+	char	*comment;//comment[COMMENT_LENGTH + 1];
+	int		size;
+	char	*exec_code;			// char * ?
+//	unsigned int	ongoing_lives;
+//	unsigned int	recent_cycle;
+}				t_champ;
 
-void				check_arguments(t_vm *vm, int amount, char **args);
-void				create_new_player(t_player **players, const char *arg, int *n);
-void				push_player_back(t_player **players, t_player *player);
-int					check_player_number(t_player **players, const char *self_name, int max, int number);
-void				set_players_numbers(t_player *players, int counter);
-void				clean_players_list(t_player **players);
+typedef struct	s_field
+{
+	unsigned char	square;
+//	int				color;
+//	int				sup_color;
+//	int				cycles;
+}				t_field;
 
-/*
- * Helpers
- */
-void                is_no_null_error(char *str, int i);
+typedef struct	s_car
+{
+//	int		id;
+	int		regs[REG_NUMBER + 1];	// + dummy `regs[0]`
+	int		carry;
+	int		place;		// int ?	// pc
+//	int		now_live;
+	int		opcode;
+	int		arg_amount;
+	int		arg_class[3];
+	int		arg_place[3];
+	int		offset;
+//	int		op_cycles_to_move;		// delay
+//	int		recent_cycle;			// cycle_when_last_live
+//	t_champ	*prev;
+//	struct s_car		*then;
+}				t_car;
 
-/*
- * Read and validation part
- */
-
+typedef struct	s_vm
+{									// initial values:
+	int				dump_cycles;
+	int				dump_bytes;
+//	t_ind			*ind;
+	t_field			field[MEM_SIZE];	// zeroes and players' executable code
+	int				cycle;				// 0
+	int				cycle_to_die;		// CYCLE_TO_DIE (1536)
+//	int				last_living_player;	// the largest player's id
+	int				champ_amount;
+	t_list			*champs;
+	t_list			*cars;				// NULL
+	int				nbr_checks;			// 0
+	int				nbr_live;			// 0 at the beginning of each round
+}				t_vm;
 
 /*
 **
 */
 
-void				perform_battle(t_vm *vm);
+void			list_push(t_list **head, void *content);
+void			list_push_back(t_list **head, void *content);
+void			list_pop(t_list **head);
+
+char			**get_opt_dump(t_vm *vm, char **av);
+void			get_opt_champs(t_vm *vm, char **av);
+void			set_champ_ids(t_list *champs, int champ_amount);
+void			read_champ_header(int fd, t_champ *champ);
+void			read_champs(t_list *champs);
+
+void			throw_error(char const *message);
+void			perror_exit(char const *prefix);
+
+typedef struct	s_cw
+{
+	t_ind			*ind;
+	t_champ			champ[4];
+	t_champ			*last_champ;
+	t_field			field[MEM_SIZE];
+	t_car			*car;
+	unsigned int	amount_of_alives[4];
+//	int				tune_on;
+//	int				x;
+//	int				y;
+	int				ac;
+	int				fd;
+//	int				c_per_sec; // for_visual
+	int				ongoing_cycle;
+//	int				running; // pause_or_run_for_visual
+	int				champs_amount;
+	int				carry_nbr;
+	int				alive_carry_nbr;
+	int				scan_cycle;
+	int				ctd;	// cycle_do_die
+	int				alive_nbr;
+	int				scan_nbr;
+	int				free_num[5];
+	char			**av;
+	char			*fail_sense;
+}				t_cw;
+
+typedef struct	s_op
+{
+	char	*name;
+	int		opcode;
+	int		arg_amount;
+	int		arg_list[3];
+	int		dir_size;
+	int		has_coding_byte;
+	int		delay;
+	void	(*operation)(t_vm *, t_car *);
+}				t_op;
+
+void			show_usage(t_cw *data);
+void			fail(t_cw *data);
+void			fail_sense(t_cw *data, char *sense);
+void			output_result(t_cw *cw);
+
+/*int				scan_args_ct(t_cw *cw, t_car *car);
+int				scan_regs(t_cw *cw, t_car *car);*/
+
+//int				take_amount_by_class(t_car *car, int i);
+//unsigned int	take_arg_from_field(t_field *field, unsigned int plc, int size);
+//int				take_arg_by_class(t_cw *cw, t_car *car, int indicator);
+//int				take_arg_place(t_car *car, int indicator);
+//void			rewrite_field(t_cw *cw, t_car *carr, int amount, int addr);
+
+unsigned		read_from_field(t_field const *field, int place, int size);
+void			write_to_field(t_field *field, int place, unsigned value);
+
+int				get_value(t_vm const *vm, t_car const *car, int arg);
+uint8_t			get_reg(t_vm const *vm, t_car const *car, int arg);
+
+void			op_live(t_vm *vm, t_car *car);
+void			op_zjmp(t_vm *vm, t_car *car);
+void			op_and(t_vm *vm, t_car *car);
+void			op_add(t_vm *vm, t_car *car);
+void			op_sub(t_vm *vm, t_car *car);
+void			op_ld(t_vm *vm, t_car *car);
+void			op_or(t_vm *vm, t_car *car);
+void			op_xor(t_vm *vm, t_car *car);
+void			op_st(t_vm *vm, t_car *car);
+void			op_ldi(t_vm *vm, t_car *car);
+void			op_sti(t_vm *vm, t_car *car);
+void			op_fork(t_vm *vm, t_car *car);
+void			op_lfork(t_vm *vm, t_car *car);
+void			op_lld(t_vm *vm, t_car *car);
+void			op_lldi(t_vm *vm, t_car *car);
+void			op_aff(t_vm *vm, t_car *car);
 
 #endif

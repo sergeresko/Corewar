@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   throw_error.c                                      :+:      :+:    :+:   */
+/*   perror_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/28 16:28:02 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 17:32:47 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/28 18:02:18 by syeresko          #+#    #+#             */
+/*   Updated: 2019/05/28 18:03:09 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	throw_error(char const *message)
+void	perror_exit(char const *prefix)
 {
-	ft_printf("ERROR: %s.\n", message);
+	perror(prefix);
 	exit(-1);
 }

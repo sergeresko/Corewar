@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 18:41:10 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/27 20:03:15 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/28 18:09:02 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static void	save_champ_name(char const *header, t_champ *champ)
 	}
 	if ((champ->name = ft_strdup(header + POSITION_NAME)) == NULL)
 	{
-		perror("save_champ_name");
-		exit(-1);
+		perror_exit("save_champ_name");
 	}
 }
 
@@ -48,7 +47,7 @@ static void	save_champ_size(char const *header, t_champ *champ)
 {
 	if ((champ->size = parse_int(header + POSITION_SIZE)) > CHAMP_MAX_SIZE)
 	{
-		ft_printf("ERROR: Size field in \"%s\" is too large.\n");
+		ft_printf("ERROR: Size field in \"%s\" too large.\n", champ->filename);
 		exit(-1);
 	}
 }
@@ -57,8 +56,7 @@ static void	save_champ_comment(char const *header, t_champ *champ)
 {
 	if ((champ->comment = ft_strdup(header + POSITION_COMMENT)) == NULL)
 	{
-		perror("save_champ_comment");
-		exit(-1);
+		perror_exit("save_champ_comment");
 	}
 }
 
@@ -74,8 +72,7 @@ void		read_champ_header(int fd, t_champ *champ)
 
 	if ((header_size = read(fd, header, HEADER_SIZE)) == -1)
 	{
-		perror("read_champ_header");
-		exit(-1);
+		perror_exit("read_champ_header");
 	}
 	if (header_size != HEADER_SIZE)
 	{

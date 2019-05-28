@@ -6,11 +6,11 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:29:31 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 16:04:18 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:33:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//include
+#include "corewar.h"
 
 /*
 **	The following functions are an alternative way of using LIBFT's `t_list`.

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/22 23:28:41 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:30:08 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ typedef struct		s_player
 
 
 char	*convert_int_to_hex(int num);
-unsigned int		parse_int(void *buf);
+unsigned		parse_int(void const *buf);
 
 void				read_headers(t_player *players);
 void	            check_magic(char *header, t_player *player);
