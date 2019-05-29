@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 15:52:50 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:43:42 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_field
 
 typedef struct	s_car
 {
-//	int		id;
+	int		id;
 	int		regs[REG_NUMBER + 1];	// + dummy `regs[0]`
 	int		carry;
 	int		place;		// int ?	// pc
@@ -116,6 +116,8 @@ void			perror_exit(char const *prefix);
 
 void			perform_battle(t_vm *vm);
 
+void			execute_operation(t_vm *vm, t_car *car);
+int				get_arg_size(t_car const *car, int arg);
 
 
 

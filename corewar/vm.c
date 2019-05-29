@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 16:10:35 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:42:30 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	execute_car(t_vm *vm, t_car *car)
 	--(car->delay);
 	if (car->delay == 0)
 	{
-		ft_printf("executing op %d\n", car->opcode);		////////////////////
-//		execute_operation(vm, car);
+		ft_printf("executing `%s` (%d) at 0x%04x\n", g_ops[car->opcode].name, car->opcode, car->place);		////////////////////
+		execute_operation(vm, car);
 	}
 }
 
@@ -157,12 +157,14 @@ static t_champ	*get_champ_by_id(t_list *champs, int id)
 
 t_car	*create_car(int champ_id, int place)
 {
-	t_car	*car;
+	static int	id = 0;
+	t_car		*car;
 
 	if ((car = ft_memalloc(sizeof(t_car))) == NULL)	// initialized with zeroes
 	{
 		perror_exit("create_process");
 	}
+	car->id = id++;
 	car->regs[1] = -champ_id;	// TODO: ?
 	car->place = place;
 	return (car);
@@ -239,9 +241,4 @@ void	perform_battle(t_vm *vm)
 	}
 	// ...
 
-	//
-//	dump_memory(vm);				// this is
-	system("leaks -q corewar");		// here just
-	exit(0);						// for testing
-	//
 }

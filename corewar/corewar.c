@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 15:54:29 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:39:15 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	_test_champs(t_vm const *vm)
 		ft_printf("!@#$ size: %d\n", champ->size);
 		ft_printf("!@#$ name: \"%s\"\n", champ->name);
 	//	ft_printf("!@#$ comment: \"%s\"\n", champ->comment);
-		ft_putstr("!@#$ comment: ");
-		ft_putendl(champ->comment);
+		ft_putstr("!@#$ comment: \"");
+		ft_putstr(champ->comment);
+		ft_putstr("\"\n");
 		champs = champs->next;
 	}
 }

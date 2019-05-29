@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/29 12:55:01 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/29 16:33:44 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ OBJ = corewar.o \
 	  get_reg.o get_value.o \
 	  read_from_field.o write_to_field.o \
 	  \
+	  execute_operation.o get_arg_size.o \
 	  vm.o
 
 #OBJ = corewar.o \
