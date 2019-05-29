@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/29 18:19:45 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/29 20:49:12 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ OBJ = corewar.o \
 	  get_opt_bonus.o get_opt_dump.o get_opt_champs.o \
 	  set_champ_ids.o \
 	  read_champ_header.o read_champs.o \
+	  get_champ_by_id.o \
 	  throw_error.o perror_exit.o \
 	  list.o \
 	  ../common/helpers_1.o \
@@ -34,6 +35,7 @@ OBJ = corewar.o \
 	  read_from_field.o write_to_field.o \
 	  \
 	  execute_operation.o get_arg_size.o \
+	  create_car.o clone_car.o \
 	  vm.o
 
 #OBJ = corewar.o \

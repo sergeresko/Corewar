@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 18:28:55 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 21:24:20 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				main(int ac, char **av)
 	get_options(&vm, ac, av);
 	perform_battle(&vm);
 
-	system("leaks -q corewar >&2");
+//	system("leaks -q corewar >&2");
 
 	return (0);
 }

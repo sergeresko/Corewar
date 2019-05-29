@@ -14,14 +14,16 @@
 
 void			op_lfork(t_vm *vm, t_car *car)
 {
-	(void)vm;
-//	int const	address = get_value(vm, car, 0);
-//	int const	place = (car->place + address) % MEM_SIZE;
+	int const	address = get_value(vm, car, 0);
+	int const	place = (car->place + address) % MEM_SIZE;
+	t_car		*new_car;
 
-//	one_more_car(vm, car->prev, place);		// TODO:
-//	move_car_body(vm->car, car);			//
-	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | lfork  %d (%d)\n",
-		car->id, address, place);*/
+	new_car = clone_car(car, place);
+	list_push(&(vm->cars), new_car);
+	//if (!vm->ind->v && vm->ind->ops)
+	if (vm->verbose)
+	{
+		ft_printf("P %4d | lfork %d (%d)\n", car->id, address, place);
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

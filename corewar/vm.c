@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 18:37:10 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 21:36:44 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,37 +143,6 @@ void		dump_memory(t_vm const *vm)
 }
 // ----------------
 
-static t_champ	*get_champ_by_id(t_list *champs, int id)
-{
-	t_champ		*champ;
-
-	while (champs != NULL)
-	{
-		champ = champs->content;
-		if (champ->id == id)
-		{
-			return (champ);
-		}
-		champs = champs->next;
-	}
-	return (NULL);
-}
-
-t_car	*create_car(int champ_id, int place)
-{
-	static int	id = 0;
-	t_car		*car;
-
-	if ((car = ft_memalloc(sizeof(t_car))) == NULL)	// initialized with zeroes
-	{
-		perror_exit("create_process");
-	}
-	car->id = id++;
-	car->regs[1] = -champ_id;	// TODO: ?
-	car->place = place;
-	return (car);
-}
-
 void	clear_field(t_field *field)
 {
 	int		k;
@@ -202,21 +171,24 @@ void	load_exec_code(t_field *field, int place, char *exec_code, int size)
 void	load_champs(t_vm *vm)
 {
 	int const	step = MEM_SIZE / vm->champ_amount;
-	int			id;
+	int			champ_id;
 	t_champ		*champ;
 	t_car		*car;
 
-	clear_field(vm->field);
-	vm->cars = NULL;
-	id = 1;
-	while (id <= vm->champ_amount)
+	clear_field(vm->field);		// init
+	vm->cars = NULL;			// init
+	champ_id = 1;
+	while (champ_id <= vm->champ_amount)
 	{
-		champ = get_champ_by_id(vm->champs, id);
-		load_exec_code(vm->field, step * (id - 1),
+		champ = get_champ_by_id(vm->champs, champ_id);
+		load_exec_code(vm->field, step * (champ_id - 1),
 				champ->exec_code, champ->size);
-		car = create_car(id, step * (id - 1));
+		car = create_car();
+		car->regs[1] = -champ_id;		// TODO: ?
+		car->place = step * (champ_id - 1);
+		// initialize other fields of `car` ?
 		list_push(&(vm->cars), car);
-		++id;
+		++champ_id;
 	}
 }
 
@@ -231,13 +203,14 @@ void	perform_battle(t_vm *vm)
 	vm->nbr_checks = 0;						// init
 	// ...
 	load_champs(vm);
+//	ft_printf("%p\n", vm->cars);//////////////////
 	while (vm->cars != NULL && vm->cycle != vm->dump_cycle)
 	{
 		perform_round(vm);
 	}
-	if (vm->cars == NULL)
+	if (vm->cars == NULL && vm->last_living_champ_id != 0)
 	{
-		ft_printf("Game over!\n");	// TODO:
+		ft_printf("Player %d won!\n", vm->last_living_champ_id);	// TODO:
 	}
 	if (vm->cycle == vm->dump_cycle)
 	{

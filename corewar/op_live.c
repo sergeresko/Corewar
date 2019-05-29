@@ -6,58 +6,42 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:50:57 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/25 15:51:00 by omaiko           ###   ########.fr       */
+/*   Updated: 2019/05/29 21:30:24 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	live_champ(t_vm *vm, int k, int place)
+static void	live_champ(t_vm *vm, int champ_id)
 {
-	(void)vm;
-	(void)k;
-	(void)place;
-/* TODO:
 	//if (cw->ind->v)
 	//{
 	//	smth
 	//}
-	cw->last_champ = &cw->champ[k];
-	cw->champ[k].ongoing_lives++;
-	cw->champ[k].recent_cycle = cw->ongoing_cycle;
+	vm->last_living_champ_id = champ_id;
 	//if (cw->ind->lives && !cw->ind->v)
-	//	ft_printf("Player %d (%s) is said to be alive\n",
-	//	cw->champ[k].num, cw->champ[k].name);
-*/
+	if (vm->verbose)
+	{
+		ft_printf("%p\n", get_champ_by_id(vm->champs, champ_id));/////////////////
+		ft_printf("A process shows that player %d (%s) is alive\n",
+				champ_id, get_champ_by_id(vm->champs, champ_id)->name);
+	}
 }
 
 void		op_live(t_vm *vm, t_car *car)
 {
-	(void)vm;
-	(void)car;
-	(void)live_champ;
-/* TODO:
-	int	parameter;
-	int	k;
-	int	amount;
+	int const	value = get_value(vm, car, 0);
 
-	car->now_live = 1;
-	cw->alive_nbr++;
-	car->recent_cycle = cw->ongoing_cycle;
-	amount = S_TDIR(car->opcode);
-	parameter = (int)take_arg_from_field(cw->field, car->place + 1, amount);
-	k = 0;
+	++(vm->nbr_live);
+	car->cycle_when_last_live = vm->cycle;
 	//if (cw->ind->ops && !cw->ind->v)
-	//	ft_printf("P %4d | live %d\n", car->id, parameter);
-	while (k < cw->champs_amount)
+	if (vm->verbose)
 	{
-		if (parameter == -cw->champ[k].num)
-		{
-			live_champ(cw, k, car->place);
-			break ;
-		}
-		k += 1;
+		ft_printf("P %4d | live %d\n", car->id, value);
 	}
-	replace_c(cw, car);
-*/
+	if (value < 0 && -value <= vm->champ_amount)
+	{
+		live_champ(vm, -value);
+	}
+	car->place = (car->place + car->offset) % MEM_SIZE;
 }

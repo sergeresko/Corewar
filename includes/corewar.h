@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 18:21:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 21:16:22 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 //# include <ncurses.h>		// for_music_and_visual_part
 //# include <fcntl.h>		// ?
 
-//# include "op_vm.h"
-
+// not used:
 typedef struct	s_ind
 {
 	int	u;
@@ -66,7 +65,7 @@ typedef struct	s_car
 	int		id;
 	int		regs[REG_NUMBER + 1];	// + dummy `regs[0]`
 	int		carry;
-	int		place;		// int ?	// pc
+	int		place;		// pc
 //	int		now_live;
 	int		opcode;
 	int		arg_amount;
@@ -82,22 +81,22 @@ typedef struct	s_car
 }				t_car;
 
 typedef struct	s_vm
-{									// initial values:
-	int				help;				// FALSE
-	int				verbose;			// FALSE
-	int				color;				// FALSE
-	int				dump_cycle;
-	int				dump_bytes;
+{										// initial values:
+	int				help;					// FALSE
+	int				verbose;				// FALSE
+	int				color;					// FALSE
+	int				dump_cycle;				// -1
+	int				dump_bytes;				// uninitialized (or maybe 32 ?)
 //	t_ind			*ind;
-	t_field			field[MEM_SIZE];	// zeroes and players' executable code
-	int				cycle;				// 0
-	int				cycle_to_die;		// CYCLE_TO_DIE (1536)
-//	int				last_living_player;	// the largest player's id
-	int				champ_amount;
-	t_list			*champs;
-	t_list			*cars;				// NULL
-	int				nbr_checks;			// 0
-	int				nbr_live;			// 0 at the beginning of each round
+	t_field			field[MEM_SIZE];		// zeroes and players' executable code
+	int				cycle;					// 0
+	int				cycle_to_die;			// CYCLE_TO_DIE (1536)
+	int				last_living_champ_id;	// the largest player's id (or maybe 0 ?)
+	int				champ_amount;			// 0
+	t_list			*champs;				// NULL
+	t_list			*cars;					// NULL
+	int				nbr_checks;				// 0
+	int				nbr_live;				// 0 at the beginning of each round
 }				t_vm;
 
 /*
@@ -115,17 +114,22 @@ void			set_champ_ids(t_list *champs, int champ_amount);
 void			read_champ_header(int fd, t_champ *champ);
 void			read_champs(t_list *champs);
 
+t_champ			*get_champ_by_id(t_list *champs, int champ_id);
+
 void			throw_error(char const *message);
 void			perror_exit(char const *prefix);
 
 void			perform_battle(t_vm *vm);
+
+t_car			*create_car();
+t_car			*clone_car(t_car const *car, int place);
 
 void			execute_operation(t_vm *vm, t_car *car);
 int				get_arg_size(t_car const *car, int arg);
 
 
 
-
+// not used:
 typedef struct	s_cw
 {
 	t_ind			*ind;
@@ -171,7 +175,7 @@ extern t_op const	g_ops[17];
 
 
 
-
+// not used:
 void			show_usage(t_cw *data);
 void			fail(t_cw *data);
 void			fail_sense(t_cw *data, char *sense);
