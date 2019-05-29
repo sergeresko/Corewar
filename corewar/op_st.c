@@ -29,9 +29,12 @@ void			op_st(t_vm *vm, t_car *car)
 		address %= IDX_MOD;
 		write_to_field(vm->field, (car->place + address) % MEM_SIZE, value);
 	}
-	/*if (!vm->ind->v && vm->ind->ops)
+	//if (!vm->ind->v && vm->ind->ops)
+	if (vm->verbose)
+	{
 		ft_printf("P %4d | st r%d %d\n",	// ??????????
-		car->id, reg, address);*/
+				car->id, reg, address);
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
 /*

@@ -21,8 +21,11 @@ void			op_sub(t_vm *vm, t_car *car)
 
 	car->regs[reg_3] = value;
 	car->carry = (value == 0);
-	/*if (!vm->ind->v && vm->ind->ops)
+	//if (!vm->ind->v && vm->ind->ops)
+	if (vm->verbose)
+	{
 		ft_printf("P %4d | sub r%d r%d r%d\n",
-		car->id, reg_1, reg_2, reg_3);*/
+				car->id, reg_1, reg_2, reg_3);
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

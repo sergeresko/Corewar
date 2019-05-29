@@ -20,10 +20,11 @@ void			op_zjmp(t_vm *vm, t_car *car)
 	{
 		car->offset = value % IDX_MOD;
 	}
-	/*if (vm->ind->ops && !vm->ind->v)
+	//if (vm->ind->ops && !vm->ind->v)
+	if (vm->verbose)
 	{
 		ft_printf("P %4d | zjmp %d %s\n",
 				car->id, value, car->carry ? "OK" : "FAILED");
-	}*/
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 16:43:42 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:21:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ typedef struct	s_car
 
 typedef struct	s_vm
 {									// initial values:
+	int				help;				// FALSE
+	int				verbose;			// FALSE
+	int				color;				// FALSE
 	int				dump_cycle;
 	int				dump_bytes;
 //	t_ind			*ind;
@@ -105,6 +108,7 @@ void			list_push(t_list **head, void *content);
 void			list_push_back(t_list **head, void *content);
 void			*list_pop(t_list **head);
 
+char			**get_opt_bonus(t_vm *vm, char **av);
 char			**get_opt_dump(t_vm *vm, char **av);
 void			get_opt_champs(t_vm *vm, char **av);
 void			set_champ_ids(t_list *champs, int champ_amount);

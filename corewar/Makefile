@@ -6,20 +6,17 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/29 16:33:44 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/29 18:19:45 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 OBJ = corewar.o \
-	  get_opt_dump.o \
-	  get_opt_champs.o \
+	  get_opt_bonus.o get_opt_dump.o get_opt_champs.o \
 	  set_champ_ids.o \
-	  read_champ_header.o \
-	  read_champs.o \
-	  throw_error.o \
-	  perror_exit.o \
+	  read_champ_header.o read_champs.o \
+	  throw_error.o perror_exit.o \
 	  list.o \
 	  ../common/helpers_1.o \
 	  \

@@ -22,11 +22,12 @@ void			op_lldi(t_vm *vm, t_car *car)
 
 	car->regs[reg] = value;
 	car->carry = (value == 0);		// <-- yes: see subject, page 15
-	/*if (!vm->ind->v && vm->ind->ops)
+	//if (!vm->ind->v && vm->ind->ops)
+	if (vm->verbose)
 	{
 		ft_printf("P %4d | lldi %d %d r%d\n",
 				car->id, operand_1, operand_2, reg);
-	}*/
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
 /*

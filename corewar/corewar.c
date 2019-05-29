@@ -6,11 +6,18 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 16:39:15 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:28:55 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	_test_bonus(t_vm const *vm)
+{
+	ft_printf("!@#$ help: %s\n", vm->help ? "TRUE" : "FALSE");
+	ft_printf("!@#$ verbose: %s\n", vm->verbose ? "TRUE" : "FALSE");
+	ft_printf("!@#$ color: %s\n", vm->color ? "TRUE" : "FALSE");
+}
 
 void	_test_dump(t_vm const *vm)
 {
@@ -42,6 +49,9 @@ void	_test_champs(t_vm const *vm)
 
 static void		init_vm(t_vm *vm)
 {
+	vm->help = FALSE;
+	vm->verbose = FALSE;
+	vm->color = FALSE;
 	vm->dump_cycle = -1;
 //	vm->dump_bytes = 32;	// may be left uninitialized
 	vm->champ_amount = 0;
@@ -51,16 +61,14 @@ static void		init_vm(t_vm *vm)
 static void		get_options(t_vm *vm, int ac, char **av)
 {
 	(void)ac;
+	av = get_opt_bonus(vm, av);
+	_test_bonus(vm);/////////////////////////////////////
 	av = get_opt_dump(vm, av);
-	// <
-	_test_dump(vm);
-	// >
+	_test_dump(vm);//////////////////////////////////////
 	get_opt_champs(vm, av);
 	set_champ_ids(vm->champs, vm->champ_amount);
 	read_champs(vm->champs);
-	// <
-	_test_champs(vm);
-	// >
+	_test_champs(vm);////////////////////////////////////
 	if (vm->champ_amount == 0)
 	{
 		throw_error("No champions");

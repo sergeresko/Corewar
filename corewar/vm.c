@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 16:42:30 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 18:37:10 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_car(t_vm *vm, t_car *car)
 	--(car->delay);
 	if (car->delay == 0)
 	{
-		ft_printf("executing `%s` (%d) at 0x%04x\n", g_ops[car->opcode].name, car->opcode, car->place);		////////////////////
+		ft_printf("executing operation at 0x%04x\n", car->place);		////////////////////
 		execute_operation(vm, car);
 	}
 }
@@ -50,6 +50,10 @@ void	perform_cycle(t_vm *vm)
 	t_list		*item;
 
 	++(vm->cycle);				// increment
+	if (vm->verbose)
+	{
+		ft_printf("It is now cycle %d\n", vm->cycle);
+	}
 	item = vm->cars;
 	while (item != NULL)
 	{

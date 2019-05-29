@@ -1,10 +1,26 @@
-usage:	./corewar [-utlcv] [-dump[64|32] nbr_cycles] [-n number[1..4]] <name.cor> ...
-	-u	: show this message
-	-t	: listen to the tune
-	-l	: system leaks
-	-c	: enable colors
-	-v	: enable visualization
-	-dump nbr_cycles : after nbr_cycles dump the memory and quit the game (64 or 32 octets per line)
-	-n number[1..4]	 : set number of player(champ) to `number`
-	<name.cor> ...	 : up to the 4 champions in one battle
-	//-d - different levels of detalisation
+usage:	./corewar [-h -v -c] [-dump[32|64] NBR_CYCLES] [[-n ID] NAME.cor] ...
+
+	-h, -help
+		Show this message.
+
+	-v, -verbose
+		Print detailed information during execution.
+
+	-c, -color
+		Enable colored output.	
+
+	-dump NBR_CYCLES, -dump32 NBR_CYCLES
+	-dump64 NBR_CYCLES
+		Dump the memory after NBR_CYCLES and quit the game
+		(32 or 64 bytes per line).
+
+	-n ID
+		Set the id of the following champion to ID (1..4).
+
+	NAME.cor
+		File with a champion's bytecode (up to 4 champions in one battle).
+
+	//-t	: listen to the tune
+	//-l	: system leaks
+	//-?	: enable visualization
+	//-d	: different levels of detalisation

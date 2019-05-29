@@ -21,11 +21,12 @@ void			op_ldi(t_vm *vm, t_car *car)
 	int const	reg = get_reg(vm, car, 2);
 
 	car->regs[reg] = value;
-	/*if (!vm->ind->v && vm->ind->ops)
+	//if (!vm->ind->v && vm->ind->ops)
+	if (vm->verbose)
 	{
 		ft_printf("P %4d | ldi %d %d r%d\n",
 				car->id, operand_1, operand_2, reg);
-	}*/
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
 /*

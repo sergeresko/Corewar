@@ -14,13 +14,13 @@
 
 void			op_aff(t_vm *vm, t_car *car)
 {
-	(void)vm;
-//	int const	reg = get_reg(vm, car, 0);
-//	int const	value = car->regs[reg];
+	int const	reg = get_reg(vm, car, 0);
+	int const	value = car->regs[reg];
 
-	/*if (!vm->ind->v)		// ??
+	//if (!vm->ind->v)
+	if (vm->verbose)
 	{
-		ft_printf("Aff: %c\n", (char)value);
-	}*/
+		ft_printf("Aff: %c\n", (char)value);		// maybe change message
+	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
