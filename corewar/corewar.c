@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 12:01:26 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:54:29 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	_test_dump(t_vm const *vm)
 {
-	ft_printf("!@#$ dump_cycles: %d\n", vm->dump_cycles);
+	ft_printf("!@#$ dump_cycles: %d\n", vm->dump_cycle);
 	ft_printf("!@#$ dump_bytes: %d\n", vm->dump_bytes);
 }
 
@@ -41,7 +41,7 @@ void	_test_champs(t_vm const *vm)
 
 static void		init_vm(t_vm *vm)
 {
-	vm->dump_cycles = -1;
+	vm->dump_cycle = -1;
 //	vm->dump_bytes = 32;	// may be left uninitialized
 	vm->champ_amount = 0;
 	vm->champs = NULL;

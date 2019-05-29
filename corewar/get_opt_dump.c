@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 17:41:36 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:54:46 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		**get_opt_dump(t_vm *vm, char **av)
 		{
 			return (av - 1);
 		}
-		if ((arg = *(++av)) == NULL || (vm->dump_cycles = ft_atoi(arg)) < 0)
+		if ((arg = *(++av)) == NULL || (vm->dump_cycle = ft_atoi(arg)) < 0)
 		{
 			throw_error("Invalid value for dump option");
 		}

@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 13:08:17 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:52:50 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct	s_car
 
 typedef struct	s_vm
 {									// initial values:
-	int				dump_cycles;
+	int				dump_cycle;
 	int				dump_bytes;
 //	t_ind			*ind;
 	t_field			field[MEM_SIZE];	// zeroes and players' executable code

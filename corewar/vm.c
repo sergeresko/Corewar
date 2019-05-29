@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 13:11:45 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:10:35 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_car(t_vm *vm, t_car *car)
 {
 	if (car->delay == 0)		// i.e. if `car->place` is at a new position
 	{
-		car->opcode = vm->field[car->place].square;		// use `read_from_field`
+		car->opcode = vm->field[car->place].square;		// equivalent to `= read_from_field(vm->field, car->place, 1)`
 		if (!is_valid_opcode(car->opcode))
 		{
 			car->place = (car->place + 1) % MEM_SIZE;	// advance `car->place` by 1 byte
@@ -100,10 +100,13 @@ void	perform_round(t_vm *vm)
 {
 	int const	last_cycle = compute_last_cycle(vm);
 
-	// ...
 	vm->nbr_live = 0;
-	while (vm->cycle < last_cycle /* ... */)
+	while (vm->cycle < last_cycle)
 	{
+		if (vm->cycle == vm->dump_cycle)
+		{
+			return ;
+		}
 		perform_cycle(vm);
 	}
 	perform_check(vm);
@@ -113,35 +116,27 @@ void	perform_round(t_vm *vm)
 		vm->nbr_checks = 0;
 	}
 }
+
 // ----------------
-
-static void	print_hex(unsigned char byte)
+void		dump_memory(t_vm const *vm)
 {
-	char	str[2];
+	int		start;
+	int		k;
 
-	str[0] = (char)(byte / 16);
-	str[0] += (str[0] < 10) ? '0' : ('a' - 10);
-	str[1] = (char)(byte % 16);
-	str[1] += (str[1] < 10) ? '0' : ('a' - 10);
-	write(1, str, 2);
-}
-
-void		dump_memory(t_field const *field)
-{
-	int		i;
-
-	i = 0;
-	while (i < MEM_SIZE)
+	start = 0;
+	k = 0;
+	while (start < MEM_SIZE)
 	{
-		print_hex(field[i].square);
-		if (i % 2)
+		ft_printf("0x%04x :", start);
+		start += vm->dump_bytes;
+		while (k < start)
 		{
-			ft_putchar((i + 1) % 32 ? ' ' : '\n');
+			ft_printf(" %02hhx", vm->field[k].square);
+			++k;
 		}
-		++i;
+		ft_putchar('\n');
 	}
 }
-
 // ----------------
 
 static t_champ	*get_champ_by_id(t_list *champs, int id)
@@ -230,14 +225,22 @@ void	perform_battle(t_vm *vm)
 	vm->nbr_checks = 0;						// init
 	// ...
 	load_champs(vm);
-	while (vm->cars != NULL /* ... */)
+	while (vm->cars != NULL && vm->cycle != vm->dump_cycle)
 	{
 		perform_round(vm);
+	}
+	if (vm->cars == NULL)
+	{
+		ft_printf("Game over!\n");	// TODO:
+	}
+	if (vm->cycle == vm->dump_cycle)
+	{
+		dump_memory(vm);
 	}
 	// ...
 
 	//
-	dump_memory(vm->field);			// this is
+//	dump_memory(vm);				// this is
 	system("leaks -q corewar");		// here just
 	exit(0);						// for testing
 	//

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:36:08 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 12:56:17 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:42:44 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int				get_value(t_vm const *vm, t_car const *car, int arg)
 	{
 		return (get_value_ind(vm, car, place));
 	}
-	ft_printf("`car->arg_class` contains an incorrect value\n");	//
-	exit(-1);														//
+	throw_error("`car->arg_class` contains an incorrect value\n");	//
 	return (0);					// this should never happen
 }
