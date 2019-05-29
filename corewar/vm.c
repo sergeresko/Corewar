@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/23 17:55:23 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:11:45 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	execute_car(t_vm *vm, t_car *car)
 	--(car->delay);
 	if (car->delay == 0)
 	{
-		execute_operation(vm, car);
+		ft_printf("executing op %d\n", car->opcode);		////////////////////
+//		execute_operation(vm, car);
 	}
 }
 
@@ -52,7 +53,7 @@ void	perform_cycle(t_vm *vm)
 	item = vm->cars;
 	while (item != NULL)
 	{
-		perform_process(vm, item->content);
+		execute_car(vm, item->content);
 		item = item->next;
 	}
 }
@@ -64,7 +65,7 @@ void	perform_cycle(t_vm *vm)
 
 void	perform_check(t_vm *vm)
 {
-	int const	oldest_cycle = vm->cycle - vm->cycles_to_die;
+	int const	oldest_cycle = vm->cycle - vm->cycle_to_die;
 	t_list		**addr;
 	t_car		*car;
 
@@ -75,7 +76,7 @@ void	perform_check(t_vm *vm)
 		car = (*addr)->content;
 		if (car->cycle_when_last_live <= oldest_cycle)
 		{
-			list_pop(addr);		// delete car `car`		// free ?
+			free(list_pop(addr));	// delete car `car`
 		}
 		else
 		{
@@ -92,7 +93,7 @@ void	perform_check(t_vm *vm)
 // used in `perform_round`
 static int	compute_last_cycle(t_vm const *vm)
 {
-	return (vm->cycle + ((vm->cycles_to_die > 0) ? vm->cycles_to_die : 1));
+	return (vm->cycle + ((vm->cycle_to_die > 0) ? vm->cycle_to_die : 1));
 }
 
 void	perform_round(t_vm *vm)
@@ -108,7 +109,7 @@ void	perform_round(t_vm *vm)
 	perform_check(vm);
 	if (vm->nbr_live >= NBR_LIVE || vm->nbr_checks == MAX_CHECKS)
 	{
-		vm->cycles_to_die -= CYCLE_DELTA;
+		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->nbr_checks = 0;
 	}
 }
@@ -159,16 +160,16 @@ static t_champ	*get_champ_by_id(t_list *champs, int id)
 	return (NULL);
 }
 
-t_car	*create_car(int champ_id)
+t_car	*create_car(int champ_id, int place)
 {
 	t_car	*car;
 
 	if ((car = ft_memalloc(sizeof(t_car))) == NULL)	// initialized with zeroes
 	{
-		perror("create_process");
-		exit(-1);
+		perror_exit("create_process");
 	}
 	car->regs[1] = -champ_id;	// TODO: ?
+	car->place = place;
 	return (car);
 }
 
@@ -184,15 +185,15 @@ void	clear_field(t_field *field)
 	}
 }
 
-void	write_to_field(t_field *field, int place, char *exec_code, int size)
+void	load_exec_code(t_field *field, int place, char *exec_code, int size)
 {
-	int		k;
+	t_field *const	origin = field + place;
+	int				k;
 
-	field += place;
 	k = 0;
 	while (k < size)
 	{
-		field[k].square = exec_code[k];
+		origin[k].square = exec_code[k];
 		++k;
 	}
 }
@@ -204,15 +205,15 @@ void	load_champs(t_vm *vm)
 	t_champ		*champ;
 	t_car		*car;
 
-	ft_bzero(vm->arena, MEM_SIZE);
+	clear_field(vm->field);
 	vm->cars = NULL;
 	id = 1;
 	while (id <= vm->champ_amount)
 	{
 		champ = get_champ_by_id(vm->champs, id);
-		write_to_field(vm->field, step * (id - 1), champ->exec_code, champ->size);
-		car = create_car(k + 1);
-		car->place = step * (id - 1);
+		load_exec_code(vm->field, step * (id - 1),
+				champ->exec_code, champ->size);
+		car = create_car(id, step * (id - 1));
 		list_push(&(vm->cars), car);
 		++id;
 	}
@@ -225,18 +226,19 @@ void	load_champs(t_vm *vm)
 void	perform_battle(t_vm *vm)
 {
 	vm->cycle = 0;							// init
-	vm->cycles_to_die = CYCLE_TO_DIE;		// init
+	vm->cycle_to_die = CYCLE_TO_DIE;		// init
 	vm->nbr_checks = 0;						// init
 	// ...
 	load_champs(vm);
-	//
-	dump_memory(vm->field);			// this is
-	system("leaks -q corewar");		// here just
-	exit(0);						// for testing
-	//
 	while (vm->cars != NULL /* ... */)
 	{
 		perform_round(vm);
 	}
 	// ...
+
+	//
+	dump_memory(vm->field);			// this is
+	system("leaks -q corewar");		// here just
+	exit(0);						// for testing
+	//
 }

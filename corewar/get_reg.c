@@ -6,11 +6,11 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:05:42 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/27 12:07:28 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 12:55:33 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
 uint8_t		get_reg(t_vm const *vm, t_car const *car, int arg)
 {

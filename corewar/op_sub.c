@@ -6,13 +6,13 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:37 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:56:59 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 12:49:17 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-void		op_sub(t_cw *cw, t_car *car)
+void			op_sub(t_vm *vm, t_car *car)
 {
 	int const	reg_1 = get_reg(vm, car, 0);
 	int const	reg_2 = get_reg(vm, car, 1);

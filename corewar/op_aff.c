@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_lld.c                                           :+:      :+:    :+:   */
+/*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 15:53:30 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:59:00 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 15:52:50 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/29 12:52:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-// identical to `op_ld` apart from lines marked with "//"
-
-void			op_lld(t_cw *cw, t_car *car)								//
+void			op_aff(t_vm *vm, t_car *car)
 {
-	int const	value = get_value(vm, car, 0);
-	int const	reg = get_reg(vm, car, 1);
+	(void)vm;
+//	int const	reg = get_reg(vm, car, 0);
+//	int const	value = car->regs[reg];
 
-	car->regs[reg] = value;
-	car->carry = (value == 0);
-	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | lld %d r%d\n", car->id, value, reg);*/			//
+	/*if (!vm->ind->v)		// ??
+	{
+		ft_printf("Aff: %c\n", (char)value);
+	}*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

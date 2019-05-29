@@ -10,9 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-const t_op		g_ops[17] = {
+/*
+**	The zeroth operation is there just so that indices coincide with opcodes:
+**	(g_ops[k].opcode == k).
+*/
+
+t_op const		g_ops[17] = {
 	{
 		.name = NULL,
 		.opcode = 0,

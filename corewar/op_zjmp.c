@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_fork.c                                          :+:      :+:    :+:   */
+/*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 16:05:56 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 12:00:28 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 15:52:19 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/27 12:00:10 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-void			op_fork(t_vm *vm, t_car *car)
+void			op_zjmp(t_vm *vm, t_car *car)
 {
-	int const	address = get_value(vm, car, 0);
-	int const	place = (car->place + (address % IDX_MOD)) % MEM_SIZE;
+	int const	value = get_value(vm, car, 0);
 
-	one_more_car(vm, car->prev, place);		// TODO:
-	move_car_body(vm->car, car);			//
-	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | fork  %d (%d)\n",
-		car->id, address, place);*/
+	if (car->carry)
+	{
+		car->offset = value % IDX_MOD;
+	}
+	/*if (vm->ind->ops && !vm->ind->v)
+	{
+		ft_printf("P %4d | zjmp %d %s\n",
+				car->id, value, car->carry ? "OK" : "FAILED");
+	}*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

@@ -10,26 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-extern const t_ops g_ops[16];
-
-static void	live_champ(t_cw *cw, int k, int place)
+static void	live_champ(t_vm *vm, int k, int place)
 {
-	/*if (cw->ind->v)
-	{
-		smth
-	}*/
+	(void)vm;
+	(void)k;
+	(void)place;
+/* TODO:
+	//if (cw->ind->v)
+	//{
+	//	smth
+	//}
 	cw->last_champ = &cw->champ[k];
 	cw->champ[k].ongoing_lives++;
 	cw->champ[k].recent_cycle = cw->ongoing_cycle;
-	/*if (cw->ind->lives && !cw->ind->v)
-		ft_printf("Player %d (%s) is said to be alive\n",
-		cw->champ[k].num, cw->champ[k].name);*/
+	//if (cw->ind->lives && !cw->ind->v)
+	//	ft_printf("Player %d (%s) is said to be alive\n",
+	//	cw->champ[k].num, cw->champ[k].name);
+*/
 }
 
-void		op_live(t_cw *cw, t_car *car)
+void		op_live(t_vm *vm, t_car *car)
 {
+	(void)vm;
+	(void)car;
+	(void)live_champ;
+/* TODO:
 	int	parameter;
 	int	k;
 	int	amount;
@@ -40,8 +47,8 @@ void		op_live(t_cw *cw, t_car *car)
 	amount = S_TDIR(car->opcode);
 	parameter = (int)take_arg_from_field(cw->field, car->place + 1, amount);
 	k = 0;
-	/*if (cw->ind->ops && !cw->ind->v)
-		ft_printf("P %4d | live %d\n", car->id, parameter);*/
+	//if (cw->ind->ops && !cw->ind->v)
+	//	ft_printf("P %4d | live %d\n", car->id, parameter);
 	while (k < cw->champs_amount)
 	{
 		if (parameter == -cw->champ[k].num)
@@ -52,4 +59,5 @@ void		op_live(t_cw *cw, t_car *car)
 		k += 1;
 	}
 	replace_c(cw, car);
+*/
 }

@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_from_field.c                                  :+:      :+:    :+:   */
+/*   write_to_field.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/27 12:11:07 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/27 12:54:31 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/27 12:36:14 by syeresko          #+#    #+#             */
+/*   Updated: 2019/05/29 12:56:57 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-unsigned	read_from_field(t_field const *field, int place, int size)
+void		write_to_field(t_field *field, int place, unsigned value)
 {
-	unsigned 	value;
+	int		size;
 
-	value = 0;
+	size = 4;
 	while (size--)
 	{
 		place %= MEM_SIZE;
-		value |= (unsigned)field[place].square << (size * 8);
+		field[place].square = (uint8_t)(value >> (size * 8));
+		//field[place].cycles = 50;
 		++place;
 	}
-	return (value);
 }

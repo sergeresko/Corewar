@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 18:57:46 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 12:01:26 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	_test_champs(t_vm const *vm)
 static void		init_vm(t_vm *vm)
 {
 	vm->dump_cycles = -1;
+//	vm->dump_bytes = 32;	// may be left uninitialized
 	vm->champ_amount = 0;
 	vm->champs = NULL;
 }
@@ -71,6 +72,7 @@ int				main(int ac, char **av)
 
 	init_vm(&vm);
 	get_options(&vm, ac, av);
+	perform_battle(&vm);
 
 	system("leaks -q corewar >&2");
 

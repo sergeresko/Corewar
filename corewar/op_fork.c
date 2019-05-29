@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_xor.c                                           :+:      :+:    :+:   */
+/*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 15:51:55 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:57:56 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 16:05:56 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/29 12:51:53 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-void			op_xor(t_vm *vm, t_car *car)
+void			op_fork(t_vm *vm, t_car *car)
 {
-	int const	operand_1 = get_value(vm, car, 0);
-	int const	operand_2 = get_value(vm, car, 1);
-	int const	value = operand_1 ^ operand_2;
-	int const	reg = get_reg(vm, car, 2);
+	(void)vm;
+//	int const	address = get_value(vm, car, 0);
+//	int const	place = (car->place + (address % IDX_MOD)) % MEM_SIZE;
 
-	car->regs[reg] = value;
-	car->carry = (value == 0);
+//	one_more_car(vm, car->prev, place);		// TODO:
+//	move_car_body(vm->car, car);			//
 	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | xor %d %d r%d\n",
-		car->id, operand_1, operand_2, reg);*/
+		ft_printf("P %4d | fork  %d (%d)\n",
+		car->id, address, place);*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

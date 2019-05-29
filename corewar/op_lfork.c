@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_ld.c                                            :+:      :+:    :+:   */
+/*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 15:51:09 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:58:51 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 16:06:01 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/29 12:51:43 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-void			op_ld(t_vm *vm, t_car *car)
+void			op_lfork(t_vm *vm, t_car *car)
 {
-	int const	value = get_value(vm, car, 0);
-	int const	reg = get_reg(vm, car, 1);
+	(void)vm;
+//	int const	address = get_value(vm, car, 0);
+//	int const	place = (car->place + address) % MEM_SIZE;
 
-	car->regs[reg] = value;
-	car->carry = (value == 0);
+//	one_more_car(vm, car->prev, place);		// TODO:
+//	move_car_body(vm->car, car);			//
 	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | ld %d r%d\n", car->id, value, reg);*/
+		ft_printf("P %4d | lfork  %d (%d)\n",
+		car->id, address, place);*/
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

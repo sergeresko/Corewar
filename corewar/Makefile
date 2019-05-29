@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/28 18:16:05 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/29 12:55:01 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,22 @@ OBJ = corewar.o \
 	  throw_error.o \
 	  perror_exit.o \
 	  list.o \
-	  ../common/helpers_1.o
+	  ../common/helpers_1.o \
+	  \
+	  operations.o \
+	  op_live.o \
+	  op_ld.o op_ldi.o op_lld.o op_lldi.o \
+	  op_st.o op_sti.o \
+	  op_add.o op_sub.o \
+	  op_and.o op_or.o op_xor.o \
+	  op_zjmp.o \
+	  op_fork.o op_lfork.o \
+	  op_aff.o \
+	  \
+	  get_reg.o get_value.o \
+	  read_from_field.o write_to_field.o \
+	  \
+	  vm.o
 
 #OBJ = corewar.o \
 #	errors.o \

@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/28 18:15:32 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 13:08:17 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ typedef struct	s_car
 	int		arg_place[3];
 	int		offset;
 //	int		op_cycles_to_move;		// delay
+	int		delay;
 //	int		recent_cycle;			// cycle_when_last_live
+	int		cycle_when_last_live;
 //	t_champ	*prev;
 //	struct s_car		*then;
 }				t_car;
@@ -101,7 +103,7 @@ typedef struct	s_vm
 
 void			list_push(t_list **head, void *content);
 void			list_push_back(t_list **head, void *content);
-void			list_pop(t_list **head);
+void			*list_pop(t_list **head);
 
 char			**get_opt_dump(t_vm *vm, char **av);
 void			get_opt_champs(t_vm *vm, char **av);
@@ -111,6 +113,12 @@ void			read_champs(t_list *champs);
 
 void			throw_error(char const *message);
 void			perror_exit(char const *prefix);
+
+void			perform_battle(t_vm *vm);
+
+
+
+
 
 typedef struct	s_cw
 {
@@ -151,6 +159,12 @@ typedef struct	s_op
 	int		delay;
 	void	(*operation)(t_vm *, t_car *);
 }				t_op;
+
+extern t_op const	g_ops[17];
+
+
+
+
 
 void			show_usage(t_cw *data);
 void			fail(t_cw *data);

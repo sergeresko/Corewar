@@ -6,11 +6,11 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:36:08 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/27 12:59:31 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/29 12:56:17 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//include
+#include "corewar.h"
 
 static int		get_value_reg(t_vm const *vm, t_car const *car, int place)
 {

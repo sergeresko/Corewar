@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_add.c                                           :+:      :+:    :+:   */
+/*   op_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 15:51:31 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:56:31 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 15:53:30 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/29 12:48:51 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "corewar.h"
 
-void			op_add(t_vm *vm, t_car *car)
+// identical to `op_ld` apart from lines marked with "//"
+
+void			op_lld(t_vm *vm, t_car *car)								//
 {
-	int const	reg_1 = get_reg(vm, car, 0);
-	int const	reg_2 = get_reg(vm, car, 1);
-	int const	value = car->regs[reg_1] + car->regs[reg_2];
-	int const	reg_3 = get_reg(vm, car, 2);
+	int const	value = get_value(vm, car, 0);
+	int const	reg = get_reg(vm, car, 1);
 
-	car->regs[reg_3] = value;
+	car->regs[reg] = value;
 	car->carry = (value == 0);
 	/*if (!vm->ind->v && vm->ind->ops)
-		ft_printf("P %4d | add r%d r%d r%d\n",
-		car->id, reg_1, reg_2, reg_3);*/
+		ft_printf("P %4d | lld %d r%d\n", car->id, value, reg);*/			//
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }
