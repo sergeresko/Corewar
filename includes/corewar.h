@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 17:41:24 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:29:38 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,8 @@ typedef struct	s_car
 	int		arg_class[3];
 	int		arg_place[3];
 	unsigned	offset;
-//	int		op_cycles_to_move;		// delay
 	int		delay;
-//	int		recent_cycle;			// cycle_when_last_live
 	int		cycle_when_last_live;
-//	t_champ	*prev;
-//	struct s_car		*then;
 }				t_car;
 
 typedef struct	s_vm
@@ -182,14 +178,9 @@ void			fail(t_cw *data);
 void			fail_sense(t_cw *data, char *sense);
 void			output_result(t_cw *cw);
 
-/*int				scan_args_ct(t_cw *cw, t_car *car);
-int				scan_regs(t_cw *cw, t_car *car);*/
 
-//int				take_amount_by_class(t_car *car, int i);
-//unsigned int	take_arg_from_field(t_field *field, unsigned int plc, int size);
-//int				take_arg_by_class(t_cw *cw, t_car *car, int indicator);
-//int				take_arg_place(t_car *car, int indicator);
-//void			rewrite_field(t_cw *cw, t_car *carr, int amount, int addr);
+
+
 
 unsigned		read_from_field(t_field const *field, unsigned place, int size);
 void			write_to_field(t_field *field, unsigned place, unsigned value);
