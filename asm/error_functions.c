@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/18 16:45:06 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/31 02:30:11 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		e__read_file(t_asm *asm_struct, int error_case)
 			break;
 		case 5: ft_printf("Syntax error - unexpected end of input (Perhaps you "
 						  "forgot to end with a newline ?)");
-			break;
+			exit(-1);
 		case 6: ft_putendl(READ_FILE_ERROR);
 			exit(-1);
 	}
