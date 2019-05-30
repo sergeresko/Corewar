@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd_wo_check.c                           :+:      :+:    :+:   */
+/*   ft_utf8_len.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/19 19:40:41 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/28 20:34:15 by syeresko         ###   ########.fr       */
+/*   Created: 2018/12/03 19:38:57 by syeresko          #+#    #+#             */
+/*   Updated: 2018/12/03 19:39:46 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <wchar.h>
 
-void	ft_putchar_fd_wo_check(char c, int fd)
+int		ft_utf8_len(wchar_t wc)
 {
-	write(fd, &c, 1);
+	if (wc < 0x80)
+		return (1);
+	if (wc < 0x800)
+		return (2);
+	if (wc < 0x10000)
+		return (3);
+	return (4);
 }

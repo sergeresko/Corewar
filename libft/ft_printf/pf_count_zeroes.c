@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd_wo_check.c                           :+:      :+:    :+:   */
+/*   pf_count_zeroes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/19 19:40:41 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/28 20:34:15 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/28 18:56:30 by syeresko          #+#    #+#             */
+/*   Updated: 2018/12/09 19:42:22 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd_wo_check(char c, int fd)
+int		pf_count_zeroes(const t_fmt *f, int n_prefix, int n_digits)
 {
-	write(fd, &c, 1);
+	if (f->prec >= 0)
+		return (ft_max(0, f->prec - n_digits));
+	if (f->zero && !f->left)
+		return (ft_max((n_digits == 0), f->width - n_prefix - n_digits));
+	return (n_digits == 0);
 }

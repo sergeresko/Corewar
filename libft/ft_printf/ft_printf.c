@@ -3,144 +3,118 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/01 23:15:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/02/01 23:18:32 by vlvereta         ###   ########.fr       */
+/*   Created: 2018/11/14 17:21:58 by syeresko          #+#    #+#             */
+/*   Updated: 2018/12/09 20:05:29 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <stdarg.h>
+#include <unistd.h>
+#include <inttypes.h>
+#include <wchar.h>
+#include "libft.h"
 
-int		ft_printf(const char *format, ...)
+/*
+**		pf_print_plain
+**	Prints the initial portion of string *a_str to stdout until '\0' or '%'
+**	is encountered, shifts the pointer to this stop-character
+**	and returns the number of printed characters.
+*/
+
+static int			pf_print_plain(const char **a_str)
 {
-	int		i;
-	t_info	p;
+	const char	*s;
+	int			len;
 
-	if (!start_initialization(&p))
-		return (-1);
-	va_start(p.ap, format);
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			if ((i = read_flags((char **)(&format), &p)) != -1)
-				p.type_handlers[i](&p);
-			else
-				continue ;
-		}
-		else
-			char_to_output(&p, *format);
-		flags_to_null(p.cur_flags);
-		format++;
-	}
-	write(1, p.output, p.outlen);
-	va_end(p.ap);
-	return (clean_return(p.cur_flags, p.output, 0, !p.error ? p.outlen : -1));
+	s = *a_str;
+	len = 0;
+	while (s[len] && s[len] != '%')
+		++len;
+	if (len)
+		write(1, s, len);
+	*a_str += len;
+	return (len);
 }
 
-int		read_flags(char **format, t_info *p)
+static intmax_t		get_arg_signed(const t_fmt *f, va_list ap)
 {
-	int		i;
+	if (f->mod == MOD_HH)
+		return ((char)va_arg(ap, int));
+	if (f->mod == MOD_H)
+		return ((short)va_arg(ap, int));
+	if (f->mod == MOD_L)
+		return (va_arg(ap, long));
+	if (f->mod == MOD_LL)
+		return (va_arg(ap, long long));
+	if (f->mod == MOD_J)
+		return (va_arg(ap, intmax_t));
+	if (f->mod == MOD_Z)
+		return (va_arg(ap, ssize_t));
+	return (va_arg(ap, int));
+}
 
-	while (**format)
+static uintmax_t	get_arg_unsigned(const t_fmt *f, va_list ap)
+{
+	if (f->mod == MOD_HH)
+		return ((unsigned char)va_arg(ap, unsigned));
+	if (f->mod == MOD_H)
+		return ((unsigned short)va_arg(ap, unsigned));
+	if (f->mod == MOD_L)
+		return (va_arg(ap, unsigned long));
+	if (f->mod == MOD_LL)
+		return (va_arg(ap, unsigned long long));
+	if (f->mod == MOD_J)
+		return (va_arg(ap, uintmax_t));
+	if (f->mod == MOD_Z)
+		return (va_arg(ap, size_t));
+	return (va_arg(ap, unsigned));
+}
+
+/*
+**		pf_print_formatted
+*/
+
+static int			pf_print_formatted(const char **a_str, va_list ap)
+{
+	t_fmt		fmt;
+
+	pf_parse_format(&fmt, a_str, ap);
+	if (fmt.conv && ft_strchr("cs%", fmt.conv))
+		return (pf_print_alpha(&fmt, ap));
+	if (fmt.conv && ft_strchr("di", fmt.conv))
+		return (pf_print_signed(&fmt, get_arg_signed(&fmt, ap)));
+	if (fmt.conv && ft_strchr("uoxXbB", fmt.conv))
+		return (pf_print_unsigned(&fmt, get_arg_unsigned(&fmt, ap)));
+	if (fmt.conv == 'p')
+		return (pf_print_pointer(&fmt, va_arg(ap, void *)));
+	if (fmt.conv == 'f' && fmt.mod == MOD_L_CAPITAL)
+		return (pf_print_float(&fmt, va_arg(ap, long double)));
+	if (fmt.conv == 'f')
+		return (pf_print_float(&fmt, va_arg(ap, double)));
+	return (0);
+}
+
+/*
+**	ft_printf
+*/
+
+int					ft_printf(const char *format, ...)
+{
+	va_list		ap;
+	int			len;
+
+	va_start(ap, format);
+	len = 0;
+	while (1)
 	{
-		i = 0;
-		while (i < AMOUNT)
-			if (**format == p->types[i++])
-				return (--i);
-		if (**format == '-')
-			p->cur_flags->left = 1;
-		else if (**format == '+')
-			p->cur_flags->sign = 1;
-		else if (**format == ' ')
-			p->cur_flags->space = 1;
-		else if (**format == '#')
-			p->cur_flags->hash = 1;
-		else if (**format == '0')
-			p->cur_flags->zero = 1;
-		else if (!read_width(format, p))
+		len += pf_print_plain(&format);
+		if (*format == '\0')
 			break ;
-		(*format)++;
+		++format;
+		len += pf_print_formatted(&format, ap);
 	}
-	return (-1);
-}
-
-int		read_width(char **format, t_info *p)
-{
-	int		t;
-
-	if (ft_isdigit(**format))
-	{
-		p->cur_flags->width = ft_atoi(*format);
-		while (ft_isdigit(**format))
-			(*format)++;
-		(*format)--;
-	}
-	else if (**format == '*')
-	{
-		if ((t = va_arg(p->ap, int)) < 0)
-		{
-			p->cur_flags->width = -t;
-			p->cur_flags->left = 1;
-		}
-		else
-			p->cur_flags->width = t;
-	}
-	else if (**format == '.')
-		read_precision(format, p);
-	else
-		return (read_size(format, p) ? 1 : 0);
-	return (1);
-}
-
-void	read_precision(char **format, t_info *p)
-{
-	int		t;
-	char	*temp;
-
-	temp = *format + 1;
-	if (ft_isdigit(*temp))
-	{
-		p->cur_flags->prec = ft_atoi(temp);
-		while (ft_isdigit(*temp))
-			temp++;
-		*format = --temp;
-	}
-	else if (*temp == '*')
-	{
-		t = va_arg(p->ap, int);
-		p->cur_flags->prec = t < 0 ? -1 : t;
-		*format = temp;
-	}
-	else
-		p->cur_flags->prec = 0;
-}
-
-int		read_size(char **format, t_info *p)
-{
-	if (**format == 'l' && *(*format + 1) == 'l')
-	{
-		(*format)++;
-		p->cur_flags->ll = 1;
-	}
-	else if (**format == 'h' && *(*format + 1) == 'h')
-	{
-		(*format)++;
-		p->cur_flags->hh = 1;
-	}
-	else if (**format == 'z' || **format == 't')
-		p->cur_flags->z = 1;
-	else if (**format == 'l')
-		p->cur_flags->l = 1;
-	else if (**format == 'h')
-		p->cur_flags->h = 1;
-	else if (**format == 'j')
-		p->cur_flags->j = 1;
-	else if (**format == 'L')
-		p->cur_flags->high_l = 1;
-	else
-		return (0);
-	return (1);
+	va_end(ap);
+	return (len);
 }
