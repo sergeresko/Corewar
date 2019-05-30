@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 21:16:22 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 15:05:31 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_car
 	int		id;
 	int		regs[REG_NUMBER + 1];	// + dummy `regs[0]`
 	int		carry;
-	int		place;		// pc
+	unsigned	place;		// pc
 //	int		now_live;
 	int		opcode;
 	int		arg_amount;
@@ -190,8 +190,8 @@ int				scan_regs(t_cw *cw, t_car *car);*/
 //int				take_arg_place(t_car *car, int indicator);
 //void			rewrite_field(t_cw *cw, t_car *carr, int amount, int addr);
 
-unsigned		read_from_field(t_field const *field, int place, int size);
-void			write_to_field(t_field *field, int place, unsigned value);
+unsigned		read_from_field(t_field const *field, unsigned place, int size);
+void			write_to_field(t_field *field, unsigned place, unsigned value);
 
 int				get_value(t_vm const *vm, t_car const *car, int arg);
 uint8_t			get_reg(t_vm const *vm, t_car const *car, int arg);

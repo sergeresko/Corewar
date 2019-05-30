@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:18 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 14:24:11 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:15:21 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void			op_st(t_vm *vm, t_car *car)
 	}
 	else
 	{
-		addr = (short)read_from_field(vm->field, car->arg_place[1], IND_SIZE);	// ?
-		addr %= IDX_MOD;
-		write_to_field(vm->field, (car->place + addr) % MEM_SIZE, value);
+		addr = (short)read_from_field(vm->field, car->arg_place[1], IND_SIZE);
+		write_to_field(vm->field,
+				(unsigned)(car->place + addr % IDX_MOD) % MEM_SIZE, value);
 	}
 	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)

@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 14:34:35 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 15:30:51 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,10 @@ void	perform_round(t_vm *vm)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->nbr_checks = 0;
+		if (vm->verbose)
+		{
+			ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
+		}
 	}
 }
 
@@ -139,14 +143,13 @@ void		dump_memory(t_vm const *vm)
 	k = 0;
 	while (start < MEM_SIZE)
 	{
-		ft_printf("0x%04x :", start);
+		ft_printf("0x%04x : ", start);
 		start += vm->dump_bytes;
 		while (k < start)
 		{
-			ft_printf(" %02hhx", vm->field[k].square);
+			ft_printf("%02hhx ", vm->field[k].square);
 			++k;
 		}
-		ft_putchar(' '); ////// only needed for diff with the original output
 		ft_putchar('\n');
 	}
 }

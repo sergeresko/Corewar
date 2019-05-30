@@ -6,13 +6,19 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 12:11:07 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 12:56:38 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:47:01 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-unsigned	read_from_field(t_field const *field, int place, int size)
+/*
+**	read `size` bytes from `field` at position `place` % MEM_SIZE
+**	and construct an unsigned integer from them
+**	assuming the bytes are in big endian order
+*/
+
+unsigned	read_from_field(t_field const *field, unsigned place, int size)
 {
 	unsigned 	value;
 

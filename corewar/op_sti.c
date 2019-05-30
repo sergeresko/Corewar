@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 16:05:51 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 12:42:43 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 16:15:48 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			op_sti(t_vm *vm, t_car *car)
 	int const	operand_2 = get_value(vm, car, 2);
 	int const	address = (operand_1 + operand_2) % IDX_MOD;
 
-	write_to_field(vm->field, (car->place + address) % MEM_SIZE, value);
+	write_to_field(vm->field, (unsigned)(car->place + address) % MEM_SIZE, value);
 	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)
 	{
