@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd_wo_check.c                           :+:      :+:    :+:   */
+/*   ft_putnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/19 19:40:41 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/28 20:34:15 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/22 18:59:57 by syeresko          #+#    #+#             */
+/*   Updated: 2018/11/22 20:43:01 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-void	ft_putchar_fd_wo_check(char c, int fd)
+void	ft_putnchar(char c, int times)
 {
-	write(fd, &c, 1);
+	char	buf[16];
+
+	ft_memset(buf, c, 16);
+	while (times > 16)
+	{
+		write(STDOUT_FILENO, buf, 16);
+		times -= 16;
+	}
+	if (times > 0)
+		write(STDOUT_FILENO, buf, times);
 }
