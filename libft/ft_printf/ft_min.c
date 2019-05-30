@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd_wo_check.c                           :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/19 19:40:41 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/28 20:34:15 by syeresko         ###   ########.fr       */
+/*   Created: 2018/11/23 19:25:27 by syeresko          #+#    #+#             */
+/*   Updated: 2018/11/23 19:25:55 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putchar_fd_wo_check(char c, int fd)
+int		ft_min(int a, int b)
 {
-	write(fd, &c, 1);
+	return (a < b ? a : b);
 }

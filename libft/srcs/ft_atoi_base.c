@@ -6,13 +6,13 @@
 /*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 16:33:04 by zaliskyi          #+#    #+#             */
-/*   Updated: 2019/05/19 16:36:22 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/28 20:35:49 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_power(int nb, int power)
+int			ft_power(int nb, int power)
 {
 	if (power == 0)
 		return (1);
@@ -61,7 +61,7 @@ int			ft_atoi_base(char *num, int base)
 	if (base == 10)
 		return (ft_atoi(num));
 	while (*num == ' ' || *num == '\t' || *num == '\n'
-		   || *num == '\v' || *num == '\r' || *num == '\f')
+			|| *num == '\v' || *num == '\r' || *num == '\f')
 		++num;
 	result = 0;
 	length = ft_numlen(num, base) - 1;
