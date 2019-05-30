@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 15:05:31 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:41:24 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct	s_car
 	int		arg_amount;
 	int		arg_class[3];
 	int		arg_place[3];
-	int		offset;
+	unsigned	offset;
 //	int		op_cycles_to_move;		// delay
 	int		delay;
 //	int		recent_cycle;			// cycle_when_last_live
@@ -127,6 +127,7 @@ t_car			*clone_car(t_car const *car, int place);
 void			execute_operation(t_vm *vm, t_car *car);
 int				get_arg_size(t_car const *car, int arg);
 
+void			advance_car(t_vm const *vm, t_car *car);
 
 
 // not used:

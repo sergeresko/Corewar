@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:52:43 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:59:14 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:50:35 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			op_ldi(t_vm *vm, t_car *car)
 		ft_printf("P %4d | ldi %d %d r%d\n",
 				car->id, operand_1, operand_2, reg);
 	}
-	car->place = (car->place + car->offset) % MEM_SIZE;
+	advance_car(vm, car);
 }
 /*
 void		op_ldi(t_cw *cw, t_car *car)

@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 15:30:51 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:45:31 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	execute_car(t_vm *vm, t_car *car)
 		car->opcode = vm->field[car->place].square;		// equivalent to `= read_from_field(vm->field, car->place, 1)`
 		if (!is_valid_opcode(car->opcode))
 		{
-			car->place = (car->place + 1) % MEM_SIZE;	// advance `car->place` by 1 byte
+			car->place = ++(car->place) % MEM_SIZE;	// advance `car->place` by 1 byte
 			return ;
 		}
 		car->delay = g_ops[car->opcode].delay;
@@ -36,15 +36,6 @@ void	execute_car(t_vm *vm, t_car *car)
 	--(car->delay);
 	if (car->delay == 0)
 	{
-//		ft_printf("executing operation at 0x%04x\n", car->place);		////////////////////
-/*
-		if (car->opcode == 1)										//
-		{															//
-			ft_printf("Call to `live`, skipping\n");				//
-			car->place = (car->place + car->offset) % MEM_SIZE;		//
-			return ;												//
-		}															//
-*/
 		execute_operation(vm, car);
 	}
 }
@@ -88,6 +79,12 @@ void	perform_check(t_vm *vm)
 		car = (*addr)->content;
 		if (car->cycle_when_last_live <= oldest_cycle)
 		{
+			if (vm->verbose)
+			{
+				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+						car->id, vm->cycle - car->cycle_when_last_live,
+						vm->cycle_to_die);
+			}
 			free(list_pop(addr));	// delete car `car`
 		}
 		else

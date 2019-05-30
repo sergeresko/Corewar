@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:50:57 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 21:30:24 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 18:02:58 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	live_champ(t_vm *vm, int champ_id)
 	//if (cw->ind->lives && !cw->ind->v)
 	if (vm->verbose)
 	{
-		ft_printf("%p\n", get_champ_by_id(vm->champs, champ_id));/////////////////
 		ft_printf("A process shows that player %d (%s) is alive\n",
 				champ_id, get_champ_by_id(vm->champs, champ_id)->name);
 	}
@@ -43,5 +42,5 @@ void		op_live(t_vm *vm, t_car *car)
 	{
 		live_champ(vm, -value);
 	}
-	car->place = (car->place + car->offset) % MEM_SIZE;
+	advance_car(vm, car);
 }

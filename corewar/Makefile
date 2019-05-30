@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/29 20:49:12 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/30 17:41:47 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ OBJ = corewar.o \
 	  read_from_field.o write_to_field.o \
 	  \
 	  execute_operation.o get_arg_size.o \
+	  advance_car.o \
 	  create_car.o clone_car.o \
 	  vm.o
 

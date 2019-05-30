@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 16:05:56 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 16:12:36 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:49:40 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void			op_fork(t_vm *vm, t_car *car)
 	{
 		ft_printf("P %4d | fork %d (%d)\n", car->id, address, place);
 	}
-	car->place = (car->place + car->offset) % MEM_SIZE;
+	advance_car(vm, car);
 }

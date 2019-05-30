@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:20:11 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 12:58:20 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:24:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	arg_code_to_mask(int code)
 int				decypher_coding_byte(t_vm const *vm, t_car *car)
 {
 	uint8_t		coding_byte;	// TODO: rewrite so that `coding_byte` can be `int`
-	int			offset;
+	unsigned	offset;
 	int			arg;
 	int			is_valid;
 

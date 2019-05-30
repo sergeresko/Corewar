@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:37 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/29 12:49:17 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:52:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void			op_sub(t_vm *vm, t_car *car)
 		ft_printf("P %4d | sub r%d r%d r%d\n",
 				car->id, reg_1, reg_2, reg_3);
 	}
-	car->place = (car->place + car->offset) % MEM_SIZE;
+	advance_car(vm, car);
 }

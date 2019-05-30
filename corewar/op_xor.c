@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:55 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 11:57:56 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 17:52:39 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void			op_xor(t_vm *vm, t_car *car)
 		ft_printf("P %4d | xor %d %d r%d\n",
 				car->id, operand_1, operand_2, reg);
 	}
-	car->place = (car->place + car->offset) % MEM_SIZE;
+	advance_car(vm, car);
 }
