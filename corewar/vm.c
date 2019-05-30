@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 21:36:44 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 13:01:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void	execute_car(t_vm *vm, t_car *car)
 	--(car->delay);
 	if (car->delay == 0)
 	{
-		ft_printf("executing operation at 0x%04x\n", car->place);		////////////////////
+//		ft_printf("executing operation at 0x%04x\n", car->place);		////////////////////
+		if (car->opcode == 1)										//
+		{															//
+			ft_printf("Call to `live`, skipping\n");				//
+			car->place = (car->place + car->offset) % MEM_SIZE;		//
+			return ;												//
+		}															//
 		execute_operation(vm, car);
 	}
 }

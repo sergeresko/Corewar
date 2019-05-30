@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:36:08 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 13:42:44 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 12:47:54 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ static int		get_value_ind(t_vm const *vm, t_car const *car, int place)
 	return ((int)read_from_field(vm->field, place, 4));
 }
 
+void		_diagnostic_error_message(t_vm const *vm, t_car const *car, int arg)////////////////
+{
+	(void)vm;
+	(void)arg;
+	ft_printf("car (id: %d):\n", car->id);
+	ft_printf("  place: 0x%04x\n", car->place);
+	ft_printf("  opcode: %d\n", car->opcode);
+	ft_printf("  arg_amount: %d\n", car->arg_amount);
+	ft_printf("  arg_class[]: %d, %d, %d\n", car->arg_class[0], car->arg_class[1], car->arg_class[2]);
+	ft_printf("  arg_place[]: 0x%04x, 0x%04x, 0x%04x\n", car->arg_place[0], car->arg_place[1], car->arg_place[2]);
+}
+
 int				get_value(t_vm const *vm, t_car const *car, int arg)
 {
 	int const	class = car->arg_class[arg];
@@ -63,6 +75,7 @@ int				get_value(t_vm const *vm, t_car const *car, int arg)
 	{
 		return (get_value_ind(vm, car, place));
 	}
-	throw_error("`car->arg_class` contains an incorrect value\n");	//
+	_diagnostic_error_message(vm, car, arg);//////////////////////
+	throw_error("`car->arg_class` contains an incorrect value");	//
 	return (0);					// this should never happen
 }

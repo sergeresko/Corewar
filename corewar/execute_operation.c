@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:20:11 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 16:32:14 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 12:58:20 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,31 @@ static int	arg_code_to_mask(int code)
 **	fill `arg_class`, `arg_place` and `offset` fields of `car` accordingly
 */
 
-void			decypher_coding_byte(t_vm const *vm, t_car *car)
+int				decypher_coding_byte(t_vm const *vm, t_car *car)
 {
 	uint8_t		coding_byte;	// TODO: rewrite so that `coding_byte` can be `int`
 	int			offset;
 	int			arg;
+	int			is_valid;
 
+	is_valid = TRUE;
 	coding_byte = read_from_field(vm->field, (car->place + 1) % MEM_SIZE, 1);
 	offset = 2;
 	arg = 0;
 	while (arg < car->arg_amount)
 	{
 		car->arg_class[arg] = arg_code_to_mask(coding_byte >> 6);
+		if (!(car->arg_class[arg] & g_ops[car->opcode].arg_list[arg]))
+		{
+			is_valid = FALSE;
+		}
 		car->arg_place[arg] = (car->place + offset) % MEM_SIZE;
 		coding_byte <<= 2;
 		offset += get_arg_size(car, arg);	// <-- `get_arg_size`
 		++arg;
 	}
 	car->offset = offset;
+	return (is_valid);
 }
 
 //--------------------------
@@ -94,8 +101,7 @@ void	execute_operation(t_vm *vm, t_car *car)
 	car->arg_amount = g_ops[car->opcode].arg_amount;
 	if (g_ops[car->opcode].has_coding_byte)
 	{
-		decypher_coding_byte(vm, car);
-		if (!check_registers(vm, car))
+		if (!decypher_coding_byte(vm, car) || !check_registers(vm, car))
 		{
 			car->place = (car->place + car->offset) % MEM_SIZE;
 			return ;
