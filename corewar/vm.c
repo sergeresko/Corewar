@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 13:01:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/30 14:34:35 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void	execute_car(t_vm *vm, t_car *car)
 	if (car->delay == 0)
 	{
 //		ft_printf("executing operation at 0x%04x\n", car->place);		////////////////////
+/*
 		if (car->opcode == 1)										//
 		{															//
 			ft_printf("Call to `live`, skipping\n");				//
 			car->place = (car->place + car->offset) % MEM_SIZE;		//
 			return ;												//
 		}															//
+*/
 		execute_operation(vm, car);
 	}
 }
@@ -144,6 +146,7 @@ void		dump_memory(t_vm const *vm)
 			ft_printf(" %02hhx", vm->field[k].square);
 			++k;
 		}
+		ft_putchar(' '); ////// only needed for diff with the original output
 		ft_putchar('\n');
 	}
 }
@@ -216,7 +219,7 @@ void	perform_battle(t_vm *vm)
 	}
 	if (vm->cars == NULL && vm->last_living_champ_id != 0)
 	{
-		ft_printf("Player %d won!\n", vm->last_living_champ_id);	// TODO:
+		ft_printf("Player %d (%s) won\n", vm->last_living_champ_id, get_champ_by_id(vm->champs, vm->last_living_champ_id)->name);	// TODO: to a separate function
 	}
 	if (vm->cycle == vm->dump_cycle)
 	{
