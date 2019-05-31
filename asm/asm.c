@@ -85,7 +85,7 @@ int 	main(int argc, char *argv[])
 	else
 		e__args_amount();
 
-	system("leaks asm");
+//	system("leaks asm");
 	return (0);
 }
 
