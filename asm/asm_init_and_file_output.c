@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_init_and_file_output.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/19 19:28:42 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:33:36 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ char	*get_filename(const char *argv)
 
 char	*make_header_string(t_header *header)
 {
-	int 	i;
+	int		i;
 	char	*size;
 	char	*magic;
 	char	*result;
-	size_t 	len;
+	size_t	len;
 
 	i = 0;
 	if ((result = ft_strnew(HEX_HEADER)))
@@ -62,16 +62,17 @@ char	*make_header_string(t_header *header)
 		ft_strncpy(&(result[i]), size, BYTE);
 		ft_strdel(&size);
 		i += BYTE;
-		ft_strncpy(&(result[i]), header->hex_description, ft_strlen(header->hex_description));
+		ft_strncpy(&(result[i]), header->hex_description,
+				ft_strlen(header->hex_description));
 	}
 	return (result);
 }
 
 void	output_to_file(t_asm *champ)
 {
-	int 	file_fd;
+	int		file_fd;
 	char	*champion;
-	char 	*head_str;
+	char	*head_str;
 	char	*filename;
 
 	filename = ft_strjoin(champ->filename, ".cor");
@@ -88,9 +89,9 @@ void	output_to_file(t_asm *champ)
 
 void	format_file_output(int fd, char *champ)
 {
-	int 	i;
-	size_t 	len;
-	char *hex;
+	int		i;
+	size_t	len;
+	char	*hex;
 
 	i = 0;
 	hex = ft_strnew(2);
