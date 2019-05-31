@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:35:28 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 20:27:50 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/31 20:45:00 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		cook_arg(t_com *com, int a_n, int index, t_asm *asm_str)
 	return (index);
 }
 
-int 	check_proper_ending(const char *line, int i)
+int		check_proper_ending(const char *line, int i)
 {
 	while (line[i])
 	{
