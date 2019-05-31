@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 13:37:22 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 19:59:20 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:06:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,14 @@ typedef struct	s_fmt
 
 # define PF_PREC_NONE 	(-1)
 
-# define PF_RESET		"\e[0m"
-# define PF_RED			"\e[31m"
-# define PF_GREEN		"\e[32m"
-# define PF_YELLOW		"\e[33m"
-# define PF_BLUE		"\e[34m"
-# define PF_MAGENTA		"\e[35m"
-# define PF_CYAN		"\e[36m"
+# define PF_RESET		"\033[0m"
+# define PF_BOLD		"\033[1m"
+# define PF_RED			"\033[31m"
+# define PF_GREEN		"\033[32m"
+# define PF_YELLOW		"\033[33m"
+# define PF_BLUE		"\033[34m"
+# define PF_MAGENTA		"\033[35m"
+# define PF_CYAN		"\033[36m"
 
 # define PF_BUF_SIZE 	1024
 
