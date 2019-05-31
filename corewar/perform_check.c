@@ -16,20 +16,21 @@
 #define FMT_COL	PF_RED FMT PF_RESET
 
 /*
+**	increment check count;
 **	kill all cars that haven't executed `live` since the previous check
 */
 
 void			perform_check(t_vm *vm)
 {
 	int const	oldest_cycle = vm->cycle - vm->cycle_to_die;
-	t_list		**addr;
+	t_list		**head;
 	t_car		*car;
 
 	++(vm->nbr_checks);
-	addr = &vm->cars;
-	while (*addr != NULL)
+	head = &vm->cars;
+	while (*head != NULL)
 	{
-		car = (*addr)->content;
+		car = (*head)->content;
 		if (car->cycle_when_last_live <= oldest_cycle)
 		{
 			if (vm->verbose)
@@ -38,11 +39,11 @@ void			perform_check(t_vm *vm)
 						car->id, vm->cycle - car->cycle_when_last_live,
 						vm->cycle_to_die);
 			}
-			free(list_pop(addr));
+			free(list_pop(head));
 		}
 		else
 		{
-			addr = &(*addr)->next;
+			head = &(*head)->next;
 		}
 	}
 }

@@ -22,7 +22,6 @@ void			op_ld(t_vm *vm, t_car *car)
 
 	car->regs[reg] = value;
 	car->carry = (value == 0);
-	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)
 	{
 		ft_printf(vm->color ? FMT_COL : FMT, car->id, value, reg);

@@ -12,6 +12,12 @@
 
 #include "corewar.h"
 
+/*
+**	return the size in bytes of the `arg`th argument (starting from 0)
+**	of the operation that has been parsed by `car`;
+**	if the argument's class is invalid, return 0
+*/
+
 int				get_arg_size(t_car const *car, int arg)
 {
 	int const	class = car->arg_class[arg];
@@ -28,5 +34,5 @@ int				get_arg_size(t_car const *car, int arg)
 	{
 		return (1);
 	}
-	return (0);					// ?
+	return (0);
 }

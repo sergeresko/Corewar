@@ -27,7 +27,8 @@ static int		compute_last_cycle(t_vm const *vm)
 }
 
 /*
-**	perform the necessary number of cycles and then perform a check
+**	perform the necessary number of cycles and then perform a check;
+**	decrease cycle to die if necessary
 */
 
 void			perform_round(t_vm *vm)

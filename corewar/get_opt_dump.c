@@ -19,9 +19,9 @@
 **	and to 64 for "-dump64"
 */
 
-char		**get_opt_dump(t_vm *vm, char **av)
+char			**get_opt_dump(t_vm *vm, char **av)
 {
-	char 	*arg;
+	char		*arg;
 
 	if ((arg = *(++av)) != NULL)
 	{
@@ -37,7 +37,8 @@ char		**get_opt_dump(t_vm *vm, char **av)
 		{
 			return (av - 1);
 		}
-		if ((arg = *(++av)) == NULL || (vm->dump_cycle = ft_atoi(arg)) < 0)
+		if ((arg = *(++av)) == NULL
+				|| (vm->dump_cycle = ft_atoi(arg)) < 0)
 		{
 			fatal_error("Invalid value for dump option");
 		}

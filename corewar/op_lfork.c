@@ -19,11 +19,8 @@ void			op_lfork(t_vm *vm, t_car *car)
 {
 	int const	address = get_value(vm, car, 0);
 	int const	place = (unsigned)(car->place + address) % MEM_SIZE;
-	t_car		*new_car;
 
-	new_car = clone_car(car, place);
-	list_push(&(vm->cars), new_car);
-	//if (!vm->ind->v && vm->ind->ops)
+	list_push(&(vm->cars), clone_car(car, place));
 	if (vm->verbose)
 	{
 		ft_printf(vm->color ? FMT_COL : FMT, car->id, address, place);

@@ -20,7 +20,7 @@
 #define POSITION_COMMENT	140
 #define POSITION_NULL_2		2188
 
-static void	check_null(char const *header, int place, t_champ const *champ)
+static void		check_null(char const *header, int place, t_champ const *champ)
 {
 	if (parse_int(header + place) != 0)
 	{
@@ -30,7 +30,7 @@ static void	check_null(char const *header, int place, t_champ const *champ)
 	}
 }
 
-static void	save_champ_name(char const *header, t_champ *champ)
+static void		save_champ_name(char const *header, t_champ *champ)
 {
 	if (header[4] == '\0')
 	{
@@ -43,7 +43,7 @@ static void	save_champ_name(char const *header, t_champ *champ)
 	}
 }
 
-static void	save_champ_size(char const *header, t_champ *champ)
+static void		save_champ_size(char const *header, t_champ *champ)
 {
 	if ((champ->size = parse_int(header + POSITION_SIZE)) > CHAMP_MAX_SIZE)
 	{
@@ -52,7 +52,7 @@ static void	save_champ_size(char const *header, t_champ *champ)
 	}
 }
 
-static void	save_champ_comment(char const *header, t_champ *champ)
+static void		save_champ_comment(char const *header, t_champ *champ)
 {
 	if ((champ->comment = ft_strdup(header + POSITION_COMMENT)) == NULL)
 	{
@@ -65,10 +65,10 @@ static void	save_champ_comment(char const *header, t_champ *champ)
 **	parse it into `name`, `size` and `comment` fields of `champ`
 */
 
-void		read_champ_header(int fd, t_champ *champ)
+void			read_champ_header(int fd, t_champ *champ)
 {
-	char	header[HEADER_SIZE];
-	int		header_size;
+	char		header[HEADER_SIZE];
+	int			header_size;
 
 	if ((header_size = read(fd, header, HEADER_SIZE)) == -1)
 	{

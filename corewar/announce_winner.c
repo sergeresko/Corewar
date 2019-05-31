@@ -6,14 +6,14 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 16:52:22 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 16:53:15 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 17:56:15 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 #define FMT		"Player %d (%s) won\n"
-#define FMT_COL	PF_GREEN FMT PF_RESET
+#define FMT_COL	PF_BOLD FMT PF_RESET
 
 void			announce_winner(t_vm const *vm)
 {

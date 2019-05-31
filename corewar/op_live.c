@@ -18,12 +18,8 @@
 static void		live_champ(t_vm *vm, int champ_id)
 {
 	vm->last_living_champ_id = champ_id;
-	if (vm->color)
-		ft_putstr(PF_GREEN);
 	ft_printf(vm->color ? MSG_COL : MSG,
 			champ_id, get_champ_by_id(vm->champs, champ_id)->name);
-	if (vm->color)
-		ft_putstr(PF_RESET);
 }
 
 #define FMT		"P %4d | live %d\n"

@@ -29,8 +29,7 @@ void			op_st(t_vm *vm, t_car *car)
 	else
 	{
 		addr = (short)read_from_field(vm->field, car->arg_place[1], IND_SIZE);
-		write_to_field(vm->field,
-				(unsigned)(car->place + addr % IDX_MOD) % MEM_SIZE, value);		// TODO: simplify
+		write_to_field(vm->field, car->place + addr % IDX_MOD, value);
 	}
 	if (vm->verbose)
 	{
@@ -39,31 +38,3 @@ void			op_st(t_vm *vm, t_car *car)
 	}
 	advance_car(vm, car);
 }
-/*
-void		op_st(t_cw *cw, t_car *car)
-{
-	int				address;
-	int				place;
-	int				support;
-	unsigned char	register_num;
-
-	place = car->place + 1;
-	register_num = (unsigned char)take_arg_from_field(cw->field, place, 1);
-	support = car->regs[register_num];
-	if (car->arg_class[1] == T_REG)
-	{
-		address = take_arg_by_class(cw, car, 1);
-		car->regs[address] = support;
-	}
-	else
-	{
-		place = take_arg_place(car, 1);
-		address = (short)take_arg_from_field(cw->field, place, IND_SIZE);
-		address %= IDX_MOD;
-		rewrite_field(cw, car, support, address);
-	}
-	//if (!cw->ind->v && cw->ind->ops)
-	//	ft_printf("P %4d | st r%d %d\n",
-	//	car->num, register_num, address);
-	replace_c(cw, car);
-}*/

@@ -40,7 +40,7 @@ static void		add_champ(t_vm *vm, int id, char const *filename)
 {
 	char *const	extension = ft_strrchr(filename, '.');
 	t_champ		*champ;
-   
+
 	if (extension == NULL || !ft_strequ(extension, ".cor"))
 	{
 		ft_printf("ERROR: No .cor extension for champion \"%s\".\n", filename);

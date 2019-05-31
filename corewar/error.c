@@ -17,6 +17,7 @@ void			perror_exit(char const *prefix)
 	perror(prefix);
 	exit(-1);
 }
+
 void			fatal_error(char const *message)
 {
 	ft_printf("ERROR: %s.\n", message);

@@ -12,10 +12,10 @@
 
 #include "corewar.h"
 
-t_car		*clone_car(t_car const *car, int place)
+t_car			*clone_car(t_car const *car, int place)
 {
-	t_car	*new_car;
-	int		id;
+	t_car		*new_car;
+	int			id;
 
 	new_car = create_car();
 	id = new_car->id;

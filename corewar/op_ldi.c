@@ -19,8 +19,8 @@ void			op_ldi(t_vm *vm, t_car *car)
 {
 	int const	operand_1 = get_value(vm, car, 0);
 	int const	operand_2 = get_value(vm, car, 1);
-	int const	place = (car->place + (operand_1 + operand_2) % IDX_MOD) % MEM_SIZE;	// line too long
-	int const	value = read_from_field(vm->field, place, 4);		// replace "4" with a define
+	int const	place = car->place + (operand_1 + operand_2) % IDX_MOD;
+	int const	value = read_from_field(vm->field, place, 4);
 	int const	reg = get_reg(vm, car, 2);
 
 	car->regs[reg] = value;

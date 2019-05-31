@@ -61,7 +61,7 @@ void			load_champs(t_vm *vm)
 				champ->id, champ->size, champ->name, champ->comment);
 		load_exec_code(vm->field, step * (champ_id - 1), champ);
 		car = create_car();
-		car->regs[1] = -champ_id;		// TODO: ?
+		car->regs[1] = -champ_id;
 		car->place = step * (champ_id - 1);
 		// initialize other fields of `car` ?
 		list_push(&(vm->cars), car);

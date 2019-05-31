@@ -17,15 +17,15 @@
 **	to `field` at position `place` % MEM_SIZE
 */
 
-void		write_to_field(t_field *field, unsigned place, unsigned value)
+void			write_to_field(t_field *field, unsigned place, unsigned value)
 {
-	int		size;
+	int			size;
 
 	size = 4;
 	while (size--)
 	{
 		place %= MEM_SIZE;
-		field[place].square = (uint8_t)(value >> (size * 8));
+		field[place].square = (uint8_t)(value >> (size << 3));
 		//field[place].cycles = 50;
 		++place;
 	}

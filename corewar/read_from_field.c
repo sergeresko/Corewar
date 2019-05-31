@@ -18,15 +18,15 @@
 **	assuming the bytes are in big endian order
 */
 
-unsigned	read_from_field(t_field const *field, unsigned place, int size)
+unsigned		read_from_field(t_field const *field, unsigned place, int size)
 {
-	unsigned 	value;
+	unsigned	value;
 
 	value = 0;
 	while (size--)
 	{
 		place %= MEM_SIZE;
-		value |= (unsigned)field[place].square << (size * 8);
+		value |= (unsigned)field[place].square << (size << 3);
 		++place;
 	}
 	return (value);

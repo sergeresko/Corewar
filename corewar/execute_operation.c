@@ -32,13 +32,13 @@ static int		arg_code_to_mask(int code)
 
 static int		decypher_coding_byte(t_vm const *vm, t_car *car)
 {
-	uint8_t		coding_byte;	// TODO: rewrite so that `coding_byte` can be `int`
+	uint8_t		coding_byte;
 	unsigned	offset;
 	int			arg;
 	int			is_valid;
 
 	is_valid = TRUE;
-	coding_byte = read_from_field(vm->field, (car->place + 1) % MEM_SIZE, 1);
+	coding_byte = read_from_field(vm->field, car->place + 1, 1);
 	offset = 2;
 	arg = 0;
 	while (arg < car->arg_amount)
@@ -50,7 +50,7 @@ static int		decypher_coding_byte(t_vm const *vm, t_car *car)
 		}
 		car->arg_place[arg] = (car->place + offset) % MEM_SIZE;
 		coding_byte <<= 2;
-		offset += get_arg_size(car, arg);	// <-- `get_arg_size`
+		offset += get_arg_size(car, arg);
 		++arg;
 	}
 	car->offset = offset;
@@ -92,7 +92,10 @@ static int		check_registers(t_vm const *vm, t_car const *car)
 	return (TRUE);
 }
 
-//--------------------------
+/*
+**	parse bytecode for an operation and either execute or skip it
+**	depending on whether the coding byte and register numbers are valid
+*/
 
 void			execute_operation(t_vm *vm, t_car *car)
 {
@@ -109,7 +112,7 @@ void			execute_operation(t_vm *vm, t_car *car)
 	{
 		car->arg_class[0] = T_DIR;
 		car->arg_place[0] = (car->place + 1) % MEM_SIZE;
-		car->offset = 1 + get_arg_size(car, 0);		// <-- `get_arg_size`
+		car->offset = 1 + get_arg_size(car, 0);
 	}
 	g_ops[car->opcode].operation(vm, car);
 }

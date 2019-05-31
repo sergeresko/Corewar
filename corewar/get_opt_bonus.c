@@ -12,9 +12,9 @@
 
 #include "corewar.h"
 
-char	**get_opt_bonus(t_vm *vm, char **av)
+char			**get_opt_bonus(t_vm *vm, char **av)
 {
-	char	*arg;
+	char		*arg;
 
 	while ((arg = *(++av)) != NULL)
 	{

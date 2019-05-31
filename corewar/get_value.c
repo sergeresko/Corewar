@@ -12,12 +12,20 @@
 
 #include "corewar.h"
 
+/*
+**	get the value stored in the register whose number is read from the field
+*/
+
 static int		get_value_reg(t_vm const *vm, t_car const *car, int place)
 {
 	int const	reg = read_from_field(vm->field, place, 1);
 
 	return (car->regs[reg]);
 }
+
+/*
+**	read the value from the field
+*/
 
 static int		get_value_dir(t_vm const *vm, t_car const *car, int place)
 {
@@ -33,12 +41,18 @@ static int		get_value_dir(t_vm const *vm, t_car const *car, int place)
 	}
 }
 
+/*
+**	get the value stored at the relative address read from the field
+**
+**	NOTE: The address is not trimmed by IDX_MOD for `lld`.
+*/
+
 static int		get_value_ind(t_vm const *vm, t_car const *car, int place)
 {
 	int			address;
 
 	address = (short)read_from_field(vm->field, place, IND_SIZE);
-	if (car->opcode != 13)		// not `lld`
+	if (car->opcode != 13)
 	{
 		address %= IDX_MOD;
 	}
@@ -46,17 +60,12 @@ static int		get_value_ind(t_vm const *vm, t_car const *car, int place)
 	return ((int)read_from_field(vm->field, place, 4));
 }
 
-void		_diagnostic_error_message(t_vm const *vm, t_car const *car, int arg)////////////////
-{
-	(void)vm;
-	(void)arg;
-	ft_printf("car (id: %d):\n", car->id);
-	ft_printf("  place: 0x%04x\n", car->place);
-	ft_printf("  opcode: %d\n", car->opcode);
-	ft_printf("  arg_amount: %d\n", car->arg_amount);
-	ft_printf("  arg_class[]: %d, %d, %d\n", car->arg_class[0], car->arg_class[1], car->arg_class[2]);
-	ft_printf("  arg_place[]: 0x%04x, 0x%04x, 0x%04x\n", car->arg_place[0], car->arg_place[1], car->arg_place[2]);
-}
+/*
+**	retrieve the value of the `arg`th argument according to is class
+**
+**	NOTE: Assuming our program is correct, the class will always be valid,
+**	so this function will never terminate the program.
+*/
 
 int				get_value(t_vm const *vm, t_car const *car, int arg)
 {
@@ -75,7 +84,6 @@ int				get_value(t_vm const *vm, t_car const *car, int arg)
 	{
 		return (get_value_ind(vm, car, place));
 	}
-	_diagnostic_error_message(vm, car, arg);//////////////////////
-	fatal_error("`car->arg_class` contains an incorrect value");	//
-	return (0);					// this should never happen
+	fatal_error("`car->arg_class` contains an incorrect value");
+	return (0);
 }

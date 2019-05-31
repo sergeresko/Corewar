@@ -18,7 +18,7 @@
 void			op_fork(t_vm *vm, t_car *car)
 {
 	int const	address = get_value(vm, car, 0);
-	int const	place = (unsigned)(car->place + (address % IDX_MOD)) % MEM_SIZE;
+	int const	place = (unsigned)(car->place + address % IDX_MOD) % MEM_SIZE;
 
 	list_push(&vm->cars, clone_car(car, place));
 	if (vm->verbose)

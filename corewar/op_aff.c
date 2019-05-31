@@ -22,7 +22,7 @@ void			op_aff(t_vm *vm, t_car *car)
 
 	if (vm->verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT, (char)value);		// maybe change message
+		ft_printf(vm->color ? FMT_COL : FMT, (char)value);
 	}
 	advance_car(vm, car);
 }

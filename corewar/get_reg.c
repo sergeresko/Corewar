@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-uint8_t		get_reg(t_vm const *vm, t_car const *car, int arg)
+uint8_t			get_reg(t_vm const *vm, t_car const *car, int arg)
 {
 	return (read_from_field(vm->field, car->arg_place[arg], 1));
 }

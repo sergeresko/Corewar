@@ -12,12 +12,17 @@
 
 #include "corewar.h"
 
-t_car	*create_car(void)
+/*
+**	all fields are initialized with zeroes,
+**	apart from `id` which is unique for each new car
+*/
+
+t_car			*create_car(void)
 {
 	static int	id = 0;
 	t_car		*car;
 
-	if ((car = ft_memalloc(sizeof(t_car))) == NULL)	// initialized with zeroes
+	if ((car = ft_memalloc(sizeof(t_car))) == NULL)
 	{
 		perror_exit("create_car");
 	}
@@ -25,4 +30,3 @@ t_car	*create_car(void)
 	car->id = id;
 	return (car);
 }
-

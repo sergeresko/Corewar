@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void		show_usage(t_vm const *vm)
+void			show_usage(t_vm const *vm)
 {
 	if (vm->color)
 		ft_putstr(PF_CYAN);

@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 /*
-**	returns TRUE or FALSE
+**	TRUE or FALSE
 */
 
 static int		is_valid_opcode(int code)
@@ -21,14 +21,22 @@ static int		is_valid_opcode(int code)
 	return (1 <= code && code <= 16);
 }
 
+/*
+**	if the car is at a new position, read an opcode and, if it is not valid,
+**	advance the car by 1 byte and quit, or, otherwise, find out the number of
+**	cycles until execution corresponding to the opcode;
+**	decrement the number of cycles until execution;
+**	if it's time to execute the operation, execute it
+*/
+
 static void		execute_car(t_vm *vm, t_car *car)
 {
-	if (car->delay == 0)		// i.e. if `car->place` is at a new position
+	if (car->delay == 0)
 	{
-		car->opcode = vm->field[car->place].square;		// equivalent to `= read_from_field(vm->field, car->place, 1)`
+		car->opcode = read_from_field(vm->field, car->place, 1);
 		if (!is_valid_opcode(car->opcode))
 		{
-			car->place = ++(car->place) % MEM_SIZE;	// advance `car->place` by 1 byte
+			car->place = (car->place + 1) % MEM_SIZE;
 			return ;
 		}
 		car->delay = g_ops[car->opcode].delay;
@@ -41,6 +49,7 @@ static void		execute_car(t_vm *vm, t_car *car)
 }
 
 /*
+**	increment cycle count;
 **	successively execute each car
 */
 
@@ -51,7 +60,7 @@ void			perform_cycle(t_vm *vm)
 {
 	t_list		*item;
 
-	++(vm->cycle);				// increment
+	++(vm->cycle);
 	if (vm->verbose)
 	{
 		ft_printf(vm->color ? FMT_COL : FMT, vm->cycle);

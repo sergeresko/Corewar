@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 /*
-**	returns TRUE or FALSE
+**	TRUE or FALSE
 */
 
 static int		already_used_id(t_list *champs, int id)

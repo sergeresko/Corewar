@@ -14,6 +14,7 @@
 
 #define FMT		"ADV %d (0x%04x -> 0x%04x) "
 #define FMT_COL	PF_CYAN FMT
+
 #define END		"\n"
 #define END_COL	END PF_RESET
 
