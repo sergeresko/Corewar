@@ -12,6 +12,9 @@
 
 #include "corewar.h"
 
+#define FMT		"P %4d | lldi %d %d r%d\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_lldi(t_vm *vm, t_car *car)
 {
 	int const	operand_1 = get_value(vm, car, 0);
@@ -22,10 +25,9 @@ void			op_lldi(t_vm *vm, t_car *car)
 
 	car->regs[reg] = value;
 	car->carry = (value == 0);		// <-- yes: see subject, page 15
-	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)
 	{
-		ft_printf("P %4d | lldi %d %d r%d\n",
+		ft_printf(vm->color ? FMT_COL : FMT,
 				car->id, operand_1, operand_2, reg);
 	}
 	advance_car(vm, car);

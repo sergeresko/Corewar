@@ -12,6 +12,9 @@
 
 #include "corewar.h"
 
+#define FMT		"P %4d | lfork %d (%d)\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_lfork(t_vm *vm, t_car *car)
 {
 	int const	address = get_value(vm, car, 0);
@@ -23,7 +26,7 @@ void			op_lfork(t_vm *vm, t_car *car)
 	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)
 	{
-		ft_printf("P %4d | lfork %d (%d)\n", car->id, address, place);
+		ft_printf(vm->color ? FMT_COL : FMT, car->id, address, place);
 	}
 	car->place = (car->place + car->offset) % MEM_SIZE;
 }

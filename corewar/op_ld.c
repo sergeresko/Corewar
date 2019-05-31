@@ -12,6 +12,9 @@
 
 #include "corewar.h"
 
+#define FMT		"P %4d | ld %d r%d\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_ld(t_vm *vm, t_car *car)
 {
 	int const	value = get_value(vm, car, 0);
@@ -22,7 +25,7 @@ void			op_ld(t_vm *vm, t_car *car)
 	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)
 	{
-		ft_printf("P %4d | ld %d r%d\n", car->id, value, reg);
+		ft_printf(vm->color ? FMT_COL : FMT, car->id, value, reg);
 	}
 	advance_car(vm, car);
 }

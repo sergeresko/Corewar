@@ -12,18 +12,18 @@
 
 #include "corewar.h"
 
+#define FMT		"P %4d | fork %d (%d)\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_fork(t_vm *vm, t_car *car)
 {
 	int const	address = get_value(vm, car, 0);
 	int const	place = (unsigned)(car->place + (address % IDX_MOD)) % MEM_SIZE;
-	t_car 		*new_car;
 
-	new_car = clone_car(car, place);
-	list_push(&(vm->cars), new_car);
-	//if (!vm->ind->v && vm->ind->ops)
+	list_push(&vm->cars, clone_car(car, place));
 	if (vm->verbose)
 	{
-		ft_printf("P %4d | fork %d (%d)\n", car->id, address, place);
+		ft_printf(vm->color ? FMT_COL : FMT, car->id, address, place);
 	}
 	advance_car(vm, car);
 }

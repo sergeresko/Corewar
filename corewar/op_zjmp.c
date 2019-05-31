@@ -12,14 +12,16 @@
 
 #include "corewar.h"
 
+#define FMT		"P %4d | zjmp %d %s\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_zjmp(t_vm *vm, t_car *car)
 {
 	int const	value = get_value(vm, car, 0);
 
-	//if (vm->ind->ops && !vm->ind->v)
 	if (vm->verbose)
 	{
-		ft_printf("P %4d | zjmp %d %s\n",
+		ft_printf(vm->color ? FMT_COL : FMT,
 				car->id, value, car->carry ? "OK" : "FAILED");
 	}
 	if (car->carry)

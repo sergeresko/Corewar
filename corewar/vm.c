@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 17:45:31 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 15:32:26 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,15 +164,15 @@ void	clear_field(t_field *field)
 	}
 }
 
-void	load_exec_code(t_field *field, int place, char *exec_code, int size)
+void	load_exec_code(t_field *field, int place, t_champ const *champ)
 {
 	t_field *const	origin = field + place;
 	int				k;
 
 	k = 0;
-	while (k < size)
+	while (k < champ->size)
 	{
-		origin[k].square = exec_code[k];
+		origin[k].square = champ->exec_code[k];
 		++k;
 	}
 }
@@ -190,8 +190,7 @@ void	load_champs(t_vm *vm)
 	while (champ_id <= vm->champ_amount)
 	{
 		champ = get_champ_by_id(vm->champs, champ_id);
-		load_exec_code(vm->field, step * (champ_id - 1),
-				champ->exec_code, champ->size);
+		load_exec_code(vm->field, step * (champ_id - 1), champ);
 		car = create_car();
 		car->regs[1] = -champ_id;		// TODO: ?
 		car->place = step * (champ_id - 1);
@@ -199,6 +198,16 @@ void	load_champs(t_vm *vm)
 		list_push(&(vm->cars), car);
 		++champ_id;
 	}
+}
+
+#define FMT		"Player %d (%s) won\n"
+#define FMT_COL	PF_GREEN FMT PF_RESET
+
+void	announce_winner(t_vm const *vm)
+{
+	t_champ *const	winner = get_champ_by_id(vm->last_living_champ_id);
+
+	ft_printf(vm->color : FMT_COL : FMT, vm->last_living_champ_id, winner);
 }
 
 /*
@@ -219,12 +228,10 @@ void	perform_battle(t_vm *vm)
 	}
 	if (vm->cars == NULL && vm->last_living_champ_id != 0)
 	{
-		ft_printf("Player %d (%s) won\n", vm->last_living_champ_id, get_champ_by_id(vm->champs, vm->last_living_champ_id)->name);	// TODO: to a separate function
+		announce_winner(vm);
 	}
 	if (vm->cycle == vm->dump_cycle)
 	{
 		dump_memory(vm);
 	}
-	// ...
-
 }

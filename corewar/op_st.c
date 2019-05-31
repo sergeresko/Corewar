@@ -12,6 +12,9 @@
 
 #include "corewar.h"
 
+#define FMT		"P %4d | st r%d %d\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_st(t_vm *vm, t_car *car)
 {
 	int const	reg = get_reg(vm, car, 0);
@@ -27,12 +30,11 @@ void			op_st(t_vm *vm, t_car *car)
 	{
 		addr = (short)read_from_field(vm->field, car->arg_place[1], IND_SIZE);
 		write_to_field(vm->field,
-				(unsigned)(car->place + addr % IDX_MOD) % MEM_SIZE, value);
+				(unsigned)(car->place + addr % IDX_MOD) % MEM_SIZE, value);		// TODO: simplify
 	}
-	//if (!vm->ind->v && vm->ind->ops)
 	if (vm->verbose)
 	{
-		ft_printf("P %4d | st r%d %d\n",	// ??????????
+		ft_printf(vm->color ? FMT_COL : FMT,	// ??????????
 				car->id, reg, addr);
 	}
 	advance_car(vm, car);

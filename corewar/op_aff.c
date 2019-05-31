@@ -12,15 +12,17 @@
 
 #include "corewar.h"
 
+#define FMT		"Aff: %c\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
+
 void			op_aff(t_vm *vm, t_car *car)
 {
 	int const	reg = get_reg(vm, car, 0);
 	int const	value = car->regs[reg];
 
-	//if (!vm->ind->v)
 	if (vm->verbose)
 	{
-		ft_printf("Aff: %c\n", (char)value);		// maybe change message
+		ft_printf(vm->color ? FMT_COL : FMT, (char)value);		// maybe change message
 	}
 	advance_car(vm, car);
 }
