@@ -107,7 +107,7 @@ add_executable(asm
         asm/dump_output.c
         asm/disassembler/disassembler.c
 
-        ${LIBFT} common/common_1.c common/read_headers.c common/helpers_1.c asm/disassembler/read_args_and_code.c asm/disassembler/init_and_getters.c asm/disassembler/set_args_and_writers.c asm/print_commands.c asm/read_dot_instr.c asm/read_register.c asm/read_dir.c asm/read_direct_label.c asm/read_indirect.c asm/read_indirect_label.c asm/read_string.c asm/functions_2.c asm/functions_3.c asm/functions_5.c)
+        ${LIBFT} common/common_1.c common/read_headers.c common/helpers_1.c asm/disassembler/read_args_and_code.c asm/disassembler/init_and_getters.c asm/disassembler/set_args_and_writers.c asm/print_commands.c asm/read_dot_instr.c asm/read_register.c asm/read_dir.c asm/read_direct_label.c asm/read_indirect.c asm/read_indirect_label.c asm/read_string.c asm/functions_2.c asm/functions_3.c asm/functions_4.c asm/print_dump_output.c)
 
 add_executable(corewar
         corewar/corewar.c
