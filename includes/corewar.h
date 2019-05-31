@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/31 13:04:36 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 17:19:55 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,14 @@ t_champ			*get_champ_by_id(t_list *champs, int champ_id);
 void			fatal_error(char const *message);
 void			perror_exit(char const *prefix);
 void			show_usage(t_vm const *vm);
+
+void			load_champs(t_vm *vm);
+void			announce_winner(t_vm const *vm);
+void			dump_memory(t_vm const *vm);
+
+void			perform_cycle(t_vm *vm);
+void			perform_check(t_vm *vm);
+void			perform_round(t_vm *vm);
 
 void			perform_battle(t_vm *vm);
 

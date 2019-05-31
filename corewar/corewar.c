@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 13:05:09 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 17:48:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ void	_test_champs(t_vm const *vm)
 		ft_printf("!@#$ id: %d\n", champ->id);
 		ft_printf("!@#$ size: %d\n", champ->size);
 		ft_printf("!@#$ name: \"%s\"\n", champ->name);
-	//	ft_printf("!@#$ comment: \"%s\"\n", champ->comment);
-		ft_putstr("!@#$ comment: \"");
-		ft_putstr(champ->comment);
-		ft_putstr("\"\n");
+		ft_printf("!@#$ comment: \"%s\"\n", champ->comment);
 		champs = champs->next;
 	}
 }
@@ -62,13 +59,13 @@ static void		init_vm(t_vm *vm)
 static void		get_options(t_vm *vm, char **av)
 {
 	av = get_opt_bonus(vm, av);
-	_test_bonus(vm);/////////////////////////////////////
+	(void)_test_bonus;/////////////////////////////////////
 	av = get_opt_dump(vm, av);
-	_test_dump(vm);//////////////////////////////////////
+	(void)_test_dump;//////////////////////////////////////
 	get_opt_champs(vm, av);
 	set_champ_ids(vm->champs, vm->champ_amount);
 	read_champs(vm->champs);
-	_test_champs(vm);////////////////////////////////////
+	(void)_test_champs;////////////////////////////////////
 }
 
 int				main(int ac, char **av)

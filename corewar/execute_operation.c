@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:20:11 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 12:42:33 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 16:10:48 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** [	4            -> 8 (T_LAB)	]
 */
 
-static int	arg_code_to_mask(int code)
+static int		arg_code_to_mask(int code)
 {
 	return (1 << code >> 1);
 }
@@ -30,7 +30,7 @@ static int	arg_code_to_mask(int code)
 **	fill `arg_class`, `arg_place` and `offset` fields of `car` accordingly
 */
 
-int				decypher_coding_byte(t_vm const *vm, t_car *car)
+static int		decypher_coding_byte(t_vm const *vm, t_car *car)
 {
 	uint8_t		coding_byte;	// TODO: rewrite so that `coding_byte` can be `int`
 	unsigned	offset;
@@ -57,14 +57,12 @@ int				decypher_coding_byte(t_vm const *vm, t_car *car)
 	return (is_valid);
 }
 
-//--------------------------
-
 /*
 **	check whether a given number represents a number of a register
 **	(return TRUE or FALSE)
 */
 
-static int	is_valid_register(uint8_t number)
+static int		is_valid_register(uint8_t number)
 {
 	return (1 <= number && number <= REG_NUMBER);
 }
@@ -73,7 +71,7 @@ static int	is_valid_register(uint8_t number)
 **	check whether all register numbers are correct (return TRUE or FALSE)
 */
 
-int			check_registers(t_vm const *vm, t_car const *car)
+static int		check_registers(t_vm const *vm, t_car const *car)
 {
 	int			arg;
 	uint8_t		reg;
@@ -96,7 +94,7 @@ int			check_registers(t_vm const *vm, t_car const *car)
 
 //--------------------------
 
-void	execute_operation(t_vm *vm, t_car *car)
+void			execute_operation(t_vm *vm, t_car *car)
 {
 	car->arg_amount = g_ops[car->opcode].arg_amount;
 	if (g_ops[car->opcode].has_coding_byte)
@@ -104,7 +102,6 @@ void	execute_operation(t_vm *vm, t_car *car)
 		if (!decypher_coding_byte(vm, car) || !check_registers(vm, car))
 		{
 			advance_car(vm, car);
-//			car->place = (car->place + car->offset) % MEM_SIZE;
 			return ;
 		}
 	}

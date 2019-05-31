@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/31 13:04:57 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/31 17:46:19 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ OBJ = corewar.o \
 	  execute_operation.o get_arg_size.o \
 	  advance_car.o \
 	  create_car.o clone_car.o \
-	  vm.o
+	  load_champs.o announce_winner.o dump_memory.o \
+	  perform_cycle.o perform_check.o perform_round.o perform_battle.o
 
 #OBJ = corewar.o \
 #	errors.o \
