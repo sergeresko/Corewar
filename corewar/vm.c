@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 15:32:26 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 15:53:54 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,9 +205,8 @@ void	load_champs(t_vm *vm)
 
 void	announce_winner(t_vm const *vm)
 {
-	t_champ *const	winner = get_champ_by_id(vm->last_living_champ_id);
-
-	ft_printf(vm->color : FMT_COL : FMT, vm->last_living_champ_id, winner);
+	ft_printf(vm->color ? FMT_COL : FMT, vm->last_living_champ_id,
+			get_champ_by_id(vm->champs, vm->last_living_champ_id)->name);
 }
 
 /*
