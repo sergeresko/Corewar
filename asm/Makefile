@@ -45,7 +45,7 @@ OBJ = asm.o \
     ../common/helpers_1.o \
     ../common/common_1.o
 
-FLAGS = -Wall -Wextra -Werror -Wunused-parameter
+FLAGS = -Wall -Wextra -Werror
 
 LIB_FOLDER = ../libft/
 
