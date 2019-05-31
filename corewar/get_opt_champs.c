@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 21:18:30 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 12:37:34 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ void			get_opt_champs(t_vm *vm, char **av)
 					|| (id = ft_atoi(arg)) < 1 || id > MAX_PLAYERS
 					|| already_used_id(vm->champs, id))
 			{
-				throw_error("Invalid champion id for option -n");
+				fatal_error("Invalid champion id for option -n");
 			}
 			if ((arg = *(++av)) == NULL)
 			{
-				throw_error("No champion after setting number with -n");
+				fatal_error("No champion after setting number with -n");
 			}
 		}
 		if (++(vm->champ_amount) > MAX_PLAYERS)
 		{
-			throw_error("Too many players");
+			fatal_error("Too many players");
 		}
 		add_champ(vm, id, arg);
 	}

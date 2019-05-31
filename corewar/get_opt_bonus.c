@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 18:13:00 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/29 18:25:01 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 12:07:04 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,15 @@ char	**get_opt_bonus(t_vm *vm, char **av)
 	while ((arg = *(++av)) != NULL)
 	{
 		if (ft_strequ(arg, "-h") || ft_strequ(arg, "-help"))
-		{
 			vm->help = TRUE;
-		}
 		else if (ft_strequ(arg, "-v") || ft_strequ(arg, "-verbose"))
-		{
 			vm->verbose = TRUE;
-		}
 		else if (ft_strequ(arg, "-c") || ft_strequ(arg, "-color"))
-		{
 			vm->color = TRUE;
-		}
+		else if (ft_strequ(arg, "-l") || ft_strequ(arg, "-leaks"))
+			vm->leaks = TRUE;
 		else
-		{
 			break ;
-		}
 	}
 	return (av - 1);
 }

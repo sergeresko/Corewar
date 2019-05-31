@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 11:34:06 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 13:05:09 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ static void		init_vm(t_vm *vm)
 	vm->help = FALSE;
 	vm->verbose = FALSE;
 	vm->color = FALSE;
+	vm->leaks = FALSE;
 	vm->dump_cycle = -1;
 //	vm->dump_bytes = 32;	// may be left uninitialized
 	vm->champ_amount = 0;
 	vm->champs = NULL;
 }
 
-static void		get_options(t_vm *vm, int ac, char **av)
+static void		get_options(t_vm *vm, char **av)
 {
-	(void)ac;
 	av = get_opt_bonus(vm, av);
 	_test_bonus(vm);/////////////////////////////////////
 	av = get_opt_dump(vm, av);
@@ -69,10 +69,6 @@ static void		get_options(t_vm *vm, int ac, char **av)
 	set_champ_ids(vm->champs, vm->champ_amount);
 	read_champs(vm->champs);
 	_test_champs(vm);////////////////////////////////////
-	if (vm->champ_amount == 0)
-	{
-		throw_error("No champions");
-	}
 }
 
 int				main(int ac, char **av)
@@ -80,10 +76,22 @@ int				main(int ac, char **av)
 	t_vm		vm;
 
 	init_vm(&vm);
-	get_options(&vm, ac, av);
-	perform_battle(&vm);
-
-	system("leaks -q corewar >&2");
-
+	get_options(&vm, av);
+	if (ac < 2 || vm.help)
+	{
+		show_usage(&vm);
+	}
+	else if (vm.champ_amount == 0)
+	{
+		fatal_error("No champions");
+	}
+	else
+	{
+		perform_battle(&vm);
+	}
+	if (vm.leaks)
+	{
+		system("leaks -q corewar >&2");
+	}
 	return (0);
 }

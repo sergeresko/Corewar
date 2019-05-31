@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/30 17:41:47 by syeresko         ###   ########.fr        #
+#    Updated: 2019/05/31 13:04:57 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ OBJ = corewar.o \
 	  set_champ_ids.o \
 	  read_champ_header.o read_champs.o \
 	  get_champ_by_id.o \
-	  throw_error.o perror_exit.o \
+	  error.o \
+	  show_usage.o \
 	  list.o \
 	  ../common/helpers_1.o \
 	  \

@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/28 18:15:03 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 12:37:51 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void			set_champ_ids(t_list *champs, int champ_amount)
 		}
 		else if (champ->id > champ_amount)
 		{
-			throw_error("Champion id exceeds the total number of champions");
+			fatal_error("Champion id exceeds the total number of champions");
 		}
 		item = item->next;
 	}

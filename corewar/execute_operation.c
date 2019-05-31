@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:20:11 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/30 17:24:32 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 12:42:33 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void	execute_operation(t_vm *vm, t_car *car)
 	{
 		if (!decypher_coding_byte(vm, car) || !check_registers(vm, car))
 		{
-			car->place = (car->place + car->offset) % MEM_SIZE;
+			advance_car(vm, car);
+//			car->place = (car->place + car->offset) % MEM_SIZE;
 			return ;
 		}
 	}

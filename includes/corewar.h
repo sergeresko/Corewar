@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 18:29:38 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/05/31 13:04:36 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct	s_vm
 	int				help;					// FALSE
 	int				verbose;				// FALSE
 	int				color;					// FALSE
+	int				leaks;					// FALSE;
 	int				dump_cycle;				// -1
 	int				dump_bytes;				// uninitialized (or maybe 32 ?)
 //	t_ind			*ind;
@@ -112,8 +113,9 @@ void			read_champs(t_list *champs);
 
 t_champ			*get_champ_by_id(t_list *champs, int champ_id);
 
-void			throw_error(char const *message);
+void			fatal_error(char const *message);
 void			perror_exit(char const *prefix);
+void			show_usage(t_vm const *vm);
 
 void			perform_battle(t_vm *vm);
 
@@ -124,7 +126,6 @@ void			execute_operation(t_vm *vm, t_car *car);
 int				get_arg_size(t_car const *car, int arg);
 
 void			advance_car(t_vm const *vm, t_car *car);
-
 
 // not used:
 typedef struct	s_cw
@@ -173,7 +174,7 @@ extern t_op const	g_ops[17];
 
 
 // not used:
-void			show_usage(t_cw *data);
+//void			show_usage(t_cw *data);
 void			fail(t_cw *data);
 void			fail_sense(t_cw *data, char *sense);
 void			output_result(t_cw *cw);
