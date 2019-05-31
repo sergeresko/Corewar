@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/31 18:42:25 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/31 21:02:49 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ OBJ = asm.o \
     ../common/helpers_1.o \
     ../common/common_1.o
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -Wunused-parameter
 
 LIB_FOLDER = ../libft/
 

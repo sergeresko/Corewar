@@ -22,14 +22,14 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 	asm_struct->data.row = (asm_struct->data.skipped_line) ?
 			(int)ft_strlen(*line) : asm_struct->data.row;
 	tline = ft_strtrim(*line);
-	asm_struct->data.skipped_spaces = (int) ft_get_substr_index(*line, ".") + 1;
+	asm_struct->data.skipped_spaces = (int)ft_get_substr_index(*line, ".") + 1;
 	ft_strdel(line);
 	return (tline ? tline : NULL);
 }
 
 void	push_command_front(t_com **commands, t_com *command)
 {
-	if (!commands)		// handle error
+	if (!commands)
 		ft_printf("Commands list == 'NULL'\n");
 	if (commands)
 	{
@@ -59,10 +59,11 @@ void	read_label(char *tl, size_t st, size_t end, t_asm *asm_str)
 	if (!asm_str->data.got_name || !asm_str->data.got_description)
 	{
 		printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
-			   asm_str->data.line, (int)(st + 1), name);
+			asm_str->data.line, (int)(st + 1), name);
 		exit(-1);
 	}
-	if (!asm_str->header.hex_name[0] || !asm_str->header.hex_description[0] || asm_str->command)
+	if (!asm_str->header.hex_name[0]
+		|| !asm_str->header.hex_description[0] || asm_str->command)
 	{
 		ft_printf("Syntax error, label \"%s:\"\n", name);
 		exit(-1);
@@ -80,7 +81,7 @@ void	read_label(char *tl, size_t st, size_t end, t_asm *asm_str)
 
 void	push_label_front(t_label **labels, t_label *label)
 {
-	if (!labels)		// handle error
+	if (!labels)
 		ft_printf("Labels list == 'NULL'\n");
 	if (labels)
 	{

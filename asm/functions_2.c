@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_command_line.c                               :+:      :+:    :+:   */
+/*   functions_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:33:15 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 02:33:15 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/05/31 20:20:37 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 void	check_command_line(t_asm *asm_struct)
 {
+	t_com	*new_command;
+
 	if (asm_struct->command->is_codage)
 		asm_struct->command->codage = make_codage(asm_struct->command);
 	asm_struct->command->length = command_length(asm_struct->command);
 	asm_struct->command->index = g_index;
 	g_index += asm_struct->command->length;
-	t_com	*new_command = ft_memalloc(sizeof(t_com));
-	push_command_front(&(asm_struct->commands), ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
+	new_command = ft_memalloc(sizeof(t_com));
+	push_command_front(&(asm_struct->commands),
+		ft_memcpy(new_command, asm_struct->command, sizeof(t_com)));
 	ft_memdel((void **)(&(asm_struct->command)));
 }
 
 char	make_codage(t_com *command)
 {
-	int 	count;
+	int		count;
 	char	result;
 
 	count = 0;
@@ -45,10 +48,10 @@ char	make_codage(t_com *command)
 	return (result);
 }
 
-int 	command_length(t_com *command)
+int		command_length(t_com *command)
 {
-	int 	count;
-	int 	result;
+	int		count;
+	int		result;
 
 	count = 0;
 	result = 1;
