@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/31 17:19:55 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 17:03:11 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct	s_vm
 	int				verbose;				// FALSE
 	int				color;					// FALSE
 	int				leaks;					// FALSE;
+	int				silent;					// FALSE;
+	int				interactive_cycle;		// 0
 	int				dump_cycle;				// -1
 	int				dump_bytes;				// uninitialized (or maybe 32 ?)
 //	t_ind			*ind;
@@ -119,7 +121,9 @@ void			show_usage(t_vm const *vm);
 
 void			load_champs(t_vm *vm);
 void			announce_winner(t_vm const *vm);
-void			dump_memory(t_vm const *vm);
+void			dump_memory(t_field const *field, int dump_bytes);
+
+void			interactive_get(t_vm *vm);
 
 void			perform_cycle(t_vm *vm);
 void			perform_check(t_vm *vm);

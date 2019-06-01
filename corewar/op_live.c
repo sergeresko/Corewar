@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:50:57 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/31 16:18:53 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 17:02:23 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 static void		live_champ(t_vm *vm, int champ_id)
 {
 	vm->last_living_champ_id = champ_id;
+	if (!vm->silent)
+	{
 	ft_printf(vm->color ? MSG_COL : MSG,
 			champ_id, get_champ_by_id(vm->champs, champ_id)->name);
+	}
 }
 
 #define FMT		"P %4d | live %d\n"

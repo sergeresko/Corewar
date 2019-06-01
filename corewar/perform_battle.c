@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 17:43:59 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 13:07:56 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	perform_battle(t_vm *vm)
 	}
 	if (vm->cycle == vm->dump_cycle)
 	{
-		dump_memory(vm);
+		dump_memory(vm->field, vm->dump_bytes);
 	}
 }

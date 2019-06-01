@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 12:50:54 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 13:03:29 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:58:53 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 void			show_usage(t_vm const *vm)
 {
-	if (vm->color)
-		ft_putstr(PF_CYAN);
-	ft_putstr("usage: ./corewar [-h -v -c -l] "
-			"[-dump[32|64] NBR_CYCLES] [[-n ID] NAME.cor] ...\n\n"
-			"    -h, -help\n"
-			"        Show this message.\n\n"
-			"    -v, -verbose\n"
-			"        Print detailed information during execution.\n\n"
-			"    -c, -color\n"
-			"        Enable colored output.\n\n"
-			"    -l, -leaks\n"
-			"        Check for leaks at the end of execution.\n\n"
-			"    -dump NBR_CYCLES, -dump32 NBR_CYCLES\n"
-			"    -dump64 NBR_CYCLES\n"
-			"        Dump the memory after NBR_CYCLES and quit the game\n"
-			"        (32 or 64 bytes per line).\n\n"
+	ft_printf("%susage: ./corewar [OPTIONS] [-dump[32|64] N] "
+			"[[-n ID] NAME.cor] ...\n\n"
+			"    -dump N, -dump32 N\n"
+			"    -dump64 N\n"
+			"        Dump the memory after N cycles and terminate "
+			"(32 or 64 bytes per line).\n\n"
 			"    -n ID\n"
 			"        Set the id of the following champion to ID (1..4).\n\n"
 			"    NAME.cor\n"
 			"        File with a champion's bytecode "
-			"(up to 4 champions in one battle).\n");
-	if (vm->color)
-		ft_putstr(PF_RESET);
+			"(up to 4 champions in one battle).\n\n"
+			"Options:\n\n"
+			"    -h, -help\n"
+			"        Show this message and quit.\n\n"
+			"    -v, -verbose\n"
+			"        Print detailed information during the battle.\n\n"
+			"    -s, -silent\n"
+			"        Do not report executions of \"live\".\n\n"
+			"    -i, -interactive\n"
+			"        Run in interactive mode.\n\n"
+			"    -c, -color\n"
+			"        Enable colored output.\n\n"
+			"    -l, -leaks\n"
+			"        Check for leaks at the end of the battle.\n%s",
+			vm->color ? PF_CYAN : "", vm->color ? PF_RESET : "");
 }

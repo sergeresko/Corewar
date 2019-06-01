@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 16:27:29 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 16:30:43 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 12:57:06 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void			perform_round(t_vm *vm)
 		if (vm->cycle == vm->dump_cycle)
 		{
 			return ;
+		}
+		if (vm->cycle == vm->interactive_cycle)
+		{
+			interactive_get(vm);
 		}
 		perform_cycle(vm);
 	}

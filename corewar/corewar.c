@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 17:48:32 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 17:01:52 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void		init_vm(t_vm *vm)
 	vm->verbose = FALSE;
 	vm->color = FALSE;
 	vm->leaks = FALSE;
+	vm->silent = FALSE;
+	vm->interactive_cycle = -1;
 	vm->dump_cycle = -1;
 //	vm->dump_bytes = 32;	// may be left uninitialized
 	vm->champ_amount = 0;
