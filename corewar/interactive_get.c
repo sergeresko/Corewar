@@ -6,39 +6,32 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 12:57:24 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 16:57:22 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 18:21:30 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-#define INI		"Running in interactive mode...\n"
-#define INI_COL	PF_CYAN INI PF_RESET
+#define INIT		"Running in interactive mode...\n"
+#define INIT_COL	PF_CYAN INIT PF_RESET
 
-static void		show_init(t_vm *vm)
-{
-	ft_putstr(vm->color ? INI_COL : INI);
-}
+#define HINT_1		"Enter \"dump[32|64]\" or a number of cycles to perform.\n"
+#define HINT_2		"Press Ctrl+D to quit.\n"
+#define HINT		HINT_1 HINT_2
+#define HINT_COL	PF_CYAN HINT PF_RESET
 
-#define HNT1	"Enter \"dump[32|64]\" or a number of cycles to perform.\n"
-#define HNT2	"Press Ctrl+D to quit.\n"
-#define HNT		HNT1 HNT2
-#define HNT_COL	PF_CYAN HNT PF_RESET
+#define PROMPT		"(corewar) "
+#define PROMPT_COL	PF_GREY PROMPT PF_RESET
 
-static void		show_hint(t_vm const *vm)
-{
-	ft_putstr(vm->color ? HNT_COL : HNT);
-}
+/*
+**	parse and free the line;
+**	if the line tells to make a dump, make it and return 0;
+**	if the line specifies a positive integer, increase `vm->interactive_cycle`
+**	by this number and return the number;
+**	otherwise return -1
+*/
 
-#define PRM		"(corewar) "
-#define PRM_COL	PF_GREY PRM PF_RESET
-
-static void		show_prompt(t_vm const *vm)
-{
-	ft_putstr(vm->color ? PRM_COL : PRM);
-}
-
-static int		get_number_or_dump(t_vm const *vm, char *line)
+static int		set_interactive_cycle_or_make_dump(t_vm *vm, char *line)
 {
 	int			number;
 
@@ -51,63 +44,80 @@ static int		get_number_or_dump(t_vm const *vm, char *line)
 	{
 		dump_memory(vm->field, 64);
 	}
-	else 
+	else
 	{
 		number = -1;
 		if (is_only_digits(line))
 		{
 			number = ft_atoi(line);
+			vm->interactive_cycle += number;
 		}
 	}
 	free(line);
 	return (number);
 }
+
 /*
-static void		loop_body(t_vm *vm, char *line)
+**	TRUE or FALSE
+*/
+
+static int		process_line(t_vm *vm, char *line)
 {
-	int const	number = get_number_or_dump(vm, line);
+	int const	number = set_interactive_cycle_or_make_dump(vm, line);
 
 	if (number > 0)
 	{
-		vm->interactive_cycle += number;
-		return ;
+		return (TRUE);
 	}
 	if (number != 0)
 	{
-		show_hint(vm);
+		ft_putstr(vm->color ? HINT_COL : HINT);
 	}
-	show_prompt(vm);
+	ft_putstr(vm->color ? PROMPT_COL : PROMPT);
+	return (FALSE);
 }
+
+/*
+**	NOTE: This function terminates the program.
 */
+
+static void		finalize(t_vm const *vm, int status)
+{
+	ft_putchar('\n');
+	if (status != 0)
+	{
+		perror_exit("interactive_get");
+	}
+	if (vm->leaks)
+	{
+		system("leaks -q corewar >&2");
+	}
+	exit(0);
+}
+
+/*
+**	read commands from the user until he enters a valid number of cycles
+**	to perform or terminates the program (if he asks for a dump, the dump
+**	is printed but he's still prompted to enter the next command)
+*/
+
 void			interactive_get(t_vm *vm)
 {
 	int			status;
 	char		*line;
-	int			number;
 
 	if (vm->cycle == 0)
 	{
-		show_init(vm);
-		show_hint(vm);
+		ft_putstr(vm->color ? INIT_COL : INIT);
+		ft_putstr(vm->color ? HINT_COL : HINT);
 	}
-	show_prompt(vm);
+	ft_putstr(vm->color ? PROMPT_COL : PROMPT);
 	while ((status = get_next_line(STDIN_FILENO, &line)) > 0)
 	{
-		number = get_number_or_dump(vm, line);
-		if (number > 0)
+		if (process_line(vm, line))
 		{
-			vm->interactive_cycle += number;
 			return ;
 		}
-		if (number != 0)
-		{
-			show_hint(vm);
-		}
-		show_prompt(vm);
 	}
-	if (status == 0)
-	{
-		exit(0);	// ...
-	}
-	perror_exit("interactive_get");
+	finalize(vm, status);
 }
