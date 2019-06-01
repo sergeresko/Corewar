@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_name_and_description.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaliskyi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/17 01:08:09 by zaliskyi         ###   ########.fr       */
+/*   Updated: 2019/05/26 18:48:38 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 	if (line[i] != '\0' && line[i] != '#')
 		get_error_code(line, asm_struct, i);
 //	if (line[i] == '\0')
-//		asm_struct->data.errorCase = 1;
+//		asm_struct->data.error_case = 1;
 }
 
 void	make_hex_name(char *hex_name, char *name)
@@ -330,7 +330,7 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 			field[j++] = line[i++];
 		if (line[i] == '\0')
 			get_error_code(line, asm_struct, i);
-		make_hex_description(asm_struct->header.hex_description, field);
+		make_hex_desc(asm_struct->header.hex_description, field);
 		ft_strdel(&field);
 		asm_struct->data.got_description = 1;
 	}
@@ -342,10 +342,10 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 	if (line[i] != '\0' && line[i] != '#')
 		get_error_code(line, asm_struct, i);
 //	else if (line[i] == '\0')
-//		asm_struct->data.errorCase = 1;
+//		asm_struct->data.error_case = 1;
 }
 
-void	make_hex_description(char *hex_description, char *description)
+void	make_hex_desc(char *hex_description, char *description)
 {
 	int 	i;
 	int 	j;
