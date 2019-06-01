@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:09:30 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 19:56:18 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 22:06:34 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@ static void		load_exec_code(t_field *field, int place, t_champ const *champ)
 	}
 }
 
-#define MSG		"Introducing contestants...\n"
-#define MSG_COL	PF_BOLD MSG PF_RESET
+static void		push_champ_first_car(t_vm *vm, int champ_id, int place)
+{
+	t_car		*car;
+
+	car = create_car();
+	car->champ_id = champ_id;
+	car->regs[1] = -champ_id;
+	car->place = place;
+	list_push(&vm->cars, car);
+}
 
 #define FMT		"* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n"
 #define FMT_COL	PF_BOLD FMT PF_RESET
@@ -50,11 +58,9 @@ void			load_champs(t_vm *vm)
 	int const	step = MEM_SIZE / vm->champ_amount;
 	int			champ_id;
 	t_champ		*champ;
-	t_car		*car;
 
-	clear_field(vm->field);		// init
-	vm->cars = NULL;			// init
-	ft_putstr(vm->opt.color ? MSG_COL : MSG);
+	clear_field(vm->field);
+	ft_putstr("Introducing contestants...\n");
 	champ_id = 1;
 	while (champ_id <= vm->champ_amount)
 	{
@@ -66,11 +72,7 @@ void			load_champs(t_vm *vm)
 		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				champ->id, champ->size, champ->name, champ->comment);
 		load_exec_code(vm->field, step * (champ_id - 1), champ);
-		car = create_car();
-		car->champ_id = champ_id;
-		car->regs[1] = -champ_id;
-		car->place = step * (champ_id - 1);		// initialize other fields of `car` ?
-		list_push(&(vm->cars), car);
+		push_champ_first_car(vm, champ_id, step * (champ_id - 1));
 		++champ_id;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 19:27:13 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 21:46:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	perform_battle(t_vm *vm)
 {
-	vm->cycle = 0;							// init
-	vm->cycle_to_die = CYCLE_TO_DIE;		// init
-	vm->nbr_checks = 0;						// init
-	// ...
+	vm->cycle = 0;
+	vm->cycle_to_die = CYCLE_TO_DIE;
+	vm->nbr_checks = 0;
 	load_champs(vm);
 	while (vm->cars != NULL && vm->cycle != vm->dump_cycle)
 	{

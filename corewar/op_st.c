@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:18 by omaiko            #+#    #+#             */
-/*   Updated: 2019/06/01 19:05:18 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 22:12:39 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void			op_st(t_vm *vm, t_car *car)
 	}
 	if (vm->opt.verbose)
 	{
-		ft_printf(vm->opt.color ? FMT_COL : FMT,	// ??????????
-				car->id, reg, addr);
+		ft_printf(vm->opt.color ? FMT_COL : FMT, car->id, reg, addr);
 	}
 	advance_car(vm, car);
 }
