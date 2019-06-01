@@ -34,11 +34,12 @@ static int		set_interactive_cycle_or_make_dump(t_vm *vm, char *line)
 	int			number;
 
 	number = 0;
-	if (ft_strequ(line, "dump") || ft_strequ(line, "dump32"))
+	if (ft_strequ(line, "d")
+			|| ft_strequ(line, "dump") || ft_strequ(line, "dump32"))
 	{
 		dump_memory(vm, 32);
 	}
-	else if (ft_strequ(line, "dump64"))
+	else if (ft_strequ(line, "dd") || ft_strequ(line, "dump64"))
 	{
 		dump_memory(vm, 64);
 	}
