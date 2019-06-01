@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 12:57:24 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 18:21:30 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 19:27:34 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ static int		set_interactive_cycle_or_make_dump(t_vm *vm, char *line)
 	number = 0;
 	if (ft_strequ(line, "dump") || ft_strequ(line, "dump32"))
 	{
-		dump_memory(vm->field, 32);
+		dump_memory(vm, 32);
 	}
 	else if (ft_strequ(line, "dump64"))
 	{
-		dump_memory(vm->field, 64);
+		dump_memory(vm, 64);
 	}
 	else
 	{

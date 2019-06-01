@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/06/01 15:02:53 by syeresko         ###   ########.fr        #
+#    Updated: 2019/06/01 19:34:50 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OBJ = corewar.o \
 	  show_usage.o \
 	  list.o \
 	  ../common/helpers_1.o \
+	  champ_colors.o \
 	  \
 	  operations.o \
 	  op_live.o \

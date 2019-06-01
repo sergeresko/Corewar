@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:51:18 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 17:51:54 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 19:05:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			op_st(t_vm *vm, t_car *car)
 	else
 	{
 		addr = (short)read_from_field(vm->field, car->arg_place[1], IND_SIZE);
-		write_to_field(vm->field, car->place + addr % IDX_MOD, value);
+		write_to_field(vm->field, car, addr % IDX_MOD, value);
 	}
 	if (vm->verbose)
 	{

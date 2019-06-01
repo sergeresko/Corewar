@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 16:05:51 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 17:52:16 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 19:05:36 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			op_sti(t_vm *vm, t_car *car)
 	int const	operand_2 = get_value(vm, car, 2);
 	int const	address = (operand_1 + operand_2) % IDX_MOD;
 
-	write_to_field(vm->field, car->place + address, value);
+	write_to_field(vm->field, car, address, value);
 	if (vm->verbose)
 	{
 		ft_printf(vm->color ? FMT_COL : FMT,

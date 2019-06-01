@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/06/01 17:03:11 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 19:34:03 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_champ
 typedef struct	s_field
 {
 	unsigned char	square;
+	int				champ_id;
 //	int				color;
 //	int				sup_color;
 //	int				cycles;
@@ -63,6 +64,7 @@ typedef struct	s_field
 typedef struct	s_car
 {
 	int		id;
+	int		champ_id;
 	int		regs[REG_NUMBER + 1];	// + dummy `regs[0]`
 	int		carry;
 	unsigned	place;		// pc
@@ -121,7 +123,7 @@ void			show_usage(t_vm const *vm);
 
 void			load_champs(t_vm *vm);
 void			announce_winner(t_vm const *vm);
-void			dump_memory(t_field const *field, int dump_bytes);
+void			dump_memory(t_vm const *vm, int dump_bytes);
 
 void			interactive_get(t_vm *vm);
 
@@ -183,6 +185,7 @@ typedef struct	s_op
 extern t_op const	g_ops[17];
 
 
+extern char *const	g_champ_colors[5];
 
 
 // not used:
@@ -196,7 +199,8 @@ void			output_result(t_cw *cw);
 
 
 unsigned		read_from_field(t_field const *field, unsigned place, int size);
-void			write_to_field(t_field *field, unsigned place, unsigned value);
+void			write_to_field(t_field *field,
+								t_car const *car, int address, unsigned value);
 
 int				get_value(t_vm const *vm, t_car const *car, int arg);
 uint8_t			get_reg(t_vm const *vm, t_car const *car, int arg);
