@@ -21,9 +21,9 @@ void			op_fork(t_vm *vm, t_car *car)
 	int const	place = (unsigned)(car->place + address % IDX_MOD) % MEM_SIZE;
 
 	list_push(&vm->cars, clone_car(car, place));
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT, car->id, address, place);
+		ft_printf(vm->opt.color ? FMT_COL : FMT, car->id, address, place);
 	}
 	advance_car(vm, car);
 }

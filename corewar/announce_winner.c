@@ -17,7 +17,12 @@
 
 void			announce_winner(t_vm const *vm)
 {
-	ft_printf(vm->color ? FMT_COL : FMT,
-			vm->last_living_champ_id,
-			get_champ_by_id(vm->champs, vm->last_living_champ_id)->name);
+	int const	champ_id = vm->last_living_champ_id;
+
+	if (vm->opt.color)
+	{
+		ft_putstr(g_champ_colors[champ_id]);
+	}
+	ft_printf(vm->opt.color ? FMT_COL : FMT,
+			champ_id, get_champ_by_id(vm->champs, champ_id)->name);
 }

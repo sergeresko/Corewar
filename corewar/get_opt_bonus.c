@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 18:13:00 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 17:01:34 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:03:57 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ char			**get_opt_bonus(t_vm *vm, char **av)
 	while ((arg = *(++av)) != NULL)
 	{
 		if (ft_strequ(arg, "-h") || ft_strequ(arg, "-help"))
-			vm->help = TRUE;
+			vm->opt.help = TRUE;
 		else if (ft_strequ(arg, "-v") || ft_strequ(arg, "-verbose"))
-			vm->verbose = TRUE;
+			vm->opt.verbose = TRUE;
+		else if (ft_strequ(arg, "-s") || ft_strequ(arg, "-silent"))
+			vm->opt.silent = TRUE;
 		else if (ft_strequ(arg, "-c") || ft_strequ(arg, "-color"))
-			vm->color = TRUE;
+			vm->opt.color = TRUE;
 		else if (ft_strequ(arg, "-l") || ft_strequ(arg, "-leaks"))
-			vm->leaks = TRUE;
+			vm->opt.leaks = TRUE;
 		else if (ft_strequ(arg, "-i") || ft_strequ(arg, "-interactive"))
 			vm->interactive_cycle = 0;
-		else if (ft_strequ(arg, "-s") || ft_strequ(arg, "-silent"))
-			vm->silent = TRUE;
 		else
 			break ;
 	}

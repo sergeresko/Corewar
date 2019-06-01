@@ -20,9 +20,9 @@ void			op_aff(t_vm *vm, t_car *car)
 	int const	reg = get_reg(vm, car, 0);
 	int const	value = car->regs[reg];
 
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT, (char)value);
+		ft_printf(vm->opt.color ? FMT_COL : FMT, (char)value);
 	}
 	advance_car(vm, car);
 }

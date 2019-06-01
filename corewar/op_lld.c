@@ -22,9 +22,9 @@ void			op_lld(t_vm *vm, t_car *car)
 
 	car->regs[reg] = value;
 	car->carry = (value == 0);
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT, car->id, value, reg);
+		ft_printf(vm->opt.color ? FMT_COL : FMT, car->id, value, reg);
 	}
 	advance_car(vm, car);
 }

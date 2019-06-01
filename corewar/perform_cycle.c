@@ -61,9 +61,9 @@ void			perform_cycle(t_vm *vm)
 	t_list		*item;
 
 	++(vm->cycle);
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT, vm->cycle);
+		ft_printf(vm->opt.color ? FMT_COL : FMT, vm->cycle);
 	}
 	item = vm->cars;
 	while (item != NULL)

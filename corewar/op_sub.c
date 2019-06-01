@@ -24,9 +24,9 @@ void			op_sub(t_vm *vm, t_car *car)
 
 	car->regs[reg_3] = value;
 	car->carry = (value == 0);
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT,
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				car->id, reg_1, reg_2, reg_3);
 	}
 	advance_car(vm, car);

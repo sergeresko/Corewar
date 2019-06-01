@@ -19,9 +19,9 @@ void			op_zjmp(t_vm *vm, t_car *car)
 {
 	int const	value = get_value(vm, car, 0);
 
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT,
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				car->id, value, car->carry ? "OK" : "FAILED");
 	}
 	if (car->carry)

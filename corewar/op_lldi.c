@@ -25,9 +25,9 @@ void			op_lldi(t_vm *vm, t_car *car)
 
 	car->regs[reg] = value;
 	car->carry = (value == 0);
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT,
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				car->id, operand_1, operand_2, reg);
 	}
 	advance_car(vm, car);

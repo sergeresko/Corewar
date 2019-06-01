@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 12:50:54 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 15:58:53 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:02:40 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void			show_usage(t_vm const *vm)
 			"        Enable colored output.\n\n"
 			"    -l, -leaks\n"
 			"        Check for leaks at the end of the battle.\n%s",
-			vm->color ? PF_CYAN : "", vm->color ? PF_RESET : "");
+			vm->opt.color ? PF_CYAN : "", vm->opt.color ? PF_RESET : "");
 }

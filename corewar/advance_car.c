@@ -25,15 +25,16 @@ void			advance_car(t_vm const *vm, t_car *car)
 
 	place = car->place;
 	car->place = (car->place + car->offset) % MEM_SIZE;
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT, car->offset, place, car->place);
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
+				car->offset, place, car->place);
 		k = car->offset;
 		while (k--)
 		{
 			ft_printf("%02x ", read_from_field(vm->field, place, 1));
 			place = (place + 1) % MEM_SIZE;
 		}
-		ft_putstr(vm->color ? END_COL : END);
+		ft_putstr(vm->opt.color ? END_COL : END);
 	}
 }

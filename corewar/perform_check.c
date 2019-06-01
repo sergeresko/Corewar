@@ -33,9 +33,9 @@ void			perform_check(t_vm *vm)
 		car = (*head)->content;
 		if (car->cycle_when_last_live <= oldest_cycle)
 		{
-			if (vm->verbose)
+			if (vm->opt.verbose)
 			{
-				ft_printf(vm->color ? FMT_COL : FMT,
+				ft_printf(vm->opt.color ? FMT_COL : FMT,
 						car->id, vm->cycle - car->cycle_when_last_live,
 						vm->cycle_to_die);
 			}

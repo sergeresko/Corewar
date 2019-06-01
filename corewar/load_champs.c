@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:09:30 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 19:39:07 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 19:56:18 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,22 @@ void			load_champs(t_vm *vm)
 
 	clear_field(vm->field);		// init
 	vm->cars = NULL;			// init
-	ft_putstr(vm->color ? MSG_COL : MSG);
+	ft_putstr(vm->opt.color ? MSG_COL : MSG);
 	champ_id = 1;
 	while (champ_id <= vm->champ_amount)
 	{
 		champ = get_champ_by_id(vm->champs, champ_id);
-		ft_printf(vm->color ? FMT_COL : FMT,
+		if (vm->opt.color)
+		{
+			ft_putstr(g_champ_colors[champ_id]);
+		}
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				champ->id, champ->size, champ->name, champ->comment);
 		load_exec_code(vm->field, step * (champ_id - 1), champ);
 		car = create_car();
 		car->champ_id = champ_id;
 		car->regs[1] = -champ_id;
-		car->place = step * (champ_id - 1);
-		// initialize other fields of `car` ?
+		car->place = step * (champ_id - 1);		// initialize other fields of `car` ?
 		list_push(&(vm->cars), car);
 		++champ_id;
 	}

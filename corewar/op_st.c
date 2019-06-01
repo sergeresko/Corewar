@@ -31,9 +31,9 @@ void			op_st(t_vm *vm, t_car *car)
 		addr = (short)read_from_field(vm->field, car->arg_place[1], IND_SIZE);
 		write_to_field(vm->field, car, addr % IDX_MOD, value);
 	}
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT,	// ??????????
+		ft_printf(vm->opt.color ? FMT_COL : FMT,	// ??????????
 				car->id, reg, addr);
 	}
 	advance_car(vm, car);

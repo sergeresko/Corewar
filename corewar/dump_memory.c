@@ -55,7 +55,7 @@ static void		dump_memory_plain(t_field const *field, int dump_bytes)
 
 void			dump_memory(t_vm const *vm, int dump_bytes)
 {
-	if (vm->color)
+	if (vm->opt.color)
 	{
 		dump_memory_color(vm->field, dump_bytes);
 	}

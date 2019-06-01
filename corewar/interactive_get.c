@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 12:57:24 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 19:27:34 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:18:04 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define INIT		"Running in interactive mode...\n"
 #define INIT_COL	PF_CYAN INIT PF_RESET
 
-#define HINT_1		"Enter \"dump[32|64]\" or a number of cycles to perform.\n"
+#define HINT_1		"Enter \"dump[32|64]\" or a number of cycles to perform. "
 #define HINT_2		"Press Ctrl+D to quit.\n"
 #define HINT		HINT_1 HINT_2
 #define HINT_COL	PF_CYAN HINT PF_RESET
@@ -71,9 +71,9 @@ static int		process_line(t_vm *vm, char *line)
 	}
 	if (number != 0)
 	{
-		ft_putstr(vm->color ? HINT_COL : HINT);
+		ft_putstr(vm->opt.color ? HINT_COL : HINT);
 	}
-	ft_putstr(vm->color ? PROMPT_COL : PROMPT);
+	ft_putstr(vm->opt.color ? PROMPT_COL : PROMPT);
 	return (FALSE);
 }
 
@@ -88,7 +88,7 @@ static void		finalize(t_vm const *vm, int status)
 	{
 		perror_exit("interactive_get");
 	}
-	if (vm->leaks)
+	if (vm->opt.leaks)
 	{
 		system("leaks -q corewar >&2");
 	}
@@ -108,10 +108,10 @@ void			interactive_get(t_vm *vm)
 
 	if (vm->cycle == 0)
 	{
-		ft_putstr(vm->color ? INIT_COL : INIT);
-		ft_putstr(vm->color ? HINT_COL : HINT);
+		ft_putstr(vm->opt.color ? INIT_COL : INIT);
+		ft_putstr(vm->opt.color ? HINT_COL : HINT);
 	}
-	ft_putstr(vm->color ? PROMPT_COL : PROMPT);
+	ft_putstr(vm->opt.color ? PROMPT_COL : PROMPT);
 	while ((status = get_next_line(STDIN_FILENO, &line)) > 0)
 	{
 		if (process_line(vm, line))

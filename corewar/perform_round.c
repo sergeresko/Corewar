@@ -53,9 +53,9 @@ void			perform_round(t_vm *vm)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->nbr_checks = 0;
-		if (vm->verbose)
+		if (vm->opt.verbose)
 		{
-			ft_printf(vm->color ? FMT_COL : FMT, vm->cycle_to_die);
+			ft_printf(vm->opt.color ? FMT_COL : FMT, vm->cycle_to_die);
 		}
 	}
 }

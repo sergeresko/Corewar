@@ -24,9 +24,9 @@ void			op_sti(t_vm *vm, t_car *car)
 	int const	address = (operand_1 + operand_2) % IDX_MOD;
 
 	write_to_field(vm->field, car, address, value);
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT,
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				car->id, reg, operand_1, operand_2);
 	}
 	advance_car(vm, car);

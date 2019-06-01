@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/06/01 19:34:03 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:02:59 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,18 @@ typedef struct	s_car
 	int		cycle_when_last_live;
 }				t_car;
 
-typedef struct	s_vm
-{										// initial values:
+typedef struct	s_opt
+{
 	int				help;					// FALSE
 	int				verbose;				// FALSE
+	int				silent;					// FALSE
 	int				color;					// FALSE
-	int				leaks;					// FALSE;
-	int				silent;					// FALSE;
+	int				leaks;					// FALSE
+}				t_opt;
+
+typedef struct	s_vm
+{										// initial values:
+	t_opt			opt;
 	int				interactive_cycle;		// 0
 	int				dump_cycle;				// -1
 	int				dump_bytes;				// uninitialized (or maybe 32 ?)
@@ -186,16 +191,6 @@ extern t_op const	g_ops[17];
 
 
 extern char *const	g_champ_colors[5];
-
-
-// not used:
-//void			show_usage(t_cw *data);
-void			fail(t_cw *data);
-void			fail_sense(t_cw *data, char *sense);
-void			output_result(t_cw *cw);
-
-
-
 
 
 unsigned		read_from_field(t_field const *field, unsigned place, int size);

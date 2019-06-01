@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 17:01:52 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 20:03:38 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	_test_bonus(t_vm const *vm)
 {
-	ft_printf("!@#$ help: %s\n", vm->help ? "TRUE" : "FALSE");
-	ft_printf("!@#$ verbose: %s\n", vm->verbose ? "TRUE" : "FALSE");
-	ft_printf("!@#$ color: %s\n", vm->color ? "TRUE" : "FALSE");
+	ft_printf("!@#$ help: %s\n", vm->opt.help ? "TRUE" : "FALSE");
+	ft_printf("!@#$ verbose: %s\n", vm->opt.verbose ? "TRUE" : "FALSE");
+	ft_printf("!@#$ color: %s\n", vm->opt.color ? "TRUE" : "FALSE");
 }
 
 void	_test_dump(t_vm const *vm)
@@ -46,11 +46,11 @@ void	_test_champs(t_vm const *vm)
 
 static void		init_vm(t_vm *vm)
 {
-	vm->help = FALSE;
-	vm->verbose = FALSE;
-	vm->color = FALSE;
-	vm->leaks = FALSE;
-	vm->silent = FALSE;
+	vm->opt.help = FALSE;
+	vm->opt.verbose = FALSE;
+	vm->opt.silent = FALSE;
+	vm->opt.color = FALSE;
+	vm->opt.leaks = FALSE;
 	vm->interactive_cycle = -1;
 	vm->dump_cycle = -1;
 //	vm->dump_bytes = 32;	// may be left uninitialized
@@ -76,7 +76,7 @@ int				main(int ac, char **av)
 
 	init_vm(&vm);
 	get_options(&vm, av);
-	if (ac < 2 || vm.help)
+	if (ac < 2 || vm.opt.help)
 	{
 		show_usage(&vm);
 	}
@@ -88,7 +88,7 @@ int				main(int ac, char **av)
 	{
 		perform_battle(&vm);
 	}
-	if (vm.leaks)
+	if (vm.opt.leaks)
 	{
 		system("leaks -q corewar >&2");
 	}

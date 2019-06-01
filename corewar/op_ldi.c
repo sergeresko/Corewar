@@ -24,9 +24,9 @@ void			op_ldi(t_vm *vm, t_car *car)
 	int const	reg = get_reg(vm, car, 2);
 
 	car->regs[reg] = value;
-	if (vm->verbose)
+	if (vm->opt.verbose)
 	{
-		ft_printf(vm->color ? FMT_COL : FMT,
+		ft_printf(vm->opt.color ? FMT_COL : FMT,
 				car->id, operand_1, operand_2, reg);
 	}
 	advance_car(vm, car);
