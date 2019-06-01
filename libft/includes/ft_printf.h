@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 13:37:22 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 16:06:18 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:12:49 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct	s_fmt
 # define PF_BLUE		"\033[34m"
 # define PF_MAGENTA		"\033[35m"
 # define PF_CYAN		"\033[36m"
+# define PF_GREY		"\033[90m"
 
 # define PF_BUF_SIZE 	1024
 
