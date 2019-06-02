@@ -28,7 +28,7 @@ void			write_to_field(t_field *field,
 	while (size--)
 	{
 		place %= MEM_SIZE;
-		field[place].square = (uint8_t)(value >> (size << 3));
+		field[place].square = (unsigned char)(value >> (size << 3));
 		field[place].champ_id = car->champ_id;
 		++place;
 	}

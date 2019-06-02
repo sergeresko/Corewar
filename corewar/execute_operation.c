@@ -32,10 +32,10 @@ static int		arg_code_to_mask(int code)
 
 static int		decypher_coding_byte(t_vm const *vm, t_car *car)
 {
-	uint8_t		coding_byte;
-	unsigned	offset;
-	int			arg;
-	int			is_valid;
+	unsigned char	coding_byte;
+	unsigned		offset;
+	int				arg;
+	int				is_valid;
 
 	is_valid = TRUE;
 	coding_byte = read_from_field(vm->field, car->place + 1, 1);
@@ -62,7 +62,7 @@ static int		decypher_coding_byte(t_vm const *vm, t_car *car)
 **	(return TRUE or FALSE)
 */
 
-static int		is_valid_register(uint8_t number)
+static int		is_valid_register(unsigned char number)
 {
 	return (1 <= number && number <= REG_NUMBER);
 }
@@ -73,8 +73,8 @@ static int		is_valid_register(uint8_t number)
 
 static int		check_registers(t_vm const *vm, t_car const *car)
 {
-	int			arg;
-	uint8_t		reg;
+	int				arg;
+	unsigned char	reg;
 
 	arg = 0;
 	while (arg < car->arg_amount)

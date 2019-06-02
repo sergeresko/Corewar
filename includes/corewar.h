@@ -27,7 +27,7 @@ typedef struct	s_champ
 	char			*name;
 	char			*comment;
 	int				size;
-	char			*exec_code;			// char * ?
+	char			*exec_code;
 }				t_champ;
 
 t_champ			*get_champ_by_id(t_list *champs, int champ_id);
@@ -110,20 +110,20 @@ typedef struct	s_opt
 */
 
 typedef struct	s_vm
-{										// initial values:
-	int				champ_amount;			// 0
-	t_list			*champs;				// NULL
-	int				last_living_champ_id;	// the largest player's id (or maybe 0 ?)
-	t_list			*cars;					// NULL
-	t_field			field[MEM_SIZE];		// zeroes and players' executable code
-	int				cycle;					// 0
-	int				cycle_to_die;			// CYCLE_TO_DIE (1536)
-	int				nbr_checks;				// 0
-	int				nbr_live;				// 0 at the beginning of each round
+{
+	int				champ_amount;
+	t_list			*champs;
+	int				last_living_champ_id;
+	t_list			*cars;
+	t_field			field[MEM_SIZE];
+	int				cycle;
+	int				cycle_to_die;
+	int				nbr_checks;
+	int				nbr_live;
 	t_opt			opt;
-	int				interactive_cycle;		// 0
-	int				dump_cycle;				// -1
-	int				dump_bytes;				// uninitialized (or maybe 32 ?)
+	int				interactive_cycle;
+	int				dump_cycle;
+	int				dump_bytes;
 }				t_vm;
 
 /*
@@ -203,7 +203,7 @@ void			write_to_field(t_field *field,
 								t_car const *car, int address, unsigned value);
 
 int				get_value(t_vm const *vm, t_car const *car, int arg);
-uint8_t			get_reg(t_vm const *vm, t_car const *car, int arg);
+unsigned char	get_reg(t_vm const *vm, t_car const *car, int arg);
 
 /*
 **	list functions
