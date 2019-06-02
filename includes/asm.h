@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 18:57:43 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/02 03:59:08 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
+#include <stdbool.h>
 # include "common.h"
 # include "../libft/includes/libft.h"
 
@@ -157,5 +158,17 @@ void				read_code(char *code, int length, int fd);
 void				write_header(int fd, t_player *player);
 void				write_args_to_file(int fd, t_com *command);
 void				clean_split(char **split);
+void				check_instruction(char *eline, t_asm *asm_struct, int i);
+void				check_register(char *eline, t_asm *asm_struct, int i);
+void				check_direct_label(char *eline, t_asm *asm_struct, int i);
+int					ft_nbr_lngth(long n);
+void				check_lexical(char *eline, t_asm *asm_struct, int i);
+void				check_commands(char *eline, t_asm *asm_struct, int i);
+bool				check_for_letters(char *eline, t_asm *asm_struct, int i);
+void				check_for_symbols(char *eline, t_asm *asm_struct, int i);
+void				check_indirect(char *eline, t_asm *asm_struct, int i);
+void				check_direct(char *eline, t_asm *asm_struct, int i);
+void				get_error_code(char *line, t_asm *asm_struct, int i);
+void				check_colon(char *eline, t_asm *asm_struct, int i);
 
 #endif
