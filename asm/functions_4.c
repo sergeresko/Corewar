@@ -79,7 +79,7 @@ void	check_colon(char *eline, t_asm *asm_struct, int i)
 	j = 0;
 	while (eline[j] != ':')
 	{
-		colon_line[j] = eline[j++];
+		colon_line[j] = eline[j];
 		++j;
 	}
 	colon_line[j] = eline[j];
