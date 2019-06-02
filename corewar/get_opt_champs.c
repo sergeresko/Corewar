@@ -13,7 +13,7 @@
 #include "corewar.h"
 
 /*
-**	returns TRUE or FALSE
+**	TRUE or FALSE
 */
 
 static int		already_used_id(t_list *champs, int id)
@@ -74,7 +74,7 @@ void			get_opt_champs(t_vm *vm, char **av)
 		id = 0;
 		if (ft_strequ(arg, "-n"))
 		{
-			if ((arg = *(++av)) == NULL
+			if ((arg = *(++av)) == NULL || !is_only_digits(arg)
 					|| (id = ft_atoi(arg)) < 1 || id > MAX_PLAYERS
 					|| already_used_id(vm->champs, id))
 			{
@@ -82,7 +82,7 @@ void			get_opt_champs(t_vm *vm, char **av)
 			}
 			if ((arg = *(++av)) == NULL)
 			{
-				fatal_error("No champion after setting number with -n");
+				fatal_error("No champion after setting his id with -n");
 			}
 		}
 		if (++(vm->champ_amount) > MAX_PLAYERS)

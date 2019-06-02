@@ -37,7 +37,7 @@ char			**get_opt_dump(t_vm *vm, char **av)
 		{
 			return (av - 1);
 		}
-		if ((arg = *(++av)) == NULL
+		if ((arg = *(++av)) == NULL || !is_only_digits(arg)
 				|| (vm->dump_cycle = ft_atoi(arg)) < 0)
 		{
 			fatal_error("Invalid value for dump option");
