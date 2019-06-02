@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   champ_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 15:32:02 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/02 16:31:51 by syeresko         ###   ########.fr       */
+/*   Created: 2019/06/01 19:35:27 by syeresko          #+#    #+#             */
+/*   Updated: 2019/06/01 19:36:21 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+char *const		g_champ_colors[5] = {
+	PF_RESET,
+	PF_GREEN,
+	PF_BLUE,
+	PF_RED,
+	PF_CYAN,
+};
