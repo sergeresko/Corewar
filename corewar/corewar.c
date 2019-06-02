@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 22:11:34 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:08:16 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void		init_vm(t_vm *vm)
 {
 	vm->champ_amount = 0;
 	vm->champs = NULL;
-	vm->last_living_champ_id = 0;
 	vm->cars = NULL;
 	vm->opt.help = FALSE;
 	vm->opt.verbose = FALSE;

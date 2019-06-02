@@ -6,7 +6,7 @@
 /*   By: syeresko <syeresko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 16:40:58 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 21:46:27 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:08:43 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	perform_battle(t_vm *vm)
 {
+	vm->last_living_champ_id = vm->champ_amount;
 	vm->cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->nbr_checks = 0;
