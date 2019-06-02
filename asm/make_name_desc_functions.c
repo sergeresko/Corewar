@@ -15,7 +15,7 @@
 void	check_instruction(char *eline, t_asm *asm_struct, int i)
 {
 	printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
-		   asm_struct->data.line, i + 1, eline);
+		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 
@@ -31,14 +31,14 @@ void	check_register(char *eline, t_asm *asm_struct, int i)
 	else
 		check_instruction(eline, asm_struct, i);
 	printf("Syntax error at token [TOKEN][%03d:%03d] REGISTER \"%s\"\n",
-		   asm_struct->data.line, i + 1, eline);
+		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 
 void	check_direct_label(char *eline, t_asm *asm_struct, int i)
 {
 	printf("Syntax error at token [TOKEN][%03d:%03d] DIRECT_LABEL \"%s\"\n",
-		   asm_struct->data.line, i + 1, eline);
+		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 

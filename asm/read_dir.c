@@ -20,7 +20,7 @@ void	read_dir_addon(int arg, int arg_num, int checked, t_com *com)
 		ft_printf("Syntax error, direct \"%%%d\"\n", arg);
 	else if (!checked)
 		ft_printf("Invalid parameter %d type direct for instruction %s\n",
-				  arg_num, com->name);
+				arg_num, com->name);
 	else
 		ft_printf("Syntax error, direct \"%%%d\"\n", arg);
 	exit(-1);

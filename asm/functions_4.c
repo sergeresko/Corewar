@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions_4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:37:26 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 01:20:02 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/02 17:33:33 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,43 +52,37 @@ char	*get_label_name(t_label *labels, int index)
 	return (NULL);
 }
 
-int		cook_l_arg(t_com *com, int a_n, int index, t_asm *asm_str)
+void	print_error(t_asm *asm_struct, int i, char *colon_line)
 {
-	char	*temp;
-	int		delta;
-	int		l_ind;
+	printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
+			asm_struct->data.line, i + 1, colon_line);
+}
 
-	if ((l_ind = get_label_index(asm_str->labels, com->arg_labels[a_n])) != -1)
+void	check_colon(char *eline, t_asm *asm_struct, int i)
+{
+	int		j;
+	char	*colon_line;
+
+	j = 0;
+	if (ft_get_substr_index(eline, ":") == 0)
 	{
-		if (com->arg_types[a_n] == T_DIR)
-		{
-			if ((delta = l_ind - com->index) >= 0)
-				temp = com->label_size == 2
-					? short_in_hex(delta)
-					: integer_in_hex(delta);
-			else
-				temp = get_revert_integer(com, a_n, -delta);
-			ft_strncpy(&(asm_str->champion[index]),
-					temp, com->label_size == 2 ? 4 : 8);
-			index += com->label_size == 2 ? 4 : 8;
-			ft_strdel(&temp);
-			return (index);
-		}
-		else if (com->arg_types[a_n] == T_IND)
-		{
-			temp = (delta = l_ind - com->index) >= 0
-				? short_in_hex(delta)
-				: get_revert_integer(com, a_n, -delta);
-			ft_strncpy(&(asm_str->champion[index]), temp, 4);
-			index += 4;
-			ft_strdel(&temp);
-			return (index);
-		}
-		return (index + 1 + (int)ft_strlen(com->arg_labels[a_n]));
+		printf("Syntax error at token [TOKEN][%03d:%03d] "
+			"INDIRECT_LABEL \"%s\"\n", asm_struct->data.line, i + 1, eline);
+		exit(-1);
 	}
-	ft_printf("No such label %s while attempting to dereference"
-			"token %s \"%c%s\"\n", com->arg_labels[a_n],
-			com->arg_types[a_n] == T_DIR ? "DIRECT_LABEL" : "INDIRECT_LABEL",
-			com->arg_types[a_n] == T_DIR ? '%' : ':', com->arg_labels[a_n]);
+	if (eline[0] == '%')
+		check_direct_label(eline, asm_struct, i);
+	while (eline[j] != ':')
+		++j;
+	if (!(colon_line = ft_strnew(j)))
+		return ;
+	j = 0;
+	while (eline[j] != ':')
+	{
+		colon_line[j] = eline[j++];
+		++j;
+	}
+	colon_line[j] = eline[j];
+	print_error(asm_struct, i, colon_line);
 	exit(-1);
 }

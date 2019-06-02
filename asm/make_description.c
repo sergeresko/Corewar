@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_name_and_description.c                        :+:      :+:    :+:   */
+/*   make_description.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/02 17:40:48 by ozalisky         ###   ########.fr       */
+/*   Created: 2019/06/02 16:40:40 by ozalisky          #+#    #+#             */
+/*   Updated: 2019/06/02 17:21:38 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		get_name(int i, char *line, t_asm *asm_struct, char *field)
+int		get_description(int i, char *line, t_asm *asm_struct, char *field)
 {
 	size_t	j;
 
@@ -21,13 +21,13 @@ int		get_name(int i, char *line, t_asm *asm_struct, char *field)
 		field[j++] = line[i++];
 	if (line[i] == '\0')
 		get_error_code(line, asm_struct, i);
-	make_hex_name(asm_struct->header.hex_name, field);
+	make_hex_desc(asm_struct->header.hex_description, field);
 	ft_strdel(&field);
-	asm_struct->data.got_name = 1;
+	asm_struct->data.got_description = 1;
 	return (i);
 }
 
-int		get_name_i(int i, char *line, t_asm *asm_struct, char *field)
+int		get_i(int i, char *line, t_asm *asm_struct, char *field)
 {
 	size_t	j;
 
@@ -35,24 +35,24 @@ int		get_name_i(int i, char *line, t_asm *asm_struct, char *field)
 	i++;
 	while (i < ft_strlen(line) && line[i] != '"')
 		i++ && j++;
-	return (get_name(i - j, line, asm_struct, field));
+	return (get_description(i - j, line, asm_struct, field));
 }
 
-void	get_champs_name(char *line, t_asm *asm_struct)
+void	get_champs_description(char *line, t_asm *asm_struct)
 {
 	size_t	i;
 	char	*field;
 
 	i = 0;
-	if (!(field = ft_strnew(NAME_LENGTH)))
+	if (!(field = ft_strnew(DESC_LENGTH)))
 		return ;
 	if (line[i] == '.')
 		i++;
-	i += 4;
+	i = i + 7;
 	while (line[i] == ' ' || (line[i] == '\t'))
 		i++;
 	if (line[i] == '"')
-		i = get_name_i(i, line, asm_struct, field);
+		i = get_i(i, line, asm_struct, field);
 	else
 		get_error_code(line, asm_struct, i);
 	++i;
@@ -62,23 +62,23 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 		get_error_code(line, asm_struct, i);
 }
 
-void	make_hex_name(char *hex_name, char *name)
+void	make_hex_desc(char *hex_description, char *description)
 {
 	int		i;
 	int		j;
 	int		len;
 	char	*temp;
 
-	ft_memset((void *)hex_name, '0', HEX_NAME_LENGTH);
-	hex_name[HEX_NAME_LENGTH] = '\0';
+	ft_memset((void *)hex_description, '0', HEX_DESC_LENGTH);
+	hex_description[HEX_DESC_LENGTH] = '\0';
 	i = 0;
 	j = 0;
-	len = ft_strlen(name);
-	while (i < len && j < HEX_NAME_LENGTH - 1)
+	len = ft_strlen(description);
+	while (i < len && j < HEX_DESC_LENGTH - 1)
 	{
-		temp = ft_itoa_base(name[i++], 16);
-		hex_name[j++] = ft_tolower(temp[0]);
-		hex_name[j++] = ft_tolower(temp[1]);
+		temp = ft_itoa_base(description[i++], 16);
+		hex_description[j++] = ft_tolower(temp[0]);
+		hex_description[j++] = ft_tolower(temp[1]);
 		ft_strdel(&temp);
 	}
 }
