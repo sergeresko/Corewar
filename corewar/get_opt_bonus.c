@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 18:13:00 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 20:03:57 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 17:13:22 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char			**get_opt_bonus(t_vm *vm, char **av)
 			vm->opt.verbose = TRUE;
 		else if (ft_strequ(arg, "-s") || ft_strequ(arg, "-silent"))
 			vm->opt.silent = TRUE;
+		else if (ft_strequ(arg, "-C") || ft_strequ(arg, "-canonic"))
+			vm->opt.canonic = TRUE;
 		else if (ft_strequ(arg, "-c") || ft_strequ(arg, "-color"))
 			vm->opt.color = TRUE;
 		else if (ft_strequ(arg, "-l") || ft_strequ(arg, "-leaks"))

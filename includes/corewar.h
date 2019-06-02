@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/06/02 13:07:48 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 17:14:50 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_opt
 	int				help;
 	int				verbose;
 	int				silent;
+	int				canonic;
 	int				color;
 	int				leaks;
 }				t_opt;

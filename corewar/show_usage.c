@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 12:50:54 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 20:02:40 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 16:55:01 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,13 @@ void			show_usage(t_vm const *vm)
 			"    NAME.cor\n"
 			"        File with a champion's bytecode "
 			"(up to 4 champions in one battle).\n\n"
-			"Options:\n\n"
-			"    -h, -help\n"
-			"        Show this message and quit.\n\n"
-			"    -v, -verbose\n"
-			"        Print detailed information during the battle.\n\n"
-			"    -s, -silent\n"
-			"        Do not report executions of \"live\".\n\n"
-			"    -i, -interactive\n"
-			"        Run in interactive mode.\n\n"
-			"    -c, -color\n"
-			"        Enable colored output.\n\n"
-			"    -l, -leaks\n"
-			"        Check for leaks at the end of the battle.\n%s",
+			"Options (in any order):\n"
+			"    -h, -help           Show this message and quit.\n"
+			"    -v, -verbose        Print detailed information during the "
+			"battle.\n"
+			"    -s, -silent         Do not report executions of \"live\".\n"
+			"    -i, -interactive    Run in interactive mode.\n"
+			"    -c, -color          Enable colored output.\n"
+			"    -l, -leaks          Check for leaks before terminating.\n%s",
 			vm->opt.color ? PF_CYAN : "", vm->opt.color ? PF_RESET : "");
 }

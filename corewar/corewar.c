@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/02 15:08:16 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 17:14:27 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void		init_vm(t_vm *vm)
 	vm->opt.help = FALSE;
 	vm->opt.verbose = FALSE;
 	vm->opt.silent = FALSE;
+	vm->opt.canonic = FALSE;
 	vm->opt.color = FALSE;
 	vm->opt.leaks = FALSE;
 	vm->interactive_cycle = -1;
