@@ -6,13 +6,15 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 15:52:43 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 17:50:35 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:09:45 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-#define FMT		"P %4d | ldi %d %d r%d\n"
+#define FMT_1	"P %4d | ldi %d %d r%d\n"
+#define FMT_2	"       | -> load from %d + %d = %d (with pc and mod %d)\n"
+#define FMT		FMT_1 FMT_2
 #define FMT_COL	PF_YELLOW FMT PF_RESET
 
 void			op_ldi(t_vm *vm, t_car *car)
@@ -27,7 +29,8 @@ void			op_ldi(t_vm *vm, t_car *car)
 	if (vm->opt.verbose)
 	{
 		ft_printf(vm->opt.color ? FMT_COL : FMT,
-				car->id, operand_1, operand_2, reg);
+				car->id, operand_1, operand_2, reg,
+				operand_1, operand_2, operand_1 + operand_2, place);
 	}
 	advance_car(vm, car);
 }

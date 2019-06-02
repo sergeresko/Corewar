@@ -12,7 +12,9 @@
 
 #include "corewar.h"
 
-#define FMT		"P %4d | lldi %d %d r%d\n"
+#define FMT_1	"P %4d | lldi %d %d r%d\n"
+#define FMT_2	"       | -> load from %d + %d = %d (with pc %d)\n"
+#define FMT		FMT_1 FMT_2
 #define FMT_COL	PF_YELLOW FMT PF_RESET
 
 void			op_lldi(t_vm *vm, t_car *car)
@@ -28,7 +30,8 @@ void			op_lldi(t_vm *vm, t_car *car)
 	if (vm->opt.verbose)
 	{
 		ft_printf(vm->opt.color ? FMT_COL : FMT,
-				car->id, operand_1, operand_2, reg);
+				car->id, operand_1, operand_2, reg,
+				operand_1, operand_2, operand_1 + operand_2, place);
 	}
 	advance_car(vm, car);
 }
