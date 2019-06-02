@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/06/01 21:44:04 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 13:07:48 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct	s_car
 }				t_car;
 
 t_car			*create_car(void);
-t_car			*clone_car(t_car const *car, int place);
+t_car			*clone_car(t_car const *car, unsigned place);
 
 /*
 **	boolean options of the virtual machine (initially all FALSE)

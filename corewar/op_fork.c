@@ -6,7 +6,7 @@
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 16:05:56 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/30 17:49:40 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/02 13:07:20 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void			op_fork(t_vm *vm, t_car *car)
 {
 	int const	address = get_value(vm, car, 0);
-	int const	place = (unsigned)(car->place + address % IDX_MOD) % MEM_SIZE;
+	int const	place = car->place + address % IDX_MOD;
 
 	list_push(&vm->cars, clone_car(car, place));
 	if (vm->opt.verbose)
