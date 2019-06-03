@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 03:59:12 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 16:37:24 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:36:58 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	syntax_error(t_asm *asm_struct, char *line)
 {
-	printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE \n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] ENDLINE \n",
 		asm_struct->data.line, (int)(ft_strlen(line)) + 1);
 	exit(-1);
 }
 
 void	separator_error(t_asm *asm_struct, int i)
 {
-	printf("Syntax error at token [TOKEN][%03d:%03d] SEPARATOR \",\" \n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] SEPARATOR \",\" \n",
 		asm_struct->data.line, i + 1);
 	exit(-1);
 }
 
 void	indirect_error(t_asm *asm_struct, int i)
 {
-	printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT \",\" \n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT \",\" \n",
 		asm_struct->data.line, i + 1);
 	exit(-1);
 }

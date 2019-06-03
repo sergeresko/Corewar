@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:37:26 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 17:33:33 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:36:07 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_label_name(t_label *labels, int index)
 
 void	print_error(t_asm *asm_struct, int i, char *colon_line)
 {
-	printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
 			asm_struct->data.line, i + 1, colon_line);
 }
 
@@ -66,7 +66,7 @@ void	check_colon(char *eline, t_asm *asm_struct, int i)
 	j = 0;
 	if (ft_get_substr_index(eline, ":") == 0)
 	{
-		printf("Syntax error at token [TOKEN][%03d:%03d] "
+		ft_printf("Syntax error at token [TOKEN][%03d:%03d] "
 			"INDIRECT_LABEL \"%s\"\n", asm_struct->data.line, i + 1, eline);
 		exit(-1);
 	}
