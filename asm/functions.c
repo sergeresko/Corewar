@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 12:34:07 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:37:49 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 {
 	char	*tline;
 
-	if (!line || !*line || !**line)
-		return (NULL);
 	++asm_struct->data.line;
 	asm_struct->data.row = (asm_struct->data.error_case) ?
 			asm_struct->data.row : (int)ft_strlen(*line);

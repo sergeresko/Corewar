@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 19:29:51 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:31:28 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	read_file(int fd, t_asm *asm_struct)
 		if (!(tline = get_trimmed_line(&line, asm_struct)))
 			e__trim_line(line);
 		ft_strdel(&line);
-		if (!tline[0])
+		if (tline && !tline[0])
 			ft_strdel(&tline);
 		else
 			read_line_1(&tline, asm_struct);

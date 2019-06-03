@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:35:28 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 20:45:00 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:42:50 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	cook_command(t_com *command, int i, t_asm *asm_struct)
 	char	*temp;
 	int		current_index;
 
+	if (!command)
+	{
+		ft_printf("No commands in '%s'.s\n", asm_struct->filename);
+		exit(-1);
+	}
 	if (command->next)
 		cook_command(command->next, i + command->length, asm_struct);
 	current_index = (g_index - i - command->length) * 2;
