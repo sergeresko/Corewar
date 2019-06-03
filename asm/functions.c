@@ -16,6 +16,8 @@ char	*get_trimmed_line(char **line, t_asm *asm_struct)
 {
 	char	*tline;
 
+	if (!line || !*line || !**line)
+		return (NULL);
 	++asm_struct->data.line;
 	asm_struct->data.row = (asm_struct->data.error_case) ?
 			asm_struct->data.row : (int)ft_strlen(*line);

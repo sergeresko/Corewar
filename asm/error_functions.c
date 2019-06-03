@@ -50,7 +50,7 @@ void	e__read_file(t_asm *asm_struct, int error_case)
 	else if (error_case == 5)
 	{
 		ft_printf("Syntax error - unexpected end of input (Perhaps you "
-			"forgot to end with a newline ?)");
+			"forgot to end with a newline ?)\n");
 		exit(-1);
 	}
 	else if (error_case == 6)
