@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 19:56:47 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:37:57 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	disassemble_processing(int fd, const char *filename)
 
 	player_init(&player, fd, filename);
 	check_filename(player.filename);
-	read_headers(&player);
+	read_header(&player);
 	new_file_fd = create_new_file(&player);
 	write_header(new_file_fd, &player);
 	exec_code_proc(new_file_fd, &player);

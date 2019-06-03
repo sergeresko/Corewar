@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 08:00:35 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:40:24 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ typedef struct		s_player
 void				is_no_null_error(char *str, int i);
 unsigned			parse_int(void const *buf);
 
-void				read_headers(t_player *players);
+void				read_header(t_player *player);
 void	            check_magic(char *header, t_player *player);
 char                *read_player_name(const char *header);
 char                *read_player_comment(const char *header);
