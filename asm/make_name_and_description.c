@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_name_and_description.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/02 17:40:48 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 14:01:57 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		get_name(int i, char *line, t_asm *asm_struct, char *field)
 	size_t	j;
 
 	j = 0;
-	while (i < ft_strlen(line) && line[i] != '"')
+	while (i < (int)ft_strlen(line) && line[i] != '"')
 		field[j++] = line[i++];
 	if (line[i] == '\0')
 		get_error_code(line, asm_struct, i);
@@ -33,7 +33,7 @@ int		get_name_i(int i, char *line, t_asm *asm_struct, char *field)
 
 	j = 0;
 	i++;
-	while (i < ft_strlen(line) && line[i] != '"')
+	while (i < (int)ft_strlen(line) && line[i] != '"')
 		i++ && j++;
 	return (get_name(i - j, line, asm_struct, field));
 }

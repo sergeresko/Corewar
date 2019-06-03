@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 08:01:19 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 14:04:34 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void				push_label_front(t_label **labels, t_label *label);
 void				push_command_front(t_com **commands, t_com *command);
 void				read_file(int fd, t_asm *asm_struct);
 void				read_line_1(char **tline, t_asm *asm_struct);
-size_t				read_line_2(char **tline, size_t i, t_asm *asm_struct);
+size_t				read_line_2(char **tline, size_t i);
 size_t				read_dot_instr(char **tline, size_t i, t_asm *asm_struct);
 size_t				read_register(char **tline, size_t i, t_com *command);
 int					read_dir(char **tl, int i, t_com *com);
@@ -162,9 +162,9 @@ void				check_instruction(char *eline, t_asm *asm_struct, int i);
 void				check_register(char *eline, t_asm *asm_struct, int i);
 void				check_direct_label(char *eline, t_asm *asm_struct, int i);
 int					ft_nbr_lngth(long n);
-void				check_lexical(char *eline, t_asm *asm_struct, int i);
+void				check_lexical(t_asm *asm_struct, int i);
 void				check_commands(char *eline, t_asm *asm_struct, int i);
-int					check_for_letters(char *eline, t_asm *asm_struct, int i);
+int					check_for_letters(char *eline);
 void				check_for_symbols(char *eline, t_asm *asm_struct, int i);
 void				check_indirect(char *eline, t_asm *asm_struct, int i);
 void				check_direct(char *eline, t_asm *asm_struct, int i);

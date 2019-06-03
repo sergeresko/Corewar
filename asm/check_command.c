@@ -17,6 +17,7 @@ void	read_com(char *tl, size_t st, size_t end, t_asm *asm_str)
 	char	*name;
 	t_com	*command;
 
+	command = NULL;
 	name = ft_strsub(tl, (unsigned int)st, end - st);
 	if (!asm_str->data.got_name || !asm_str->data.got_description)
 	{

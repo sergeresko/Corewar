@@ -61,7 +61,7 @@ void	exec_code_proc(int new_file_fd, t_player *player)
 		perror("execution_code_processing_1");
 		exit(-1);
 	}
-	if (read(player->fd, code, player->size) != player->size)
+	if ((test = read(player->fd, code, player->size)) != player->size)
 	{
 		ft_printf("%d != %d\n", test, player->size);
 		perror("execution_code_processing_2");

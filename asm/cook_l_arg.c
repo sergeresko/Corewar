@@ -48,6 +48,7 @@ int		cook_l_arg(t_com *com, int a_n, int index, t_asm *asm_str)
 	int		delta;
 	int		l_ind;
 
+	delta = 0;
 	if ((l_ind = get_label_index(asm_str->labels, com->arg_labels[a_n])) != -1)
 	{
 		if (com->arg_types[a_n] == T_DIR)

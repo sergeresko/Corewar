@@ -53,7 +53,7 @@ void	get_error_code_2(char *line, t_asm *asm_struct, int i, char *eline)
 	else if (line[i] == '%')
 		check_direct(eline, asm_struct, i);
 	else
-		check_lexical(eline, asm_struct, i);
+		check_lexical(asm_struct, i);
 }
 
 void	get_error_code(char *line, t_asm *asm_struct, int i)
