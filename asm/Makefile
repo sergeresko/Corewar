@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/06/03 08:01:35 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/06/03 13:38:29 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,10 +57,10 @@ LIB_FOLDER = ../libft/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@	$(CC) -o $(NAME) $(OBJ) -L$(LIB_FOLDER) -lft
+	@	$(CC) $(FLAGS) -o $(NAME) $(OBJ) -L$(LIB_FOLDER) -lft
 
 %.o: %.c
-	@	$(CC) -o $@ -c $< -I./../includes
+	@	$(CC) $(FLAGS) -o $@ -c $< -I./../includes
 
 clean:
 	@	rm -f $(OBJ)

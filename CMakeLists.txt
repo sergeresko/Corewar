@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(corewar C)
+project(Corewar C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -7,17 +7,22 @@ include_directories(includes)
 include_directories(libft/includes)
 
 set(LIBFT
-        libft/ft_printf/additional_types_or_flags.c
-        libft/ft_printf/extra_functions.c
+        libft/ft_printf/ft_abs.c
+        libft/ft_printf/ft_floor_l.c
+        libft/ft_printf/ft_max.c
+        libft/ft_printf/ft_min.c
+        libft/ft_printf/ft_parse_number.c
         libft/ft_printf/ft_printf.c
-        libft/ft_printf/initialization.c
-        libft/ft_printf/percent_and_co.c
-        libft/ft_printf/type_di.c
-        libft/ft_printf/type_high_c.c
-        libft/ft_printf/type_high_s.c
-        libft/ft_printf/type_low_s.c
-        libft/ft_printf/type_pox.c
-        libft/ft_printf/type_unsigned.c
+        libft/ft_printf/ft_putnchar.c
+        libft/ft_printf/ft_utf8_len.c
+        libft/ft_printf/pf_converters.c
+        libft/ft_printf/pf_count_zeroes.c
+        libft/ft_printf/pf_parse_format.c
+        libft/ft_printf/pf_print_alpha.c
+        libft/ft_printf/pf_print_float.c
+        libft/ft_printf/pf_print_pointer.c
+        libft/ft_printf/pf_print_signed.c
+        libft/ft_printf/pf_print_unsigned.c
         libft/get_next_line/get_next_line.c
         libft/includes/ft_printf.h
         libft/includes/get_next_line.h
@@ -95,28 +100,44 @@ set(LIBFT
 add_executable(asm
         asm/asm.c
         asm/asm_init_and_file_output.c
-        asm/functions.c
-        asm/error_functions.c
-        asm/make_name_and_description.c
-        asm/check_command.c
         asm/check_argument.c
+        asm/check_command.c
+        asm/cleaning.c
+        asm/cook_l_arg.c
+        asm/dump_output.c
+        asm/error_functions.c
+        asm/functions.c
+        asm/functions_2.c
+        asm/functions_3.c
+        asm/functions_4.c
+        asm/get_error_code.c
         asm/globals.c
         asm/helpers.c
-        asm/cleaning.c
         asm/hex_converters.c
-        asm/dump_output.c
+        asm/make_description.c
+        asm/make_name_and_description.c
+        asm/make_name_desc_functions.c
+        asm/make_name_desc_functions_2.c
+        asm/print_commands.c
+        asm/print_dump_output.c
+        asm/print_errors.c
+        asm/read_dir.c
+        asm/read_direct_label.c
+        asm/read_dot_instr.c
+        asm/read_indirect.c
+        asm/read_indirect_label.c
+        asm/read_register.c
+        asm/read_string.c
         asm/disassembler/disassembler.c
+        asm/disassembler/init_and_getters.c
+        asm/disassembler/read_args_and_code.c
+        asm/disassembler/set_args_and_writers.c
 
-        ${LIBFT} common/common_1.c common/read_header.c common/read_header_helpers.c
-        asm/disassembler/read_args_and_code.c asm/disassembler/init_and_getters.c asm/disassembler/set_args_and_writers.c
-        asm/print_commands.c asm/read_dot_instr.c asm/read_register.c asm/read_dir.c asm/read_direct_label.c asm/read_indirect.c
-        asm/read_indirect_label.c asm/read_string.c asm/functions_2.c asm/functions_3.c asm/functions_4.c asm/print_dump_output.c
-        asm/make_name_desc_functions.c asm/make_name_desc_functions_2.c asm/get_error_code.c asm/cook_l_arg.c asm/make_description.c
-        asm/print_errors.c)
+        ${LIBFT} common/read_header.c common/read_header_helpers.c)
 
-add_executable(corewar
-        corewar/corewar.c
-        corewar/errors.c
-        corewar/vm.c
-
-        ${LIBFT} common/common_1.c common/read_header.c common/read_header_helpers.c)
+#add_executable(corewar
+#        corewar/corewar.c
+#        corewar/errors.c
+#        corewar/vm.c
+#
+#        ${LIBFT} common/common_1.c common/read_header.c common/read_header_helpers.c)
