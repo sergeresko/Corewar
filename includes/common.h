@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 23:56:24 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/04 00:12:21 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 #define T_IND				4
 
 # define COREWAR_EXEC_MAGIC	0xea83f3
-
-
 
 unsigned	parse_int(void const *buf);
 

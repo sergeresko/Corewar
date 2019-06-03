@@ -91,7 +91,7 @@ char	*read_player_comment(const char *header)
 
 void			is_no_null_error(char *str, int i)
 {
-	if (str[i])
+	if (parse_int(&(str[i])))
 	{
 		ft_printf("No null at %d\n", i);
 		exit(-1);
