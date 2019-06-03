@@ -57,11 +57,6 @@ void	exec_code_proc(int new_file_fd, t_player *player)
 		perror("execution_code_processing_2");
 		exit(-1);
 	}
-	if (player->size < 0)
-	{
-		ft_printf("Champion's size is negative: %d\n", player->size);
-		exit(-1);
-	}
 	read_code(code, player->size, new_file_fd);
 	ft_strdel(&code);
 }
