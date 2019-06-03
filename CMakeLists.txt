@@ -135,9 +135,52 @@ add_executable(asm
 
         ${LIBFT} common/read_header.c common/read_header_helpers.c)
 
-#add_executable(corewar
-#        corewar/corewar.c
-#        corewar/errors.c
-#        corewar/vm.c
-#
-#        ${LIBFT} common/common_1.c common/read_header.c common/read_header_helpers.c)
+add_executable(corewar
+        corewar/advance_car.c
+        corewar/announce_winner.c
+        corewar/champ_colors.c
+        corewar/clone_car.c
+        corewar/corewar.c
+        corewar/create_car.c
+        corewar/dump_memory.c
+        corewar/error.c
+        corewar/execute_operation.c
+        corewar/get_arg_size.c
+        corewar/get_champ_by_id.c
+        corewar/get_opt_bonus.c
+        corewar/get_opt_champs.c
+        corewar/get_opt_dump.c
+        corewar/get_reg.c
+        corewar/get_value.c
+        corewar/interactive_get.c
+        corewar/list.c
+        corewar/load_champs.c
+        corewar/op_add.c
+        corewar/op_aff.c
+        corewar/op_and.c
+        corewar/op_fork.c
+        corewar/op_ld.c
+        corewar/op_ldi.c
+        corewar/op_lfork.c
+        corewar/op_live.c
+        corewar/op_lld.c
+        corewar/op_lldi.c
+        corewar/op_or.c
+        corewar/op_st.c
+        corewar/op_sti.c
+        corewar/op_sub.c
+        corewar/op_xor.c
+        corewar/op_zjmp.c
+        corewar/operations.c
+        corewar/perform_battle.c
+        corewar/perform_check.c
+        corewar/perform_cycle.c
+        corewar/perform_round.c
+        corewar/read_champ_header.c
+        corewar/read_champs.c
+        corewar/read_from_field.c
+        corewar/set_champ_ids.c
+        corewar/show_usage.c
+        corewar/write_to_field.c
+
+        ${LIBFT} common/read_header.c common/read_header_helpers.c)

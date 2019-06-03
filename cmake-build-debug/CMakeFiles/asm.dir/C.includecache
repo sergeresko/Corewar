@@ -202,15 +202,9 @@ corewar.h
 corewar.h
 /Users/vlvereta/_it/Projects/Corewar/common/corewar.h
 
-/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_abs.c
-
 /Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_floor_l.c
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/libft.h
-
-/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_max.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_min.c
 
 /Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_parse_number.c
 libft.h
@@ -322,16 +316,6 @@ libft.h
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/libft.h
 
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isascii.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isdigit.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_islower.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isprint.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isupper.c
-
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_itoa.c
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/libft.h
@@ -440,12 +424,6 @@ libft.h
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/libft.h
 
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strclr.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strcmp.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strcpy.c
-
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strdel.c
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/libft.h
@@ -453,12 +431,6 @@ libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strdup.c
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/libft.h
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strequ.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_striter.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_striteri.c
 
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strjoin.c
 libft.h
@@ -539,10 +511,6 @@ libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_swap_bits64.c
 libft.h
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/libft.h
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_tolower.c
-
-/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_toupper.c
 
 /Users/vlvereta/_it/Projects/Corewar/libft/srcs/is_only_digits.c
 libft.h

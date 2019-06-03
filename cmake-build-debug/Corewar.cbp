@@ -37,6 +37,50 @@
 					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="corewar">
+				<Option output="/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/corewar" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/vlvereta/_it/Projects/Corewar/includes"/>
+					<Add directory="/Users/vlvereta/_it/Projects/Corewar/libft/includes"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 corewar"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="corewar/fast">
+				<Option output="/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/corewar" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/vlvereta/_it/Projects/Corewar/includes"/>
+					<Add directory="/Users/vlvereta/_it/Projects/Corewar/libft/includes"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 corewar/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="asm">
 				<Option output="/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug/asm" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/vlvereta/_it/Projects/Corewar/cmake-build-debug"/>
@@ -185,276 +229,505 @@
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/common/read_header.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/common/read_header_helpers.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/advance_car.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/announce_winner.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/champ_colors.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/clone_car.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/corewar.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/create_car.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/dump_memory.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/error.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/execute_operation.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_arg_size.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_champ_by_id.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_opt_bonus.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_opt_champs.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_opt_dump.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_reg.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/get_value.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/interactive_get.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/list.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/load_champs.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_add.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_aff.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_and.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_fork.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_ld.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_ldi.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_lfork.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_live.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_lld.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_lldi.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_or.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_st.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_sti.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_sub.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_xor.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/op_zjmp.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/operations.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/perform_battle.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/perform_check.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/perform_cycle.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/perform_round.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/read_champ_header.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/read_champs.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/read_from_field.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/set_champ_ids.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/show_usage.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/corewar/write_to_field.c">
+			<Option target="corewar"/>
+		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_abs.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_floor_l.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_max.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_min.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_parse_number.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_printf.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_putnchar.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/ft_utf8_len.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_converters.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_count_zeroes.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_parse_format.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_print_alpha.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_print_float.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_print_pointer.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_print_signed.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/ft_printf/pf_print_unsigned.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/get_next_line/get_next_line.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/includes/ft_printf.h">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/includes/get_next_line.h">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/includes/libft.h">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_atoi.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_atoi_base.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_bzero.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_get_substr_index.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isalnum.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isalpha.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isascii.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isdigit.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_islower.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isprint.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_isupper.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_itoa.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_itoa_base.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_lstadd.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_lstdel.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_lstdelone.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_lstiter.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_lstmap.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_lstnew.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memalloc.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memccpy.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memchr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memcmp.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memcpy.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memdel.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memmove.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_memset.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putchar.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putchar_fd.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putchar_fd_wo_check.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putendl.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putendl_fd.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putnbr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putnbr_fd.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putstr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_putstr_fd.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strcat.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strchr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strclr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strcmp.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strcpy.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strdel.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strdup.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strequ.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_striter.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_striteri.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strjoin.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strlcat.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strlen.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strlower.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strmap.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strmapi.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strncat.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strncmp.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strncpy.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strnequ.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strnew.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strnstr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strrchr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strsplit.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strstr.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strsub.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strtrim.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_strupper.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_swap_bits32.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_swap_bits64.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_tolower.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/ft_toupper.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/libft/srcs/is_only_digits.c">
+			<Option target="corewar"/>
 			<Option target="asm"/>
 		</Unit>
 		<Unit filename="/Users/vlvereta/_it/Projects/Corewar/CMakeLists.txt">
