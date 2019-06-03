@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 19:10:55 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:56:47 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void	exec_code_proc(int new_file_fd, t_player *player)
 	{
 		ft_printf("%d != %d\n", test, player->size);
 		perror("execution_code_processing_2");
+		exit(-1);
+	}
+	if (player->size < 0)
+	{
+		ft_printf("Champion's size is negative: %d\n", player->size);
 		exit(-1);
 	}
 	read_code(code, player->size, new_file_fd);
