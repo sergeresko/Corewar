@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:40:10 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:58:44 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 16:59:12 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,12 @@ char	*get_command_name_by_code(int c)
 		"zjmp", "ldi", "sti", "fork", "lld", "lldi", "lfork", "aff"
 	};
 
-	c--;
-	if (c < 0 || c > 16)
+	if (c < 1 || c > 16)
 	{
 		ft_printf("Command code '%x' is NOT valid\n", c);
 		exit(-1);
 	}
-	return (ft_strdup(commands[c]));
+	return (ft_strdup(commands[c - 1]));
 }
 
 void	get_args_types_by_codage(unsigned char c, t_com *command)
