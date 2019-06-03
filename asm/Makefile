@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/06/03 07:50:29 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/06/03 08:01:35 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,8 @@ OBJ = asm.o \
     disassembler/init_and_getters.o \
     disassembler/read_args_and_code.o \
     disassembler/set_args_and_writers.o \
-    ../common/read_headers.o \
-    ../common/helpers_1.o \
-    ../common/common_1.o
+    ../common/read_header.o \
+    ../common/read_header_helpers.o
 
 FLAGS = -Wall -Wextra -Werror
 

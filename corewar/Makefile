@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/23 14:44:50 by syeresko         ###   ########.fr        #
+#    Updated: 2019/06/03 08:08:26 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,8 @@ NAME = corewar
 
 OBJ = corewar.o \
     errors.o \
-	../common/read_headers.o \
-	../common/helpers_1.o \
-    ../common/common_1.o \
+	../common/read_header.o \
+	../common/read_header_helpers.o \
 	vm.o
 
 FLAGS = -Wall -Wextra -Werror

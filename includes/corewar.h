@@ -52,11 +52,6 @@ void				set_players_numbers(t_player *players, int counter);
 void				clean_players_list(t_player **players);
 
 /*
- * Helpers
- */
-void                is_no_null_error(char *str, int i);
-
-/*
  * Read and validation part
  */
 

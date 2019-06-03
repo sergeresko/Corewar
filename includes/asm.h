@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/02 17:36:29 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 08:01:19 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct		s_asm
 
 }					t_asm;
 
+char				*convert_int_to_hex(int num);
 int					asm_init(t_asm **asm_struct, const char *argv);
 char				*get_filename(const char *argv);
 void				file_processing(int fd, const char *argv);
@@ -163,7 +164,7 @@ void				check_direct_label(char *eline, t_asm *asm_struct, int i);
 int					ft_nbr_lngth(long n);
 void				check_lexical(char *eline, t_asm *asm_struct, int i);
 void				check_commands(char *eline, t_asm *asm_struct, int i);
-int				check_for_letters(char *eline, t_asm *asm_struct, int i);
+int					check_for_letters(char *eline, t_asm *asm_struct, int i);
 void				check_for_symbols(char *eline, t_asm *asm_struct, int i);
 void				check_indirect(char *eline, t_asm *asm_struct, int i);
 void				check_direct(char *eline, t_asm *asm_struct, int i);

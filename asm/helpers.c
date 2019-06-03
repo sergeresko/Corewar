@@ -25,20 +25,25 @@ int		includes(const char *str, char c)
 	return (FALSE);
 }
 
-char	*byte_in_bits(char c)
+char	*convert_int_to_hex(int num)
 {
-	int		i;
+	int		num_len;
+	int 	res_len;
 	char	*result;
+	char	*number;
 
-	if ((result = ft_strnew(sizeof(char) * 8)))
+	result = NULL;
+	if ((number = ft_itoa_base(num, 16)))
 	{
-		i = 8;
-		while (i > 0)
+		num_len = ft_strlen(number);
+		if ((result = ft_strnew(9)))
 		{
-			result[--i] = c % 2 + '0';
-			c /= 2;
+			res_len = 8;
+			result = ft_memset((void *)result, '0', res_len);
+			while (num_len > 0)
+				result[--res_len] = ft_tolower(number[--num_len]);
 		}
-		return (result);
+		ft_strdel(&number);
 	}
-	return (NULL);
+	return (result);
 }
