@@ -6,17 +6,17 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 17:03:08 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/18 17:07:54 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/05/28 17:34:57 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-unsigned int	parse_int(void *buf)
+unsigned		parse_int(void const *buf)
 {
-	int				i;
-	int				size;
-	unsigned int	result;
+	int			i;
+	int			size;
+	unsigned	result;
 
 	i = 0;
 	size = 4;

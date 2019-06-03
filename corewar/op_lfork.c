@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   take_arg_place.c                                   :+:      :+:    :+:   */
+/*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 11:44:42 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 13:59:43 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 16:06:01 by omaiko            #+#    #+#             */
+/*   Updated: 2019/06/02 13:06:30 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// TODO: no more needed
+#include "corewar.h"
 
-#include "vm.h"
+#define FMT		"P %4d | lfork %d (%d)\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
 
-int	take_arg_place(t_car *car, int indicator)
+void			op_lfork(t_vm *vm, t_car *car)
 {
-	int	place;
-	int k;
+	int const	address = get_value(vm, car, 0);
+	int const	place = car->place + address;
 
-	k = 0;
-	place = car->place + 1;
-	while (k < indicator)
+	list_push(&(vm->cars), clone_car(car, place));
+	if (vm->opt.verbose)
 	{
-		place += take_amount_by_class(car, k);
-		k += 1;
+		ft_printf(vm->opt.color ? FMT_COL : FMT, car->id, address, place);
 	}
-	place %= MEM_SIZE;
-	return (place);
+	advance_car(vm, car);
 }

@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   take_arg_place.c                                   :+:      :+:    :+:   */
+/*   get_champ_by_id.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 11:44:42 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 13:59:43 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/29 20:47:12 by syeresko          #+#    #+#             */
+/*   Updated: 2019/05/29 20:48:13 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// TODO: no more needed
+#include "corewar.h"
 
-#include "vm.h"
-
-int	take_arg_place(t_car *car, int indicator)
+t_champ			*get_champ_by_id(t_list *champs, int champ_id)
 {
-	int	place;
-	int k;
+	t_champ		*champ;
 
-	k = 0;
-	place = car->place + 1;
-	while (k < indicator)
+	while (champs != NULL)
 	{
-		place += take_amount_by_class(car, k);
-		k += 1;
+		champ = champs->content;
+		if (champ->id == champ_id)
+		{
+			return (champ);
+		}
+		champs = champs->next;
 	}
-	place %= MEM_SIZE;
-	return (place);
+	return (NULL);
 }

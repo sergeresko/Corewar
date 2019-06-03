@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   take_arg_place.c                                   :+:      :+:    :+:   */
+/*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/25 11:44:42 by omaiko            #+#    #+#             */
-/*   Updated: 2019/05/27 13:59:43 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/25 15:52:50 by omaiko            #+#    #+#             */
+/*   Updated: 2019/05/30 17:48:38 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// TODO: no more needed
+#include "corewar.h"
 
-#include "vm.h"
+#define FMT		"Aff: %c\n"
+#define FMT_COL	PF_YELLOW FMT PF_RESET
 
-int	take_arg_place(t_car *car, int indicator)
+void			op_aff(t_vm *vm, t_car *car)
 {
-	int	place;
-	int k;
+	int const	reg = get_reg(vm, car, 0);
+	int const	value = car->regs[reg];
 
-	k = 0;
-	place = car->place + 1;
-	while (k < indicator)
+	if (vm->opt.verbose)
 	{
-		place += take_amount_by_class(car, k);
-		k += 1;
+		ft_printf(vm->opt.color ? FMT_COL : FMT, (char)value);
 	}
-	place %= MEM_SIZE;
-	return (place);
+	advance_car(vm, car);
 }
