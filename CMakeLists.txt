@@ -131,9 +131,10 @@ add_executable(asm
         asm/disassembler/disassembler.c
         asm/disassembler/init_and_getters.c
         asm/disassembler/read_args_and_code.c
+        asm/disassembler/read_header.c
         asm/disassembler/set_args_and_writers.c
 
-        ${LIBFT} asm/disassembler/read_header.c common/parse_int.c)
+        ${LIBFT} common/parse_int.c)
 
 add_executable(corewar
         corewar/advance_car.c

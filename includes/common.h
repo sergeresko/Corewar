@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 23:00:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 23:46:45 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:56:24 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,138 +15,19 @@
 
 # include <fcntl.h>
 # include <stdio.h>
+# include "../libft/includes/libft.h"
 
-# define TRUE 1
-# define FALSE 0
-# define BYTE 8
+# define TRUE				1
+# define FALSE				0
 
-# define LABEL_SIZE_2 2
-# define LABEL_SIZE_4 4
+#define T_REG				1
+#define T_DIR				2
+#define T_IND				4
 
-#define IND_SIZE				2
-#define REG_SIZE				4
-#define DIR_SIZE				REG_SIZE
-
-
-# define REG_CODE				1
-# define DIR_CODE				2
-# define IND_CODE				3
+# define COREWAR_EXEC_MAGIC	0xea83f3
 
 
-#define MAX_ARGS_NUMBER			4
-#define MAX_PLAYERS				4
-#define MEM_SIZE				(4*1024)
-#define IDX_MOD					(MEM_SIZE / 8)
-#define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
-#define COMMENT_CHAR			'#'
-#define ALT_COMMENT_CHAR		';'
-
-#define LABEL_CHAR				':'
-#define DIRECT_CHAR				'%'
-#define SEPARATOR_CHAR			','
-
-#define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
-
-#define NAME_CMD_STRING			".name"
-#define COMMENT_CMD_STRING		".comment"
-
-#define REG_NUMBER				16
-
-#define CYCLE_TO_DIE			1536
-#define CYCLE_DELTA				50
-#define NBR_LIVE				21
-#define MAX_CHECKS				10
-
-/*
-**
-*/
-
-typedef char	t_arg_type;
-
-#define T_REG					1
-#define T_DIR					2
-#define T_IND					4
-#define T_LAB					8
-
-/*
- * Champ's header
- */
-# define CHAR_HEADER			5480
-# define HEX_HEADER 			4384
-# define NAME_LENGTH			128
-# define HEX_NAME_LENGTH 		256
-# define DESC_LENGTH			2048
-# define HEX_DESC_LENGTH 		4096
-# define COREWAR_EXEC_MAGIC		0xea83f3
-
-# define ASM_USAGE "Usage: ./asm [-a] <sourcefile.s>\n    -a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output\n    -d : Disassembling .cor file"
-# define ASM_INITIALIZATION_ERROR "Asm initialization failed"
-
-# define COR_USAGE "Usage: ./corewar [-d N -s N -v N | -b --stealth | -n --stealth] [-a] <champion1.cor> <...>\n    -a        : Prints output from \"aff\" (Default is to hide it)"
-
-# define OPEN_FILE_ERROR "Can't read source file "
-# define READ_FILE_ERROR "Cannot read file"
-# define TRIM_LINE_ERROR "Something went wrong while trimming a line: "
-
-
-/*
- * Current index and size of the champion / asm
- */
-extern int g_index;
-
-/*
- * Dumping annotated mode / asm
- */
-extern int g_dump_mode;
-
-/*
- * Global error mode for reading / asm
- */
-extern int g_error_mode;
-
-/*
- * Is dump flag / corewar
- */
-extern int g_is_dump;
-extern int g_dump_cycles;
-
-/*
- * Commands' arguments list
- */
-extern const t_arg_type g_live[3][3];
-extern const t_arg_type g_ld[3][3];
-extern const t_arg_type g_st[3][3];
-extern const t_arg_type g_add[3][3];
-extern const t_arg_type g_sub[3][3];
-extern const t_arg_type g_and[3][3];
-extern const t_arg_type g_or[3][3];
-extern const t_arg_type g_xor[3][3];
-extern const t_arg_type g_zjmp[3][3];
-extern const t_arg_type g_ldi[3][3];
-extern const t_arg_type g_sti[3][3];
-extern const t_arg_type g_fork[3][3];
-extern const t_arg_type g_lld[3][3];
-extern const t_arg_type g_lldi[3][3];
-extern const t_arg_type g_lfork[3][3];
-extern const t_arg_type g_aff[3][3];
-
-/*
- * Common staff
- */
-typedef struct		s_player
-{
-	char 			*name;
-	char 			*comment;
-	int				size;
-	void			*exec_code;
-	int 			number;
-	int 			fd;
-	int 			self;
-	const char 		*filename;
-	struct s_player	*next;
-}					t_player;
-
-unsigned			parse_int(void const *buf);
+unsigned	parse_int(void const *buf);
 
 #endif

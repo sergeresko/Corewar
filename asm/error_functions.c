@@ -20,7 +20,7 @@ void	e__args_amount(void)
 
 void	e__asm_initialization(void)
 {
-	ft_putendl(ASM_INITIALIZATION_ERROR);
+	ft_putendl(ASM_INIT_ERROR);
 	exit(-1);
 }
 

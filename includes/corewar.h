@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omaiko <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:31:22 by omaiko            #+#    #+#             */
-/*   Updated: 2019/06/02 17:14:50 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:56:24 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 # define COREWAR_H
 
 # include "common.h"
-# include "../libft/includes/libft.h"
+
+#define IND_SIZE		2
+#define MAX_PLAYERS		4
+
+#define MEM_SIZE		(4*1024)
+#define IDX_MOD			(MEM_SIZE / 8)
+#define CHAMP_MAX_SIZE	(MEM_SIZE / 6)
+
+#define REG_NUMBER		16
+
+#define CYCLE_TO_DIE	1536
+#define CYCLE_DELTA		50
+#define NBR_LIVE		21
+#define MAX_CHECKS		10
 
 /*
 **	a champion
