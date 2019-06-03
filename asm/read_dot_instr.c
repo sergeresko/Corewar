@@ -14,11 +14,11 @@
 
 size_t	read_dot_instr(char **tline, size_t i, t_asm *asm_struct)
 {
-	if (ft_get_substr_index(*tline, NAME_CMD_STRING) == i)
+	if (ft_get_substr_index(*tline, NAME_CMD_STRING) == (int)i)
 	{
 		get_champs_name(*tline, asm_struct);
 	}
-	else if (ft_get_substr_index(*tline, COMMENT_CMD_STRING) == i)
+	else if (ft_get_substr_index(*tline, COMMENT_CMD_STRING) == (int)i)
 	{
 		get_champs_description(*tline, asm_struct);
 	}

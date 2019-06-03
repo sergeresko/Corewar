@@ -18,6 +18,8 @@ size_t	read_register(char **tline, size_t i, t_com *command)
 	int		checked;
 	int		arg_num;
 
+	arg_num = -1;
+	checked = -1;
 	arg = ft_atoi(&((*tline)[++i]));
 	if (g_error_mode || !command || (arg_num = get_argument_number(command))
 		== -1 || (checked = check_arg_1(command->name, arg_num, T_REG)) == -1

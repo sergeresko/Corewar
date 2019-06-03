@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 12:23:05 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/03 13:56:57 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 	ft_strdel(tline);
 }
 
-size_t	read_line_2(char **tline, size_t i)
+size_t read_line_2(char **tline, size_t i)
 {
 	if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
 		return (++i);

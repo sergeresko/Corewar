@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 12:51:56 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/03 14:04:34 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,9 @@ void				check_instruction(char *eline, t_asm *asm_struct, int i);
 void				check_register(char *eline, t_asm *asm_struct, int i);
 void				check_direct_label(char *eline, t_asm *asm_struct, int i);
 int					ft_nbr_lngth(long n);
-void				check_lexical(char *eline, t_asm *asm_struct, int i);
+void				check_lexical(t_asm *asm_struct, int i);
 void				check_commands(char *eline, t_asm *asm_struct, int i);
-int					check_for_letters(char *eline, t_asm *asm_struct, int i);
+int					check_for_letters(char *eline);
 void				check_for_symbols(char *eline, t_asm *asm_struct, int i);
 void				check_indirect(char *eline, t_asm *asm_struct, int i);
 void				check_direct(char *eline, t_asm *asm_struct, int i);

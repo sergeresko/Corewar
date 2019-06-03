@@ -89,9 +89,9 @@ void	output_to_file(t_asm *champ)
 
 void	format_file_output(int fd, char *champ)
 {
-	size_t	i;
-	size_t	len;
-	char	*hex;
+	unsigned int	i;
+	size_t			len;
+	char			*hex;
 
 	i = 0;
 	hex = ft_strnew(2);

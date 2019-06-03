@@ -55,7 +55,7 @@ int		ft_nbr_lngth(long n)
 	return (0);
 }
 
-void	check_lexical(char *eline, t_asm *asm_struct, int i)
+void	check_lexical(t_asm *asm_struct, int i)
 {
 	ft_printf("Lexical error at [%d:%d]\n", asm_struct->data.line, i + 1);
 	exit(-1);

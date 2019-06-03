@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_dir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:23:14 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 01:40:30 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 18:09:52 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		read_dir(char **tl, int i, t_com *com)
 	int		arg_num;
 	int		checked;
 
+	arg_num = -1;
+	checked = -1;
 	if ((*tl)[++i] == LABEL_CHAR)
 		return (read_direct_label(tl, i, com));
 	arg = ft_atoi(&((*tl)[i]));
