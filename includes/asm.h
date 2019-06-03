@@ -172,5 +172,12 @@ void				check_direct(char *eline, t_asm *asm_struct, int i);
 void				get_error_code(char *line, t_asm *asm_struct, int i);
 void				check_colon(char *eline, t_asm *asm_struct, int i);
 void				print_label_error(t_com *com, int a_n);
+void				is_no_null_error(char *str, int i);
+void				read_header(t_player *player);
+void	            check_magic(char *header, t_player *player);
+char                *read_player_name(const char *header);
+char                *read_player_comment(const char *header);
+void    			e__args_amount(void);
+void				e__open_file(const char *name);
 
 #endif

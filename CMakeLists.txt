@@ -133,7 +133,7 @@ add_executable(asm
         asm/disassembler/read_args_and_code.c
         asm/disassembler/set_args_and_writers.c
 
-        ${LIBFT} common/read_header.c common/read_header_helpers.c)
+        ${LIBFT} asm/disassembler/read_header.c common/parse_int.c)
 
 add_executable(corewar
         corewar/advance_car.c
@@ -183,4 +183,4 @@ add_executable(corewar
         corewar/show_usage.c
         corewar/write_to_field.c
 
-        ${LIBFT} common/read_header.c common/read_header_helpers.c)
+        ${LIBFT} asm/disassembler/read_header.c common/parse_int.c)

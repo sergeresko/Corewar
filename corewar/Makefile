@@ -13,8 +13,7 @@
 NAME = corewar
 
 OBJ = corewar.o \
-	../common/read_header.o \
-	../common/read_header_helpers.o \
+	../common/parse_int.o \
 	get_opt_bonus.o get_opt_dump.o get_opt_champs.o \
 	set_champ_ids.o \
 	read_champ_header.o read_champs.o \

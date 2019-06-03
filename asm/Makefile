@@ -46,9 +46,9 @@ OBJ = asm.o \
     disassembler/disassembler.o \
     disassembler/init_and_getters.o \
     disassembler/read_args_and_code.o \
+    disassembler/read_header.o \
     disassembler/set_args_and_writers.o \
-    ../common/read_header.o \
-    ../common/read_header_helpers.o
+    ../common/parse_int.o
 
 FLAGS = -Wall -Wextra -Werror
 

@@ -6,12 +6,11 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 17:01:54 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 23:40:24 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:42:07 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include "corewar.h"
 
 void	read_header(t_player *player)
 {
@@ -88,4 +87,13 @@ char	*read_player_comment(const char *header)
 		i++;
 	}
 	return (comment);
+}
+
+void			is_no_null_error(char *str, int i)
+{
+	if (str[i])
+	{
+		ft_printf("No null at %d\n", i);
+		exit(-1);
+	}
 }
