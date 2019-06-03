@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 08:01:19 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:51:56 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void				push_label_front(t_label **labels, t_label *label);
 void				push_command_front(t_com **commands, t_com *command);
 void				read_file(int fd, t_asm *asm_struct);
 void				read_line_1(char **tline, t_asm *asm_struct);
-size_t				read_line_2(char **tline, size_t i, t_asm *asm_struct);
+size_t				read_line_2(char **tline, size_t i);
 size_t				read_dot_instr(char **tline, size_t i, t_asm *asm_struct);
 size_t				read_register(char **tline, size_t i, t_com *command);
 int					read_dir(char **tl, int i, t_com *com);
@@ -138,8 +138,9 @@ void				print_in_length(int length, char **str);
 void				print_command_line(t_com *command, int index);
 void				print_command_line_loop(t_com *command, int i, char *temp);
 void				print_add_com_line_1(t_com *com, int line, t_asm *ast_str);
-int					print_add_com_line_2(t_com *com, int i, int line, int label_arg);
-int 				print_add_com_line_3(t_com *com, int line, int label_arg);
+int					print_add_com_line_2(t_com *com, int i, int line,
+																int label_arg);
+int					print_add_com_line_3(t_com *com, int line, int label_arg);
 
 void				disassemble_processing(int fd, const char *filename);
 void				check_filename(const char *filename);

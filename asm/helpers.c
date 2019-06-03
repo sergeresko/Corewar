@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2018/11/08 20:50:32 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:30:05 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		includes(const char *str, char c)
 char	*convert_int_to_hex(int num)
 {
 	int		num_len;
-	int 	res_len;
+	int		res_len;
 	char	*result;
 	char	*number;
 
