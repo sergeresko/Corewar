@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/31 21:18:56 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/02 18:28:55 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ size_t	read_line_2(char **tline, size_t i, t_asm *asm_struct)
 		return (++i);
 	else
 	{
-		ft_printf("Lexical error -> exit(-1)\n");
-		return (ft_strlen(*tline));
+		ft_printf("Lexical error\n");
+		exit(-1);
 	}
 }
