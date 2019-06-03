@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 19:06:33 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:10:55 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_filename(const char *filename)
 	if (len <= 4 || filename[len - 1] != 'r' || filename[len - 2] != 'o'
 	|| filename[len - 3] != 'c' || filename[len - 4] != '.')
 	{
-		ft_putendl("Not a valid .cor file");
+		ft_printf("Not a valid .cor file '%s'\n", filename);
 		exit(-1);
 	}
 }

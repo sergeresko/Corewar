@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 12:24:03 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:10:55 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ char	*get_filename(const char *argv)
 
 	len = (int)ft_strlen(argv);
 	if (len <= 2 || argv[len - 1] != 's' || argv[len - 2] != '.')
-		return (NULL);
+	{
+		ft_printf("Not a valid .s file '%s'\n", argv);
+		exit(-1);
+	}
 	start = len - 1;
 	while (start >= 0 && argv[start] != ' ' && argv[start] != '/')
 		start--;
