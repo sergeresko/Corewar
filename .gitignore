@@ -1,5 +1,4 @@
-.idea/
-cmake-build-debug/
-asm/asm
-corewar/corewar
-libft/libft.a
+.DS_Store
+.idea/*
+cmake-build-debug/*
+corewar_VM/*
