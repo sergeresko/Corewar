@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 17:59:25 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:06:33 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,15 @@ void	disassemble_processing(int fd, const char *filename)
 
 void	check_filename(const char *filename)
 {
-	int		i;
-	char	**splitname;
+	int		len;
 
-	if (!(splitname = ft_strsplit(filename, '.')))
+	len = (int)ft_strlen(filename);
+	if (len <= 4 || filename[len - 1] != 'r' || filename[len - 2] != 'o'
+	|| filename[len - 3] != 'c' || filename[len - 4] != '.')
 	{
-		perror("check_filename");
+		ft_putendl("Not a valid .cor file");
 		exit(-1);
 	}
-	i = 0;
-	while (splitname[i])
-	{
-		if (!splitname[i + 1] && !ft_strequ(splitname[i], "cor"))
-		{
-			ft_printf("\"%s\" is NOT a correct filename!\n", filename);
-			exit(-1);
-		}
-		i++;
-	}
-	clean_split(splitname);
 }
 
 void	exec_code_proc(int new_file_fd, t_player *player)
