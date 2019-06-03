@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/31 21:02:57 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/06/03 07:50:29 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,28 @@
 NAME = asm
 
 OBJ = asm.o \
+	asm_init_and_file_output.o \
+	check_argument.o \
+	check_command.o \
+	cleaning.o \
+	cook_l_arg.o \
+	dump_output.o \
+	error_functions.o \
+	functions.o \
+	functions_2.o \
+	functions_3.o \
+	functions_4.o \
+	get_error_code.o \
     globals.o \
+    helpers.o \
+    hex_converters.o \
+    make_description.o \
+    make_name_and_description.o \
+    make_name_desc_functions.o \
+    make_name_desc_functions_2.o \
+    print_commands.o \
+    print_dump_output.o \
+    print_errors.o \
     read_dir.o \
     read_direct_label.o \
     read_dot_instr.o \
@@ -22,21 +43,6 @@ OBJ = asm.o \
     read_indirect_label.o \
     read_register.o \
     read_string.o \
-    asm_init_and_file_output.o \
-    error_functions.o \
-    functions.o \
-    functions_2.o \
-    functions_3.o \
-    functions_4.o \
-    make_name_and_description.o \
-    check_command.o \
-    helpers.o \
-    check_argument.o \
-    cleaning.o \
-    hex_converters.o \
-    dump_output.o \
-    print_dump_output.o \
-    print_commands.o \
     disassembler/disassembler.o \
     disassembler/init_and_getters.o \
     disassembler/read_args_and_code.o \
