@@ -34,6 +34,7 @@ typedef struct		s_label
 
 typedef struct		s_data
 {
+	int				fd;
 	int				line;
 	int				row;
 	int				error_case;

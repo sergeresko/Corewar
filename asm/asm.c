@@ -56,6 +56,7 @@ void	read_file(int fd, t_asm *asm_struct)
 	char	*line;
 	char	*tline;
 
+	asm_struct->data.fd = fd;
 	while ((r = get_next_line(fd, &line)))
 	{
 		if (r == -1)
