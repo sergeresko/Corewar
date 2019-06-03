@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 15:32:02 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/02 16:31:51 by syeresko         ###   ########.fr       */
+/*   Created: 2019/05/28 16:28:02 by syeresko          #+#    #+#             */
+/*   Updated: 2019/05/31 12:38:39 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "corewar.h"
 
-void	ft_putchar(char c)
+void			perror_exit(char const *prefix)
 {
-	write(1, &c, 1);
+	perror(prefix);
+	exit(-1);
+}
+
+void			fatal_error(char const *message)
+{
+	ft_printf("ERROR: %s.\n", message);
+	exit(-1);
 }

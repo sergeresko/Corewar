@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 18:33:36 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:24:03 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	output_to_file(t_asm *champ)
 
 void	format_file_output(int fd, char *champ)
 {
-	int		i;
+	size_t	i;
 	size_t	len;
 	char	*hex;
 

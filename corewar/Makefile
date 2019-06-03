@@ -6,17 +6,43 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/06/03 08:08:26 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/06/03 08:15:25 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 OBJ = corewar.o \
-    errors.o \
 	../common/read_header.o \
 	../common/read_header_helpers.o \
-	vm.o
+	get_opt_bonus.o get_opt_dump.o get_opt_champs.o \
+	set_champ_ids.o \
+	read_champ_header.o read_champs.o \
+	get_champ_by_id.o \
+	error.o \
+	show_usage.o \
+	list.o \
+	champ_colors.o \
+	\
+	operations.o \
+	op_live.o \
+	op_ld.o op_ldi.o op_lld.o op_lldi.o \
+	op_st.o op_sti.o \
+	op_add.o op_sub.o \
+	op_and.o op_or.o op_xor.o \
+	op_zjmp.o \
+	op_fork.o op_lfork.o \
+	op_aff.o \
+	\
+	get_reg.o get_value.o \
+	read_from_field.o write_to_field.o \
+	\
+	execute_operation.o get_arg_size.o \
+	advance_car.o \
+	create_car.o clone_car.o \
+	load_champs.o announce_winner.o dump_memory.o \
+	interactive_get.o \
+	perform_cycle.o perform_check.o perform_round.o perform_battle.o
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -25,7 +51,7 @@ LIB_FOLDER = ../libft
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@   $(CC) -o $(NAME) $(OBJ) -L$(LIB_FOLDER) -lft
+	@   $(CC) $(FLAGS) -o $(NAME) $(OBJ) -L$(LIB_FOLDER) -lft
 
 %.o: %.c
 	@	$(CC) $(FLAGS) -o $@ -c $< -I../includes

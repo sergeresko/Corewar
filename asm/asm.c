@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/02 18:28:55 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:23:05 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 		else if (ft_strchr(LABEL_CHARS, (*tline)[i]))
 			i = read_string(tline, i, asm_struct);
 		else
-			i = read_line_2(tline, i, asm_struct);
+			i = read_line_2(tline, i);
 	}
 	if (asm_struct->command)
 		check_command_line(asm_struct);
 	ft_strdel(tline);
 }
 
-size_t	read_line_2(char **tline, size_t i, t_asm *asm_struct)
+size_t	read_line_2(char **tline, size_t i)
 {
 	if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
 		return (++i);

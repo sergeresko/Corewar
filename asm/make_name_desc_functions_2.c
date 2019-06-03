@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 03:52:00 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 17:38:09 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:38:57 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	check_commands(char *eline, t_asm *asm_struct, int i)
 {
 	if (ft_get_substr_index(eline, NAME_CMD_STRING) == 0)
 	{
-		printf("Syntax error at token [TOKEN][%03d:%03d] "
+		ft_printf("Syntax error at token [TOKEN][%03d:%03d] "
 			"COMMAND_NAME \".name\"\n", asm_struct->data.line, i + 1);
 		exit(-1);
 	}
 	if (ft_get_substr_index(eline, COMMENT_CMD_STRING) == 0)
 	{
-		printf("Syntax error at token [TOKEN][%03d:%03d] "
+		ft_printf("Syntax error at token [TOKEN][%03d:%03d] "
 			"COMMAND_COMMENT \".comment\"\n", asm_struct->data.line, i + 1);
 		exit(-1);
 	}
@@ -66,7 +66,7 @@ void	check_indirect(char *eline, t_asm *asm_struct, int i)
 	check_for_symbols(eline, asm_struct, i);
 	if (check_for_letters(eline, asm_struct, i))
 		check_instruction(eline, asm_struct, i);
-	printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT \"%s\"\n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] INDIRECT \"%s\"\n",
 		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
@@ -92,6 +92,6 @@ void	check_direct(char *eline, t_asm *asm_struct, int i)
 		direct_line[k] = eline[k];
 		++k;
 	}
-	printf("DIRECT \"%s\"", direct_line);
+	ft_printf("DIRECT \"%s\"", direct_line);
 	exit(-1);
 }

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/26 18:50:45 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:33:17 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	read_com(char *tl, size_t st, size_t end, t_asm *asm_str)
 	name = ft_strsub(tl, (unsigned int)st, end - st);
 	if (!asm_str->data.got_name || !asm_str->data.got_description)
 	{
-		printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
-	asm_str->data.line, (int)st + 1, name);
+		ft_printf("Syntax error at token [TOKEN][%03d:%03d] "
+				"INSTRUCTION \"%s\"\n", asm_str->data.line, (int)st + 1, name);
 		exit(-1);
 	}
 	if (!asm_str->header.hex_name[0]

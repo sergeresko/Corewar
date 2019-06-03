@@ -6,7 +6,7 @@
 /*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 03:46:38 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 03:46:38 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/03 12:38:12 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_instruction(char *eline, t_asm *asm_struct, int i)
 {
-	printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] INSTRUCTION \"%s\"\n",
 		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
@@ -30,14 +30,14 @@ void	check_register(char *eline, t_asm *asm_struct, int i)
 		++j;
 	else
 		check_instruction(eline, asm_struct, i);
-	printf("Syntax error at token [TOKEN][%03d:%03d] REGISTER \"%s\"\n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] REGISTER \"%s\"\n",
 		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
 
 void	check_direct_label(char *eline, t_asm *asm_struct, int i)
 {
-	printf("Syntax error at token [TOKEN][%03d:%03d] DIRECT_LABEL \"%s\"\n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] DIRECT_LABEL \"%s\"\n",
 		asm_struct->data.line, i + 1, eline);
 	exit(-1);
 }
@@ -57,6 +57,6 @@ int		ft_nbr_lngth(long n)
 
 void	check_lexical(char *eline, t_asm *asm_struct, int i)
 {
-	printf("Lexical error at [%d:%d]\n", asm_struct->data.line, i + 1);
+	ft_printf("Lexical error at [%d:%d]\n", asm_struct->data.line, i + 1);
 	exit(-1);
 }
