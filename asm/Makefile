@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/05/26 18:29:27 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/05/31 21:02:57 by vlvereta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,19 @@ NAME = asm
 
 OBJ = asm.o \
     globals.o \
+    read_dir.o \
+    read_direct_label.o \
+    read_dot_instr.o \
+    read_indirect.o \
+    read_indirect_label.o \
+    read_register.o \
+    read_string.o \
     asm_init_and_file_output.o \
     error_functions.o \
     functions.o \
+    functions_2.o \
+    functions_3.o \
+    functions_4.o \
     make_name_and_description.o \
     check_command.o \
     helpers.o \
@@ -25,6 +35,7 @@ OBJ = asm.o \
     cleaning.o \
     hex_converters.o \
     dump_output.o \
+    print_dump_output.o \
     print_commands.o \
     disassembler/disassembler.o \
     disassembler/init_and_getters.o \
