@@ -184,4 +184,4 @@ add_executable(corewar
         corewar/show_usage.c
         corewar/write_to_field.c
 
-        ${LIBFT} asm/disassembler/read_header.c common/parse_int.c)
+        ${LIBFT} common/parse_int.c)

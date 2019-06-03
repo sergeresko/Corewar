@@ -8,3 +8,7 @@ asm/jumper.cor
 asm/jumper.s
 asm/asm
 corewar/corewar
+
+test.s
+asm/test.cor
+asm/test.s
