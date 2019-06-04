@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 18:27:04 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/31 18:45:12 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:09:56 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,29 @@ void	print_add_com_line_1(t_com *com, int line, t_asm *ast_str)
 	ft_putchar('\n');
 }
 
-int		print_add_com_line_2(t_com *com, int i, int line, int label_arg)
+int		print_add_com_line_2(t_com *com, int i, int l, int l_arg)
 {
 	char	*temp;
 
 	if (com->arg_types[i] == T_REG)
 	{
-		temp = ft_itoa((unsigned char)label_arg);
+		temp = ft_itoa((unsigned char)l_arg);
 		print_in_length(18, &temp);
 		return (0);
 	}
 	else if (com->arg_types[i] == T_IND)
 	{
-		if (line == 2)
+		if (l == 2)
 		{
-			temp = ft_itoa(label_arg);
+			temp = ft_itoa(l_arg);
 			print_in_length(18, &temp);
 			return (0);
 		}
-		print_by_bytes(label_arg, 2);
+		print_by_bytes(l_arg, 2);
 		ft_putstr("          ");
 	}
 	else if (com->arg_types[i] == T_DIR)
-		return (print_add_com_line_3(com, line, label_arg));
+		return (print_add_com_line_3(com, l, l_arg));
 	return (1);
 }
 
