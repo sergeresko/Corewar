@@ -38,6 +38,7 @@ int		read_indirect(char **tline, int i, t_com *command)
 
 	if ((*tline)[i] == LABEL_CHAR)
 		return (read_indirect_label(tline, i, command));
+	check_for_proper_arg(*tline, i);
 	arg = ft_atoi(&((*tline)[i]));
 	if (g_error_mode || !command)
 		indirect_syntax(arg);
