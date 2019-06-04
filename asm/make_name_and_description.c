@@ -6,31 +6,45 @@
 /*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/04 02:27:09 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/05 00:12:52 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	concatinate_strings(char *field, char *line)
+void	long_name_error()
+{
+	ft_printf("Champion name too long (Max length 128)\n");
+	exit(-1);
+}
+
+int		concatinate_name_strings(char *field, char *line, t_asm *asm_struct)
 {
 	int field_len;
 	int new_len;
 	int reverse_counter;
-	int i;
 
-	i = 0;
 	field_len = ft_strlen(field);
 	new_len = ft_strlen(line);
 	reverse_counter = new_len;
-	// if bigger 128
-	while (reverse_counter > 0 && field_len + (new_len - reverse_counter) <= 128)
+	while (reverse_counter > 0 && field_len + (new_len - reverse_counter) <= NAME_LENGTH && line[(new_len - reverse_counter)] != '"')
 	{
 		field[field_len + (new_len - reverse_counter)] = line[(new_len - reverse_counter)];
 		--reverse_counter;
 	}
-//TODO	what if bigger 128??
+	if (field_len + (new_len - reverse_counter) > NAME_LENGTH)
+		long_name_error();
+	if (line[(new_len - reverse_counter)] == '"')
+	{
+		--reverse_counter;
+		while (line[(new_len - reverse_counter)] == ' ' || line[(new_len - reverse_counter)] == '\t')
+			--reverse_counter;
+		if (line[(new_len - reverse_counter)] != '\0' && line[(new_len - reverse_counter)] != '#')
+			get_error_code(line, asm_struct, (new_len - reverse_counter));
+		return (0);
+	}
 	field[field_len + new_len] = '\n';
+	return (1);
 }
 
 void	read_multi_line(t_asm *asm_struct, char *field)
@@ -38,7 +52,6 @@ void	read_multi_line(t_asm *asm_struct, char *field)
 	int		r;
 	char	*line;
 	char	*tline;
-	int		fd;
 
 	while ((r = get_next_line(asm_struct->data.fd, &line)))
 	{
@@ -48,12 +61,14 @@ void	read_multi_line(t_asm *asm_struct, char *field)
 			return (e__read_file(asm_struct, 5));
 		if (!(tline = get_trimmed_line(&line, asm_struct)))
 			e__trim_line(line);
-		concatinate_strings(field, tline);
+		if (!concatinate_name_strings(field, tline, asm_struct))
+		{
+			ft_strdel(&line);
+			return ;
+		}
 		ft_strdel(&line);
 		if (tline && !tline[0])
 			ft_strdel(&tline);
-//		else
-//			read_line_1(&tline, asm_struct);
 	}
 }
 
@@ -84,6 +99,8 @@ int		get_name_i(int i, char *line, t_asm *asm_struct, char *field)
 	i++;
 	while (i < (int)ft_strlen(line) && line[i] != '"')
 		i++ && j++;
+	if (j > NAME_LENGTH)
+		long_name_error();
 	return (get_name(i - j, line, asm_struct, field));
 }
 
@@ -105,7 +122,7 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 	else
 		get_error_code(line, asm_struct, i);
 	++i;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] != '\0' && line[i] != '#')
 		get_error_code(line, asm_struct, i);
