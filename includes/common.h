@@ -17,12 +17,12 @@
 # include <stdio.h>
 # include "../libft/includes/libft.h"
 
-# define TRUE				1
-# define FALSE				0
+# define TRUE	1
+# define FALSE	0
 
-#define T_REG				1
-#define T_DIR				2
-#define T_IND				4
+# define T_REG	1
+# define T_DIR	2
+# define T_IND	4
 
 # define COREWAR_EXEC_MAGIC	0xea83f3
 
