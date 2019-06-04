@@ -87,7 +87,7 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 			i = read_dir(tline, i, asm_struct->command);
 		else if ((*tline)[i] == LABEL_CHAR || ft_isdigit((*tline)[i])
 			|| (*tline)[i] == '-')
-			i = read_indirect(tline, i, asm_struct->command);
+			i = read_indirect(tline, i, asm_struct->command, asm_struct);
 		else if ((*tline)[i] == 'r' && is_register(*tline, i))
 			i = read_register(tline, i, asm_struct->command);
 		else if (ft_strchr(LABEL_CHARS, (*tline)[i]))
