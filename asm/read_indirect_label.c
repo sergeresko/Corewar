@@ -52,13 +52,13 @@ int		read_indirect_label(char **tline, int i, t_com *command)
 	return (i);
 }
 
-int     is_label_num_start(char *line, int i)
+int		is_label_num_start(char *line, int i)
 {
-    while (line[i])
-    {
-        if (line[i] == LABEL_CHAR)
-            return (TRUE);
-        i++;
-    }
-    return (FALSE);
+	while (line[i])
+	{
+		if (line[i] == LABEL_CHAR)
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
 }

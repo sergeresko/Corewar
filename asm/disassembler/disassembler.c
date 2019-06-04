@@ -23,7 +23,7 @@ void	disassemble_processing(int fd, const char *filename)
 	new_file_fd = create_new_file(&player);
 	write_header(new_file_fd, &player);
 	exec_code_proc(new_file_fd, &player);
-    ft_printf("Writing output program to %s\n", player.new_file);
+	ft_printf("Writing output program to %s\n", player.new_file);
 	close(new_file_fd);
 	ft_strdel(&(player.name));
 	ft_strdel(&(player.comment));

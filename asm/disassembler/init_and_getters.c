@@ -70,28 +70,28 @@ void	get_args_types_by_codage(unsigned char c, t_com *command)
 	command->arg_types[0] = (t == IND_CODE) ? T_IND : t;
 	t = c << 2;
 	t >>= 6;
-    check_arg_1(command->name, 1, command->arg_types[1]);
+	command->arg_types[0] = (t == IND_CODE) ? T_IND : t;
 	t = c << 4;
 	t >>= 6;
 	command->arg_types[2] = (t == IND_CODE) ? T_IND : t;
 	if (!check_arg_1(command->name, 0, command->arg_types[0])
 	|| !check_arg_1(command->name, 1, command->arg_types[1])
 	|| !check_arg_1(command->name, 2, command->arg_types[2]))
-    {
-	    ft_printf("Wrong arguments for '%s'\n", command->name);
-	    exit(-1);
-    }
+	{
+		ft_printf("Wrong arguments for '%s'\n", command->name);
+		exit(-1);
+	}
 }
 
 int		create_new_file(t_player *player)
 {
 	int		fd;
 
-    if (!(player->new_file = get_filename_from_path(player->filename)))
-    {
-        perror("create_new_file");
-        exit(-1);
-    }
+	if (!(player->new_file = get_filename_from_path(player->filename)))
+	{
+		perror("create_new_file");
+		exit(-1);
+	}
 	fd = open(player->new_file, O_TRUNC | O_CREAT | O_WRONLY | O_APPEND, 0744);
 	return (fd);
 }
