@@ -97,6 +97,7 @@ typedef struct		s_player
 	int				size;
 	int				number;
 	int				fd;
+	char            *new_file;
 	const char		*filename;
 	struct s_player	*next;
 }					t_player;

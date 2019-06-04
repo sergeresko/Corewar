@@ -23,9 +23,11 @@ void	disassemble_processing(int fd, const char *filename)
 	new_file_fd = create_new_file(&player);
 	write_header(new_file_fd, &player);
 	exec_code_proc(new_file_fd, &player);
+    ft_printf("Writing output program to %s\n", player.new_file);
 	close(new_file_fd);
 	ft_strdel(&(player.name));
 	ft_strdel(&(player.comment));
+	ft_strdel(&(player.new_file));
 }
 
 void	check_filename(const char *filename)
@@ -54,7 +56,7 @@ void	exec_code_proc(int new_file_fd, t_player *player)
 	if ((test = read(player->fd, code, player->size)) != player->size)
 	{
 		ft_printf("%d != %d\n", test, player->size);
-		perror("execution_code_processing_2");
+		ft_putendl("Code procesing error!");
 		exit(-1);
 	}
 	read_code(code, player->size, new_file_fd);
