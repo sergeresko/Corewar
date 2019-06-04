@@ -38,7 +38,7 @@ int		read_dir(char **tl, int i, t_com *com)
 		return (read_direct_label(tl, i, com));
 	check_for_proper_arg(*tl, i);
 	arg = ft_atoi(&((*tl)[i]));
-	if (g_error_mode || !com || ((arg_num = get_argument_number(com)) == -1)
+	if (g_error_mode || !com || ((arg_num = get_arg_num(com)) == -1)
 	|| ((checked = check_arg_1(com->name, arg_num, T_DIR)) == -1) || !checked)
 	{
 		read_dir_addon(arg, arg_num, checked, com);

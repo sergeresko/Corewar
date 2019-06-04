@@ -42,7 +42,7 @@ int		read_indirect(char **tline, int i, t_com *command)
 	arg = ft_atoi(&((*tline)[i]));
 	if (g_error_mode || !command)
 		indirect_syntax(arg);
-	if ((arg_num = get_argument_number(command)) == -1)
+	if ((arg_num = get_arg_num(command)) == -1)
 		indirect_argument(arg_num);
 	if ((checked = check_arg_1(command->name, arg_num, T_IND)) == -1)
 		indirect(arg);

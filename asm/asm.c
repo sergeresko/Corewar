@@ -100,7 +100,7 @@ void	read_line_1(char **tline, t_asm *asm_struct)
 	ft_strdel(tline);
 }
 
-size_t read_line_2(char **tline, size_t i)
+size_t	read_line_2(char **tline, size_t i)
 {
 	if ((*tline)[i] == ' ' || (*tline)[i] == '\t')
 		return (++i);

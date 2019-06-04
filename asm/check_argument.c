@@ -25,7 +25,7 @@ int		is_register(char *tline, size_t i)
 	return (FALSE);
 }
 
-int		get_argument_number(t_com *command)
+int		get_arg_num(t_com *command)
 {
 	if (!command->arg_types[0])
 		return (0);
