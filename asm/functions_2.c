@@ -75,7 +75,7 @@ void	write_arg(t_com *com, int a_n, t_arg_type a_t, int arg)
 	com->arg_types[a_n] = a_t;
 	if (a_t == T_REG)
 		com->arguments[a_n] = (char)arg;
-	else if (a_t == T_DIR)
+	else if (a_t == T_DIR && com->label_size == LABEL_SIZE_2)
 		com->arguments[a_n] = (short)arg;
 	else
 		com->arguments[a_n] = arg;
