@@ -89,7 +89,7 @@ char	*read_player_comment(const char *header)
 	return (comment);
 }
 
-void			is_no_null_error(char *str, int i)
+void	is_no_null_error(char *str, int i)
 {
 	if (parse_int(&(str[i])))
 	{

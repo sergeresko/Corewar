@@ -188,7 +188,7 @@ void					read_com(char *tl, size_t st, size_t end, t_asm *asm_str);
 void					read_com_2(char *n, t_com *com, t_asm *asm_str);
 int						check_label(char *tline, int end, int check_label_char);
 int						is_register(char *tline, size_t i);
-int						get_argument_number(t_com *command);
+int						get_arg_num(t_com *command);
 int						check_arg_1(char *com, int a_n, t_arg_type a_t);
 int						check_arg_2(char *com, int a_n, t_arg_type a_t);
 int						is_arg(const t_arg_type *arg_ts, t_arg_type arg_t);

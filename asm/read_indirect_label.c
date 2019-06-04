@@ -36,7 +36,7 @@ int		read_indirect_label(char **tline, int i, t_com *command)
 		label = ft_strsub(*tline, i, j - i);
 		if (g_error_mode || !command)
 			syntax_error_indirect(label);
-		if ((arg_num = get_argument_number(command)) == -1)
+		if ((arg_num = get_arg_num(command)) == -1)
 			argument_error(arg_num);
 		if ((checked = check_arg_1(command->name, arg_num, T_IND)) == -1)
 			syntax_error_indirect(label);
