@@ -107,7 +107,7 @@ int		check_proper_ending(const char *line, int i)
 	{
 		if (line[i] == ' ' || line[i] == '\t')
 			++i;
-		else if (line[i] == '#')
+		else if (line[i] == COMMENT_CHAR || line[i] == ALT_COMMENT_CHAR)
 		{
 			while (line[i] != '\0')
 				++i;
