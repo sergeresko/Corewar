@@ -21,6 +21,7 @@ int		get_description(int i, char *line, t_asm *asm_struct, char *field)
 		field[j++] = line[i++];
 	if (line[i] == '\0')
 		get_error_code(line, asm_struct, i);
+	ft_strncpy(asm_struct->header.description, field, ft_strlen(field));
 	make_hex_desc(asm_struct->header.hex_description, field);
 	ft_strdel(&field);
 	asm_struct->data.got_description = 1;
