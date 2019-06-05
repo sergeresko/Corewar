@@ -45,7 +45,7 @@ int		is_arg(const t_arg_type *arg_ts, t_arg_type arg_t)
 		return (-1);
 	while (i < 3)
 	{
-		if (arg_ts[i] == arg_t)
+		if (arg_ts[i] && arg_ts[i] == arg_t)
 			return (TRUE);
 		i++;
 	}

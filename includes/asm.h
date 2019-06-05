@@ -253,6 +253,7 @@ void				check_magic(char *header, t_player *player);
 char				*read_player_name(const char *header);
 char				*read_player_comment(const char *header);
 void				check_for_proper_arg(char *line, int i);
+void				check_command_arguments(t_com *command);
 void				e__args_amount(void);
 void				e__open_file(const char *name);
 

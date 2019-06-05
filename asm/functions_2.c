@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:33:15 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 20:20:37 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 07:58:37 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void	check_command_line(t_asm *asm_struct)
 {
 	t_com	*new_command;
 
-	if (!asm_struct->command->arg_types[0])
-	{
-		ft_printf("Command '%s' has no arguments\n", asm_struct->command->name);
-		exit(-1);
-	}
+	check_command_arguments(asm_struct->command);
 	if (asm_struct->command->is_codage)
 		asm_struct->command->codage = make_codage(asm_struct->command);
 	asm_struct->command->length = command_length(asm_struct->command);

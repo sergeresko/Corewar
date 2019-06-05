@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 12:30:05 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/05 08:06:35 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,32 @@ char	*convert_int_to_hex(int num)
 		ft_strdel(&number);
 	}
 	return (result);
+}
+
+void	check_command_arguments(t_com *command)
+{
+	int 	i;
+	int 	is_error;
+
+	i = 0;
+	is_error = FALSE;
+	if (!command->arg_types[0])
+	{
+		ft_printf("Command '%s' has no arguments\n", command->name);
+		exit(-1);
+	}
+	while (i < 3)
+	{
+		if (!check_arg_1(command->name, i, command->arg_types[i]))
+		{
+			is_error = TRUE;
+			break ;
+		}
+		i++;
+	}
+	if (is_error)
+	{
+		ft_printf("Command '%s' has not proper arguments\n", command->name);
+		exit(-1);
+	}
 }
