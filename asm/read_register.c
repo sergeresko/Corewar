@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:20:47 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 21:23:01 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/04 18:58:05 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ size_t	read_register(char **tline, size_t i, t_com *command)
 	int		checked;
 	int		arg_num;
 
-	arg_num = -1;
-	checked = -1;
+	arg_num = -2;
+	checked = -2;
 	arg = ft_atoi(&((*tline)[++i]));
-	if (g_error_mode || !command || (arg_num = get_argument_number(command))
-		== -1 || (checked = check_arg_1(command->name, arg_num, T_REG)) == -1
-		|| !checked)
+	if (g_error_mode || !command || (arg_num = get_arg_num(command)) == -1
+	|| (checked = check_arg_1(command->name, arg_num, T_REG)) == -1 || !checked)
 	{
 		if (arg_num == -1)
 			ft_printf("Argument number - %d\n", arg_num);

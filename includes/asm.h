@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 14:04:34 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/04 19:10:16 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,72 @@
 # define ASM_H
 
 # include "common.h"
-# include "../libft/includes/libft.h"
+
+# define BYTE				8
+
+# define LABEL_SIZE_2		2
+# define LABEL_SIZE_4		4
+
+# define REG_CODE			1
+# define DIR_CODE			2
+# define IND_CODE			3
+
+# define COMMENT_CHAR		'#'
+# define ALT_COMMENT_CHAR	';'
+# define LABEL_CHAR			':'
+# define DIRECT_CHAR			'%'
+# define SEPARATOR_CHAR		','
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
+
+# define NAME_CMD_STRING		".name"
+# define COMMENT_CMD_STRING	".comment"
+
+# define HEX_HEADER			4384
+# define NAME_LENGTH		128
+# define HEX_NAME_LENGTH	256
+# define DESC_LENGTH		2048
+# define HEX_DESC_LENGTH	4096
+
+# define ASM_INIT_ERROR		"Asm initialization failed"
+# define OPEN_FILE_ERROR	"Can't read source file "
+# define TRIM_LINE_ERROR	"Something went wrong while trimming a line: "
+
+typedef char			t_arg_type;
+
+/*
+**	Current index and size of the champion / asm
+*/
+extern int				g_index;
+
+/*
+** Dumping annotated mode / asm
+*/
+extern int				g_dump_mode;
+
+/*
+** Global error mode for reading / asm
+*/
+extern int				g_error_mode;
+
+/*
+** Commands' arguments list
+*/
+extern const t_arg_type	g_live[3][3];
+extern const t_arg_type	g_ld[3][3];
+extern const t_arg_type g_st[3][3];
+extern const t_arg_type g_add[3][3];
+extern const t_arg_type g_sub[3][3];
+extern const t_arg_type g_and[3][3];
+extern const t_arg_type g_or[3][3];
+extern const t_arg_type g_xor[3][3];
+extern const t_arg_type g_zjmp[3][3];
+extern const t_arg_type g_ldi[3][3];
+extern const t_arg_type g_sti[3][3];
+extern const t_arg_type g_fork[3][3];
+extern const t_arg_type g_lld[3][3];
+extern const t_arg_type g_lldi[3][3];
+extern const t_arg_type g_lfork[3][3];
+extern const t_arg_type g_aff[3][3];
 
 typedef struct		s_header
 {
@@ -24,6 +89,18 @@ typedef struct		s_header
 	char			hex_name[HEX_NAME_LENGTH + 1];
 	char			hex_description[HEX_DESC_LENGTH + 1];
 }					t_header;
+
+typedef struct		s_player
+{
+	char			*name;
+	char			*comment;
+	int				size;
+	int				number;
+	int				fd;
+	char			*new_file;
+	const char		*filename;
+	struct s_player	*next;
+}					t_player;
 
 typedef struct		s_label
 {
@@ -103,8 +180,9 @@ size_t				read_line_2(char **tline, size_t i);
 size_t				read_dot_instr(char **tline, size_t i, t_asm *asm_struct);
 size_t				read_register(char **tline, size_t i, t_com *command);
 int					read_dir(char **tl, int i, t_com *com);
+int					is_label_num_start(char *line, int i);
 int					read_direct_label(char **tline, int i, t_com *command);
-int					read_indirect(char **tline, int i, t_com *command);
+int					read_indir(char **tl, int i, t_com *com, t_asm *a_str);
 int					read_indirect_label(char **tline, int i, t_com *command);
 size_t				read_string(char **tline, size_t i, t_asm *asm_struct);
 void				read_label(char *tl, size_t st, size_t end, t_asm *asm_str);
@@ -112,7 +190,7 @@ void				read_com(char *tl, size_t st, size_t end, t_asm *asm_str);
 void				read_com_2(char *n, t_com *com, t_asm *asm_str);
 int					check_label(char *tline, int end, int check_label_char);
 int					is_register(char *tline, size_t i);
-int					get_argument_number(t_com *command);
+int					get_arg_num(t_com *command);
 int					check_arg_1(char *com, int a_n, t_arg_type a_t);
 int					check_arg_2(char *com, int a_n, t_arg_type a_t);
 int					is_arg(const t_arg_type *arg_ts, t_arg_type arg_t);
@@ -120,7 +198,6 @@ void				write_arg(t_com *com, int a_n, t_arg_type a_t, int arg);
 void				write_l_a(t_com *com, int a_n, t_arg_type a_t, char **l);
 char				make_codage(t_com *command);
 int					command_length(t_com *command);
-char				*byte_in_bits(char c);
 int					check_proper_ending(const char *line, int i);
 void				cook_champion(t_asm *asm_struct);
 void				cook_command(t_com *command, int i, t_asm *asm_struct);
@@ -139,10 +216,8 @@ void				print_in_length(int length, char **str);
 void				print_command_line(t_com *command, int index);
 void				print_command_line_loop(t_com *command, int i, char *temp);
 void				print_add_com_line_1(t_com *com, int line, t_asm *ast_str);
-int					print_add_com_line_2(t_com *com, int i, int line,
-																int label_arg);
+int					print_add_com_line_2(t_com *com, int i, int l, int l_arg);
 int					print_add_com_line_3(t_com *com, int line, int label_arg);
-
 void				disassemble_processing(int fd, const char *filename);
 void				check_filename(const char *filename);
 void				exec_code_proc(int new_file_fd, t_player *player);
@@ -173,5 +248,14 @@ void				check_direct(char *eline, t_asm *asm_struct, int i);
 void				get_error_code(char *line, t_asm *asm_struct, int i);
 void				check_colon(char *eline, t_asm *asm_struct, int i);
 void				print_label_error(t_com *com, int a_n);
+void				is_no_null_error(char *str, int i);
+void				read_header(t_player *player);
+void				check_magic(char *header, t_player *player);
+char				*read_player_name(const char *header);
+char				*read_player_comment(const char *header);
+void				check_for_proper_arg(char *line, int i);
+void				check_command_arguments(t_com *command);
+void				e__args_amount(void);
+void				e__open_file(const char *name);
 
 #endif

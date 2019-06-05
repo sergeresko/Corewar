@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_direct_label.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:23:55 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 02:23:55 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/04 00:45:52 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		read_direct_label(char **tline, int i, t_com *command)
 		label = ft_strsub(*tline, i, j - i);
 		if (g_error_mode || !command)
 			direct_label_syntax_label(label);
-		if ((arg_num = get_argument_number(command)) == -1)
+		if ((arg_num = get_arg_num(command)) == -1)
 			direct_label_argument(arg_num);
 		if ((checked = check_arg_1(command->name, arg_num, T_DIR)) == -1)
 			direct_label_syntax(label);

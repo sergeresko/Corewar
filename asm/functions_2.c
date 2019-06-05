@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:33:15 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/05/31 20:20:37 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 07:58:37 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	check_command_line(t_asm *asm_struct)
 {
 	t_com	*new_command;
 
+	check_command_arguments(asm_struct->command);
 	if (asm_struct->command->is_codage)
 		asm_struct->command->codage = make_codage(asm_struct->command);
 	asm_struct->command->length = command_length(asm_struct->command);
@@ -75,7 +76,7 @@ void	write_arg(t_com *com, int a_n, t_arg_type a_t, int arg)
 	com->arg_types[a_n] = a_t;
 	if (a_t == T_REG)
 		com->arguments[a_n] = (char)arg;
-	else if (a_t == T_DIR)
+	else if (a_t == T_DIR && com->label_size == LABEL_SIZE_2)
 		com->arguments[a_n] = (short)arg;
 	else
 		com->arguments[a_n] = arg;

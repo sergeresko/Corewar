@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:23:14 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/03 18:09:52 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 08:35:50 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ int		read_dir(char **tl, int i, t_com *com)
 	int		arg_num;
 	int		checked;
 
-	arg_num = -1;
-	checked = -1;
+	arg_num = -2;
+	checked = -2;
 	if ((*tl)[++i] == LABEL_CHAR)
 		return (read_direct_label(tl, i, com));
+	check_for_proper_arg(*tl, i);
 	arg = ft_atoi(&((*tl)[i]));
-	if (g_error_mode || !com || ((arg_num = get_argument_number(com)) == -1)
+	if (g_error_mode || !com || ((arg_num = get_arg_num(com)) == -1)
 	|| ((checked = check_arg_1(com->name, arg_num, T_DIR)) == -1) || !checked)
 	{
 		read_dir_addon(arg, arg_num, checked, com);
@@ -47,4 +48,28 @@ int		read_dir(char **tl, int i, t_com *com)
 	while (ft_isdigit((*tl)[i]))
 		i++;
 	return (check_proper_ending(*tl, i));
+}
+
+void	check_for_proper_arg(char *line, int i)
+{
+	int		j;
+	int		digits;
+
+	j = i;
+	digits = 0;
+	if (line[i] == '-')
+		j++;
+	while (line[j])
+	{
+		if (ft_isdigit(line[j]))
+			digits++;
+		else if (!ft_isdigit(line[j]))
+			break ;
+		j++;
+	}
+	if (!digits)
+	{
+		ft_printf("Bad line: '%s'\n", line);
+		exit(-1);
+	}
 }

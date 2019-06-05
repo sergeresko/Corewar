@@ -25,7 +25,7 @@ int		is_register(char *tline, size_t i)
 	return (FALSE);
 }
 
-int		get_argument_number(t_com *command)
+int		get_arg_num(t_com *command)
 {
 	if (!command->arg_types[0])
 		return (0);
@@ -45,7 +45,7 @@ int		is_arg(const t_arg_type *arg_ts, t_arg_type arg_t)
 		return (-1);
 	while (i < 3)
 	{
-		if (arg_ts[i] == arg_t)
+		if (arg_ts[i] && arg_ts[i] == arg_t)
 			return (TRUE);
 		i++;
 	}

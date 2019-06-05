@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_indirect_label.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:25:52 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/02 15:26:49 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/04 00:45:52 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		read_indirect_label(char **tline, int i, t_com *command)
 		label = ft_strsub(*tline, i, j - i);
 		if (g_error_mode || !command)
 			syntax_error_indirect(label);
-		if ((arg_num = get_argument_number(command)) == -1)
+		if ((arg_num = get_arg_num(command)) == -1)
 			argument_error(arg_num);
 		if ((checked = check_arg_1(command->name, arg_num, T_IND)) == -1)
 			syntax_error_indirect(label);
@@ -50,4 +50,15 @@ int		read_indirect_label(char **tline, int i, t_com *command)
 		return (check_proper_ending(*tline, j));
 	}
 	return (i);
+}
+
+int		is_label_num_start(char *line, int i)
+{
+	while (line[i])
+	{
+		if (line[i] == LABEL_CHAR)
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
 }

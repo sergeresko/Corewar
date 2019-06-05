@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers_1.c                                        :+:      :+:    :+:   */
+/*   parse_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 17:03:08 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/05/28 17:34:57 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:44:35 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "common.h"
 
 unsigned		parse_int(void const *buf)
 {
@@ -27,13 +27,4 @@ unsigned		parse_int(void const *buf)
 		i += 8;
 	}
 	return (result);
-}
-
-void			is_no_null_error(char *str, int i)
-{
-	if (str[i])
-	{
-		ft_printf("No null at %d\n", i);
-		exit(-1);
-	}
 }

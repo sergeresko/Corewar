@@ -6,37 +6,37 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 17:01:54 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 19:54:59 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/03 23:42:07 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include "corewar.h"
 
-void	read_headers(t_player *players)
+void	read_header(t_player *player)
 {
 	char	*header;
 
-	if (!(header = ft_strnew(sizeof(char) * 2192)))
+	if (!player || !(header = ft_strnew(sizeof(char) * 2192)))
 	{
 		perror("read_headers_1");
 		exit(-1);
 	}
-	while (players)
+	ft_bzero(header, 2192);
+	if (read(player->fd, header, 2192) != 2192)
 	{
-		ft_bzero(header, 2192);
-		if (read(players->fd, header, 2192) != 2192)
-		{
-			perror("read_headers_2");
-			exit(-1);
-		}
-		check_magic(header, players);
-		players->name = read_player_name(header);
-		is_no_null_error(header, 132);
-		players->comment = read_player_comment(header);
-		is_no_null_error(header, 2188);
-		players = players->next;
+		perror("read_headers_2");
+		exit(-1);
 	}
+	check_magic(header, player);
+	player->name = read_player_name(header);
+	is_no_null_error(header, 132);
+	if ((player->size = parse_int(&(header[136]))) < 0)
+	{
+		ft_printf("Champion's size is negative: %d\n", player->size);
+		exit(-1);
+	}
+	player->comment = read_player_comment(header);
+	is_no_null_error(header, 2188);
 	ft_strdel(&header);
 }
 
@@ -87,4 +87,13 @@ char	*read_player_comment(const char *header)
 		i++;
 	}
 	return (comment);
+}
+
+void	is_no_null_error(char *str, int i)
+{
+	if (parse_int(&(str[i])))
+	{
+		ft_printf("No null at %d\n", i);
+		exit(-1);
+	}
 }
