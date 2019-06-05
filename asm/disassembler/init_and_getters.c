@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:40:10 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 16:59:12 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/05 19:07:32 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,16 @@ void	player_init(t_player *pl, int fd, const char *file)
 
 char	*get_filename_from_path(const char *filepath)
 {
-	int		i;
+	char	*temp;
 	char	*name;
-	char	**temp1;
-	char	**temp2;
 
-	name = NULL;
-	if ((temp1 = ft_strsplit(filepath, '.')))
+	if (!(temp = ft_strsub(filepath, 0, ft_strlen(filepath) - 4)))
 	{
-		i = -1;
-		while (temp1[++i])
-			if (!temp1[i + 2])
-				break ;
-		if ((temp2 = ft_strsplit(temp1[i], '/')))
-		{
-			i = -1;
-			while (temp2[++i])
-				if (!temp2[i + 1])
-					break ;
-			name = ft_strjoin(temp2[i], ".s");
-			clean_split(temp1);
-			clean_split(temp2);
-		}
+		perror("get_filename_from_path");
+		exit(-1);
 	}
+	name = ft_strjoin(temp, ".s");
+	ft_strdel(&temp);
 	return (name);
 }
 
