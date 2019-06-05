@@ -39,7 +39,7 @@ OBJ = asm.o \
     read_dir.o \
     read_direct_label.o \
     read_dot_instr.o \
-    read_indir.o \
+    read_indirect.o \
     read_indirect_label.o \
     read_register.o \
     read_string.o \
