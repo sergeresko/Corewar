@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 02:23:14 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/04 08:22:06 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 08:35:50 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		read_dir(char **tl, int i, t_com *com)
 	int		arg_num;
 	int		checked;
 
-	arg_num = -1;
-	checked = -1;
+	arg_num = -2;
+	checked = -2;
 	if ((*tl)[++i] == LABEL_CHAR)
 		return (read_direct_label(tl, i, com));
 	check_for_proper_arg(*tl, i);
