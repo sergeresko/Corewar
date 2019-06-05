@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/04 19:10:16 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 12:54:30 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,10 @@ char				*make_header_string(t_header *header);
 void				clean_labels_list(t_label **labels);
 char				*get_trimmed_line(char **line, t_asm *asm_struct);
 int					includes(const char *str, char c);
+void				long_name_error(void);
 void				get_champs_name(char *line, t_asm *asm_struct);
 void				make_hex_name(char *hex_name, char *name);
+void				long_desc_error(void);
 void				get_champs_description(char *line, t_asm *asm_struct);
 void				make_hex_desc(char *hex_description, char *description);
 t_com				*check_command(char *command);

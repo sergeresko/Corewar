@@ -1,52 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_description.c                                 :+:      :+:    :+:   */
+/*   get_champs_description.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 16:40:40 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/05 00:04:36 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/05 12:58:19 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	long_desc_error()
-{
-	ft_printf("Champion comment too long (Max length 2048)");
-	exit(-1);
-}
-
 int		concatinate_desc_strings(char *field, char *line, t_asm *asm_struct)
 {
-	int field_len;
-	int new_len;
-	int reverse_counter;
+	int const	field_len = ft_strlen(field);
+	int const	new_len = ft_strlen(line);
+	int			i;
 
-	field_len = ft_strlen(field);
-	new_len = ft_strlen(line);
-	reverse_counter = new_len;
-	while (reverse_counter > 0 && field_len + (new_len - reverse_counter) <= DESC_LENGTH && line[(new_len - reverse_counter)] != '"')
+	i = 0;
+	while (i < new_len && field_len + i <= DESC_LENGTH && line[i] != '"')
 	{
-		field[field_len + (new_len - reverse_counter)] = line[(new_len - reverse_counter)];
-		--reverse_counter;
+		field[field_len + i] = line[i];
+		++i;
 	}
-	if (field_len + (new_len - reverse_counter) > DESC_LENGTH)
+	if (field_len + i > DESC_LENGTH)
 		long_desc_error();
-	if (line[(new_len - reverse_counter)] == '"')
+	if (line[i] == '"')
 	{
-		--reverse_counter;
-		while (line[(new_len - reverse_counter)] == ' ' || line[(new_len - reverse_counter)] == '\t')
-			--reverse_counter;
-		if (line[(new_len - reverse_counter)] != '\0' && line[(new_len - reverse_counter)] != '#')
-			get_error_code(line, asm_struct, (new_len - reverse_counter));
+		++i;
+		while (line[i] == ' ' || line[i] == '\t')
+			++i;
+		if (line[i] != '\0' && line[i] != '#')
+			get_error_code(line, asm_struct, i);
 		return (0);
 	}
 	field[field_len + new_len] = '\n';
 	return (1);
 }
-
 
 void	read_multi_line_desc(t_asm *asm_struct, char *field)
 {
@@ -75,17 +66,17 @@ void	read_multi_line_desc(t_asm *asm_struct, char *field)
 
 int		get_description(int i, char *line, t_asm *asm_struct, char *field)
 {
-	size_t	j;
+	int const	line_len = ft_strlen(line);
+	int			j;
 
 	j = 0;
-	while (i < (int)ft_strlen(line) && line[i] != '"')
+	while (i < line_len && line[i] != '"')
 		field[j++] = line[i++];
 	if (line[i] == '\0')
 	{
 		field[j] = '\n';
 		read_multi_line_desc(asm_struct, field);
 	}
-//		get_error_code(line, asm_struct, i);
 	make_hex_desc(asm_struct->header.hex_description, field);
 	ft_strdel(&field);
 	asm_struct->data.got_description = 1;
@@ -94,11 +85,12 @@ int		get_description(int i, char *line, t_asm *asm_struct, char *field)
 
 int		get_i(int i, char *line, t_asm *asm_struct, char *field)
 {
-	size_t	j;
+	int const	line_len = ft_strlen(line);
+	int			j;
 
 	j = 0;
 	i++;
-	while (i < (int)ft_strlen(line) && line[i] != '"')
+	while (i < line_len && line[i] != '"')
 		i++ && j++;
 	if (j > DESC_LENGTH)
 		long_desc_error();
@@ -115,8 +107,8 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 		return ;
 	if (line[i] == '.')
 		i++;
-	i = i + 7;
-	while (line[i] == ' ' || (line[i] == '\t'))
+	i += 7;
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] == '"')
 		i = get_i(i, line, asm_struct, field);
@@ -127,25 +119,4 @@ void	get_champs_description(char *line, t_asm *asm_struct)
 		i++;
 	if (line[i] != '\0' && line[i] != '#')
 		get_error_code(line, asm_struct, i);
-}
-
-void	make_hex_desc(char *hex_description, char *description)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*temp;
-
-	ft_memset((void *)hex_description, '0', HEX_DESC_LENGTH);
-	hex_description[HEX_DESC_LENGTH] = '\0';
-	i = 0;
-	j = 0;
-	len = ft_strlen(description);
-	while (i < len && j < HEX_DESC_LENGTH - 1)
-	{
-		temp = ft_itoa_base(description[i++], 16);
-		hex_description[j++] = ft_tolower(temp[0]);
-		hex_description[j++] = ft_tolower(temp[1]);
-		ft_strdel(&temp);
-	}
 }

@@ -1,46 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_name_and_description.c                        :+:      :+:    :+:   */
+/*   get_champs_name.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/05 00:12:52 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/05 12:57:14 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	long_name_error()
-{
-	ft_printf("Champion name too long (Max length 128)\n");
-	exit(-1);
-}
-
 int		concatinate_name_strings(char *field, char *line, t_asm *asm_struct)
 {
-	int field_len;
-	int new_len;
-	int reverse_counter;
+	int const	field_len = ft_strlen(field);
+	int const	new_len = ft_strlen(line);
+	int			i;
 
-	field_len = ft_strlen(field);
-	new_len = ft_strlen(line);
-	reverse_counter = new_len;
-	while (reverse_counter > 0 && field_len + (new_len - reverse_counter) <= NAME_LENGTH && line[(new_len - reverse_counter)] != '"')
+	i = 0;
+	while (i < new_len && field_len + i <= NAME_LENGTH && line[i] != '"')
 	{
-		field[field_len + (new_len - reverse_counter)] = line[(new_len - reverse_counter)];
-		--reverse_counter;
+		field[field_len + i] = line[i];
+		++i;
 	}
-	if (field_len + (new_len - reverse_counter) > NAME_LENGTH)
+	if (field_len + i > NAME_LENGTH)
 		long_name_error();
-	if (line[(new_len - reverse_counter)] == '"')
+	if (line[i] == '"')
 	{
-		--reverse_counter;
-		while (line[(new_len - reverse_counter)] == ' ' || line[(new_len - reverse_counter)] == '\t')
-			--reverse_counter;
-		if (line[(new_len - reverse_counter)] != '\0' && line[(new_len - reverse_counter)] != '#')
-			get_error_code(line, asm_struct, (new_len - reverse_counter));
+		++i;
+		while (line[i] == ' ' || line[i] == '\t')
+			++i;
+		if (line[i] != '\0' && line[i] != '#')
+			get_error_code(line, asm_struct, i);
 		return (0);
 	}
 	field[field_len + new_len] = '\n';
@@ -74,17 +66,17 @@ void	read_multi_line(t_asm *asm_struct, char *field)
 
 int		get_name(int i, char *line, t_asm *asm_struct, char *field)
 {
-	size_t	j;
+	int const	line_len = ft_strlen(line);
+	int			j;
 
 	j = 0;
-	while (i < (int)ft_strlen(line) && line[i] != '"')
+	while (i < line_len && line[i] != '"')
 		field[j++] = line[i++];
 	if (line[i] == '\0')
 	{
 		field[j] = '\n';
 		read_multi_line(asm_struct, field);
 	}
-//		get_error_code(line, asm_struct, i);
 	make_hex_name(asm_struct->header.hex_name, field);
 	ft_strdel(&field);
 	asm_struct->data.got_name = 1;
@@ -93,11 +85,12 @@ int		get_name(int i, char *line, t_asm *asm_struct, char *field)
 
 int		get_name_i(int i, char *line, t_asm *asm_struct, char *field)
 {
-	size_t	j;
+	int const	line_len = ft_strlen(line);
+	int			j;
 
 	j = 0;
 	i++;
-	while (i < (int)ft_strlen(line) && line[i] != '"')
+	while (i < line_len && line[i] != '"')
 		i++ && j++;
 	if (j > NAME_LENGTH)
 		long_name_error();
@@ -115,7 +108,7 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 	if (line[i] == '.')
 		i++;
 	i += 4;
-	while (line[i] == ' ' || (line[i] == '\t'))
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] == '"')
 		i = get_name_i(i, line, asm_struct, field);
@@ -126,25 +119,4 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 		i++;
 	if (line[i] != '\0' && line[i] != '#')
 		get_error_code(line, asm_struct, i);
-}
-
-void	make_hex_name(char *hex_name, char *name)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*temp;
-
-	ft_memset((void *)hex_name, '0', HEX_NAME_LENGTH);
-	hex_name[HEX_NAME_LENGTH] = '\0';
-	i = 0;
-	j = 0;
-	len = ft_strlen(name);
-	while (i < len && j < HEX_NAME_LENGTH - 1)
-	{
-		temp = ft_itoa_base(name[i++], 16);
-		hex_name[j++] = ft_tolower(temp[0]);
-		hex_name[j++] = ft_tolower(temp[1]);
-		ft_strdel(&temp);
-	}
 }
