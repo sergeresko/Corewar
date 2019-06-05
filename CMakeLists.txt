@@ -124,7 +124,7 @@ add_executable(asm
         asm/read_dir.c
         asm/read_direct_label.c
         asm/read_dot_instr.c
-        asm/read_indirect.c
+        asm/read_indir.c
         asm/read_indirect_label.c
         asm/read_register.c
         asm/read_string.c

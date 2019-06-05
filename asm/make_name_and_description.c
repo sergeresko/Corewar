@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 14:01:57 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 21:13:12 by vlvereta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		get_name(int i, char *line, t_asm *asm_struct, char *field)
 		field[j++] = line[i++];
 	if (line[i] == '\0')
 		get_error_code(line, asm_struct, i);
+	ft_strncpy(asm_struct->header.name, field, ft_strlen(field));
 	make_hex_name(asm_struct->header.hex_name, field);
 	ft_strdel(&field);
 	asm_struct->data.got_name = 1;
