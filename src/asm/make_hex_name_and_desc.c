@@ -12,16 +12,16 @@
 
 #include "asm.h"
 
-char hex_digit(unsigned char n)
+char	hex_digit(unsigned char n)
 {
 	return (n + (n < 10 ? '0' : 'a' - 10));
 }
 
 void	make_hex_name(char *hex_name, char *name)
 {
-	int		i;
-	int		j;
-	int		len;
+	int				i;
+	int				j;
+	int				len;
 	unsigned char	c;
 
 	ft_memset((void *)hex_name, '0', HEX_NAME_LENGTH);
@@ -39,9 +39,9 @@ void	make_hex_name(char *hex_name, char *name)
 
 void	make_hex_desc(char *hex_description, char *description)
 {
-	int		i;
-	int		j;
-	int		len;
+	int				i;
+	int				j;
+	int				len;
 	unsigned char	c;
 
 	ft_memset((void *)hex_description, '0', HEX_DESC_LENGTH);
