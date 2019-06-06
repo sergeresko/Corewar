@@ -19,7 +19,7 @@ FLAGS = -Wall -Wextra -Werror
 OBJ = $(addprefix srcs/, \
 		ft_atoi.o ft_bzero.o ft_isalnum.o ft_isalpha.o \
 		ft_isascii.o ft_isdigit.o ft_islower.o ft_isprint.o \
-		ft_isupper.o ft_itoa.o ft_itoa_base.o ft_lstadd.o \
+		ft_isupper.o ft_itoa.o ft_itoa_base.o ft_itoa_base_for_hex.o ft_lstadd.o \
 		ft_lstdel.o ft_lstdelone.o ft_lstiter.o ft_lstmap.o \
 		ft_lstnew.o ft_memalloc.o ft_memccpy.o ft_memchr.o \
 		ft_memcmp.o ft_memcpy.o ft_memdel.o ft_memmove.o \

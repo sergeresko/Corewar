@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/05 08:06:35 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 11:39:53 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ char	*convert_int_to_hex(int num)
 
 void	check_command_arguments(t_com *command)
 {
-	int 	i;
-	int 	is_error;
+	int		i;
+	int		is_error;
 
 	i = 0;
 	is_error = FALSE;

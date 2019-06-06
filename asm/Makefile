@@ -6,7 +6,7 @@
 #    By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#              #
-#    Updated: 2019/06/03 13:38:29 by vlvereta         ###   ########.fr        #
+#    Updated: 2019/06/05 12:56:24 by syeresko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,14 @@ OBJ = asm.o \
 	functions_2.o \
 	functions_3.o \
 	functions_4.o \
+    get_champs_description.o \
+    get_champs_name.o \
 	get_error_code.o \
     globals.o \
     helpers.o \
     hex_converters.o \
-    make_description.o \
-    make_name_and_description.o \
+	long_name_and_desc_error.o \
+	make_hex_name_and_desc.o \
     make_name_desc_functions.o \
     make_name_desc_functions_2.o \
     print_commands.o \
