@@ -114,10 +114,12 @@ add_executable(asm
         asm/globals.c
         asm/helpers.c
         asm/hex_converters.c
-        asm/make_description.c
-        asm/make_name_and_description.c
+        asm/long_name_and_desc_error.c
+        asm/make_hex_name_and_desc.c
         asm/make_name_desc_functions.c
         asm/make_name_desc_functions_2.c
+        asm/get_champs_name.c
+        asm/get_champs_description.c
         asm/print_commands.c
         asm/print_dump_output.c
         asm/print_errors.c
@@ -134,7 +136,7 @@ add_executable(asm
         asm/disassembler/read_header.c
         asm/disassembler/set_args_and_writers.c
 
-        ${LIBFT} common/parse_int.c)
+        ${LIBFT} common/parse_int.c libft/srcs/ft_itoa_base_for_hex.c)
 
 add_executable(corewar
         corewar/advance_car.c
