@@ -6,7 +6,7 @@
 /*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 16:40:40 by ozalisky          #+#    #+#             */
-/*   Updated: 2019/06/05 12:58:19 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/06 15:01:42 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		get_description(int i, char *line, t_asm *asm_struct, char *field)
 		field[j] = '\n';
 		read_multi_line_desc(asm_struct, field);
 	}
+	ft_strncpy(asm_struct->header.description, field, ft_strlen(field));
 	make_hex_desc(asm_struct->header.hex_description, field);
 	ft_strdel(&field);
 	asm_struct->data.got_description = 1;
