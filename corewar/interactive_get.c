@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 12:57:24 by syeresko          #+#    #+#             */
-/*   Updated: 2019/06/01 21:22:44 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:01:04 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 #define INIT		"Running in interactive mode...\n"
 
-#define HINT_1		"Enter \"dump[32|64]\" or a number of cycles to perform. "
-#define HINT_2		"Press Ctrl+D to quit.\n"
-#define HINT		HINT_1 HINT_2
+#define HINT_1		"Enter a number of cycles to perform "
+#define HINT_2		"or type \"dump[32|64]\" (shortcuts: \"d | dd\").\n"
+#define HINT_3		"Press Ctrl-D to quit.\n"
+#define HINT		HINT_1 HINT_2 HINT_3
 
 #define PROMPT		"(corewar) "
 #define PROMPT_COL	PF_GREY PROMPT PF_RESET

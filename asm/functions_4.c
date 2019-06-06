@@ -54,7 +54,7 @@ char	*get_label_name(t_label *labels, int index)
 
 void	print_error(t_asm *asm_struct, int i, char *colon_line)
 {
-	ft_printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
+	ft_printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s:\"\n",
 			asm_struct->data.line, i + 1, colon_line);
 }
 

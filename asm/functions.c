@@ -58,7 +58,7 @@ void	read_label(char *tl, size_t st, size_t end, t_asm *asm_str)
 	name = ft_strsub(tl, (unsigned int)st, end - st);
 	if (!asm_str->data.got_name || !asm_str->data.got_description)
 	{
-		ft_printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s\"\n",
+		ft_printf("Syntax error at token [TOKEN][%03d:%03d] LABEL \"%s:\"\n",
 			asm_str->data.line, (int)(st + 1), name);
 		exit(-1);
 	}

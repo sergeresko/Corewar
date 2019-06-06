@@ -48,7 +48,7 @@ void	e__read_file(t_asm *asm_struct, int error_case)
 				asm_struct->data.line, asm_struct->data.row + 1);
 	else if (error_case == 4)
 		ft_printf("Syntax error at token [TOKEN][%03d:%03d] LABEL "
-			"%s\n",
+			"%s:\n",
 				asm_struct->data.line, asm_struct->data.row + 1);
 	else if (error_case == 5)
 	{

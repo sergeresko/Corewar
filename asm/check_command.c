@@ -43,6 +43,7 @@ void	read_com_2(char *n, t_com *com, t_asm *asm_str)
 		else
 		{
 			ft_printf("Lexical error: %s\n", n);
+			exit(-1);
 		}
 	}
 	else

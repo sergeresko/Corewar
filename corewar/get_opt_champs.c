@@ -6,7 +6,7 @@
 /*   By: syeresko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 12:28:48 by syeresko          #+#    #+#             */
-/*   Updated: 2019/05/31 12:37:34 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/04 15:38:07 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void		add_champ(t_vm *vm, int id, char const *filename)
 	char *const	extension = ft_strrchr(filename, '.');
 	t_champ		*champ;
 
-	if (extension == NULL || !ft_strequ(extension, ".cor"))
+	if (extension == NULL || extension == filename
+			|| extension[-1] == '/' || !ft_strequ(extension, ".cor"))
 	{
 		ft_printf("ERROR: No .cor extension for champion \"%s\".\n", filename);
 		exit(-1);
