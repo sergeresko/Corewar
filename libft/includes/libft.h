@@ -118,5 +118,6 @@ int					ft_power(int nb, int power);
 void				ft_putchar_fd_wo_check(char c, int fd);
 int					ft_get_substr_index(const char *big, const char *little);
 char				*ft_itoa_base_hex_convertions(long long value, int base);
+char				*ft_strtrim_multi(char const *s);
 
 #endif

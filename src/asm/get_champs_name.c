@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/06 18:41:30 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:29:15 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	read_multi_line(t_asm *asm_struct, char *field)
 			e__read_file(asm_struct, 6);
 		if (r == 5)
 			return (e__read_file(asm_struct, 5));
-		if (!(tline = get_trimmed_line(&line, asm_struct)))
+		if (!(tline = get_trimmed_line_multi(&line, asm_struct)))
 			e__trim_line(line);
 		if (!concatinate_name_strings(field, tline, asm_struct))
 		{

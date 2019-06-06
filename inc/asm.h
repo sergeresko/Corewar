@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/05 12:54:30 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:32:34 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,5 +259,6 @@ void				check_for_proper_arg(char *line, int i);
 void				check_command_arguments(t_com *command);
 void				e__args_amount(void);
 void				e__open_file(const char *name);
+char				*get_trimmed_line_multi(char **line, t_asm *asm_struct);
 
 #endif
