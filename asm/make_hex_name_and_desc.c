@@ -26,7 +26,7 @@ void	make_hex_name(char *hex_name, char *name)
 	len = ft_strlen(name);
 	while (i < len && j < HEX_NAME_LENGTH - 1)
 	{
-		temp = ft_itoa_base(name[i++], 16);
+		temp = ft_itoa_base_hex_convertions(name[i++], 16);
 		hex_name[j++] = ft_tolower(temp[0]);
 		hex_name[j++] = ft_tolower(temp[1]);
 		ft_strdel(&temp);
@@ -47,7 +47,7 @@ void	make_hex_desc(char *hex_description, char *description)
 	len = ft_strlen(description);
 	while (i < len && j < HEX_DESC_LENGTH - 1)
 	{
-		temp = ft_itoa_base(description[i++], 16);
+		temp = ft_itoa_base_hex_convertions(description[i++], 16);
 		hex_description[j++] = ft_tolower(temp[0]);
 		hex_description[j++] = ft_tolower(temp[1]);
 		ft_strdel(&temp);
