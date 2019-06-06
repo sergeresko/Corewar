@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_champs_name.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ozalisky <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/06 15:01:09 by syeresko         ###   ########.fr       */
+/*   Updated: 2019/06/06 18:41:30 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void	get_champs_name(char *line, t_asm *asm_struct)
 		i = get_name_i(i, line, asm_struct, field);
 	else
 		get_error_code(line, asm_struct, i);
-	++i;
+	if (line[i] == '"')
+		++i;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] != '\0' && line[i] != '#')
