@@ -57,7 +57,7 @@ void	get_args_types_by_codage(unsigned char c, t_com *command)
 	command->arg_types[0] = (t == IND_CODE) ? T_IND : t;
 	t = c << 2;
 	t >>= 6;
-	command->arg_types[0] = (t == IND_CODE) ? T_IND : t;
+	command->arg_types[1] = (t == IND_CODE) ? T_IND : t;
 	t = c << 4;
 	t >>= 6;
 	command->arg_types[2] = (t == IND_CODE) ? T_IND : t;
