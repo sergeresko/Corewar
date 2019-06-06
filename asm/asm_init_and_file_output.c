@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 19:10:55 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 18:58:56 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@ int		asm_init(t_asm **asm_struct, const char *argv)
 
 char	*get_filename(const char *argv)
 {
-	int	start;
-	int	len;
+	char *const	extension = ft_strrchr(argv, '.');
+	char		*filename;
 
-	len = (int)ft_strlen(argv);
-	if (len <= 2 || argv[len - 1] != 's' || argv[len - 2] != '.')
+	if (extension == NULL || extension == argv
+			|| extension[-1] == '/' || !ft_strequ(extension, ".s"))
 	{
 		ft_printf("Not a valid .s file '%s'\n", argv);
 		exit(-1);
 	}
-	start = len - 1;
-	while (start >= 0 && argv[start] != ' ' && argv[start] != '/')
-		start--;
-	start++;
-	return (ft_strsub(argv, (unsigned int)start, (size_t)(len - start - 2)));
+	if (!(filename = ft_strsub(argv, 0, ft_strlen(argv) - 2)))
+	{
+		perror("get_filename");
+		exit(-1);
+	}
+	return (filename);
 }
 
 char	*make_header_string(t_header *header)

@@ -6,7 +6,7 @@
 /*   By: vlvereta <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:43 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/03 23:37:57 by vlvereta         ###   ########.fr       */
+/*   Updated: 2019/06/05 19:02:40 by syeresko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ void	disassemble_processing(int fd, const char *filename)
 
 void	check_filename(const char *filename)
 {
-	int		len;
+	char *const	extension = ft_strrchr(filename, '.');
 
-	len = (int)ft_strlen(filename);
-	if (len <= 4 || filename[len - 1] != 'r' || filename[len - 2] != 'o'
-	|| filename[len - 3] != 'c' || filename[len - 4] != '.')
+	if (extension == NULL || extension == filename
+			|| extension[-1] == '/' || !ft_strequ(extension, ".cor"))
 	{
 		ft_printf("Not a valid .cor file '%s'\n", filename);
 		exit(-1);
