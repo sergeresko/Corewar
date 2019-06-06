@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/06 19:29:15 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/06 20:24:43 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		concatinate_name_strings(char *field, char *line, t_asm *asm_struct)
 		return (0);
 	}
 	field[field_len + new_len] = '\n';
+	ft_strdel(&line);
 	return (1);
 }
 
@@ -56,6 +57,7 @@ void	read_multi_line(t_asm *asm_struct, char *field)
 		if (!concatinate_name_strings(field, tline, asm_struct))
 		{
 			ft_strdel(&line);
+			ft_strdel(&tline);
 			return ;
 		}
 		ft_strdel(&line);
