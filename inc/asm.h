@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/30 20:50:03 by vlvereta          #+#    #+#             */
-/*   Updated: 2019/06/06 19:21:26 by ozalisky         ###   ########.fr       */
+/*   Updated: 2019/06/06 19:32:34 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,6 @@ void				check_for_proper_arg(char *line, int i);
 void				check_command_arguments(t_com *command);
 void				e__args_amount(void);
 void				e__open_file(const char *name);
-unsigned			parse_int(void const *buf);
 char				*get_trimmed_line_multi(char **line, t_asm *asm_struct);
 
 #endif
