@@ -62,6 +62,8 @@ void	read_multi_line_desc(t_asm *asm_struct, char *field)
 			return ;
 		}
 		ft_strdel(&line);
+		if (ft_strcmp("", tline))
+			ft_strdel(&tline);
 	}
 }
 
